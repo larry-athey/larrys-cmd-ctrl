@@ -18,7 +18,7 @@ LCC is a client & server system where a Mission Control web app runs on a Raspbe
 
 If your Mission Control server is hard-wired to your existing LAN, the LCC Slave network does not route into it. Don't use a weak admin user password on your server and it won't matter who is connected to its built-in access point, they aren't getting past it and reaching your internal network.
 
-This system is intended for any personal application where remote control of motorized devices and remote switching is wanted without the use of your existing WiFi infrastructure. This system will also work with no on-premises internet access.
+This system is intended for any personal application where remote control of motorized devices, remote switching, LED lighting control, and sound file playing is needed without the use of your existing WiFi infrastructure. This system will also work with no on-premises internet access.
 
 The recommended LCC Mission Control server is an [Orange Pi Zero 3 (1GB)](https://www.amazon.com/dp/B0CB1BYTT8). You simply connect your phone or computer to its isolated WiFi network, or connect the server's ethernet port to your home router if you need remote VPN access to it. Simple port forwarding into it is strongly discouraged!
 
@@ -54,3 +54,6 @@ The LCC Mission Control server can schedule scripts to run at specific times on 
 
 ### Scripting
 LCC remote control commands and scripts are completely open ended and are easy to create. Scripts can contain up to 16 sequential commands and run as a single shot instance or may run repeatedly. Scripts can also call another script at the end of its run, which means you can actually string an endless number of commands together. _(LCC receiver modules have a cache that can hold 16 commands at a time.)_
+
+### Timer Function
+Each configured device has a timer that can run any number of command pairs (on and off commands). This is an on-the-fly counterpart to the Scheduling system. These are handy for setting things like lights, sprinklers, fans, etc to run for any amount of time up to 1 day (86400 seconds) and then automatically turn off.
