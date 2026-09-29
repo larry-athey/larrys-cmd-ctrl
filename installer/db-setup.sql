@@ -235,7 +235,9 @@ CREATE TABLE `timer` (
   `start_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `stop_time` timestamp NULL DEFAULT NULL,
   `start_command` int(11) NOT NULL DEFAULT 0,
-  `stop_command` int(11) NOT NULL DEFAULT 0
+  `started` tinyint(4) NOT NULL DEFAULT 0,
+  `stop_command` int(11) NOT NULL DEFAULT 0,
+  `stopped` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
