@@ -20,7 +20,7 @@ If your Mission Control server is hard-wired to your existing LAN, the LCC Slave
 
 This system is intended for any personal application where remote control of motorized devices and remote switching is wanted without the use of your existing WiFi infrastructure. This system will also work with no on-premises internet access.
 
-The recommended LCC mission control server is an [Orange Pi Zero 3 1GB](https://www.amazon.com/dp/B0CB1BYTT8). You simply connect your phone or computer to its isolated WiFi network, or connect the server's ethernet port to your home router if you need remote VPN access to it. Simple port forwarding into it is strongly discouraged!
+The recommended LCC mission control server is an [Orange Pi Zero 3 (1GB)](https://www.amazon.com/dp/B0CB1BYTT8). You simply connect your phone or computer to its isolated WiFi network, or connect the server's ethernet port to your home router if you need remote VPN access to it. Simple port forwarding into it is strongly discouraged!
 
 ### Use Cases
 - RGB LED lighting automation/scripting
