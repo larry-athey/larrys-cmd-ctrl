@@ -20,7 +20,7 @@ If your Mission Control server is hard-wired to your existing LAN, the LCC Slave
 
 This system is intended for any personal application where remote control of motorized devices and remote switching is wanted without the use of your existing WiFi infrastructure. This system will also work with no on-premises internet access.
 
-The recommended LCC mission control server is an [Orange Pi Zero 3 (1GB)](https://www.amazon.com/dp/B0CB1BYTT8). You simply connect your phone or computer to its isolated WiFi network, or connect the server's ethernet port to your home router if you need remote VPN access to it. Simple port forwarding into it is strongly discouraged!
+The recommended LCC Mission Control server is an [Orange Pi Zero 3 (1GB)](https://www.amazon.com/dp/B0CB1BYTT8). You simply connect your phone or computer to its isolated WiFi network, or connect the server's ethernet port to your home router if you need remote VPN access to it. Simple port forwarding into it is strongly discouraged!
 
 ### Use Cases
 - RGB LED lighting automation/scripting
@@ -35,10 +35,10 @@ The recommended LCC mission control server is an [Orange Pi Zero 3 (1GB)](https:
 The LCC receiver module can control standard DC brushed motors using a PWM driven H bridge driver such as an L298N, or stepper motors such as a Nema 17 with a DRV8825 driver. _(You may actually use any driver you like.)_ Motor control includes direction, speed, runtime, progression time to smooth speed changes, and the number of steps _(instead of duration and progression)_ if using a stepper motor.
 
 ### Position/Location Tracking
-In the case of mobile LCC receivers such as those on a model train or conveyor bot, position and location detection is handled by way of IR LED transponders. These are basically an IR remote control transmitter that repeats the same number over and over. The LCC receiver phones home to mission control when these are detected to report its location and may perform actions based on the location.
+In the case of mobile LCC receivers such as those on a model train or conveyor bot, position and location detection is handled by way of IR LED transponders. These are basically an IR remote control transmitter that repeats the same number over and over. The LCC receiver phones home to Mission Control when these are detected to report its location and may perform actions based on the location.
 
 ### Remote Limit Sensing
-The LCC receiver module uses two GPIO pins for limit sensing so that the motor will stop running in the current direction if its limit switch is triggered. These are common in linear actuators and motorized ball valves. The unit will phone home to mission control to report this status.
+The LCC receiver module uses two GPIO pins for limit sensing so that the motor will stop running in the current direction if its limit switch is triggered. These are common in linear actuators and motorized ball valves. The unit will phone home to Mission Control to report this status.
 
 ### Remote Switching
 The LCC receiver module can be any variety of ESP32, the switching capabilities are only limited by the number of exposed GPIO pins. By default, the base code for the Waveshare ESP32-S3 Mini/Stamp has 4 outputs for switching.
@@ -50,7 +50,7 @@ Sound files (.mp3) can be stored on an SD card and played back as needed. These 
 Neopixel/WS2812 addressable LEDs can be controlled at the individual fixture/LED level or the entire network can change color at the same time. Individual fixtures support color changes have an adjustable fade time from 0 to 5 seconds. If you use long chains of LEDs (up to 65535) you may also script scenes using the built-in BASIC programming language.
 
 ### Scheduling
-The LCC mission control server can schedule scripts to run at specific times on specific days. However, in the case of single board computers such as the Raspberry Pi _(or clones)_ this requires the addition of a real time clock module to be added if the mission control server is isolated from the internet.
+The LCC Mission Control server can schedule scripts to run at specific times on specific days. However, in the case of single board computers such as the Raspberry Pi _(or clones)_ this requires the addition of a real time clock module to be added if the Mission Control server is isolated from the internet.
 
 ### Scripting
 LCC remote control commands and scripts are completely open ended and are easy to create. Scripts can contain up to 16 sequential commands and run as a single shot instance or may run repeatedly. Scripts can also call another script at the end of its run, which means you can actually string an endless number of commands together. _(LCC receiver modules have a cache that can hold 16 commands at a time.)_
