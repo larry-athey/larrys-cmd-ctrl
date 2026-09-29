@@ -16,7 +16,7 @@ _...No, I don't use AI to design and build my projects, I actually still know ho
 
 LCC is a client & server system where a Mission Control web app runs on a Raspberry Pi _(or clone)_ or any other Debian Linux based PC/SBC. The communications backbone between the server and client devices is a 100% isolated 802.11bg network in order to reject interference if the motor under control is nearby.
 
-If your Mission Control server is hard-wired to your existing LAN, the LCC Slave network does not route into it. Don't use a weak admin user password on your server and it won't matter who is connected to the access point, they aren't getting past it and reaching your internal network.
+If your Mission Control server is hard-wired to your existing LAN, the LCC Slave network does not route into it. Don't use a weak admin user password on your server and it won't matter who is connected to its built-in access point, they aren't getting past it and reaching your internal network.
 
 This system is intended for any personal application where remote control of motorized devices and remote switching is wanted without the need for WiFi infrastructure and where internet exposure is unwanted.
 
