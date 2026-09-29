@@ -18,7 +18,7 @@ LCC is a client & server system where a Mission Control web app runs on a Raspbe
 
 If your Mission Control server is hard-wired to your existing LAN, the LCC Slave network does not route into it. Don't use a weak admin user password on your server and it won't matter who is connected to its built-in access point, they aren't getting past it and reaching your internal network.
 
-This system is intended for any personal application where remote control of motorized devices and remote switching is wanted without the use of your existing WiFi infrastructure. This system will also work with no on-premises internet access.
+This system is intended for any personal application where remote control of motorized devices, remote switching, LED lighting control, and sound file playing is needed without the use of your existing WiFi infrastructure. This system will also work with no on-premises internet access.
 
 The recommended LCC Mission Control server is an [Orange Pi Zero 3 (1GB)](https://www.amazon.com/dp/B0CB1BYTT8). You simply connect your phone or computer to its isolated WiFi network, or connect the server's ethernet port to your home router if you need remote VPN access to it. Simple port forwarding into it is strongly discouraged!
 
