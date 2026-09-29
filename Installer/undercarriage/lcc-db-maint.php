@@ -6,6 +6,7 @@ $DBcnx = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 //---------------------------------------------------------------------------------------------
 $Result = mysqli_query($DBcnx,"DELETE FROM inbound WHERE creation < (NOW() - INTERVAL 1 DAY)");
 $Result = mysqli_query($DBcnx,"DELETE FROM outbound WHERE creation < (NOW() - INTERVAL 1 DAY)");
+$Result = mysqli_query($DBcnx,"DELETE FROM timer WHERE stop_time < (NOW() - INTERVAL 1 DAY)");
 
 $Result = mysqli_query($DBcnx,"OPTIMIZE TABLE commands");
 $Result = mysqli_query($DBcnx,"OPTIMIZE TABLE devices");

@@ -53,7 +53,7 @@ function checkDays($DayArray) {
 function createMessage($DBcnx,$ID) {
   // Command replays were an initial idea and then I realized that they only need to exist in scripts.
   // The replay field in the command database is currently only used to control sound effect looping.
-  // The |0 at the end of each message is unused due o a change in plans but still has to be there.
+  // The |# at the end of each message is the command replay flag, but is not implemented in the UI.
   $Msg = "";
   $Result = mysqli_query($DBcnx,"SELECT * FROM commands WHERE ID=$ID");
   if (mysqli_num_rows($Result) > 0) {
