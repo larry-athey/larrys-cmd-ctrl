@@ -1,0 +1,2 @@
+Upload      scp -r ~/installer pi@10.20.30.125:~/
+Download    scp -r pi@10.20.30.125:~/installer ~/
