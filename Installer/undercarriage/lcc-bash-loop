@@ -10,7 +10,7 @@ while [ true ]; do
   ./logic-processor.php
 
   LoopCounter=$((LoopCounter + 1))
-  if [ LoopCounter -eq 6 ]; then
+  if [ $LoopCounter -eq 6 ]; then
     ./scheduler.php
     LoopCounter=0
   fi
