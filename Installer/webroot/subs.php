@@ -85,7 +85,7 @@ function ctrlButtonMenu($DevType,$Address) {
   if ($DevType != 2) $Content .= "<li><a onClick=\"LoadForm('RGB LED Control','15','$Address')\" class=\"dropdown-item\" href=\"#\">RGB LED Control</a></li>";
   if ($DevType != 2) $Content .= "<li><a onClick=\"LoadForm('Play Sound Effects','13','$Address')\" class=\"dropdown-item\" href=\"#\">Sound Effects</a></li>";
   $Content .=     "<li><a onClick=\"LoadForm('GPIO Pin Switching','14','$Address')\" class=\"dropdown-item\" href=\"#\">Switching Control</a></li>";
-  $Content .=     "<li><a onClick=\"LoadForm('Timed Task','1','$Address')\" class=\"dropdown-item\" href=\"#\">Timed Task</a></li>";
+  $Content .=     "<li><a onClick=\"LoadForm('Set Timer','1','$Address')\" class=\"dropdown-item\" href=\"#\">Timed Task</a></li>";
   $Content .=   "</ul>";
   $Content .= "</div>";
   return $Content;
@@ -540,7 +540,7 @@ function sendCommand($DBcnx,$Address,$Command) {
 }
 //---------------------------------------------------------------------------------------------------
 function timerActive($DBcnx,$Address) {
-  $Result = mysqli_query($DBcnx,"SELECT * FROM timer WHERE address='$Address'");
+  $Result = mysqli_query($DBcnx,"SELECT * FROM timer WHERE (address='$Address') AND (stop_time > NOW())");
   if (mysqli_num_rows($Result) > 0) {
     return 1;
   } else {
