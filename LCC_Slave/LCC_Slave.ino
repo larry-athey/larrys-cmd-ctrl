@@ -136,7 +136,7 @@ String Version = "1.0.1";        // Current release version of the project
 String jsonSuccess = "{\"status\": \"success\",\"message\": \"Operation completed successfully\"}";
 String jsonFailure = "{\"status\": \"error\",\"message\": \"Operation failed\"}";
 //------------------------------------------------------------------------------------------------
-bool sendCommand(String Cmd) { // Send LCC requests to Mission Control
+bool sendCommand(String Cmd) { // Send LCC messages to Mission Control
   bool Result = true;
   HTTPClient http;
   http.begin("http://" + serverIP + "/slave-post.php?cmd=" + Cmd);
@@ -152,7 +152,7 @@ bool sendCommand(String Cmd) { // Send LCC requests to Mission Control
     Result = false;
     if (Serial) Serial.printf("Error: %s\n",http.errorToString(httpCode).c_str());
   }
-  http.end();  // free resources
+  http.end();
   return Result;
 }
 //------------------------------------------------------------------------------------------------
@@ -170,7 +170,7 @@ void setup() {
 
   // Initialize the Neopixel bus for the heartbeat/pulse LED
   neopixel.begin();
-  neopixel.setBrightness(15); // These things run stupidly hot
+  neopixel.setBrightness(15);
   neopixel.clear();
   neopixel.setPixelColor(0,neopixel.Color(0,0,255));
   neopixel.show();
