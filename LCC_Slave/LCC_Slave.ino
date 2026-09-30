@@ -455,6 +455,18 @@ bool processCmd(String Cmd) { // Process AT+ commands received via serial commun
   }
 }
 //------------------------------------------------------------------------------------------------
+void queueCommand (String Header) {
+  Header.remove(0,4); // Delete the "GET " from the beginning
+  Header.remove(Header.indexOf(" HTTP/1.1"),9); // Delete the " HTTP/1.1" from the end
+  for (byte i = 0; i <= 16; i ++) { // Add the command to the queue
+    if (Commands[i].length() == 0) {
+      Commands[i] = Header;
+      cmdCount ++;
+      break;
+    }
+  }
+}
+//------------------------------------------------------------------------------------------------
 // External function includes are used here to reduce the overall size of the main sketch.
 // Go ahead and call it non-standard, but I don't like spaghetti code that goes on forever.
 #include "lcc_api.h" // Inline function library for the LCC message processing functions.
@@ -466,6 +478,34 @@ void loop() {
     // Reboot the system if we're reaching the maximum long integer value of CurrentTime (49 days)
     ESP.restart();
   } 
+
+  // Check for LCC commands and handle as necessary
+  WiFiClient Client = Server.available();
+  if (Client) {
+    IPAddress clientIP = Client.remoteIP();
+    IPAddress gatewayIP = WiFi.gatewayIP();
+    long PreviousTime = CurrentTime;
+    String Header = "";
+    while (Client.connected() && CurrentTime - PreviousTime <= 5000) { // 5 second connection timeout
+      CurrentTime = millis();
+      if (Client.available()) {
+        char c = Client.read();
+        if ((c != '\r') && (c != '\n')) Header += c;
+        if (c == '\n') {
+          if (Header.indexOf("GET ") == 0) {
+            if (clientIP == gatewayIP) { // Only allow commands from Mission Control
+              queueCommand(Header);
+              Client.println(jsonSuccess);
+            } else {
+              Client.println(jsonFailure);
+            }
+            break;
+          }
+        }
+      }
+    }
+    Client.stop();
+  }
 
   #ifndef STEPPER
   // Handle the sound effects as necessary
