@@ -62,7 +62,7 @@ if (mysqli_num_rows($Result) > 0) {
   while ($RS = mysqli_fetch_array($Result)) {
     $Temp = createMessage($DBcnx,$RS["stop_command"]);
     $Msg = explode("|",$Temp);
-    if (sendCommand($DBcnx,$RS["address"],$Msg[0]) == $jsonSuccess) {
+    if (sendCommand($DBcnx,$RS["address"],$Msg[0]) != "<pre>error://failed-to-send-command</pre>\n") {
       $Update = mysqli_query($DBcnx,"UPDATE timer SET stopped=1 WHERE ID=" . $RS["ID"]);
       $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-warning\">Sent timer stop command</span>' WHERE address='" . $RS["address"] . "'");
     } else {
