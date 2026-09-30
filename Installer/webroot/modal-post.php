@@ -11,8 +11,8 @@ if ($_POST) {
       $seconds = $_POST["seconds"];
       $start_command = $_POST["command"][0];
       $stop_command = $_POST["command"][1];
-      $Result = mysqli_query($DBcnx, "INSERT INTO timer (address,stop_time,start_command,stop_command) VALUES ('$address',TIMESTAMPADD(SECOND,$seconds,NOW()),$start_command,$stop_command)");
-      $LastID = mysqli_insert_id($connection)
+      $Result = mysqli_query($DBcnx,"INSERT INTO timer (address,stop_time,start_command,stop_command) VALUES ('$address',TIMESTAMPADD(SECOND,$seconds,NOW()),$start_command,$stop_command)");
+      $LastID = mysqli_insert_id($connection);
       $Temp = createMessage($DBcnx,$start_command);
       $Msg = explode("|",$Temp);
       if (sendCommand($DBcnx,$_POST["address"],$Msg[0]) == $jsonSuccess) {
@@ -25,7 +25,7 @@ if ($_POST) {
     $Temp = createMessage($DBcnx,$_POST["command"]);
     $Msg = explode("|",$Temp);
     sendCommand($DBcnx,$_POST["address"],$Msg[0]);
-    $Result = mysqli_query($DBcnx, "UPDATE devices SET status='<span class=\"text-primary\">Sent library command</span>' WHERE address='" . $_POST["address"] . "'");
+    $Result = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-primary\">Sent library command</span>' WHERE address='" . $_POST["address"] . "'");
     echo($jsonSuccess);
   } elseif ($_POST["form-id"] == 3) { // Send script
     $Result = mysqli_query($DBcnx, "SELECT * FROM scripts WHERE ID=" . $_POST["script"]);
@@ -57,7 +57,7 @@ if ($_POST) {
     echo($jsonSuccess);
   } elseif ($_POST["form-id"] == 4) { // Send reboot command
     sendCommand($DBcnx,$_POST["address"],"/reboot");
-    $Result = mysqli_query($DBcnx, "UPDATE devices SET status='<span class=\"text-danger\">Sent panic reboot</span>' WHERE address='" . $_POST["address"] . "'");
+    $Result = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-danger\">Sent panic reboot</span>' WHERE address='" . $_POST["address"] . "'");
     echo($jsonSuccess);
   } elseif ($_POST["form-id"] >= 10) { // Send CTRL button commands
     $Result = mysqli_query($DBcnx, "INSERT INTO commands (cmd_name) VALUES ('Temp Command')");
@@ -117,7 +117,7 @@ if ($_GET) {
     $Msg = explode("|",$Temp);
     sendCommand($DBcnx,$_GET["address"],$Msg[0]);
     if ($Msg[1] == 1) sendCommand($DBcnx,$_GET["address"],"/repeat/cmd/" . $_GET["cmd_id"]);
-    $Result = mysqli_query($DBcnx, "UPDATE devices SET status='<span class=\"text-success\">Sent favorited command</span>' WHERE address='" . $_GET["address"] . "'");
+    $Result = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-success\">Sent favorited command</span>' WHERE address='" . $_GET["address"] . "'");
     echo($jsonSuccess);
   } else {
     echo($jsonFailure);

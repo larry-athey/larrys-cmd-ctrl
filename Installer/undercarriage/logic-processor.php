@@ -13,7 +13,7 @@ if (mysqli_num_rows($Result) > 0) {
     while ($Tries < 3) {
       $Tries ++;
       $Result = curlRequest("http://". $Outbound["address"] . ".lcc.local" . $Outbound["command"]);
-      if ($Result == $jsonSuccss) break;
+      if ($Result == $jsonSuccess) break;
     }
     if ($Result  == $jsonSuccess) {
       $Update = mysqli_query($DBcnx,"UPDATE outbound SET sent_time=NOW(),ack_time=NOW(),sent=1,ack=1 WHERE ID='" . $Outbound["ID"] . "'");

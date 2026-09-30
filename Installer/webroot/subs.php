@@ -85,6 +85,7 @@ function ctrlButtonMenu($DevType,$Address) {
   if ($DevType != 2) $Content .= "<li><a onClick=\"LoadForm('RGB LED Control','15','$Address')\" class=\"dropdown-item\" href=\"#\">RGB LED Control</a></li>";
   if ($DevType != 2) $Content .= "<li><a onClick=\"LoadForm('Play Sound Effects','13','$Address')\" class=\"dropdown-item\" href=\"#\">Sound Effects</a></li>";
   $Content .=     "<li><a onClick=\"LoadForm('GPIO Pin Switching','14','$Address')\" class=\"dropdown-item\" href=\"#\">Switching Control</a></li>";
+  $Content .=     "<li><a onClick=\"LoadForm('Timed Task','1','$Address')\" class=\"dropdown-item\" href=\"#\">Timed Task</a></li>";
   $Content .=   "</ul>";
   $Content .= "</div>";
   return $Content;
@@ -525,7 +526,7 @@ function sendCommand($DBcnx,$Address,$Command) {
   while ($Tries < 3) {
     $Tries ++;
     $Result = curlRequest("http://$Address.lcc.local/" . $ID . $Command);
-    if ($Result == $jsonSuccss) break;
+    if ($Result == $jsonSuccess) break;
   }
   if ($Result  == $jsonSuccess) {
     $Result = mysqli_query($DBcnx,"INSERT INTO outbound (creation,sent_time,ack_time,address,msg,sent,ack) VALUES (now(),now(),now(),'$Address','/" . $ID . $Command . ",1,1')");

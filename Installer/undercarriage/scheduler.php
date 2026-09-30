@@ -57,17 +57,17 @@ if (mysqli_num_rows($Result) > 0) {
   }
 }
 //---------------------------------------------------------------------------------------------
-$Result = mysqli_query($DBcnx,"SELECT * FROM timer WHERE stop_time <= NOW() started < 3 AND stopped=0");
+$Result = mysqli_query($DBcnx,"SELECT * FROM timer WHERE (stop_time <= NOW()) AND (started < 3) AND (stopped = 0)");
 if (mysqli_num_rows($Result) > 0) {
   while ($RS = mysqli_fetch_array($Result)) {
     $Temp = createMessage($DBcnx,$RS["stop_command"]);
     $Msg = explode("|",$Temp);
     if (sendCommand($DBcnx,$RS["address"],$Msg[0]) == $jsonSuccess) {
-      $Result = mysqli_query($DBcnx,"UPDATE timer SET stopped=1 WHERE ID=" . $RS["ID"]);
-      $Result = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-warning\">Sent timer stop command</span>' WHERE address='" . $RS["address"] . "'");
+      $Update = mysqli_query($DBcnx,"UPDATE timer SET stopped=1 WHERE ID=" . $RS["ID"]);
+      $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-warning\">Sent timer stop command</span>' WHERE address='" . $RS["address"] . "'");
     } else {
       // Make 3 attempts to stop it before giving up
-      $Result = mysqli_query($DBcnx,"UPDATE timer SET started = started + 1 WHERE ID=" . $RS["ID"]);
+      $Update = mysqli_query($DBcnx,"UPDATE timer SET started = started + 1 WHERE ID=" . $RS["ID"]);
     }
   }
 }
