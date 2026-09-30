@@ -209,7 +209,7 @@ inline void runCommand(String Cmd) { // Execute a queued LCC mission control com
     }
   }
 
-  // Send the command execution start notice to mission control
+  // Send the command execution start notice to Mission Control
   sendCommand("/exec/" + parts[0]);
 
   // parts[0] : Command ID tag (32 character random string)
@@ -253,14 +253,8 @@ inline void processQueue() { // Process the next command in the queue (FIFO styl
   if (cmdPos != targetPos) return;
   #endif
   if (Commands[0].length() > 0) {
-    sendCommand(Commands[0]); // ACK the command by echoing the whole thing back to mission control
-    //delay(1000); // Add a delay between the ACK and EXEC messages
     if (Serial) Serial.println("Executing: " + Commands[0]);
     runCommand(Commands[0]);
-    while (incomingMsg) { // Wait for incoming messages to end before altering the queue
-      delay(1);
-      yield();
-    }
     for (byte i = 0; i <= 15; i ++) { // Remove the processed command from the queue
       Commands[i] = Commands[i + 1];
     }

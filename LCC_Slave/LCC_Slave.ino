@@ -105,8 +105,8 @@ Adafruit_NeoPixel neopixel(1,LED_PIN,NEO_RGB + NEO_KHZ800); // Set up the heartb
 Adafruit_NeoPixel lights(TOTAL_LEDS,BUS_3,NEO_RGB + NEO_KHZ800); // Set up the Neopixel/WS2812 lighting bus
 #endif
 Preferences preferences;
+WiFiServer Server(80);
 //------------------------------------------------------------------------------------------------
-bool incomingMsg = false;        // Used to tell when a message is coming in so the command queue isn't messed with
 bool SFX = false;                // True if the sound effects system successfully initialized
 bool sfxLoop = false;            // True if a sound effect command is supposed to play endlessly
 byte cmdCount = 0;               // Counts the number of received mission control commands
@@ -127,30 +127,37 @@ float motorSpeed = 0.0;          // Current motor speed [0..100]
 float progressFactor = 0.0;      // How much (percent) to change the motor speed per second
 float targetSpeed = 0.0;         // Motor target speed [0..100]
 String Commands[17];             // Queue for caching up to 16 commands plus 1 repeat command
-String myMacStr;                 // MAC address string of this ESP32, used for message address checking
+String Hostname = "";            // 
+String serverIP = "";            //
 String wifiSSID;                 // 
 String wifiPW;                   // 
 String Version = "1.0.1";        // Current release version of the project
-uint8_t myMac[6];                // Byte array of this ESP32 WiFi MAC address
-uint8_t broadcastAddress[] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF}; // Peer address for all communications
+
+String jsonSuccess = "{\"status\": \"success\",\"message\": \"Operation completed successfully\"}";
+String jsonFailure = "{\"status\": \"error\",\"message\": \"Operation failed\"}";
 //------------------------------------------------------------------------------------------------
-bool sendCommand(String Cmd) { // Send AT+SEND command to the broadcast peer address
-  /*
-  Cmd = "/" + masterAddress + Cmd;
-  if (Serial) Serial.println("Sending: " + Cmd);
-  esp_err_t result = esp_now_send(broadcastAddress,(uint8_t *)Cmd.c_str(),Cmd.length());
-  if (result == ESP_OK) {
-    return true;
+bool sendCommand(String Cmd) { // Send LCC requests to Mission Control
+  bool Result = true;
+  HTTPClient http;
+  http.begin("http://" + serverIP + "/slave-post.php?cmd=" + Cmd);
+  int httpCode = http.GET(); 
+  if (httpCode > 0) {
+    if (httpCode == HTTP_CODE_OK) {
+      String Payload = http.getString();
+      Payload.trim();
+      if (Serial) Serial.println("Received: " + Payload);
+      if (Payload != jsonSuccess) Result = false;
+    }
   } else {
-    return false;
+    Result = false;
+    if (Serial) Serial.printf("Error: %s\n",http.errorToString(httpCode).c_str());
   }
-  */
+  http.end();  // free resources
+  return Result;
 }
 //------------------------------------------------------------------------------------------------
 void setup() {
   Serial.begin(115200);
-  Serial.setRxBufferSize(2048);
-  Serial.setTxBufferSize(2048);
   delay(1000);
   if (Serial) Serial.println("Starting LCC Slave v" + Version);
 
@@ -221,33 +228,48 @@ void setup() {
     Locations[i][2] = 0;
   }
 
-  // Make sure that WiFi is disconnected
+  if (Serial) Serial.println("LCC Slave waiting for commands.");
+
+  ConnectWiFi();
+
+  // Initialize the main loop() 1 second timer
+  lastCheck = millis();
+}
+//------------------------------------------------------------------------------------------------
+void ConnectWiFi() { // Connect to Mission Control access point
+  byte x = 0;
+  if (Server) Server.end();
   WiFi.mode(WIFI_STA);
   WiFi.setSleep(false);
   esp_wifi_set_ps(WIFI_PS_NONE);
   WiFi.disconnect();
-  WiFi.macAddress(myMac);
-  myMacStr = WiFi.macAddress();
-  myMacStr.toLowerCase();
-  myMacStr.replace(":","-");
+  Hostname = WiFi.macAddress();
+  Hostname.toLowerCase();
+  Hostname.replace(":","-");
 
-  // Force the radio to channel 6 so we're in the center of the 2.4 GHz band
-  esp_wifi_set_promiscuous(true);
-  esp_wifi_set_channel(6,WIFI_SECOND_CHAN_NONE);
-  esp_wifi_set_promiscuous(false);
-
-  // Force 20 MHz bandwidth
-  esp_wifi_set_bandwidth(WIFI_IF_STA,WIFI_BW_HT20);
-  // Maximum TX power (unit is 0.25 dBm, so 84 = 21 dBm)
-  esp_wifi_set_max_tx_power(50);
-  // Optional but often helpful with weak antennas: stick to 802.11b/g rates (more robust than pure 11n MCS rates)
   uint8_t protocol = WIFI_PROTOCOL_11B | WIFI_PROTOCOL_11G;
-  esp_wifi_set_protocol(WIFI_IF_STA,protocol);
+  esp_wifi_set_protocol(WIFI_IF_STA,protocol); // Force only 802.11bg mode (no N channel)
+  esp_wifi_set_bandwidth(WIFI_IF_STA,WIFI_BW_HT20); // Force 20 MHz bandwidth
+  esp_wifi_set_max_tx_power(84); // Maximum TX power (unit is 0.25 dBm, so 84 = 21 dBm)
 
-  if (Serial) Serial.println("ESP-NOW Ready!");
-
-  // Initialize the main loop() 1 second timer
-  lastCheck = millis();
+  Hostname += ".lcc.local";
+  WiFi.setHostname(Hostname.c_str());
+  WiFi.begin(wifiSSID,wifiPW);
+  if (Serial) Serial.print("\nConnecting to WiFi ..");
+  while (WiFi.status() != WL_CONNECTED) {
+    if (Serial) Serial.print('.');
+    delay(1000);
+    x ++;
+    if (x == 15) break;
+  }
+  if (WiFi.status() == WL_CONNECTED) {
+    Server.begin();
+    serverIP = WiFi.gatewayIP().toString();
+    if (Serial) Serial.println(" WiFi Connected!\n");
+  } else {
+    if (Serial) Serial.println("\nConnection Failed!\n");
+    delay(2000);
+  }
 }
 //------------------------------------------------------------------------------------------------
 void GetMemory() { // Get the configuration settings from flash memory on startup
@@ -373,22 +395,25 @@ bool processCmd(String Cmd) { // Process AT+ commands received via serial commun
   if (Cmd.indexOf("AT+") == 0) {
     Cmd.remove(0,3);
     if (Cmd.indexOf("CMD=") == 0) {
+      // AT+CMD=
       Cmd.remove(0,4);
       if (sendCommand(Cmd)) {
         return true;
       } else {
         return false;
       }
-    } else if (Cmd == "MAC") {
-      // AT+MAC
-      Serial.print(myMacStr + "\r\n");
+    } else if (Cmd == "HOSTNAME") {
+      // AT+HOSTNAME
+      Serial.println(Hostname)  ;
       return true;
-    } if (Cmd == "MASTER") {
-      //Serial.print(masterAddress + "\r\n");
+    } if (Cmd == "PASSWD") {
+      // AT+PASSWD
+      Serial.println(wifiPW);
       return true;
-    } else if (Cmd.indexOf("MASTER=") == 0) {
+    } else if (Cmd.indexOf("PASSWD=") == 0) {
+      // AT+PASSWD=
       Cmd.remove(0,7);
-      //masterAddress = Cmd;
+      wifiPW = Cmd;
       SetMemory();
       return true;
     } if (Cmd == "RESET") {
@@ -396,9 +421,27 @@ bool processCmd(String Cmd) { // Process AT+ commands received via serial commun
       Serial.print("Rebooting...\r\n");
       delay(1000);
       ESP.restart();
+    } if (Cmd == "SERVER") {
+      // AT+SERVER
+      Serial.println(serverIP);
+      return true;
+    } if (Cmd == "SSID") {
+      // AT+SSID
+      Serial.println(wifiSSID);
+      return true;
+    } else if (Cmd.indexOf("SSID=") == 0) {
+      // AT+SSID=
+      Cmd.remove(0,5);
+      wifiSSID = Cmd;
+      SetMemory();
+      return true;
     } if (Cmd == "VERSION") {
       // AT+VERSION
-      Serial.print("v" + Version + "\r\n");
+      Serial.println("v" + Version);
+      return true;
+    } if (Cmd == "WIFISTATS") {
+      // AT+WIFISTATS
+      Serial.println("WiFi Channel: " + String(WiFi.channel()) + "\n" + "WiFi Signal: " + String(WiFi.RSSI()));
       return true;
     }
     return false;
