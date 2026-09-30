@@ -9,7 +9,13 @@ $DBcnx = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 $Result = mysqli_query($DBcnx,"SELECT * FROM outbound WHERE sent=0");
 if (mysqli_num_rows($Result) > 0) {
   while ($Outbound = mysqli_fetch_assoc($Result)) {
-    if (curlRequest("http://". $Outbound["address"] . ".lcc.local" . $Outbound["command"]) == $jsonSuccess) {
+    $Tries = 0;
+    while ($Tries < 3) {
+      $Tries ++;
+      $Result = curlRequest("http://". $Outbound["address"] . ".lcc.local" . $Outbound["command"]);
+      if ($Result == $jsonSuccss) break;
+    }
+    if ($Result  == $jsonSuccess) {
       $Update = mysqli_query($DBcnx,"UPDATE outbound SET sent_time=NOW(),ack_time=NOW(),sent=1,ack=1 WHERE ID='" . $Outbound["ID"] . "'");
     } else {
       $Update = mysqli_query($DBcnx,"UPDATE outbound SET sent_time=NOW(),sent=1 WHERE ID='" . $Outbound["ID"] . "'");

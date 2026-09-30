@@ -521,7 +521,13 @@ function scriptSelector($DBcnx,$DevType,$ID) {
 function sendCommand($DBcnx,$Address,$Command) {
   global $jsonSuccess;
   $ID = md5(generateRandomString(32));
-  if (curlRequest("http://$Address.lcc.local/" . $ID . $Command) == $jsonSuccess) {
+  $Tries = 0;
+  while ($Tries < 3) {
+    $Tries ++;
+    $Result = curlRequest("http://$Address.lcc.local/" . $ID . $Command);
+    if ($Result == $jsonSuccss) break;
+  }
+  if ($Result  == $jsonSuccess) {
     $Result = mysqli_query($DBcnx,"INSERT INTO outbound (creation,sent_time,ack_time,address,msg,sent,ack) VALUES (now(),now(),now(),'$Address','/" . $ID . $Command . ",1,1')");
     return "<pre>cmd://" . $ID . $Command . ":$Address</pre>\n";
   } else {
