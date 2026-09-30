@@ -138,8 +138,13 @@ String jsonFailure = "{\"status\": \"error\",\"message\": \"Operation failed\"}"
 //------------------------------------------------------------------------------------------------
 bool sendCommand(String Cmd) { // Send LCC messages to Mission Control
   bool Result = true;
+
+  String myAddr = WiFi.macAddress();
+  myAddr.toLowerCase();
+  myAddr.replace(":","-");
+
   HTTPClient http;
-  http.begin("http://" + serverIP + "/slave-post.php?cmd=" + Cmd);
+  http.begin("http://" + serverIP + "/slave-post.php?addr=" + myAddr + "&cmd=" + Cmd);
   int httpCode = http.GET(); 
   if (httpCode > 0) {
     if (httpCode == HTTP_CODE_OK) {
