@@ -1,6 +1,6 @@
 # Installation Notes
 
-The WiFi access point is configured in the file **hostapd.conf** and you should change the WiFi password in there  **BEFORE** installation! You may also change the network name (SSID) as well, there's no need to keep it as-is. If you modify these settings, you will need to log into phpMyAdmin and update these fields in the Settings table. When you pair a new LCC Slave device over USB, the Mission Control server needs to know this information in advance.
+The WiFi access point is configured in the file **hostapd.conf** and you should change the WiFi password in there  **BEFORE** installation! You may also change the network name (SSID) as well, there's no need to keep it as-is. If you modify these settings, you will need to log into phpMyAdmin and update these fields in the Settings table. When you pair a new LCC Slave device over USB, the Mission Control server needs to know this information in advance to configure the ESP32's WiFi.
 
 ### Default WiFi Network
 SSID: **LCC-WLAN**<br>
