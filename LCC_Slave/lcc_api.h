@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------
-// LCC - Locomotive Breath | (CopyLeft) 2025-Present | Larry Athey (https://panhandleponics.com)
+// Larry's CMD & CTRL (LCC) | (CopyLeft) 2025-Present | Larry Athey (https://panhandleponics.com)
 //
 // Inline functions used for modular unit organization
 //------------------------------------------------------------------------------------------------
@@ -183,7 +183,7 @@ inline void runCommand(String Cmd) { // Execute a queued LCC mission control com
   // Count "/" delimiters
   int delimiterCount = 0;
   for (int i = 0; i < Cmd.length(); i ++) {
-    if (Cmd[i] == '/') delimiterCount++;
+    if (Cmd[i] == '/') delimiterCount ++;
   }
 
   // Create an array for the parts

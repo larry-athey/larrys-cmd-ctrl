@@ -16,6 +16,8 @@
 // if the Mission Control server is hard-wired to your network, its WiFi AP doesn't route into it.
 // This system is still totally functional without any internet access into the building.
 //
+// FOLLOWUP: Yes, I also tried using ESP-NOW and it was even more unreliable than the LoRa modems.
+//
 // This is an LCC slave unit prototype that can be used for anything from a model train locomotive
 // to anything else where you may need to wirelessly control a brushed motor with a PWM, a stepper
 // motor, RGB LEDs, a bank of solid state relays, or even play MP3 files for announcements/alerts,
@@ -114,6 +116,7 @@ byte pulseIndex = 1;             // Tracks the color changes for the heartbeat/p
 byte motorDirection = 1;         // Motor direction, 0 = reverse, 1 = forward
 byte progressDir = 0;            // Motor speed progress direction, 0 = down, 1 = up
 byte sysInit = 0;                // Flag to indicate whether this is a first boot and no flash settings
+byte wifiCheckCounter = 0;       // Used to check the WiFi connection once every 30 seconds
 int Locations[16][3];            // Queue for caching location ID numbers and associated actions
 int soundFile = -1;              // Sound file number to play from the DFPlayer Mini
 unsigned long cmdPos = 0;        // Stepper current command position of the last executed command
@@ -126,11 +129,11 @@ unsigned long targetRuntime = 0; // Timestamp of the motor end run (0 = indefini
 float motorSpeed = 0.0;          // Current motor speed [0..100]
 float progressFactor = 0.0;      // How much (percent) to change the motor speed per second
 float targetSpeed = 0.0;         // Motor target speed [0..100]
-String Commands[17];             // Queue for caching up to 16 commands plus 1 repeat command
-String Hostname = "";            // 
-String serverIP = "";            //
-String wifiSSID;                 // 
-String wifiPW;                   // 
+String Commands[17];             // Queue for caching up to 16 commands plus 1 repeat command 
+String myMacStr = "";            // MAC address string, used as the device ID in Mission Control
+String serverIP = "";            // Mission Control server IP address
+String wifiSSID;                 // WiFi SSID (network name)
+String wifiPW;                   // WiFi password
 String Version = "1.0.1";        // Current release version of the project
 
 String jsonSuccess = "{\"status\": \"success\",\"message\": \"Operation completed successfully\"}";
@@ -139,14 +142,10 @@ String jsonFailure = "{\"status\": \"error\",\"message\": \"Operation failed\"}"
 bool sendCommand(String Cmd) { // Send LCC messages to Mission Control
   bool Result = true;
 
-  String myAddr = WiFi.macAddress();
-  myAddr.toLowerCase();
-  myAddr.replace(":","-");
-
   if (Serial) Serial.println("Sending: " + Cmd);
 
   HTTPClient http;
-  http.begin("http://" + serverIP + "/slave-post.php?addr=" + myAddr + "&cmd=" + Cmd);
+  http.begin("http://" + serverIP + "/slave-post.php?addr=" + myMacStr + "&cmd=" + Cmd);
   int httpCode = http.GET(); 
   if (httpCode > 0) {
     if (httpCode == HTTP_CODE_OK) {
@@ -239,9 +238,15 @@ void setup() {
     Locations[i][2] = 0;
   }
 
-  if (Serial) Serial.println("LCC Slave waiting for commands.");
-
   ConnectWiFi();
+
+  if (Serial) {
+    if (WiFi.status() == WL_CONNECTED) {
+      Serial.println("LCC Slave waiting for commands.");
+    } else{
+      Serial.println("LCC Slave waiting for network connection.");
+    }
+  }
 
   // Initialize the main loop() 1 second timer
   lastCheck = millis();
@@ -254,16 +259,16 @@ void ConnectWiFi() { // Connect to Mission Control access point
   WiFi.setSleep(false);
   esp_wifi_set_ps(WIFI_PS_NONE);
   WiFi.disconnect();
-  Hostname = WiFi.macAddress();
-  Hostname.toLowerCase();
-  Hostname.replace(":","-");
+  myMacStr = WiFi.macAddress();
+  myMacStr.toLowerCase();
+  myMacStr.replace(":","-");
 
   uint8_t protocol = WIFI_PROTOCOL_11B | WIFI_PROTOCOL_11G;
   esp_wifi_set_protocol(WIFI_IF_STA,protocol); // Force only 802.11bg mode (no N channel)
   esp_wifi_set_bandwidth(WIFI_IF_STA,WIFI_BW_HT20); // Force 20 MHz bandwidth
   esp_wifi_set_max_tx_power(84); // Maximum TX power (unit is 0.25 dBm, so 84 = 21 dBm)
 
-  Hostname += ".lcc.local";
+  String Hostname = myMacStr + ".lcc.local";
   WiFi.setHostname(Hostname.c_str());
   WiFi.begin(wifiSSID,wifiPW);
   if (Serial) Serial.print("\nConnecting to WiFi ..");
@@ -415,8 +420,12 @@ bool processCmd(String Cmd) { // Process AT+ commands received via serial commun
       }
     } else if (Cmd == "HOSTNAME") {
       // AT+HOSTNAME
-      Serial.println(Hostname)  ;
+      Serial.println(myMacStr + ".lcc.local");
       return true;
+    } else if (Cmd == "MAC") {
+      // AT+MAC
+      Serial.println(myMacStr);
+      return true;      
     } if (Cmd == "PASSWD") {
       // AT+PASSWD
       Serial.println(wifiPW);
@@ -429,7 +438,7 @@ bool processCmd(String Cmd) { // Process AT+ commands received via serial commun
       return true;
     } if (Cmd == "RESET") {
       // AT+RESET
-      Serial.print("Rebooting...\r\n");
+      Serial.println("Rebooting...");
       delay(1000);
       ESP.restart();
     } if (Cmd == "SERVER") {
@@ -454,6 +463,11 @@ bool processCmd(String Cmd) { // Process AT+ commands received via serial commun
       // AT+WIFISTATS
       Serial.println("WiFi Channel: " + String(WiFi.channel()) + "\n" + "WiFi Signal: " + String(WiFi.RSSI()));
       return true;
+    } if (Cmd == "Z") {
+      // AT+Z (factory reset)
+      sysInit = 1;
+      SetMemory();
+      ESP.restart();
     }
     return false;
   } else {
@@ -591,6 +605,23 @@ void loop() {
       setMotorSpeed(Update);
     }
     #endif
+
+    wifiCheckCounter ++;
+
+    if (wifiCheckCounter >= 30) {
+      bool PingTest = Ping.ping(serverIP.c_str(),2);
+      if ((WiFi.status() != WL_CONNECTED) || (! PingTest)) { // Reconnect WiFi if we got dropped
+        WiFi.disconnect(true);
+        delay(250);
+        if ((wifiSSID != "") && (wifiPW != "")) {
+          WiFi.mode(WIFI_OFF);
+          delay(500);
+          ConnectWiFi();
+        }
+      }
+      wifiCheckCounter = 0;
+    }
+
     pulseLED();
     lastCheck = CurrentTime;
   }
