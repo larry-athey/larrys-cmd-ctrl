@@ -73,10 +73,11 @@
 
 #include "Adafruit_NeoPixel.h"   // Used for the heartbeat/pulse LED since there is no pilot light
 #include "WiFi.h"                // ESP32 high-level WiFi connectivity library
-#include "esp_now.h"             // ESP-NOW wireless communications library
 #include "esp_wifi.h"            // ESP32 low-level WiFi connectivity library
+#include "HTTPClient.h"          // HTTP client library used for communicating with slave units
+#include "ESP32Ping.h"           // ICMP (ping) library from https://github.com/marian-craciunescu/ESP32Ping
 #include "Preferences.h"         // ESP32 Flash memory read/write library
-//#include "LedBasic.h"            // NeoPixel BASIC scripting from https://github.com/vktrsansara/LedBasic (Russian)
+#include "LedBasic.h"            // NeoPixel BASIC scripting from https://github.com/vktrsansara/LedBasic (Russian)
 //------------------------------------------------------------------------------------------------
 #define LED_PIN 21               // Internal LED on GPIO21
 #define TOTAL_LEDS 2             // Total number of LEDs on the Neopixel/WS2812 lighting bus
@@ -127,67 +128,14 @@ float progressFactor = 0.0;      // How much (percent) to change the motor speed
 float targetSpeed = 0.0;         // Motor target speed [0..100]
 String Commands[17];             // Queue for caching up to 16 commands plus 1 repeat command
 String myMacStr;                 // MAC address string of this ESP32, used for message address checking
-String masterAddress;            // MAC address string of the LCC Master, messages only allowed from this MAC
+String wifiSSID;                 // 
+String wifiPW;                   // 
 String Version = "1.0.1";        // Current release version of the project
 uint8_t myMac[6];                // Byte array of this ESP32 WiFi MAC address
 uint8_t broadcastAddress[] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF}; // Peer address for all communications
 //------------------------------------------------------------------------------------------------
-bool stringToMac(const String& macStr, uint8_t* mac) {
-  if (macStr.length() != 17) return false;
-
-  unsigned int values[6];
-  if (sscanf(macStr.c_str(),"%x:%x:%x:%x:%x:%x",
-             &values[0], &values[1], &values[2],
-             &values[3], &values[4], &values[5]) != 6) {
-    return false;
-  }
-
-  for (int i = 0; i < 6; i++) {
-    if (values[i] > 0xFF) return false;
-    mac[i] = static_cast < uint8_t > (values[i]);
-  }
-  return true;
-}
-//------------------------------------------------------------------------------------------------
-void onDataSent(const uint8_t *mac, esp_now_send_status_t status) {
-  if (status == ESP_NOW_SEND_SUCCESS) { // Pretty much useless in a total broadcast configuration
-
-  } else {
-
-  }
-}
-//------------------------------------------------------------------------------------------------
-void onDataRecv(const uint8_t *mac, const uint8_t *incomingData, int len) {
-  uint8_t master[6];
-  if (memcmp(mac,myMac,6) == 0) { // Ignore my own broadcasts
-    if (Serial) Serial.println("Broadcast feedback");
-    return;
-  }
-  if (! stringToMac(masterAddress,master)) return;
-  if (memcmp(mac,master,6) == 0) { // Message is from the LCC Master
-    String Payload((const char*)incomingData,len);
-    if ((Payload.length() < 18) || (Payload.indexOf(myMacStr) < 0)) return; // Message isn't addressed to this slave device
-    incomingMsg = true;
-    Payload = Payload.substring(18); // Delete the destination /MAC from the message before processing
-    Payload.toLowerCase();
-    bool msgExists = false;
-    for (byte i = 0; i <= 16; i ++) { // Check for duplicate
-      if (Commands[i] == Payload) msgExists = true;
-    }
-    if (! msgExists) { // Add the command to the queue
-      for (byte i = 0; i <= 16; i ++) {
-        if (Commands[i].length() == 0) {
-          Commands[i] = Payload;
-          cmdCount ++;
-          break;
-        }
-      }
-    }
-    incomingMsg = false;
-  }
-}
-//------------------------------------------------------------------------------------------------
 bool sendCommand(String Cmd) { // Send AT+SEND command to the broadcast peer address
+  /*
   Cmd = "/" + masterAddress + Cmd;
   if (Serial) Serial.println("Sending: " + Cmd);
   esp_err_t result = esp_now_send(broadcastAddress,(uint8_t *)Cmd.c_str(),Cmd.length());
@@ -196,6 +144,7 @@ bool sendCommand(String Cmd) { // Send AT+SEND command to the broadcast peer add
   } else {
     return false;
   }
+  */
 }
 //------------------------------------------------------------------------------------------------
 void setup() {
@@ -279,6 +228,8 @@ void setup() {
   WiFi.disconnect();
   WiFi.macAddress(myMac);
   myMacStr = WiFi.macAddress();
+  myMacStr.toLowerCase();
+  myMacStr.replace(":","-");
 
   // Force the radio to channel 6 so we're in the center of the 2.4 GHz band
   esp_wifi_set_promiscuous(true);
@@ -293,27 +244,6 @@ void setup() {
   uint8_t protocol = WIFI_PROTOCOL_11B | WIFI_PROTOCOL_11G;
   esp_wifi_set_protocol(WIFI_IF_STA,protocol);
 
-  // Initialize ESP-NOW
-  if (esp_now_init() != ESP_OK) {
-    if (Serial) Serial.println("Error initializing ESP-NOW");
-    return;
-  }
-
-  // Register ESP-NOW callback handlers
-  esp_now_register_send_cb(onDataSent);
-  esp_now_register_recv_cb(onDataRecv);
-
-  // Register the broadcast peer
-  esp_now_peer_info_t peerInfo = {};
-  memcpy(peerInfo.peer_addr,broadcastAddress,6);
-  peerInfo.channel = 0;     // 0 = current channel
-  peerInfo.encrypt = false; // Broadcast cannot be encrypted
-
-  if (esp_now_add_peer(&peerInfo) != ESP_OK) {
-    if (Serial) Serial.println("Failed to add broadcast peer");
-    return;
-  }
-
   if (Serial) Serial.println("ESP-NOW Ready!");
 
   // Initialize the main loop() 1 second timer
@@ -322,14 +252,16 @@ void setup() {
 //------------------------------------------------------------------------------------------------
 void GetMemory() { // Get the configuration settings from flash memory on startup
   preferences.begin("prefs",true);
-  masterAddress = preferences.getString("master_address","AA:BB:CC:DD:EE:FF");
-  sysInit       = preferences.getUInt("sys_init",1);
+  wifiSSID   = preferences.getString("wifi_ssid","LCC-WLAN");
+  wifiPW     = preferences.getString("wifi_pw","1a2b3c4d5e");
+  sysInit    = preferences.getUInt("sys_init",1);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
 void SetMemory() { // Update flash memory with the current configuration settings
   preferences.begin("prefs",false);
-  preferences.putString("master_address",masterAddress);
+  preferences.putString("wifi_ssid",wifiSSID);
+  preferences.putString("wifi_pw",wifiPW);
   preferences.putUInt("sys_init",sysInit);
   preferences.end();
 }
@@ -452,11 +384,11 @@ bool processCmd(String Cmd) { // Process AT+ commands received via serial commun
       Serial.print(myMacStr + "\r\n");
       return true;
     } if (Cmd == "MASTER") {
-      Serial.print(masterAddress + "\r\n");
+      //Serial.print(masterAddress + "\r\n");
       return true;
     } else if (Cmd.indexOf("MASTER=") == 0) {
       Cmd.remove(0,7);
-      masterAddress = Cmd;
+      //masterAddress = Cmd;
       SetMemory();
       return true;
     } if (Cmd == "RESET") {
