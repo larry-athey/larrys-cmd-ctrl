@@ -97,6 +97,8 @@ function curlRequest($URL) {
 
   curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
   curl_setopt($ch,CURLOPT_FOLLOWLOCATION,true);
+  curl_setopt($ch,CURLOPT_HTTP09_ALLOWED,true);
+  curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
   curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,5);
   curl_setopt($ch,CURLOPT_TIMEOUT,10);
 
