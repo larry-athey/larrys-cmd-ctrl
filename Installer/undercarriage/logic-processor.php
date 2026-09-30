@@ -115,9 +115,9 @@ if (mysqli_num_rows($Result) > 0) {
   while ($Inbound = mysqli_fetch_assoc($Result)) {
     $Update = mysqli_query($DBcnx,"UPDATE inbound SET rcvd=1 WHERE ID=" . $Inbound["ID"]);
     if (InStr("/limit/0",$Inbound["msg"])) {
-      $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-danger\">Lower limit switch triggered</span>' WHERE address=" . $Inbound["address"]);
+      $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-danger\">Lower limit switch triggered</span>' WHERE address='" . $Inbound["address"] . "'");
     } else {
-      $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-danger\">Upper limit switch triggered</span>' WHERE address=" . $Inbound["address"]);
+      $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-danger\">Upper limit switch triggered</span>' WHERE address='" . $Inbound["address"] . "'");
     }
   }
 }
@@ -130,9 +130,9 @@ if (mysqli_num_rows($Result) > 0) {
     $Inbound["msg"] = trim($Inbound["msg"],"/");
     $Data = explode("/",$Inbound["msg"]);
     if ($Data[2] == "/action") {
-      $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-primary\">Location $Data[1] executed</span>' WHERE address=" . $Inbound["address"]);
+      $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-primary\">Location $Data[1] executed</span>' WHERE address='" . $Inbound["address"] . "'");
     } else {
-      $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-success\">Location $Data[1] encountered</span>' WHERE address=" . $Inbound["address"]);
+      $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-success\">Location $Data[1] encountered</span>' WHERE address='" . $Inbound["address"] . "'");
     }
   }
 }
@@ -142,7 +142,7 @@ $Result = mysqli_query($DBcnx,"SELECT * FROM inbound WHERE msg LIKE BINARY '%/ru
 if (mysqli_num_rows($Result) > 0) {
   while ($Inbound = mysqli_fetch_assoc($Result)) {
     $Update = mysqli_query($DBcnx,"UPDATE inbound SET rcvd=1 WHERE ID=" . $Inbound["ID"]);
-    $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-warning\">Runtime has expired</span>' WHERE address=" . $Inbound["address"]);
+    $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-warning\">Runtime has expired</span>' WHERE address='" . $Inbound["address"] . "'");
   }
 }
 //---------------------------------------------------------------------------------------------
