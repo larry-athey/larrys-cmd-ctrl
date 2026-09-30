@@ -230,10 +230,10 @@ inline void runCommand(String Cmd) { // Execute a queued LCC mission control com
     //ID/reboot
     if (partCount == 2) ESP.restart();
   } else if (parts[1] == "replay") {
-    //ID/replay/cmd-or-script/cmd-id or script-id
+    //ID/replay/cmd or script/cmd-id or script-id
     if (partCount == 4) sendReplayRequest(parts[2],parts[3]);
   } else if (parts[1] == "scene") {
-    //ID/replay/scene/scene-id
+    //ID/scene/scene-id
     //if (partCount == 3) setupScene(parts[2]);
   } else if (parts[1] == "sound") {
     //ID/sound/file-number/loop

@@ -10,7 +10,7 @@ while [ true ]; do
   ./logic-processor.php
 
   LoopCounter=$((LoopCounter + 1))
-  if [ $LoopCounter -eq 6 ]; then
+  if [ $LoopCounter -eq 12 ]; then
     ./scheduler.php
     LoopCounter=0
   fi
@@ -19,8 +19,8 @@ while [ true ]; do
 
   Runtime=$(($ScriptEnd - $ScriptStart))
   echo "Script Runtime: $Runtime seconds"
-  if [ $Runtime -lt 10 ]; then
-    Delay=$((10 - $Runtime))
+  if [ $Runtime -lt 5 ]; then
+    Delay=$((5 - $Runtime))
     echo "Sleeping $Delay seconds"
     sleep $Delay
   fi

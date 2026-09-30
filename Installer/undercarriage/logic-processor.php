@@ -12,7 +12,7 @@ if (mysqli_num_rows($Result) > 0) {
     $Tries = 0;
     while ($Tries < 3) {
       $Tries ++;
-      $Result = curlRequest("http://". $Outbound["address"] . ".lcc.local" . $Outbound["command"]);
+      $Result = curlRequest("http://". $Outbound["address"] . ".lcc.local" . $Outbound["msg"]);
       if ($Result == $jsonSuccess) break;
     }
     if ($Result  == $jsonSuccess) {
@@ -81,7 +81,7 @@ if (mysqli_num_rows($Result) > 0) {
     $Device = mysqli_fetch_assoc($Result2);
     if ($Device["replay"] == 1) {
       $Data = explode("/",trim($Inbound["msg"],"/"));
-      $Result3 = mysqli_query($DBcnx,"SELECT * FROM scripts WHERE ID=" . $Data[3]);
+      $Result3 = mysqli_query($DBcnx,"SELECT * FROM scripts WHERE ID=" . $Data[2]);
       $Scr = mysqli_fetch_assoc($Result3);
       $Data2 = explode("|",$Scr["commands"]);
       $SQL = "INSERT INTO outbound (address,msg) VALUES ";

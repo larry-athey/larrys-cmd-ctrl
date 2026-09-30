@@ -71,7 +71,7 @@
 #include "DFRobotDFPlayerMini.h" // From https://github.com/DFRobot/DFRobotDFPlayerMini
 #endif
 
-#include "Adafruit_NeoPixel.h"   // Used for the heartbeat/pulse LED since there is no pilot light
+#include "Adafruit_NeoPixel.h"   // Used for LedBasic scripting of LED lighting scenes
 #include "WiFi.h"                // ESP32 high-level WiFi connectivity library
 #include "esp_wifi.h"            // ESP32 low-level WiFi connectivity library
 #include "HTTPClient.h"          // HTTP client library used for communicating with slave units
