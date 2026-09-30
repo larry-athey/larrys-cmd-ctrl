@@ -210,7 +210,9 @@ inline void runCommand(String Cmd) { // Execute a queued LCC mission control com
   }
 
   // Send the command execution start notice to Mission Control
-  sendCommand("/exec/" + parts[0]);
+  if (! sendCommand("/exec/" + parts[0])) {
+    if (Serial) Serial.println("Failed to send /exec/" + parts[0]);
+  }
 
   // parts[0] : Command ID tag (32 character random string)
   // parts[1] : The command type identifier
