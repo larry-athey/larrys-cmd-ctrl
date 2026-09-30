@@ -9,3 +9,5 @@ DHCP Scope: **192.168.4.50 - 192.168.4.200**<br>
 Mission Control: **http://192.168.4.1**
 
 _**NOTE:** Absolutely do not configure any static IP devices inside of the DHCP scope!_
+
+This server was developed on an Orange Pi Zero 3 running Armbian Linux 6.18.54 and it "should" work on a Raspberry Pi and a current version of Raspberry Pi OS. Just keep in mind that a Raspberry Pi has a weak WiFi radio and antenna combination. While I can't guarantee that this system will work flawlessly for everybody, I can guarantee that you will have far fewer problems with anything else but a Raspberry Pi.
