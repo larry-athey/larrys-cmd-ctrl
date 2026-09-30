@@ -455,7 +455,7 @@ bool processCmd(String Cmd) { // Process AT+ commands received via serial commun
   }
 }
 //------------------------------------------------------------------------------------------------
-void queueCommand (String Header) {
+void queueCommand(String Header) {
   Header.remove(0,4); // Delete the "GET " from the beginning
   Header.remove(Header.indexOf(" HTTP/1.1"),9); // Delete the " HTTP/1.1" from the end
   for (byte i = 0; i <= 16; i ++) { // Add the command to the queue
