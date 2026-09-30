@@ -143,6 +143,8 @@ bool sendCommand(String Cmd) { // Send LCC messages to Mission Control
   myAddr.toLowerCase();
   myAddr.replace(":","-");
 
+  if (Serial) Serial.println("Sending: " + Cmd);
+
   HTTPClient http;
   http.begin("http://" + serverIP + "/slave-post.php?addr=" + myAddr + "&cmd=" + Cmd);
   int httpCode = http.GET(); 
@@ -150,8 +152,12 @@ bool sendCommand(String Cmd) { // Send LCC messages to Mission Control
     if (httpCode == HTTP_CODE_OK) {
       String Payload = http.getString();
       Payload.trim();
-      if (Serial) Serial.println("Received: " + Payload);
-      if (Payload != jsonSuccess) Result = false;
+      //if (Serial) Serial.println("Received: " + Payload);
+      if (Cmd.indexOf("/scene-request/") == 0) {
+        // Payload will be an LedBasic script
+      } else {
+        if (Payload != jsonSuccess) Result = false;
+      }
     }
   } else {
     Result = false;
