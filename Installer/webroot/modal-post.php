@@ -11,12 +11,12 @@ if ($_POST) {
       $seconds = $_POST["seconds"];
       $start_command = $_POST["command"][0];
       $stop_command = $_POST["command"][1];
-      $Result = mysqli_query($DBcnx,"INSERT INTO timer (address,stop_time,start_command,stop_command) VALUES ('$address',TIMESTAMPADD(SECOND,$seconds,NOW()),$start_command,$stop_command)");
-      $LastID = mysqli_insert_id($connection);
+      $Insert = mysqli_query($DBcnx,"INSERT INTO timer (address,stop_time,start_command,stop_command) VALUES ('$address',TIMESTAMPADD(SECOND,$seconds,NOW()),$start_command,$stop_command)");
+      $LastID = mysqli_insert_id($DBcnx);
       $Temp = createMessage($DBcnx,$start_command);
       $Msg = explode("|",$Temp);
-      if (sendCommand($DBcnx,$_POST["address"],$Msg[0]) == $jsonSuccess) {
-        $Result = mysqli_query($DBcnx,"UPDATE timer SET started=1 WHERE ID=$LastID");
+      if (sendCommand($DBcnx,$address,$Msg[0]) != "<pre>error://failed-to-send-command</pre>\n") {
+        $Update = mysqli_query($DBcnx,"UPDATE timer SET started=1 WHERE ID=$LastID");
       }
       $Result = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-warning\">Sent timer start command</span>' WHERE address='$address'");
       echo($jsonSuccess);
