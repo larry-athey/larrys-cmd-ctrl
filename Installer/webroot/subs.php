@@ -19,8 +19,8 @@ define("DB_NAME","LCC");
 define("DB_USER","lccdbuser");
 define("DB_PASS","LoRaCmdCtrl");
 
-$jsonSuccess = "{\"status\": \"success\",\"message\": \"Operation completed successfully\"}\n";
-$jsonFailure = "{\"status\": \"error\",\"message\": \"Operation failed\"}\n";
+$jsonSuccess = "{\"status\": \"success\",\"message\": \"Operation completed successfully\"}";
+$jsonFailure = "{\"status\": \"error\",\"message\": \"Operation failed\"}";
 //---------------------------------------------------------------------------------------------------
 function AjaxRefreshJS($ID,$RandID,$Delay) {
   $Content  = "\n<script type=\"text/javascript\">\n";
@@ -92,7 +92,7 @@ function ctrlButtonMenu($DevType,$Address) {
 }
 //---------------------------------------------------------------------------------------------------
 function curlRequest($URL) {
-  global $jsonFailure;
+  global $jsonSuccess,$jsonFailure;
   $ch = curl_init($URL);
 
   curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
@@ -109,7 +109,7 @@ function curlRequest($URL) {
   if ($Result === false) {
     return $jsonFailure;
   } else {
-    return $Result;
+    return trim($Result);
   }
 }
 //---------------------------------------------------------------------------------------------------
@@ -511,9 +511,9 @@ function scriptSelector($DBcnx,$DevType,$ID) {
   if (mysqli_num_rows($Result) > 0) {
     while ($Scr = mysqli_fetch_assoc($Result)) {
       if ($Scr["ID"] == $ID) {
-         $Content .= "<option selected value=\"" . $Scr["ID"] . "\">" . $Scr["scr_name"] . "</option>";
+        $Content .= "<option selected value=\"" . $Scr["ID"] . "\">" . $Scr["scr_name"] . "</option>";
       } else {
-         $Content .= "<option value=\"" . $Scr["ID"] . "\">" . $Scr["scr_name"] . "</option>";
+        $Content .= "<option value=\"" . $Scr["ID"] . "\">" . $Scr["scr_name"] . "</option>";
       }
     }
   }
@@ -530,8 +530,8 @@ function sendCommand($DBcnx,$Address,$Command) {
     $Result = curlRequest("http://$Address.lcc.local/" . $ID . $Command);
     if ($Result == $jsonSuccess) break;
   }
-  if ($Result  == $jsonSuccess) {
-    $Result = mysqli_query($DBcnx,"INSERT INTO outbound (creation,sent_time,ack_time,address,msg,sent,ack) VALUES (now(),now(),now(),'$Address','/" . $ID . $Command . ",1,1')");
+  if ($Result == $jsonSuccess) {
+    $Result = mysqli_query($DBcnx,"INSERT INTO outbound (creation,sent_time,ack_time,address,msg,sent,ack) VALUES (now(),now(),now(),'$Address','/" . $ID . $Command . "',1,1)");
     return "<pre>cmd://" . $ID . $Command . ":$Address</pre>\n";
   } else {
     $Result = mysqli_query($DBcnx,"INSERT INTO outbound (creation,sent_time,address,msg,sent) VALUES (now(),now(),'$Address','/" . $ID . $Command . "',1)");
