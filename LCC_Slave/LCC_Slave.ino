@@ -166,6 +166,7 @@ bool sendCommand(String Cmd) { // Send LCC messages to Mission Control
       //if (Serial) Serial.println("Received: " + Payload);
       if (Cmd.indexOf("/scene-request/") == 0) {
         // Payload will be an LedBasic script
+        Payload.replace("\r","");
         scriptCode = Payload;
       } else {
         if (Payload != jsonSuccess) Result = false;
