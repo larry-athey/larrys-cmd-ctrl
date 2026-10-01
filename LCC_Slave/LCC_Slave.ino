@@ -144,8 +144,8 @@ String Commands[17];             // Queue for caching up to 16 commands plus 1 r
 String myMacStr = "";            // MAC address string, used as the device ID in Mission Control
 String scriptCode = "";          // LedBasic script code downloaded from Mission Control
 String serverIP = "";            // Mission Control server IP address
-String wifiSSID;                 // WiFi SSID (network name)
-String wifiPW;                   // WiFi password
+String wifiSSID = "LCC-LAN";     // WiFi SSID (network name)
+String wifiPW = "1a2b3c4d5e";    // WiFi password
 String Version = "1.0.1";        // Current release version of the project
 
 String jsonSuccess = "{\"status\": \"success\",\"message\": \"Operation completed successfully\"}";
@@ -447,6 +447,7 @@ bool processCmd(String Cmd) { // Process AT+ commands received via serial commun
     } else if (Cmd.indexOf("PASSWD=") == 0) {
       // AT+PASSWD=
       Cmd.remove(0,7);
+      Cmd.toLowerCase();
       wifiPW = Cmd;
       SetMemory();
       return true;
@@ -483,7 +484,8 @@ bool processCmd(String Cmd) { // Process AT+ commands received via serial commun
       return true;
     } if (Cmd == "Z") {
       // AT+Z (factory reset)
-      sysInit = 1;
+      wifiSSID = "LCC-WLAN";
+      wifiPW = "1a2b3c4d5e";
       SetMemory();
       ESP.restart();
     }
