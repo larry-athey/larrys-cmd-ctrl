@@ -519,9 +519,13 @@ function setPairing($DBcnx) {
   $Content  = "<div style=\"width: 31em; margin-top: 0.5em; margin-left: 0.25em;\">";
   $Content .=   "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
   $Content .=     "<div class=\"card-body\">";
-  $Content .=       "<p style=\"text-align: justify;\">This system can automatically pair an LCC Slave device and configure its wireless, so long as it is connected to the server's USB port.</p>";
-  $Content .=       "<p style=\"text-align: justify;\">This requires a USB data cable, not a charging-only cable. Meaning, a cable that allows you to transfer photos from your phone to your computer.</p>";
-  $Content .=       "<p style=\"text-align: justify;\">Once the LCC Slave unit is connected, click the Start button below and watch the device's status line for a success or failure message.</p>";
+  $Content .=       "<p style=\"text-align: justify;\" class=\"fw-bolder\">This system can automatically pair an LCC Slave device and configure its wireless, so long as it is connected to the server's USB port.</p>";
+  $Content .=       "<p style=\"text-align: justify;\" class=\"fw-bolder\">This requires a USB data cable, not a charging-only cable. Meaning, a cable that allows you to transfer photos from your phone to your computer.</p>";
+  $Content .=       "<p style=\"text-align: justify;\" class=\"fw-bolder\">Once the LCC Slave unit is connected, click the Start button below and watch the device's status line for a success or failure message.</p>";
+  $Content .=       "<div style=\"margin-top: 1em;\">";
+  $Content .=         "<p style=\"float: right; margin-right: 1em;\"><a href=\"index.php\" class=\"btn btn-danger fw-bolder\" name=\"cancel\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+  $Content .=         "<a href=\"process.php?pairing_id=" . $_GET["ID"] . "\" class=\"btn btn-primary fw-bolder\" name=\"device_pairing\" id=\"device_pairing\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Start</a></p>";
+  $Content .=       "</div>";
   $Content .=     "</div>";
   $Content .=   "</div>";
   $Content .= "</div>";

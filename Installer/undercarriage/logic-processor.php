@@ -42,7 +42,6 @@ if (mysqli_num_rows($Result) > 0) {
         if (strlen($Mac) == 17) {
           $Passed = true;
           $Update = mysqli_query($DBcnx,"UPDATE devices SET address='$Mac' WHERE ID=" . $Data[1]);
-          $Delete = mysqli_query($DBcnx,"DELETE FROM outbound WHERE ID=" . $Outbound["ID"]);
         }
       }
       if ($Passed) {
@@ -50,6 +49,7 @@ if (mysqli_num_rows($Result) > 0) {
       } else {
         $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-danger\">LCC Slave pairing failure</span>' WHERE ID=" . $Data[1]);
       }
+      $Delete = mysqli_query($DBcnx,"DELETE FROM outbound WHERE ID=" . $Outbound["ID"]);
     }
   }
 }
