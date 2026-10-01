@@ -71,6 +71,8 @@
 
 #ifndef STEPPER
 #include "DFRobotDFPlayerMini.h" // From https://github.com/DFRobot/DFRobotDFPlayerMini
+#else
+#include "AccelStepper.h"        // Stepper motor driver for use where non-blocking functionality is needed
 #endif
 
 #include "WiFi.h"                // ESP32 high-level WiFi connectivity library
@@ -123,25 +125,21 @@ WiFiServer Server(80);
 bool SFX = false;                // True if the sound effects system successfully initialized
 bool sfxLoop = false;            // True if a sound effect command is supposed to play endlessly
 byte cmdCount = 0;               // Counts the number of received mission control commands
-byte pulseIndex = 1;             // Tracks the color changes for the heartbeat/pulse LED
 byte motorDirection = 1;         // Motor direction, 0 = reverse, 1 = forward
 byte progressDir = 0;            // Motor speed progress direction, 0 = down, 1 = up
 byte sysInit = 0;                // Flag to indicate whether this is a first boot and no flash settings
 byte wifiCheckCounter = 0;       // Used to check the WiFi connection once every 30 seconds
 int Locations[16][3];            // Queue for caching location ID numbers and associated actions
 int soundFile = -1;              // Sound file number to play from the DFPlayer Mini
-unsigned long currentPos = 0;    // Stepper current position relative to targetPos
-unsigned long lastCheck = 0;     // Used to track 1-second checks in the main loop()
 unsigned long motorTimestamp = 0;// Timestamp of the last motor command execution
-unsigned long stepperCheck = 0;  // Used for stepper PWM time keeping in the main loop()
-unsigned long targetPos = 0;     // Stepper target position of the last executed command
+unsigned long targetPos = 0;     // Stepper target position of the current running command
 unsigned long targetRuntime = 0; // Timestamp of the motor end run (0 = indefinite runtime)
 float motorSpeed = 0.0;          // Current motor speed [0..100]
 float progressFactor = 0.0;      // How much (percent) to change the motor speed per second
 float targetSpeed = 0.0;         // Motor target speed [0..100]
 String Commands[17];             // Queue for caching up to 16 commands plus 1 repeat command 
 String myMacStr = "";            // MAC address string, used as the device ID in Mission Control
-String scriptCode = "";          // LedBasic script code downloaded from Mission Control
+String scriptCode = "";          // Current LedBasic script code downloaded from Mission Control
 String serverIP = "";            // Mission Control server IP address
 String wifiSSID = "LCC-WLAN";    // WiFi SSID (network name)
 String wifiPW = "1a2b3c4d5e";    // WiFi password
@@ -262,8 +260,6 @@ void setup() {
     }
   }
 
-  // Initialize the main loop() 1 second timer
-  lastCheck = millis();
 }
 //------------------------------------------------------------------------------------------------
 void ConnectWiFi() { // Connect to Mission Control access point
@@ -400,9 +396,7 @@ void setMotorDirection(byte Direction) { // Set the motor direction
   #endif
 }
 //------------------------------------------------------------------------------------------------
-void pulseLED() { // Update the color of the heartbeat/pulse LED
-  pulseIndex ++;
-  if (pulseIndex > 7) pulseIndex = 1;
+void pulseLED(byte pulseIndex) { // Update the color of the heartbeat/pulse LED
   if (pulseIndex == 1) {
     neopixel.setPixelColor(0,neopixel.Color(0,0,255));
   } else if (pulseIndex == 2) {
@@ -512,7 +506,8 @@ void queueCommand(String Header) {
 #include "lcc_api.h" // Inline function library for the LCC message processing functions.
 //------------------------------------------------------------------------------------------------
 void loop() {
-  static bool StepperOn = false;
+  static byte pulseIndex = 1;
+  static unsigned long lastCheck = millis();
   unsigned long stepperTime = micros();
   unsigned long CurrentTime = millis();
   if (CurrentTime > 4200000000) {
@@ -646,7 +641,9 @@ void loop() {
       wifiCheckCounter = 0;
     }
 
-    pulseLED();
+    pulseLED(pulseIndex);
+    pulseIndex ++;
+    if (pulseIndex > 7) pulseIndex = 1;
     lastCheck = CurrentTime;
   }
 
