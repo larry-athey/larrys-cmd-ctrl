@@ -142,6 +142,7 @@ float progressFactor = 0.0;      // How much (percent) to change the motor speed
 float targetSpeed = 0.0;         // Motor target speed [0..100]
 String Commands[17];             // Queue for caching up to 16 commands plus 1 repeat command 
 String myMacStr = "";            // MAC address string, used as the device ID in Mission Control
+String scriptCode = "";          // LedBasic script code downloaded from Mission Control
 String serverIP = "";            // Mission Control server IP address
 String wifiSSID;                 // WiFi SSID (network name)
 String wifiPW;                   // WiFi password
@@ -165,6 +166,7 @@ bool sendCommand(String Cmd) { // Send LCC messages to Mission Control
       //if (Serial) Serial.println("Received: " + Payload);
       if (Cmd.indexOf("/scene-request/") == 0) {
         // Payload will be an LedBasic script
+        scriptCode = Payload;
       } else {
         if (Payload != jsonSuccess) Result = false;
       }

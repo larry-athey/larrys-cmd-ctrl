@@ -148,8 +148,11 @@ inline void setupStepper(byte Direction, byte Speed, byte Resolution, int Steps)
   #endif
 }
 //------------------------------------------------------------------------------------------------
-inline void setupScene(int Scene) { // Pull an LedBasic script from the Mission Control server
-
+inline void setupScene(int Scene) { // Pull an LedBasic script from the Mission Control server and run it
+  if (sendCommand("/scene-request/" + String(Scene))) {
+    basic.compileFromText(scriptCode.c_str());
+    basic.play();
+  }
 }
 //------------------------------------------------------------------------------------------------
 inline void setupSound(int FileNumber, byte Loop) { // Set up sound effect background process
@@ -238,7 +241,7 @@ inline void runCommand(String Cmd) { // Execute a queued LCC mission control com
     if (partCount == 4) sendReplayRequest(parts[2],parts[3]);
   } else if (parts[1] == "scene") {
     //ID/scene/scene-id
-    if (partCount == 3) setupScene(parts[2]);
+    if (partCount == 3) setupScene(parts[2].toInt());
   } else if (parts[1] == "sound") {
     //ID/sound/file-number/loop
     if (partCount == 4) setupSound(parts[2].toInt(),parts[3].toInt());
