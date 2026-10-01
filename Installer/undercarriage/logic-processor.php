@@ -38,7 +38,7 @@ if (mysqli_num_rows($Result) > 0) {
       $Tries = 0;
       while (($Tries < 3) && (! $Passed)) {
         $Tries ++;
-        $Mac = shell_exec("/usr/share/lcc/usb-pair $USB $SSID $PASS | tail -n 1");
+        $Mac = trim(shell_exec("/usr/share/lcc/usb-pair $USB $SSID $PASS | tail -n 1"));
         if (strlen($Mac) == 17) {
           $Passed = true;
           $Update = mysqli_query($DBcnx,"UPDATE devices SET address='$Mac' WHERE ID=" . $Data[1]);
