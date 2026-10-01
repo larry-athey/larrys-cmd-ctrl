@@ -145,6 +145,12 @@ inline void setupStepper(byte Direction, byte Speed, byte Resolution, int Steps)
   5. Low	Low	High	1/16 step
   6. High	Low	High	1/32 step
   */
+
+  currentPos = 0;
+  motorDirection = Direction;
+  targetPos = Steps;
+  stepperSpeed = Speed;
+  stepperCheck = millis();
   #endif
 }
 //------------------------------------------------------------------------------------------------
