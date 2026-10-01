@@ -271,8 +271,8 @@ void setup() {
     Serial.println(myIP);
 
     // Start Bonjour/ZeroConf
-    if (MDNS.begin("esp32")) {
-      Serial.println("mDNS started - http://esp32.local");
+    if (MDNS.begin("lcc-slave")) {
+      Serial.println("mDNS started - http://lcc-slave.local");
     }
 
     // Set the server home page, sent upon browser connection
@@ -528,6 +528,11 @@ bool processCmd(String Cmd) { // Process AT+ commands received via serial commun
       wifiSSID = Cmd;
       SetMemory();
       return true;
+    } if (Cmd == "UPDATE") {
+      // AT+UPDATE
+      FWupdate = true;
+      SetMemory();
+      ESP.restart();
     } if (Cmd == "VERSION") {
       // AT+VERSION
       Serial.println("v" + Version);
