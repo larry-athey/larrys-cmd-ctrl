@@ -71,6 +71,8 @@
 
 #ifndef STEPPER
 #include "DFRobotDFPlayerMini.h" // From https://github.com/DFRobot/DFRobotDFPlayerMini
+#include "Adafruit_NeoPixel.h"   // Used for LedBasic scripting of LED lighting scenes
+#include "LedBasic.h"            // NeoPixel BASIC scripting from https://github.com/vktrsansara/LedBasic (Russian)
 #else
 #include "AccelStepper.h"        // Stepper motor driver for use where non-blocking functionality is needed
 #endif
@@ -80,8 +82,6 @@
 #include "HTTPClient.h"          // HTTP client library used for communicating with slave units
 #include "ESP32Ping.h"           // ICMP (ping) library from https://github.com/marian-craciunescu/ESP32Ping
 #include "Preferences.h"         // ESP32 Flash memory read/write library
-#include "Adafruit_NeoPixel.h"   // Used for LedBasic scripting of LED lighting scenes
-#include "LedBasic.h"            // NeoPixel BASIC scripting from https://github.com/vktrsansara/LedBasic (Russian)
 //------------------------------------------------------------------------------------------------
 #define LED_PIN 21               // Internal LED on GPIO21
 #define TOTAL_LEDS 64            // Total number of LEDs on the Neopixel/WS2812 lighting bus
@@ -103,9 +103,7 @@
 //------------------------------------------------------------------------------------------------
 #ifndef STEPPER
 DFRobotDFPlayerMini myDFPlayer;  // Set up the sound effects system object
-#endif
 Adafruit_NeoPixel neopixel(1,LED_PIN,NEO_RGB + NEO_KHZ800); // Set up the heartbeat/pulse LED
-#ifndef STEPPER
 Adafruit_NeoPixel lights(TOTAL_LEDS,BUS_3,NEO_RGB + NEO_KHZ800); // Set up the Neopixel/WS2812 lighting bus
 LedBasic basic( // Set up the LedBasic callbacks
   TOTAL_LEDS,
@@ -515,9 +513,6 @@ void loop() {
     ESP.restart();
   } 
 
-  // Give the LedBasic engine some CPU time on every loop iteration
-  basic.tick();
-
   // Check for LCC commands and handle as necessary
   WiFiClient Client = Server.available();
   if (Client) {
@@ -547,6 +542,9 @@ void loop() {
   }
 
   #ifndef STEPPER
+  // Give the LedBasic engine some CPU time on every loop iteration
+  basic.tick();
+
   // Handle the sound effects as necessary
   if (SFX) {
     if (soundFile >= 0) {
