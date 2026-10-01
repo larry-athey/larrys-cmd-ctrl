@@ -16,7 +16,7 @@
 // if the Mission Control server is hard-wired to your network, its WiFi AP doesn't route into it.
 // This system is still totally functional without any internet access into the building.
 //
-// FOLLOWUP: Yes, I also tried using ESP-NOW and it was even more unreliable than the LoRa modems.
+// FOLLOWUP: Yes, I also tried using ESP-NOW and it was even less reliable than the LoRa modems.
 //
 // This is an LCC slave unit prototype that can be used for anything from a model train locomotive
 // to anything else where you may need to wirelessly control a brushed motor with a PWM, a stepper
@@ -82,6 +82,7 @@
 #include "HTTPClient.h"          // HTTP client library used for communicating with slave units
 #include "ESP32Ping.h"           // ICMP (ping) library from https://github.com/marian-craciunescu/ESP32Ping
 #include "Preferences.h"         // ESP32 Flash memory read/write library
+#include "ota_update.h"          // Over-The-Air firmware updating library
 //------------------------------------------------------------------------------------------------
 #define LED_PIN 21               // Internal LED on GPIO21
 #define TOTAL_LEDS 64            // Total number of LEDs on the Neopixel/WS2812 lighting bus
@@ -120,9 +121,10 @@ LedBasic basic( // Set up the LedBasic callbacks
 Preferences preferences;
 WiFiServer Server(80);
 //------------------------------------------------------------------------------------------------
+bool FWupdate = false;           // True if the system should start up in OTA firmware update mode
 bool SFX = false;                // True if the sound effects system successfully initialized
 bool sfxLoop = false;            // True if a sound effect command is supposed to play endlessly
-byte cmdCount = 0;               // Counts the number of received mission control commands
+bool UpdateMode = false;         // True if the LCC Slave is running in firmware update mode
 byte motorDirection = 1;         // Motor direction, 0 = reverse, 1 = forward
 byte progressDir = 0;            // Motor speed progress direction, 0 = down, 1 = up
 byte sysInit = 0;                // Flag to indicate whether this is a first boot and no flash settings
@@ -248,13 +250,71 @@ void setup() {
     Locations[i][2] = 0;
   }
 
-  ConnectWiFi();
+  // FWupdate is only true if the API call was made to activate the OTA firmware updater
+  if (FWupdate) {
+    FWupdate = false;
+    SetMemory();
+    Server.end();
+    UpdateMode = true;
 
-  if (Serial) {
-    if (WiFi.status() == WL_CONNECTED) {
-      Serial.println("LCC Slave waiting for commands.");
-    } else{
-      Serial.println("LCC Slave waiting for network connection.");
+    Serial.println("Starting LCC Slave Firmware Updater (AP mode)...");
+
+    // Start WiFi Access Point
+    WiFi.mode(WIFI_AP);
+    uint8_t protocol = WIFI_PROTOCOL_11B | WIFI_PROTOCOL_11G | WIFI_PROTOCOL_11N;
+    esp_wifi_set_protocol(WIFI_IF_AP,protocol);
+    esp_wifi_set_bandwidth(WIFI_IF_AP,WIFI_BW_HT20);
+    esp_wifi_set_max_tx_power(84);
+    WiFi.softAP(ap_ssid,ap_password,6);
+    IPAddress myIP = WiFi.softAPIP();
+    Serial.print("AP IP address: ");
+    Serial.println(myIP);
+
+    // Start Bonjour/ZeroConf
+    if (MDNS.begin("esp32")) {
+      Serial.println("mDNS started - http://esp32.local");
+    }
+
+    // Set the server home page, sent upon browser connection
+    server.on("/",HTTP_GET,[]() {
+      server.send(200,"text/html",serverIndex);
+    });
+
+    // Set the OTA firmware update handler
+    server.on("/update",HTTP_POST,[]() {
+      server.sendHeader("Connection","close");
+      server.send(200,"text/plain",(Update.hasError()) ? "FAIL" : "OK");
+      ESP.restart();
+    },[]() {
+      HTTPUpload& upload = server.upload();
+      if (upload.status == UPLOAD_FILE_START) {
+        Serial.printf("Update: %s\n",upload.filename.c_str());
+        if (!Update.begin(UPDATE_SIZE_UNKNOWN)) {
+          Update.printError(Serial);
+        }
+      } else if (upload.status == UPLOAD_FILE_WRITE) {
+        if (Update.write(upload.buf,upload.currentSize) != upload.currentSize) {
+          Update.printError(Serial);
+        }
+      } else if (upload.status == UPLOAD_FILE_END) {
+        if (Update.end(true)) {
+          Serial.printf("Update Success: %u bytes\n",upload.totalSize);
+        } else {
+          Update.printError(Serial);
+        }
+      }
+    });
+
+    server.begin();
+    Serial.println("HTTP server ready. Connect to the AP and go to 192.168.4.1");
+  } else {
+    ConnectWiFi();
+    if (Serial) {
+      if (WiFi.status() == WL_CONNECTED) {
+        Serial.println("LCC Slave waiting for commands.");
+      } else{
+        Serial.println("LCC Slave waiting for network connection.");
+      }
     }
   }
 
@@ -301,6 +361,7 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   wifiSSID   = preferences.getString("wifi_ssid","LCC-WLAN");
   wifiPW     = preferences.getString("wifi_pw","1a2b3c4d5e");
   sysInit    = preferences.getUInt("sys_init",1);
+  FWupdate   = preferences.getBool("fw_update",false);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -309,6 +370,7 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putString("wifi_ssid",wifiSSID);
   preferences.putString("wifi_pw",wifiPW);
   preferences.putUInt("sys_init",sysInit);
+  preferences.putBool("fw_update",FWupdate);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -493,7 +555,6 @@ void queueCommand(String Header) {
   for (byte i = 0; i <= 16; i ++) { // Add the command to the queue
     if (Commands[i].length() == 0) {
       Commands[i] = Header;
-      cmdCount ++;
       break;
     }
   }
@@ -504,6 +565,12 @@ void queueCommand(String Header) {
 #include "lcc_api.h" // Inline function library for the LCC message processing functions.
 //------------------------------------------------------------------------------------------------
 void loop() {
+  if (UpdateMode) { // Firmware update mode is running
+    server.handleClient();
+    delay(1);
+    return;
+  }
+
   static byte pulseIndex = 1;
   static unsigned long lastCheck = millis();
   unsigned long stepperTime = micros();

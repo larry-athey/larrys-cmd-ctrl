@@ -257,6 +257,11 @@ inline void runCommand(String Cmd) { // Execute a queued LCC mission control com
   } else if (parts[1] == "switch") {
     //ID/switch/gpio/state
     if (partCount == 4) toggleSwitch(parts[2].toInt(),parts[3].toInt());
+  } else if (parts[1] == "update-firmware") {
+    //ID/update-firmware (reboot in OTA firmware updater mode)
+    FWupdate = true;
+    SetMemory();
+    ESP.restart();
   }
 }
 //------------------------------------------------------------------------------------------------
@@ -274,7 +279,6 @@ inline void processQueue() { // Process the next command in the queue (FIFO styl
       Commands[i] = Commands[i + 1];
     }
     Commands[16].clear(); // Add a blank slot to the end of the queue
-    cmdCount --;
   }
 }
 //------------------------------------------------------------------------------------------------
