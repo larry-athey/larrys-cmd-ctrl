@@ -264,7 +264,7 @@ function editDevice($DBcnx) {
     $Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE ID=" . $_GET["ID"]);
     $Dev = mysqli_fetch_assoc($Result);
   } else {
-    $Dev["address"]    = "";
+    $Dev["address"]    = "00-00-00-00-00-00";
     $Dev["dev_name"]   = "";
     $Dev["dev_type"]   = 0;
     $Dev["favorites"]  = "";
@@ -509,6 +509,21 @@ function editTask($DBcnx) {
   $Content .=     "</div>";
   $Content .=   "</div>";
   $Content .=   "</form>";
+  $Content .= "</div>";
+  return $Content;
+}
+//---------------------------------------------------------------------------------------------------
+function setPairing($DBcnx) {
+  $Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE ID=" . $_GET["ID"]);
+  $Dev = mysqli_fetch_assoc($Result);
+  $Content  = "<div style=\"width: 31em; margin-top: 0.5em; margin-left: 0.25em;\">";
+  $Content .=   "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
+  $Content .=     "<div class=\"card-body\">";
+  $Content .=       "<p style=\"text-align: justify;\">This system can automatically pair an LCC Slave device and configure its wireless, so long as it is connected to the server's USB port.</p>";
+  $Content .=       "<p style=\"text-align: justify;\">This requires a USB data cable, not a charging-only cable. Meaning, a cable that allows you to transfer photos from your phone to your computer.</p>";
+  $Content .=       "<p style=\"text-align: justify;\">Once the LCC Slave unit is connected, click the Start button below and watch the device's status line for a success or failure message.</p>";
+  $Content .=     "</div>";
+  $Content .=   "</div>";
   $Content .= "</div>";
   return $Content;
 }

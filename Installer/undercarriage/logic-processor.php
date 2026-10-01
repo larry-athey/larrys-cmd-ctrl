@@ -6,7 +6,7 @@ require_once("/var/www/html/subs.php");
 $DBcnx = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 //---------------------------------------------------------------------------------------------
 // Check for and send unsent outbound command messages
-$Result = mysqli_query($DBcnx,"SELECT * FROM outbound WHERE sent=0");
+$Result = mysqli_query($DBcnx,"SELECT * FROM outbound WHERE (sent=0) AND (address <> '00-00-00-00-00-00')");
 if (mysqli_num_rows($Result) > 0) {
   while ($Outbound = mysqli_fetch_assoc($Result)) {
     $Tries = 0;
@@ -19,6 +19,37 @@ if (mysqli_num_rows($Result) > 0) {
       $Update = mysqli_query($DBcnx,"UPDATE outbound SET sent_time=NOW(),ack_time=NOW(),sent=1,ack=1 WHERE ID='" . $Outbound["ID"] . "'");
     } else {
       $Update = mysqli_query($DBcnx,"UPDATE outbound SET sent_time=NOW(),sent=1 WHERE ID='" . $Outbound["ID"] . "'");
+    }
+  }
+}
+
+// Check for device pairing requests
+$Result = mysqli_query($DBcnx,"SELECT * FROM outbound WHERE address='00-00-00-00-00-00'");
+if (mysqli_num_rows($Result) > 0) {
+  $Result2 = mysqli_query($DBcnx,"SELECT * FROM settings WHERE ID=1");
+  $RS = mysqli_fetch_assoc($Result2);
+  $USB  = $RS["usb_device"];
+  $SSID = $RS["ssid"];
+  $PASS = $RS["wifi_pw"];
+  while ($Outbound = mysqli_fetch_assoc($Result)) {
+    if (InStr("/pairing/",$Outbound["msg"])) {
+      $Data = explode("/",trim($Outbound["msg"],"/"));
+      $Passed = false;
+      $Tries = 0;
+      while (($Tries < 3) && (! $Passed)) {
+        $Tries ++;
+        $Mac = shell_exec("/usr/share/lcc/usb-pair $USB $SSID $PASS | tail -n 1");
+        if (strlen($Mac) == 17) {
+          $Passed = true;
+          $Update = mysqli_query($DBcnx,"UPDATE devices SET address='$Mac' WHERE ID=" . $Data[1]);
+          $Delete = mysqli_query($DBcnx,"DELETE FROM outbound WHERE ID=" . $Outbound["ID"]);
+        }
+      }
+      if ($Passed) {
+        $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-success\">LCC Slave successfully paired</span>' WHERE ID=" . $Data[1]);
+      } else {
+        $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-danger\">LCC Slave pairing failure</span>' WHERE ID=" . $Data[1]);
+      }
     }
   }
 }

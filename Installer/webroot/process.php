@@ -29,6 +29,10 @@ elseif (isset($_GET["delete_task"])) {
   $Return = "/index.php?page=schedule";
 }
 //---------------------------------------------------------------------------------------------------
+elseif (isset($_GET["pairing_id"])) {
+
+}
+//---------------------------------------------------------------------------------------------------
 elseif (isset($_POST["edit_command"])) {
   if ($_POST["ID"] == 0) {
     $Result = mysqli_query($DBcnx,"INSERT INTO commands (cmd_name) VALUES ('Temp')");
@@ -86,7 +90,8 @@ elseif (isset($_POST["edit_device"])) {
   } else {
     $ID = $_POST["ID"];
   }
-  $address = $_POST["address"];
+  $address = trim($_POST["address"]);
+  if ($address == "") $address = "00-00-00-00-00-00";
   $dev_name = mysqli_escape_string($DBcnx,trim($_POST["dev_name"]));
   $dev_type = $_POST["dev_type"];
   if (isset($_POST["favorites"])) $favorites = implode("|",$_POST["favorites"]);

@@ -254,6 +254,10 @@ function getDeviceStats($DBcnx,$Address) {
   $Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE address='$Address'");
   $Dev = mysqli_fetch_assoc($Result);
   $Content  = "<div class=\"row\">";
+  $Content .=   "<div class=\"col-5 text-secondary-emphasis\">MAC Address:</div>";
+  $Content .=   "<div class=\"col-7\" style=\"text-align: right;\"><a href=\"/index.php?page=pairing&ID=" . $Dev["ID"] . "\"><span class=\"text-primary\">$Address</span></a></div>";
+  $Content .= "</div>";
+  $Content .= "<div class=\"row\">";
   $Content .=   "<div class=\"col-5 text-secondary-emphasis\">Timer Active:</div>";
   $Content .=   "<div class=\"col-7\" style=\"text-align: right;\"><a href=\"#\" onClick=\"LoadForm('Set Timer','1','" . $Dev["address"] . "')\">" . IntToYNC(timerActive($DBcnx,$Dev["address"])) . "</a></div>";
   $Content .= "</div>";

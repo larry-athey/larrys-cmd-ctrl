@@ -28,15 +28,6 @@ require_once("html.php");
     //---------------------------------------------------------------------------------------------------
   </script>
   <style>
-/*
-    [data-bs-theme="dark"] {
-      --bs-body-bg: #121212;
-      --bs-body-color: #e0e0e0;
-    }
-    [data-bs-theme="dark"] .navbar.bg-dark {
-      background-color: #121212 !important;
-    }
-*/
     .navbar-brand-img {
       max-height: 40px;
       width: auto;
@@ -72,6 +63,7 @@ $DBcnx = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 
 echo(drawMenu($DBcnx) . "\n");
 
+/*
 if (isset($_GET["cmd"])) {
   if ($_GET["cmd"] == 0) {
     echo(sendCommand($DBcnx,100,"/motor/1/0/15/0"));
@@ -87,6 +79,7 @@ if (isset($_GET["cmd"])) {
     echo(sendCommand($DBcnx,100,"/sound/1/0"));
   }
 }
+*/
 
 $Content  = "<div class=\"container-fluid\" style=\"align: left; margin-top: 0.5em;\">";
 $Content .=   "<div class=\"row\">";
@@ -114,6 +107,8 @@ if (! isset($_GET["page"])) {
     $Content .= showLocations($DBcnx);
   } elseif ($_GET["page"] == "logs") {
     $Content .= showLogs($DBcnx);
+  } elseif ($_GET["page"] == "pairing") {
+    $Content .= setPairing($DBcnx);
   } elseif ($_GET["page"] == "schedule") {
     $Content .= showSchedule($DBcnx);
   } elseif ($_GET["page"] == "scripts") {
