@@ -148,7 +148,6 @@ inline void setupStepper(byte Direction, byte Resolution, int Steps) { // Set up
 
   motorDirection = Direction;
   targetPos = Steps;
-  stepperCheck = millis();
   #endif
 }
 //------------------------------------------------------------------------------------------------
@@ -161,6 +160,7 @@ inline void setupScene(int Scene) { // Pull an LedBasic script from the Mission 
 }
 //------------------------------------------------------------------------------------------------
 inline void setupSound(int FileNumber, byte Loop) { // Set up sound effect background process
+  #ifndef STEPPER
   if (SFX) {
     soundFile = FileNumber;
     if (Loop == 1) {
@@ -173,6 +173,7 @@ inline void setupSound(int FileNumber, byte Loop) { // Set up sound effect backg
       Serial.println("Playback loop: " + String(Loop));
     }
   }
+  #endif
 }
 //------------------------------------------------------------------------------------------------
 inline void toggleSwitch(byte gpioPin, byte State) { // Toggle a specific GPIO pin
