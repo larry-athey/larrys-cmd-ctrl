@@ -82,7 +82,7 @@
 #include "LedBasic.h"            // NeoPixel BASIC scripting from https://github.com/vktrsansara/LedBasic (Russian)
 //------------------------------------------------------------------------------------------------
 #define LED_PIN 21               // Internal LED on GPIO21
-#define TOTAL_LEDS 16            // Total number of LEDs on the Neopixel/WS2812 lighting bus
+#define TOTAL_LEDS 64            // Total number of LEDs on the Neopixel/WS2812 lighting bus
 // GPIO Left side (USB top)
 #define LIMIT_1 1                // Limit switch 1 (forward)
 #define LIMIT_2 2                // Limit switch 2 (reverse)
