@@ -10,8 +10,17 @@ if ((isset($_GET["addr"])) && (isset($_GET["cmd"]))) {
   $Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE address='$Address'");
   if (mysqli_num_rows($Result) > 0) {
     $Insert = mysqli_query($DBcnx,"INSERT INTO inbound (address,msg,creation) VALUES ('$Address','$Cmd',NOW())");
+    $LastID = mysqli_insert_id($DBcnx);
     if (InStr("/scene-request/",$Cmd)) { // LedBasic scene script requested, send back the script, not the $jsonSuccess result
-
+      $Update = mysqli_query($DBcnx,"UPDATE inbound SET rcvd=1 WHERE ID=" . $LastID);
+      $Data = explode("/",trim($Cmd,"/"));
+      $Result = mysqli_query($DBcnx,"SELECT * FROM scenes WHERE ID=" . $Data[1]);
+      if (mysqli_num_rows($Result) > 0) {
+        $Scene = mysqli_fetch_assoc($Result);
+        echo($Scene["source"]);
+      } else {
+        echo("10 CLEAR\n");
+      }
     } else {
       echo("$jsonSuccess\n");
     }

@@ -150,6 +150,7 @@ inline void setupStepper(byte Direction, byte Speed, byte Resolution, int Steps)
 //------------------------------------------------------------------------------------------------
 inline void setupScene(int Scene) { // Pull an LedBasic script from the Mission Control server and run it
   if (sendCommand("/scene-request/" + String(Scene))) {
+    basic.stop();
     basic.compileFromText(scriptCode.c_str());
     basic.play();
   }

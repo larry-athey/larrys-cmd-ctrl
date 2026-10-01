@@ -608,9 +608,9 @@ function showHomePage($DBcnx) {
     $Content .=   "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
     $Content .=     "<div class=\"card-header\"><span class=\"text-muted fw-bolder\">" . $Dev["dev_name"] . "</span></div>";
     $Content .=     "<div class=\"card-body\" id=\"device_stats\">";
-    $Content .=        AjaxRefreshJS("device_stats&address=" . $Dev["address"],$RandID,1000);
+    $Content .=        AjaxRefreshJS("device_stats&address=" . $Dev["ID"],$RandID,1000);
     $Content .=        "<div id=\"$RandID\">";
-    $Content .=        getDeviceStats($DBcnx,$Dev["address"]);
+    $Content .=        getDeviceStats($DBcnx,$Dev["ID"]);
     $Content .=        "</div>";
     $Content .=     "</div>";
     $Content .=     "<div class=\"border-bottom\"></div>";
