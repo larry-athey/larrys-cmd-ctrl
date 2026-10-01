@@ -127,14 +127,14 @@ byte pulseIndex = 1;             // Tracks the color changes for the heartbeat/p
 byte motorDirection = 1;         // Motor direction, 0 = reverse, 1 = forward
 byte progressDir = 0;            // Motor speed progress direction, 0 = down, 1 = up
 byte sysInit = 0;                // Flag to indicate whether this is a first boot and no flash settings
+byte stepperSpeed = 0;           // Speed percentage for the stepper motor PWM
 byte wifiCheckCounter = 0;       // Used to check the WiFi connection once every 30 seconds
 int Locations[16][3];            // Queue for caching location ID numbers and associated actions
 int soundFile = -1;              // Sound file number to play from the DFPlayer Mini
-unsigned long cmdPos = 0;        // Stepper current command position of the last executed command
-unsigned long currentPos = 0;    // Stepper current position reflected in total 1/32 steps
+unsigned long currentPos = 0;    // Stepper current position relative to targetPos
 unsigned long lastCheck = 0;     // Used to track 1-second checks in the main loop()
 unsigned long motorTimestamp = 0;// Timestamp of the last motor command execution
-unsigned long stepCheck = 0;     // Used for stepper pulse time keeping in the main loop()
+unsigned long stepperCheck = 0;  // Used for stepper PWM time keeping in the main loop()
 unsigned long targetPos = 0;     // Stepper target position of the last executed command
 unsigned long targetRuntime = 0; // Timestamp of the motor end run (0 = indefinite runtime)
 float motorSpeed = 0.0;          // Current motor speed [0..100]
@@ -513,6 +513,7 @@ void queueCommand(String Header) {
 #include "lcc_api.h" // Inline function library for the LCC message processing functions.
 //------------------------------------------------------------------------------------------------
 void loop() {
+  static StepperOn = false;
   unsigned long stepperTime = micros();
   unsigned long CurrentTime = millis();
   if (CurrentTime > 4200000000) {
@@ -651,6 +652,7 @@ void loop() {
   }
 
   #ifdef STEPPER
+    // Stepper speed works as a 1-second PWM, each 1% equals 10ms motor-on time per second
 
   #endif
 
