@@ -1,0 +1,48 @@
+#!/bin/bash
+#------------------------------------------------------------------------------------------------
+# Larry's CMD & CTRL (LCC) | (CopyLeft) 2025-Present | Larry Athey (https://panhandleponics.com)
+#
+# This script automatically configures the WiFi network settings in an LCC Slave unit and echoes
+# back its MAC address.
+#------------------------------------------------------------------------------------------------
+
+USB="/dev/ttyACM0"
+BAUD="115200"
+SSID="LCC-WLAN"
+PASS="1a2b3c4d5e"
+
+# Override settings only if exactly three arguments were passed
+if [[ $# -eq 3 ]]; then
+  USB="$1"
+  SSID="$2"
+  PASS="$3"
+fi
+
+# Configure the serial port
+stty -F "$USB" "$BAUD" cs8 -cstopb -parenb raw -echo
+
+# Function to send a command and capture the reply
+at_cmd() {
+  local cmd="$1"
+  # Clear any leftover data
+  timeout 0.1 cat "$USB" > /dev/null 2>&1 || true
+
+  # Send the command (add CR)
+  printf "%s\r" "$cmd" > "$USB"
+
+  # Read the response (wait up to ~2 seconds)
+  timeout 2 cat "$USB"
+}
+
+# Send the AT configuration commands
+MAC=$(at_cmd "AT+MAC" | tr -d '\r' | sed 's/[[:space:]]*$//' | head -n1)
+
+echo "Setting WiFi SSID: $SSID"
+NULL=$(at_cmd "AT+SSID=$SSID")
+
+echo "Setting WiFi Password: $PASS"
+NULL=$(at_cmd "AT+PASSWD=$PASS")
+
+echo $MAC
+
+NULL=$(at_cmd "AT+RECON" > /dev/null 2>&1 || true)

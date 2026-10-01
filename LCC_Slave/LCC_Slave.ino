@@ -447,6 +447,10 @@ bool processCmd(String Cmd) { // Process AT+ commands received via serial commun
       wifiPW = Cmd;
       SetMemory();
       return true;
+    } if (Cmd == "RECON") {
+      // AT+RECON
+      ConnectWiFi();
+      return true;
     } if (Cmd == "RESET") {
       // AT+RESET
       Serial.println("Rebooting...");
