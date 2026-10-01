@@ -144,7 +144,7 @@ String Commands[17];             // Queue for caching up to 16 commands plus 1 r
 String myMacStr = "";            // MAC address string, used as the device ID in Mission Control
 String scriptCode = "";          // LedBasic script code downloaded from Mission Control
 String serverIP = "";            // Mission Control server IP address
-String wifiSSID = "LCC-LAN";     // WiFi SSID (network name)
+String wifiSSID = "LCC-WLAN";    // WiFi SSID (network name)
 String wifiPW = "1a2b3c4d5e";    // WiFi password
 String Version = "1.0.1";        // Current release version of the project
 
