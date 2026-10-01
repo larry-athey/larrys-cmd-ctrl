@@ -73,16 +73,16 @@
 #include "DFRobotDFPlayerMini.h" // From https://github.com/DFRobot/DFRobotDFPlayerMini
 #endif
 
-#include "Adafruit_NeoPixel.h"   // Used for LedBasic scripting of LED lighting scenes
 #include "WiFi.h"                // ESP32 high-level WiFi connectivity library
 #include "esp_wifi.h"            // ESP32 low-level WiFi connectivity library
 #include "HTTPClient.h"          // HTTP client library used for communicating with slave units
 #include "ESP32Ping.h"           // ICMP (ping) library from https://github.com/marian-craciunescu/ESP32Ping
 #include "Preferences.h"         // ESP32 Flash memory read/write library
+#include "Adafruit_NeoPixel.h"   // Used for LedBasic scripting of LED lighting scenes
 #include "LedBasic.h"            // NeoPixel BASIC scripting from https://github.com/vktrsansara/LedBasic (Russian)
 //------------------------------------------------------------------------------------------------
 #define LED_PIN 21               // Internal LED on GPIO21
-#define TOTAL_LEDS 2             // Total number of LEDs on the Neopixel/WS2812 lighting bus
+#define TOTAL_LEDS 16            // Total number of LEDs on the Neopixel/WS2812 lighting bus
 // GPIO Left side (USB top)
 #define LIMIT_1 1                // Limit switch 1 (forward)
 #define LIMIT_2 2                // Limit switch 2 (reverse)
@@ -105,6 +105,17 @@ DFRobotDFPlayerMini myDFPlayer;  // Set up the sound effects system object
 Adafruit_NeoPixel neopixel(1,LED_PIN,NEO_RGB + NEO_KHZ800); // Set up the heartbeat/pulse LED
 #ifndef STEPPER
 Adafruit_NeoPixel lights(TOTAL_LEDS,BUS_3,NEO_RGB + NEO_KHZ800); // Set up the Neopixel/WS2812 lighting bus
+LedBasic basic( // Set up the LedBasic callbacks
+  TOTAL_LEDS,
+  // set pixel
+  [](uint16_t pos, uint8_t r, uint8_t g, uint8_t b) {
+    lights.setPixelColor(pos, lights.Color(r, g, b));
+  },
+  // show
+  []() { lights.show(); },
+  // clear
+  []() { lights.clear(); lights.show(); }
+);
 #endif
 Preferences preferences;
 WiFiServer Server(80);
@@ -498,6 +509,9 @@ void loop() {
     // Reboot the system if we're reaching the maximum long integer value of CurrentTime (49 days)
     ESP.restart();
   } 
+
+  // Give the LedBasic engine some CPU time on every loop iteration
+  basic.tick();
 
   // Check for LCC commands and handle as necessary
   WiFiClient Client = Server.available();
