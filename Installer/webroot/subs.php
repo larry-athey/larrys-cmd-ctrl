@@ -51,8 +51,6 @@ function checkDays($DayArray) {
 }
 //---------------------------------------------------------------------------------------------------
 function createMessage($DBcnx,$ID) {
-  // Command replays were an initial idea and then I realized that they only need to exist in scripts.
-  // The replay field in the command database is currently only used to control sound effect looping.
   // The |# at the end of each message is the command replay flag, but is not implemented in the UI.
   $Msg = "";
   $Result = mysqli_query($DBcnx,"SELECT * FROM commands WHERE ID=$ID");
@@ -61,7 +59,7 @@ function createMessage($DBcnx,$ID) {
     if ($Cmd["cmd_type"] == 1) { // Motor Control
       $Msg = "/motor/" . $Cmd["direction"] . "/" . $Cmd["speed"] . "/" . $Cmd["progression"] . "/" . $Cmd["duration"] . "|0";
     } elseif ($Cmd["cmd_type"] == 2) { // Stepper Control
-      $Msg = "/stepper/" . $Cmd["direction"] . "/" . $Cmd["speed"] . "/" . $Cmd["resolution"] . "/" . $Cmd["steps"] . "|0";
+      $Msg = "/stepper/" . $Cmd["direction"] . "/" . $Cmd["resolution"] . "/" . $Cmd["steps"] . "|0";
     } elseif ($Cmd["cmd_type"] == 3) { // Location based action
       $Msg = "/location/" . $Cmd["location_id"] . "/" . $Cmd["location_action"] . "/" . $Cmd["location_data"] . "|0";
     } elseif ($Cmd["cmd_type"] == 4) { // Sound effects

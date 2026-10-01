@@ -183,10 +183,6 @@ function editCommand($DBcnx) {
     $Content .=    directionSelector($Cmd["direction"]);
     $Content .= "</div>";
     $Content .= "<div style=\"margin-top: 0.5em;\">";
-    $Content .=   "<label for=\"speed\" class=\"form-label fw-bolder\">Speed [0..100] Percent</label>";
-    $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"speed\" name=\"speed\" min=\"0\" max=\"100\" step=\"1\" value=\"" . $Cmd["speed"] . "\">";
-    $Content .= "</div>";
-    $Content .= "<div style=\"margin-top: 0.5em;\">";
     $Content .=   "<label for=\"resolution\" class=\"form-label fw-bolder\">Resolution</label>";
     $Content .=    resolutionSelector($Cmd["resolution"]);
     $Content .= "</div>";

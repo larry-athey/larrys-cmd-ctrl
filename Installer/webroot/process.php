@@ -53,10 +53,9 @@ elseif (isset($_POST["edit_command"])) {
     $Result = mysqli_query($DBcnx,"UPDATE commands SET cmd_name='$cmd_name',cmd_type=$cmd_type,cmd_class=$cmd_class,direction=$direction,speed=$speed,progression=$progression,duration=$duration WHERE ID=$ID");
   } elseif ($_POST["cmd_type"] == 2) {
     $direction = $_POST["direction"];
-    $speed = $_POST["speed"];
     $resolution = $_POST["resolution"];
     $steps = $_POST["steps"];
-    $Result = mysqli_query($DBcnx,"UPDATE commands SET cmd_name='$cmd_name',cmd_type=$cmd_type,cmd_class=$cmd_class,direction=$direction,speed=$speed,resolution=$resolution,steps=$steps WHERE ID=$ID");
+    $Result = mysqli_query($DBcnx,"UPDATE commands SET cmd_name='$cmd_name',cmd_type=$cmd_type,cmd_class=$cmd_class,direction=$direction,resolution=$resolution,steps=$steps WHERE ID=$ID");
   } elseif ($_POST["cmd_type"] == 3) {
     $location_id = $_POST["location_id"];
     $location_action = $_POST["location_action"];

@@ -134,7 +134,7 @@ inline void setupMotor(byte Direction, float Speed, int Progression, int Duratio
   #endif
 }
 //------------------------------------------------------------------------------------------------
-inline void setupStepper(byte Direction, byte Speed, byte Resolution, int Steps) { // Set up stepper background process
+inline void setupStepper(byte Direction, byte Resolution, int Steps) { // Set up stepper background process
   #ifdef STEPPER
   /*
      M0	M1	M2	Step Size
@@ -149,7 +149,6 @@ inline void setupStepper(byte Direction, byte Speed, byte Resolution, int Steps)
   currentPos = 0;
   motorDirection = Direction;
   targetPos = Steps;
-  stepperSpeed = Speed;
   stepperCheck = millis();
   #endif
 }
@@ -253,8 +252,8 @@ inline void runCommand(String Cmd) { // Execute a queued LCC mission control com
     //ID/sound/file-number/loop
     if (partCount == 4) setupSound(parts[2].toInt(),parts[3].toInt());
   } else if (parts[1] == "stepper") {
-    //ID/stepper/direction/speed/resolution/steps
-    if (partCount == 6) setupStepper(parts[2].toInt(),parts[3].toInt(),parts[4].toInt(),parts[5].toInt());
+    //ID/stepper/direction/resolution/steps
+    if (partCount == 5) setupStepper(parts[2].toInt(),parts[3].toInt(),parts[4].toInt());
   } else if (parts[1] == "switch") {
     //ID/switch/gpio/state
     if (partCount == 4) toggleSwitch(parts[2].toInt(),parts[3].toInt());

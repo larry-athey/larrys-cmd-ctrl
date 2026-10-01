@@ -127,7 +127,6 @@ byte pulseIndex = 1;             // Tracks the color changes for the heartbeat/p
 byte motorDirection = 1;         // Motor direction, 0 = reverse, 1 = forward
 byte progressDir = 0;            // Motor speed progress direction, 0 = down, 1 = up
 byte sysInit = 0;                // Flag to indicate whether this is a first boot and no flash settings
-byte stepperSpeed = 0;           // Speed percentage for the stepper motor PWM
 byte wifiCheckCounter = 0;       // Used to check the WiFi connection once every 30 seconds
 int Locations[16][3];            // Queue for caching location ID numbers and associated actions
 int soundFile = -1;              // Sound file number to play from the DFPlayer Mini
@@ -513,7 +512,7 @@ void queueCommand(String Header) {
 #include "lcc_api.h" // Inline function library for the LCC message processing functions.
 //------------------------------------------------------------------------------------------------
 void loop() {
-  static StepperOn = false;
+  static bool StepperOn = false;
   unsigned long stepperTime = micros();
   unsigned long CurrentTime = millis();
   if (CurrentTime > 4200000000) {
