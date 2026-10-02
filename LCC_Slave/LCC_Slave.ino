@@ -569,14 +569,13 @@ void loop() {
   static unsigned long ledUpdate = 0;
   static unsigned long lastCheck = millis();
   float angle = 0.0;
-  unsigned long stepperTime = micros();
   unsigned long CurrentTime = millis();
   if (CurrentTime > 4200000000) {
     // Reboot the system if we're reaching the maximum long integer value of CurrentTime (49 days)
     ESP.restart();
   } 
 
-  // Non-blocking heartbeat LED fader so people know the ESP32 isn't locked up or dead
+  // Non-blocking heartbeat LED fader so users know the ESP32 isn't locked up or dead
   if (CurrentTime - ledUpdate >= 10) {
     ledUpdate = CurrentTime;
     int dutyCycle = (sin(angle) + 1.0) * 127.5;
