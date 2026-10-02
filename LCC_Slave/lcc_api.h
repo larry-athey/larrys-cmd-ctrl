@@ -169,9 +169,11 @@ inline void setupStepper(byte Direction, byte Resolution, int Steps) { // Set up
 inline void setupScene(int Scene) { // Pull an LedBasic script from the Mission Control server and run it
   #ifndef STEPPER
   if (sendCommand("/scene-request/" + String(Scene))) {
+    Serial.end();
     basic.stop();
     basic.compileFromText(scriptCode.c_str());
     basic.play();
+    Serial.begin(115200);
   }
   #endif
 }
