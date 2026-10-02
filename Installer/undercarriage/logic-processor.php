@@ -176,6 +176,14 @@ if (mysqli_num_rows($Result) > 0) {
     $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-warning\">Runtime has expired</span>' WHERE address='" . $Inbound["address"] . "'");
   }
 }
+
+// Check for WiFi signal level request responses
+$Result = mysqli_query($DBcnx,"SELECT * FROM inbound WHERE msg LIKE BINARY '%/wifi-signal/%' AND rcvd=0");
+if (mysqli_num_rows($Result) > 0) {
+  while ($Inbound = mysqli_fetch_assoc($Result)) {
+    $Update = mysqli_query($DBcnx,"UPDATE inbound SET rcvd=1 WHERE ID=" . $Inbound["ID"]);
+  }
+}
 //---------------------------------------------------------------------------------------------
 mysqli_close($DBcnx);
 //---------------------------------------------------------------------------------------------
