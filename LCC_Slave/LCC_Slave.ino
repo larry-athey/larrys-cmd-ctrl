@@ -497,7 +497,6 @@ bool processCmd(String Cmd) { // Process AT+ commands received via serial commun
     } else if (strToUpper(Cmd).indexOf("PASSWD=") == 0) {
       // AT+PASSWD=
       Cmd.remove(0,7);
-      Cmd.toLowerCase();
       wifiPW = Cmd;
       SetMemory();
       return true;
