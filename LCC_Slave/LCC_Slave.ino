@@ -126,7 +126,7 @@ bool FWupdate = false;           // True if the system should start up in OTA fi
 bool SFX = false;                // True if the sound effects system successfully initialized
 bool sfxLoop = false;            // True if a sound effect command is supposed to play endlessly
 bool UpdateMode = false;         // True if the LCC Slave is running in firmware update mode
-bool stepperRunning = false;     // True if the stepper is running (no built-in ending allback function)
+bool stepperRunning = false;     // True if the stepper is running (no built-in ending callback function)
 byte motorDirection = 1;         // Motor direction, 0 = reverse, 1 = forward
 byte progressDir = 0;            // Motor speed progress direction, 0 = down, 1 = up
 byte sysInit = 0;                // Flag to indicate whether this is a first boot and no flash settings
@@ -215,7 +215,9 @@ void setup() {
   pinMode(MOT_F,OUTPUT); digitalWrite(MOT_F,LOW); // AIN1 (Standby is pulled high to enable the driver)
   pinMode(MOT_R,OUTPUT); digitalWrite(MOT_R,LOW); // AIN2
   pinMode(MOT_PWM,OUTPUT); digitalWrite(MOT_PWM,LOW); // PWMA
-  ledcSetup(1,5000,8); // For the heartbeat LED
+
+   // Set up the heartbeat LED PWM
+  ledcSetup(1,5000,8);
   ledcAttachPin(LED_PIN,1);
   ledcWrite(LED_PIN,0);
 
@@ -224,13 +226,13 @@ void setup() {
   ledcSetup(0,20000,8); // 20 KHz, 8 bit resolution
   ledcAttachPin(MOT_PWM,0);
   ledcWrite(0,0); // Set the speed to zero [0..255]
+  setMotorDirection(1);
   #else
   pinMode(OUT_1,OUTPUT); digitalWrite(OUT_1,LOW);
   pinMode(OUT_2,OUTPUT); digitalWrite(OUT_2,LOW);
   pinMode(MOT_PWM,OUTPUT); digitalWrite(MOT_PWM,LOW);
   pinMode(BUS_3,OUTPUT); digitalWrite(BUS_3,LOW);
   #endif
-  setMotorDirection(1);
 
   // Initialize the location/position detection sensor
   IrReceiver.begin(IR_RCV,DISABLE_LED_FEEDBACK);
