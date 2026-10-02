@@ -245,7 +245,7 @@ void setup() {
     if (Serial) Serial.println(F("Unable to initialize DFPlayer Mini"));
   } else {
     if (Serial) Serial.println(F("DFPlayer Mini successfully started"));
-    myDFPlayer.volume(20); // [0..30]
+    myDFPlayer.volume(25); // [0..30]
     SFX = true;
   }
   #endif
