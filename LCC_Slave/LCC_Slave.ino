@@ -117,11 +117,13 @@ LedBasic basic( // Set up the LedBasic callbacks
   // clear
   []() { lights.clear(); lights.show(); }
 );
+#else
+AccelStepper Stepper(AccelStepper::DRIVER,BUS_1,BUS_2);
 #endif
 Preferences preferences;
 WiFiServer Server(80);
 //------------------------------------------------------------------------------------------------
-bool FWupdate = false;           // True if the system should start up in OTA firmware update mode
+bool FWupdate = false;           // True if the system should start up in OTA firmware update 
 bool SFX = false;                // True if the sound effects system successfully initialized
 bool sfxLoop = false;            // True if a sound effect command is supposed to play endlessly
 bool UpdateMode = false;         // True if the LCC Slave is running in firmware update mode
@@ -132,8 +134,9 @@ byte wifiCheckCounter = 0;       // Used to check the WiFi connection once every
 int Locations[16][3];            // Queue for caching location ID numbers and associated actions
 int soundFile = -1;              // Sound file number to play from the DFPlayer Mini
 unsigned long motorTimestamp = 0;// Timestamp of the last motor command execution
-unsigned long targetPos = 0;     // Stepper target position of the current running command
 unsigned long targetRuntime = 0; // Timestamp of the motor end run (0 = indefinite runtime)
+long currentPos = 0;             // Stepper current position of the current running command
+long targetPos = 0;              // Stepper target position of the current running command
 float motorSpeed = 0.0;          // Current motor speed [0..100]
 float progressFactor = 0.0;      // How much (percent) to change the motor speed per second
 float targetSpeed = 0.0;         // Motor target speed [0..100]
@@ -190,6 +193,7 @@ void setup() {
     SetMemory();
   }
 
+  #ifndef STEPPER
   // Initialize the Neopixel bus for the heartbeat/pulse LED
   neopixel.begin();
   neopixel.setBrightness(15);
@@ -204,6 +208,7 @@ void setup() {
   lights.setPixelColor(0,lights.Color(255,255,255));
   lights.setPixelColor(1,lights.Color(255,0,0));
   lights.show();
+  #endif
 
   // Intialize the GPIO pins
   pinMode(IR_RCV,INPUT_PULLUP);
@@ -223,7 +228,10 @@ void setup() {
   ledcAttachPin(MOT_PWM,0);
   ledcWrite(0,0); // Set the speed to zero [0..255]
   #else
-  
+  pinMode(OUT_1,OUTPUT); digitalWrite(OUT_1,LOW);
+  pinMode(OUT_2,OUTPUT); digitalWrite(OUT_2,LOW);
+  pinMode(MOT_PWM,OUTPUT); digitalWrite(MOT_PWM,LOW);
+  pinMode(BUS_3,OUTPUT); digitalWrite(BUS_3,LOW);
   #endif
   setMotorDirection(1);
 
@@ -400,6 +408,7 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
           digitalWrite(Locations[i][2],LOW);
         }
       } else if (Locations[i][1] == 6) { // Toggle a specific (or all) Neopixel/WS2812 (off or full white)
+        #ifndef STEPPER
         if (Locations[i][2] < 65535) {
           uint32_t currentColor = lights.getPixelColor(Locations[i][2]);
           if (currentColor == 0) {
@@ -420,6 +429,7 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
           }
         }
         lights.show();
+        #endif
       }
       // Clear the location memory slot
       Locations[i][0] = 0;
@@ -457,6 +467,7 @@ void setMotorDirection(byte Direction) { // Set the motor direction
 }
 //------------------------------------------------------------------------------------------------
 void pulseLED(byte pulseIndex) { // Update the color of the heartbeat/pulse LED
+  #ifndef STEPPER
   if (pulseIndex == 1) {
     neopixel.setPixelColor(0,neopixel.Color(0,0,255));
   } else if (pulseIndex == 2) {
@@ -473,6 +484,7 @@ void pulseLED(byte pulseIndex) { // Update the color of the heartbeat/pulse LED
     neopixel.setPixelColor(0,neopixel.Color(255,255,255));
   }
   neopixel.show();
+  #endif
 }
 //------------------------------------------------------------------------------------------------
 bool processCmd(String Cmd) { // Process AT+ commands received via serial communications
@@ -628,6 +640,14 @@ void loop() {
       soundFile = -1;
     }
   }
+  #else
+  // Give the stepper motor driver some CPU time on every loop iteration
+  Stepper.run();
+  if (Stepper.isRunning()) {
+    currentPos = Stepper.currentPosition();
+  } else {
+    if (currentPos != targetPos) currentPos = targetPos;
+  }
   #endif
 
   // Shut down the motor if either limit switch has been tripped
@@ -693,6 +713,8 @@ void loop() {
       }
       setMotorSpeed(Update);
     }
+    #else
+    if ((Serial) && (currentPos < targetPos)) Serial.println("Stepper position: " + String(currentPos));
     #endif
 
     wifiCheckCounter ++;
@@ -716,11 +738,6 @@ void loop() {
     if (pulseIndex > 7) pulseIndex = 1;
     lastCheck = CurrentTime;
   }
-
-  #ifdef STEPPER
-    // Stepper speed works as a 1-second PWM, each 1% equals 10ms motor-on time per second
-
-  #endif
 
   while (Serial.available()) {
     String Data = Serial.readStringUntil('\n');

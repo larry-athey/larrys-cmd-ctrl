@@ -136,27 +136,43 @@ inline void setupMotor(byte Direction, float Speed, int Progression, int Duratio
 //------------------------------------------------------------------------------------------------
 inline void setupStepper(byte Direction, byte Resolution, int Steps) { // Set up stepper background process
   #ifdef STEPPER
-  /*
-     M0	M1	M2	Step Size
-  1. Low	Low	Low	Full step
-  2. High	Low	Low	1/2 step
-  3. Low	High	Low	1/4 step
-  4. High	High	Low	1/8 step
-  5. Low	Low	High	1/16 step
-  6. High	Low	High	1/32 step
-  */
-
-  motorDirection = Direction;
-  targetPos = Steps;
+  String Res = "";
+  switch (Resolution) {
+    case 1:  // Full step
+      digitalWrite(OUT_1,LOW);  digitalWrite(OUT_2,LOW);  digitalWrite(MOT_PWM,LOW);  Res = "Full Step"; break;
+    case 2:  // 1/2 step
+      digitalWrite(OUT_1,HIGH); digitalWrite(OUT_2,LOW);  digitalWrite(MOT_PWM,LOW);  Res = "1/2 Step";  break;
+    case 4:  // 1/4 step
+      digitalWrite(OUT_1,LOW);  digitalWrite(OUT_2,HIGH); digitalWrite(MOT_PWM,LOW);  Res = "1/4 Step";  break;
+    case 8:  // 1/8 step
+      digitalWrite(OUT_1,HIGH); digitalWrite(OUT_2,HIGH); digitalWrite(MOT_PWM,LOW);  Res = "1/8 Step";  break;
+    case 16: // 1/16 step
+      digitalWrite(OUT_1,LOW);  digitalWrite(OUT_2,LOW);  digitalWrite(MOT_PWM,HIGH); Res = "1/16 Step"; break;
+    case 32: // 1/32 step
+      digitalWrite(OUT_1,HIGH); digitalWrite(OUT_2,HIGH); digitalWrite(MOT_PWM,HIGH); Res = "1/32 Step"; break;
+  }
+  if (Serial) {
+    Serial.println("Stepper direction: " + String(Direction));
+    Serial.println("Stepper resolution: " + Res);
+    Serial.println("Total steps: " + String(Steps));
+  }
+  targetPos = (Direction == 1) ? (long)Steps : -(long)Steps;
+  float stepsPerSec = 400.0 * Resolution;
+  Stepper.setMaxSpeed(stepsPerSec);
+  Stepper.setAcceleration(stepsPerSec * 2.0);
+  Stepper.setCurrentPosition(0);
+  Stepper.moveTo(targetPos);
   #endif
 }
 //------------------------------------------------------------------------------------------------
 inline void setupScene(int Scene) { // Pull an LedBasic script from the Mission Control server and run it
+  #ifndef STEPPER
   if (sendCommand("/scene-request/" + String(Scene))) {
     basic.stop();
     basic.compileFromText(scriptCode.c_str());
     basic.play();
   }
+  #endif
 }
 //------------------------------------------------------------------------------------------------
 inline void setupSound(int FileNumber, byte Loop) { // Set up sound effect background process
@@ -270,7 +286,7 @@ inline void processQueue() { // Process the next command in the queue (FIFO styl
   #ifndef STEPPER
   if (motorSpeed != targetSpeed) return;
   #else
-  if (cmdPos != targetPos) return;
+  if (Stepper.isRunning()) return;
   #endif
   if (Commands[0].length() > 0) {
     if (Serial) Serial.println("Executing: " + Commands[0]);
