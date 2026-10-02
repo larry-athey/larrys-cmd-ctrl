@@ -127,6 +127,7 @@ bool FWupdate = false;           // True if the system should start up in OTA fi
 bool SFX = false;                // True if the sound effects system successfully initialized
 bool sfxLoop = false;            // True if a sound effect command is supposed to play endlessly
 bool UpdateMode = false;         // True if the LCC Slave is running in firmware update mode
+bool stepperRunning = false;     // True if the stepper is running (no built-in ending allback function)
 byte motorDirection = 1;         // Motor direction, 0 = reverse, 1 = forward
 byte progressDir = 0;            // Motor speed progress direction, 0 = down, 1 = up
 byte sysInit = 0;                // Flag to indicate whether this is a first boot and no flash settings
@@ -646,7 +647,11 @@ void loop() {
   if (Stepper.isRunning()) {
     currentPos = Stepper.currentPosition();
   } else {
-    if (currentPos != targetPos) currentPos = targetPos;
+    if ((stepperRunning) && (currentPos != targetPos)) {
+      stepperRunning = false;
+      currentPos = targetPos;
+      Serial.println("Stepper position: " + String(currentPos));
+    }
   }
   #endif
 
@@ -714,7 +719,7 @@ void loop() {
       setMotorSpeed(Update);
     }
     #else
-    if ((Serial) && (currentPos < targetPos)) Serial.println("Stepper position: " + String(currentPos));
+    if ((Serial) && (currentPos != targetPos)) Serial.println("Stepper position: " + String(currentPos));
     #endif
 
     wifiCheckCounter ++;
