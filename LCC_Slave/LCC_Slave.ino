@@ -471,7 +471,7 @@ String strToUpper(String Str) { // AT command helper to reduce redundant code
 }
 //------------------------------------------------------------------------------------------------
 bool processCmd(String Cmd) { // Process AT+ commands received via serial communications
-  if (Cmd.indexOf("AT+") == 0) {
+  if (strToUpper(Cmd).indexOf("AT+") == 0) {
     Cmd.remove(0,3);
     //if (Cmd.indexOf("CMD=") == 0) {
     if (strToUpper(Cmd).indexOf("CMD=") == 0) {
