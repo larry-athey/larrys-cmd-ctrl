@@ -141,15 +141,15 @@ inline void setupStepper(byte Direction, byte Resolution, int Steps) { // Set up
     case 1:  // Full step
       digitalWrite(OUT_1,LOW);  digitalWrite(OUT_2,LOW);  digitalWrite(MOT_PWM,LOW);  Res = "Full Step"; break;
     case 2:  // 1/2 step
-      digitalWrite(OUT_1,HIGH); digitalWrite(OUT_2,LOW);  digitalWrite(MOT_PWM,LOW);  Res = "1/2 Step";  break;
+      digitalWrite(OUT_1,HIGH); digitalWrite(OUT_2,LOW);  digitalWrite(MOT_PWM,LOW);  Res = "1\/2 Step";  break;
     case 4:  // 1/4 step
-      digitalWrite(OUT_1,LOW);  digitalWrite(OUT_2,HIGH); digitalWrite(MOT_PWM,LOW);  Res = "1/4 Step";  break;
+      digitalWrite(OUT_1,LOW);  digitalWrite(OUT_2,HIGH); digitalWrite(MOT_PWM,LOW);  Res = "1\/4 Step";  break;
     case 8:  // 1/8 step
-      digitalWrite(OUT_1,HIGH); digitalWrite(OUT_2,HIGH); digitalWrite(MOT_PWM,LOW);  Res = "1/8 Step";  break;
+      digitalWrite(OUT_1,HIGH); digitalWrite(OUT_2,HIGH); digitalWrite(MOT_PWM,LOW);  Res = "1\/8 Step";  break;
     case 16: // 1/16 step
-      digitalWrite(OUT_1,LOW);  digitalWrite(OUT_2,LOW);  digitalWrite(MOT_PWM,HIGH); Res = "1/16 Step"; break;
+      digitalWrite(OUT_1,LOW);  digitalWrite(OUT_2,LOW);  digitalWrite(MOT_PWM,HIGH); Res = "1\/16 Step"; break;
     case 32: // 1/32 step
-      digitalWrite(OUT_1,HIGH); digitalWrite(OUT_2,HIGH); digitalWrite(MOT_PWM,HIGH); Res = "1/32 Step"; break;
+      digitalWrite(OUT_1,HIGH); digitalWrite(OUT_2,HIGH); digitalWrite(MOT_PWM,HIGH); Res = "1\/32 Step"; break;
   }
   if (Serial) {
     Serial.println("Stepper direction: " + String(Direction));
@@ -162,6 +162,7 @@ inline void setupStepper(byte Direction, byte Resolution, int Steps) { // Set up
   Stepper.setAcceleration(stepsPerSec * 2.0);
   Stepper.setCurrentPosition(0);
   Stepper.moveTo(targetPos);
+  stepperRunning = true;
   #endif
 }
 //------------------------------------------------------------------------------------------------
