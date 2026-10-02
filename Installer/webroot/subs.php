@@ -461,7 +461,7 @@ function resolutionSelector($Selected) {
   if ($Selected == 5) $S5 = "selected";
   if ($Selected == 6) $S6 = "selected";
   $Content  = "<select class=\"form-control form-select fw-bolder\" style=\"width: 100%;\" size=\"1\" id=\"resolution\" name=\"resolution\">";
-  $Content .= "<option $S1 value=\"1\">Whole Step</option>";
+  $Content .= "<option $S1 value=\"1\">Full Step</option>";
   $Content .= "<option $S2 value=\"2\">1/2 Step</option>";
   $Content .= "<option $S3 value=\"3\">1/4 Step</option>";
   $Content .= "<option $S4 value=\"4\">1/8 Step</option>";
