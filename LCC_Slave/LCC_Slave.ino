@@ -66,7 +66,7 @@
 //#define STEPPER                // Remember, no sound effects are possible when using a stepper
 /************************************************************************************************/
 #define DISABLE_CODE_FOR_TRANSMITTER
-#define SEND_LEDC_CHANNEL 1
+#define SEND_LEDC_CHANNEL 2
 #include "IRremote.hpp"          // IR remote controller library, for location/position detection
 
 #ifndef STEPPER
@@ -104,7 +104,6 @@
 //------------------------------------------------------------------------------------------------
 #ifndef STEPPER
 DFRobotDFPlayerMini myDFPlayer;  // Set up the sound effects system object
-Adafruit_NeoPixel neopixel(1,LED_PIN,NEO_RGB + NEO_KHZ800); // Set up the heartbeat/pulse LED
 Adafruit_NeoPixel lights(TOTAL_LEDS,BUS_3,NEO_RGB + NEO_KHZ800); // Set up the Neopixel/WS2812 lighting bus
 LedBasic basic( // Set up the LedBasic callbacks
   TOTAL_LEDS,
@@ -195,12 +194,6 @@ void setup() {
   }
 
   #ifndef STEPPER
-  // Initialize the Neopixel bus for the heartbeat/pulse LED
-  neopixel.begin();
-  neopixel.setBrightness(15);
-  neopixel.clear();
-  neopixel.setPixelColor(0,neopixel.Color(0,0,255));
-  neopixel.show();
 
   // Initialize the Neopixel bus for the locomotive lights
   lights.begin();
@@ -222,6 +215,9 @@ void setup() {
   pinMode(MOT_F,OUTPUT); digitalWrite(MOT_F,LOW); // AIN1 (Standby is pulled high to enable the driver)
   pinMode(MOT_R,OUTPUT); digitalWrite(MOT_R,LOW); // AIN2
   pinMode(MOT_PWM,OUTPUT); digitalWrite(MOT_PWM,LOW); // PWMA
+  ledcSetup(1,5000,8); // For the heartbeat LED
+  ledcAttachPin(LED_PIN,1);
+  ledcWrite(LED_PIN,0);
 
   #ifndef STEPPER
   // Initialize the PWM motor speed/direction controller
@@ -467,27 +463,6 @@ void setMotorDirection(byte Direction) { // Set the motor direction
   #endif
 }
 //------------------------------------------------------------------------------------------------
-void pulseLED(byte pulseIndex) { // Update the color of the heartbeat/pulse LED
-  #ifndef STEPPER
-  if (pulseIndex == 1) {
-    neopixel.setPixelColor(0,neopixel.Color(0,0,255));
-  } else if (pulseIndex == 2) {
-    neopixel.setPixelColor(0,neopixel.Color(0,255,255));
-  } else if (pulseIndex == 3) {
-    neopixel.setPixelColor(0,neopixel.Color(0,255,0));
-  } else if (pulseIndex == 4) {
-    neopixel.setPixelColor(0,neopixel.Color(255,255,0));
-  } else if (pulseIndex == 5) {
-    neopixel.setPixelColor(0,neopixel.Color(255,0,0));
-  } else if (pulseIndex == 6) {
-    neopixel.setPixelColor(0,neopixel.Color(255,0,255));
-  } else if (pulseIndex == 7) {
-    neopixel.setPixelColor(0,neopixel.Color(255,255,255));
-  }
-  neopixel.show();
-  #endif
-}
-//------------------------------------------------------------------------------------------------
 bool processCmd(String Cmd) { // Process AT+ commands received via serial communications
   if (Cmd.indexOf("AT+") == 0) {
     Cmd.remove(0,3);
@@ -589,14 +564,26 @@ void loop() {
     return;
   }
 
-  static byte pulseIndex = 1;
+  static unsigned long ledUpdate = 0;
   static unsigned long lastCheck = millis();
+  float angle = 0.0;
   unsigned long stepperTime = micros();
   unsigned long CurrentTime = millis();
   if (CurrentTime > 4200000000) {
     // Reboot the system if we're reaching the maximum long integer value of CurrentTime (49 days)
     ESP.restart();
   } 
+
+  // Non-blocking heartbeat LED fader so people know the ESP32 isn't locked up or dead
+  if (CurrentTime - ledUpdate >= 10) {
+    ledUpdate = CurrentTime;
+    int dutyCycle = (sin(angle) + 1.0) * 127.5;
+    ledcWrite(LED_PIN,dutyCycle);
+    angle += 0.03;
+    if (angle >= 2 * PI) {
+      angle -= 2 * PI;
+    }
+  }
 
   // Check for LCC commands and handle as necessary
   WiFiClient Client = Server.available();
@@ -738,9 +725,6 @@ void loop() {
       wifiCheckCounter = 0;
     }
 
-    pulseLED(pulseIndex);
-    pulseIndex ++;
-    if (pulseIndex > 7) pulseIndex = 1;
     lastCheck = CurrentTime;
   }
 
