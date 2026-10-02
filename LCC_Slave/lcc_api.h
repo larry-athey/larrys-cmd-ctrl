@@ -201,7 +201,7 @@ inline void toggleSwitch(byte gpioPin, byte State) { // Toggle a specific GPIO p
   }
 }
 //------------------------------------------------------------------------------------------------
-inline void runCommand(String Cmd) { // Execute a queued LCC mission control command
+inline void runCommand(String Cmd) { // Execute a queued LCC Mission Control command
   Cmd.trim();
   if (Cmd.length() == 0) return;
 
