@@ -386,10 +386,17 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
   for (byte i = 0; i <= 15; i ++) {
     if (Pin == Locations[i][0]) {
       if (Locations[i][1] == 1) { // Stop motor/stepper
+        #ifndef STEPPER
         setMotorSpeed(0);
         targetRuntime = 0;
         targetSpeed = 0;
         progressFactor = 0;
+        #else
+        Stepper.stop();
+        currentPos = 0;
+        targetPos  = 0;
+        stepperRunning = false;
+        #endif
       } else if (Locations[i][1] == 2) { // Play sound effect
         soundFile = Locations[i][2];
         sfxLoop = false;
