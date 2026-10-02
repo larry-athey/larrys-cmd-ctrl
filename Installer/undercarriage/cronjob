@@ -17,6 +17,10 @@ if [ "$Hour" == "00" ] && [ "$Min" == "15" ]; then
   sleep 15
 fi
 
+if [ "$Min" == "00" ]; then
+  ./pinger.php &
+fi
+
 LoopFailure=0
 
 ps cax | grep [l]cc-bash-loop

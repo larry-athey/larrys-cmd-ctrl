@@ -256,6 +256,10 @@ function getDeviceStats($DBcnx,$ID) {
   $Content .=   "<div class=\"col-7\" style=\"text-align: right;\"><a href=\"/index.php?page=pairing&ID=$ID\"><span class=\"text-primary\">" . $Dev["address"] . "</span></a></div>";
   $Content .= "</div>";
   $Content .= "<div class=\"row\">";
+  $Content .=   "<div class=\"col-5 text-secondary-emphasis\">Signal Level:</div>";
+  $Content .=   "<div class=\"col-7\" style=\"text-align: right;\">" . $Dev["signal_level"] . "</div>";
+  $Content .= "</div>";
+  $Content .= "<div class=\"row\">";
   $Content .=   "<div class=\"col-5 text-secondary-emphasis\">Timer Active:</div>";
   $Content .=   "<div class=\"col-7\" style=\"text-align: right;\"><a href=\"#\" onClick=\"LoadForm('Set Timer','1','" . $Dev["address"] . "')\">" . IntToYNC(timerActive($DBcnx,$Dev["address"])) . "</a></div>";
   $Content .= "</div>";

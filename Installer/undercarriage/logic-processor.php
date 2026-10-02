@@ -181,7 +181,9 @@ if (mysqli_num_rows($Result) > 0) {
 $Result = mysqli_query($DBcnx,"SELECT * FROM inbound WHERE msg LIKE BINARY '%/wifi-signal/%' AND rcvd=0");
 if (mysqli_num_rows($Result) > 0) {
   while ($Inbound = mysqli_fetch_assoc($Result)) {
+    $Data = explode("/",trim($Inbound["msg"],"/"));
     $Update = mysqli_query($DBcnx,"UPDATE inbound SET rcvd=1 WHERE ID=" . $Inbound["ID"]);
+    $Update = mysqli_query($DBcnx,"UPDATE devices SET signal_level='<span class=\"text-info\">" . $Data[1] . " dBm</span>' WHERE address='" . $Inbound["address"] . "'");
   }
 }
 //---------------------------------------------------------------------------------------------
