@@ -279,6 +279,9 @@ inline void runCommand(String Cmd) { // Execute a queued LCC Mission Control com
     FWupdate = true;
     SetMemory();
     ESP.restart();
+  } else if (parts[1] == "wifi-signal") {
+    //ID/wifi-signal
+    sendCommand("/wifi-signal/" + String(WiFi.RSSI()));
   }
 }
 //------------------------------------------------------------------------------------------------
