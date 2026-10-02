@@ -465,10 +465,16 @@ void setMotorDirection(byte Direction) { // Set the motor direction
   #endif
 }
 //------------------------------------------------------------------------------------------------
+String strToUpper(String Str) { // AT command helper to reduce redundant code
+  Str.toUpperCase();
+  return Str;
+}
+//------------------------------------------------------------------------------------------------
 bool processCmd(String Cmd) { // Process AT+ commands received via serial communications
   if (Cmd.indexOf("AT+") == 0) {
     Cmd.remove(0,3);
-    if (Cmd.indexOf("CMD=") == 0) {
+    //if (Cmd.indexOf("CMD=") == 0) {
+    if (strToUpper(Cmd).indexOf("CMD=") == 0) {
       // AT+CMD=
       Cmd.remove(0,4);
       if (sendCommand(Cmd)) {
@@ -476,62 +482,62 @@ bool processCmd(String Cmd) { // Process AT+ commands received via serial commun
       } else {
         return false;
       }
-    } else if (Cmd == "HOSTNAME") {
+    } else if (strToUpper(Cmd) == "HOSTNAME") {
       // AT+HOSTNAME
       Serial.println(myMacStr + ".lcc.local");
       return true;
-    } else if (Cmd == "MAC") {
+    } else if (strToUpper(Cmd) == "MAC") {
       // AT+MAC
       Serial.println(myMacStr);
       return true;      
-    } if (Cmd == "PASSWD") {
+    } if (strToUpper(Cmd) == "PASSWD") {
       // AT+PASSWD
       Serial.println(wifiPW);
       return true;
-    } else if (Cmd.indexOf("PASSWD=") == 0) {
+    } else if (strToUpper(Cmd).indexOf("PASSWD=") == 0) {
       // AT+PASSWD=
       Cmd.remove(0,7);
       Cmd.toLowerCase();
       wifiPW = Cmd;
       SetMemory();
       return true;
-    } if (Cmd == "RECON") {
+    } if (strToUpper(Cmd) == "RECON") {
       // AT+RECON
       ConnectWiFi();
       return true;
-    } if (Cmd == "RESET") {
+    } if (strToUpper(Cmd) == "RESET") {
       // AT+RESET
       Serial.println("Rebooting...");
       delay(1000);
       ESP.restart();
-    } if (Cmd == "SERVER") {
+    } if (strToUpper(Cmd) == "SERVER") {
       // AT+SERVER
       Serial.println(serverIP);
       return true;
-    } if (Cmd == "SSID") {
+    } if (strToUpper(Cmd) == "SSID") {
       // AT+SSID
       Serial.println(wifiSSID);
       return true;
-    } else if (Cmd.indexOf("SSID=") == 0) {
+    } else if (strToUpper(Cmd).indexOf("SSID=") == 0) {
       // AT+SSID=
       Cmd.remove(0,5);
       wifiSSID = Cmd;
       SetMemory();
       return true;
-    } if (Cmd == "UPDATE") {
+    } if (strToUpper(Cmd) == "UPDATE") {
       // AT+UPDATE
       FWupdate = true;
       SetMemory();
       ESP.restart();
-    } if (Cmd == "VERSION") {
+    } if (strToUpper(Cmd) == "VERSION") {
       // AT+VERSION
       Serial.println("v" + Version);
       return true;
-    } if (Cmd == "WIFISTATS") {
+    } if (strToUpper(Cmd) == "WIFISTATS") {
       // AT+WIFISTATS
       Serial.println("WiFi Channel: " + String(WiFi.channel()) + "\n" + "WiFi Signal: " + String(WiFi.RSSI()));
       return true;
-    } if (Cmd == "Z") {
+    } if (strToUpper(Cmd) == "Z") {
       // AT+Z (factory reset)
       wifiSSID = "LCC-WLAN";
       wifiPW = "1a2b3c4d5e";
@@ -732,8 +738,7 @@ void loop() {
   while (Serial.available()) {
     String Data = Serial.readStringUntil('\n');
     Data.trim();
-    Data.toUpperCase();
-    if (Data == "AT") {
+    if (strToUpper(Data) == "AT") {
       Serial.print("OK\r\n");
     } else {
       if (Data.length() > 0) {
