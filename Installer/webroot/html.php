@@ -341,6 +341,40 @@ function editLocation($DBcnx) {
   return $Content;
 }
 //---------------------------------------------------------------------------------------------------
+function editScene($DBcnx) {
+  if ($_GET["ID"] > 0) {
+    $Result = mysqli_query($DBcnx,"SELECT * FROM scenes WHERE ID=" . $_GET["ID"]);
+    $Scn = mysqli_fetch_assoc($Result);
+  } else {
+    $Scn["scn_name"] = "";
+    $Scn["source"]   = "";
+  }
+  $Content  = "<div style=\"width: 31em; margin-left: 0.25em; margin-top: 0.5em;\">";
+  $Content .=   "<form id=\"device_editor\" method=\"post\" action=\"/process.php\">";
+  $Content .=   "<input type=\"hidden\" id=\"ID\" name=\"ID\" value=\"" . $_GET["ID"] . "\">";
+  $Content .=   "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
+  $Content .=     "<div class=\"card-header\"><span class=\"text-muted fw-bolder\">Edit Scene</span></div>";
+  $Content .=     "<div class=\"card-body\">";
+  $Content .=       "<div>";
+  $Content .=         "<label for=\"scn_name\" class=\"form-label fw-bolder\">Scene Name</label>";
+  $Content .=         "<input type=\"text\" class=\"form-control fw-bolder\" id=\"scn_name\" name=\"scn_name\" maxlength=\"255\" value=\"" . $Scn["scn_name"] . "\">";
+  $Content .=       "</div>";
+  $Content .=       "<div style=\"margin-top: 0.5em;\">";
+  //$Content .=         "<label for=\"pin\" class=\"form-label fw-bolder\">Transponder Pin</label>";
+  //$Content .=         "<input type=\"number\" class=\"form-control fw-bolder\" id=\"pin\" name=\"pin\" min=\"1\"  max=\"65535\" step=\"1\" value=\"" . $Loc["pin"] . "\">";
+  $Content .=       "</div>";
+  $Content .=     "</div>";
+  $Content .=     "<div class=\"border-bottom\"></div>";
+  $Content .=     "<div style=\"margin-top: 1em;\">";
+  $Content .=       "<p style=\"float: right; margin-right: 1em;\"><a href=\"?page=scenes\" class=\"btn btn-danger fw-bolder\" name=\"cancel\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+  $Content .=       "<button type=\"submit\" class=\"btn btn-primary fw-bolder\" name=\"edit_scene\" id=\"edit_scene\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Save</button></p>";
+  $Content .=     "</div>";
+  $Content .=   "</div>";
+  $Content .=   "</form>";
+  $Content .= "</div>";
+  return $Content;
+}
+//---------------------------------------------------------------------------------------------------
 function editScript($DBcnx) {
   if ($_GET["ID"] == 0) {
     if (! isset($_GET["cmd_class"])) {
@@ -534,7 +568,7 @@ function setPairing($DBcnx) {
 function showCommands($DBcnx) {
   $Counter  = 0;
   $Content  = "<div style=\"width: 31em; margin-left: 0.25em;\">";
-  $Content .= "<a href=\"?page=edit_command&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_program\">Create New Command</a><br>";
+  $Content .= "<a href=\"?page=edit_command&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_command\">Create New Command</a><br>";
 
   $Result = mysqli_query($DBcnx,"SELECT * FROM commands ORDER BY cmd_name");
   while ($Cmd = mysqli_fetch_assoc($Result)) {
@@ -557,7 +591,7 @@ function showCommands($DBcnx) {
 function showDevices($DBcnx) {
   $Counter  = 0;
   $Content  = "<div style=\"width: 31em; margin-left: 0.25em;\">";
-  $Content .= "<a href=\"?page=edit_device&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_program\">Create New Device</a><br>";
+  $Content .= "<a href=\"?page=edit_device&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_device\">Create New Device</a><br>";
 
   $Result = mysqli_query($DBcnx,"SELECT * FROM devices ORDER BY dev_name");
   while ($Dev = mysqli_fetch_assoc($Result)) {
@@ -682,7 +716,7 @@ function showHomePage($DBcnx) {
 function showLocations($DBcnx) {
   $Counter  = 0;
   $Content  = "<div style=\"width: 31em; margin-left: 0.25em;\">";
-  $Content .= "<a href=\"?page=edit_location&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_program\">Create New Location</a><br>";
+  $Content .= "<a href=\"?page=edit_location&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_location\">Create New Location</a><br>";
 
   $Result = mysqli_query($DBcnx,"SELECT * FROM locations ORDER BY loc_name");
   while ($Loc = mysqli_fetch_assoc($Result)) {
@@ -777,10 +811,56 @@ function showLogs($DBcnx) {
   return $Content;
 }
 //---------------------------------------------------------------------------------------------------
+function showScenes($DBcnx) {
+  $Counter  = 0;
+  $Content  = "<div style=\"width: 31em; margin-left: 0.25em;\">";
+  $Content .= "<a href=\"?page=edit_scene&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_scene\">Create New Scene</a><br>";
+
+  $Result = mysqli_query($DBcnx,"SELECT * FROM scenes ORDER BY scn_name");
+  while ($Scn = mysqli_fetch_assoc($Result)) {
+    $Counter ++;
+    $Content .= "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
+    $Content .=   "<div class=\"card-body\">";
+    $Content .=     "<p class=\"fw-bolder mb-0\">" . $Scn["scn_name"] . "</p>";
+    $Content .=     "<p class=\"text-secondary fs-6 mb-0\">" . strlen($Scn["source"]) . " bytes, " . substr_count($Scn["source"],"\n") + 1 . " lines</p>";
+    $Content .=     "<p class=\"mb-0\" style=\"float: right;\"><a href=\"?page=delete_confirm&type=3&ID=" . $Scn["ID"] . "\" class=\"btn btn-danger fw-bolder\" name=\"delete_scene\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+    $Content .=     "<a href=\"?page=edit_scene&ID=" . $Scn["ID"] . "\" class=\"btn btn-primary fw-bolder\" name=\"edit_scene\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Edit</a></p>";
+    $Content .=   "</div>";
+    $Content .= "</div>";
+  }
+
+  if ($Counter == 0) $Content .= "<p class=\"fw-bolder\">No scenes found...</p>";
+  $Content .= "</div>";
+  return $Content;
+}
+//---------------------------------------------------------------------------------------------------
+function showSchedule($DBcnx) {
+  $Counter  = 0;
+  $Content  = "<div style=\"width: 31em; margin-left: 0.25em;\">";
+  $Content .= "<a href=\"?page=edit_task&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_task\">Create New Task</a><br>";
+
+  $Result = mysqli_query($DBcnx,"SELECT * FROM schedule ORDER BY task_name");
+  while ($Task = mysqli_fetch_assoc($Result)) {
+    $Counter ++;
+    $Content .= "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
+    $Content .=   "<div class=\"card-body\">";
+    $Content .=     "<p class=\"fw-bolder mb-0\">" . $Task["task_name"] . "</p>";
+    $Content .=     "<p class=\"text-secondary fs-6 mb-0\">" . getDeviceName($DBcnx,$Task["address"]) . ", Script " . $Task["script"] . "</p>";
+    $Content .=     "<p class=\"mb-0\" style=\"float: right;\"><a href=\"?page=delete_confirm&type=5&ID=" . $Task["ID"] . "\" class=\"btn btn-danger fw-bolder\" name=\"delete_task\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+    $Content .=     "<a href=\"?page=edit_task&ID=" . $Task["ID"] . "\" class=\"btn btn-primary fw-bolder\" name=\"edit_task\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Edit</a></p>";
+    $Content .=   "</div>";
+    $Content .= "</div>";
+  }
+
+  if ($Counter == 0) $Content .= "<p class=\"fw-bolder\">No scheduled tasks found...</p>";
+  $Content .= "</div>";
+  return $Content;
+}
+//---------------------------------------------------------------------------------------------------
 function showScripts($DBcnx) {
   $Counter  = 0;
   $Content  = "<div style=\"width: 31em; margin-left: 0.25em;\">";
-  $Content .= "<a href=\"?page=edit_script&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_program\">Create New Script</a><br>";
+  $Content .= "<a href=\"?page=edit_script&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_script\">Create New Script</a><br>";
 
   $Result = mysqli_query($DBcnx,"SELECT * FROM scripts ORDER BY scr_name");
   while ($Scr = mysqli_fetch_assoc($Result)) {
@@ -796,29 +876,6 @@ function showScripts($DBcnx) {
   }
 
   if ($Counter == 0) $Content .= "<p class=\"fw-bolder\">No scripts found...</p>";
-  $Content .= "</div>";
-  return $Content;
-}
-//---------------------------------------------------------------------------------------------------
-function showSchedule($DBcnx) {
-  $Counter  = 0;
-  $Content  = "<div style=\"width: 31em; margin-left: 0.25em;\">";
-  $Content .= "<a href=\"?page=edit_task&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_program\">Create New Task</a><br>";
-
-  $Result = mysqli_query($DBcnx,"SELECT * FROM schedule ORDER BY task_name");
-  while ($Task = mysqli_fetch_assoc($Result)) {
-    $Counter ++;
-    $Content .= "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
-    $Content .=   "<div class=\"card-body\">";
-    $Content .=     "<p class=\"fw-bolder mb-0\">" . $Task["task_name"] . "</p>";
-    $Content .=     "<p class=\"text-secondary fs-6 mb-0\">" . getDeviceName($DBcnx,$Task["address"]) . ", Script " . $Task["script"] . "</p>";
-    $Content .=     "<p class=\"mb-0\" style=\"float: right;\"><a href=\"?page=delete_confirm&type=5&ID=" . $Task["ID"] . "\" class=\"btn btn-danger fw-bolder\" name=\"delete_task\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;";
-    $Content .=     "<a href=\"?page=edit_task&ID=" . $Task["ID"] . "\" class=\"btn btn-primary fw-bolder\" name=\"edit_device\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Edit</a></p>";
-    $Content .=   "</div>";
-    $Content .= "</div>";
-  }
-
-  if ($Counter == 0) $Content .= "<p class=\"fw-bolder\">No scheduled tasks found...</p>";
   $Content .= "</div>";
   return $Content;
 }

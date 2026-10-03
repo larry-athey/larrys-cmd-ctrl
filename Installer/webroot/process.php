@@ -123,6 +123,22 @@ elseif (isset($_POST["edit_location"])) {
 //exit;
 }
 //---------------------------------------------------------------------------------------------------
+elseif (isset($_POST["edit_scene"])) {
+  if ($_POST["ID"] == 0) {
+    $Result = mysqli_query($DBcnx,"INSERT INTO scenes (scn_name) VALUES ('Temp')");
+    $ID = mysqli_insert_id($DBcnx);
+  } else {
+    $ID = $_POST["ID"];
+  }
+
+
+
+//echo("<pre>");
+//print_r($_POST);
+//echo("</pre>");
+//exit;
+}
+//---------------------------------------------------------------------------------------------------
 elseif (isset($_POST["edit_script"])) {
   if ($_POST["ID"] == 0) {
     $Result = mysqli_query($DBcnx,"INSERT INTO scripts (scr_name) VALUES ('Temp')");

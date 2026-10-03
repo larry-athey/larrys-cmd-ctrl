@@ -17,7 +17,7 @@ if ((isset($_GET["addr"])) && (isset($_GET["cmd"]))) {
       $Result = mysqli_query($DBcnx,"SELECT * FROM scenes WHERE ID=" . $Data[1]);
       if (mysqli_num_rows($Result) > 0) {
         $Scene = mysqli_fetch_assoc($Result);
-        echo($Scene["source"]);
+        echo($Scene["source"] . "\n");
       } else {
         echo("10 CLEAR\n");
       }

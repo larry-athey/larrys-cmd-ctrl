@@ -100,6 +100,8 @@ if (! isset($_GET["page"])) {
     $Content .= editDevice($DBcnx);
   } elseif ($_GET["page"] == "edit_location") {
     $Content .= editLocation($DBcnx);
+  } elseif ($_GET["page"] == "edit_scene") {
+    $Content .= editScene($DBcnx);
   } elseif ($_GET["page"] == "edit_script") {
     $Content .= editScript($DBcnx);
   } elseif ($_GET["page"] == "edit_task") {
@@ -110,6 +112,8 @@ if (! isset($_GET["page"])) {
     $Content .= showLogs($DBcnx);
   } elseif ($_GET["page"] == "pairing") {
     $Content .= setPairing($DBcnx);
+  } elseif ($_GET["page"] == "scenes") {
+    $Content .= showScenes($DBcnx);
   } elseif ($_GET["page"] == "schedule") {
     $Content .= showSchedule($DBcnx);
   } elseif ($_GET["page"] == "scripts") {
