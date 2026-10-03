@@ -476,11 +476,9 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
 //------------------------------------------------------------------------------------------------
 void setMotorSpeed(float Percent) { // Set the motor speed
   motorSpeed = Percent;
-  if (Serial) Serial.println("Set motor speed: " + String(Percent) + "%");
   #ifndef STEPPER
+  if (Serial) Serial.println("Set motor speed: " + String(Percent) + "%");
   ledcWrite(0,round(motorSpeed * 2.55));
-  #else
-
   #endif
 }
 //------------------------------------------------------------------------------------------------
