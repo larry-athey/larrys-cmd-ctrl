@@ -754,7 +754,7 @@ function showLogs($DBcnx) {
     $Content .=   "</thead>";
     $Content .=   "<tbody>";
     if ($address != "") {
-      $Result = mysqli_query($DBcnx,"SELECT * FROM outbound address='$address' ORDER BY ID DESC LIMIT $lines");
+      $Result = mysqli_query($DBcnx,"SELECT * FROM outbound WHERE address='$address' ORDER BY ID DESC LIMIT $lines");
     } else {
       $Result = mysqli_query($DBcnx,"SELECT * FROM outbound ORDER BY ID DESC LIMIT $lines");
     }
