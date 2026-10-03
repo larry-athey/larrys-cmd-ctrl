@@ -33,7 +33,7 @@ The recommended LCC Mission Control server is an [Orange Pi Zero 3 (1GB)](https:
 - Seasonal decoration automation
 - Model railroad automation
 
-_**NOTE:** The WiFi radio in an Orange Pi Zero 3 is nothing to write home about. All slave devices must be in clear line of site of the server's antenna. If you need more range, you will need to use a high gain omnidirectional antenna. The Orange Pi Zero 3's antenna can be easily unplugged and replaced with another. A fancier Orange Pi will likely be of no value here since this is strictly an 802.11bg network, no N channel support at all._
+_**NOTE:** The WiFi radio in an Orange Pi Zero 3 is nothing to write home about. All slave devices should be in clear line of site of the server's antenna. If you need more range, you will need to use a high gain omnidirectional antenna. The Orange Pi Zero 3's antenna can be easily unplugged and replaced with another. A fancier Orange Pi will likely be of no value here since this is strictly an 802.11bg network, no N channel support at all._
 
 ### Motor Control
 The LCC receiver module can control standard DC brushed motors using a PWM driven H bridge driver such as an L298N, or stepper motors such as a Nema 17 with a DRV8825 driver. _(You may actually use any driver you like.)_ Motor control includes direction, speed, runtime, progression time to smooth speed changes, and the number of steps _(instead of duration and progression)_ if using a stepper motor.
