@@ -91,6 +91,7 @@
 #include "ota_update.h"          // Over-The-Air firmware updating library
 //------------------------------------------------------------------------------------------------
 #define LED_PIN 21               // Internal LED on GPIO21 used for the heartbeat indicator
+#define LED_CHANNEL 1            // PWM channel for the heartbeat indicator
 
 #define TOTAL_LEDS 50            // Total number of LEDs on the Neopixel/WS2812 lighting bus.
                                  // This value cannot be dynamicaly updated if you add more LEDs.
@@ -208,7 +209,7 @@ void setup() {
 
   #ifndef STEPPER
 
-  // Initialize the Neopixel bus for the locomotive lights
+  // Initialize the Neopixel/WS2812 bus for LedBasic
   lights.begin();
   lights.setBrightness(100);
   lights.clear();
@@ -244,9 +245,9 @@ void setup() {
   pinMode(MOT_PWM,OUTPUT); digitalWrite(MOT_PWM,LOW); // PWMA
 
    // Set up the heartbeat LED PWM
-  ledcSetup(1,5000,8);
-  ledcAttachPin(LED_PIN,1);
-  ledcWrite(LED_PIN,0);
+  ledcSetup(LED_CHANNEL,5000,8);
+  ledcAttachPin(LED_PIN,LED_CHANNEL);
+  ledcWrite(LED_CHANNEL,255);
 
   #ifndef STEPPER
   // Initialize the PWM motor speed/direction controller
@@ -620,7 +621,7 @@ void loop() {
 
   static unsigned long ledUpdate = 0;
   static unsigned long lastCheck = millis();
-  float angle = 0.0;
+  static float angle = 0.0;
   unsigned long CurrentTime = millis();
   if (CurrentTime > 4200000000) {
     // Reboot the system if we're reaching the maximum long integer value of CurrentTime (49 days)
@@ -631,7 +632,7 @@ void loop() {
   if (CurrentTime - ledUpdate >= 10) {
     ledUpdate = CurrentTime;
     int dutyCycle = (sin(angle) + 1.0) * 127.5;
-    ledcWrite(LED_PIN,dutyCycle);
+    ledcWrite(LED_CHANNEL,255 - dutyCycle);
     angle += 0.03;
     if (angle >= 2 * PI) {
       angle -= 2 * PI;
