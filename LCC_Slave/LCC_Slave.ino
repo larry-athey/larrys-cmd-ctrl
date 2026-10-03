@@ -56,7 +56,7 @@
 //
 // LCC Location Transponder:
 //
-//   Seeed XIAO SAMD21        - $5.00
+//   Seeed XIAO ESP32-S3      - $5.00
 //   3.3v 3A Regulator        - $0.70
 //   IR LED Transmitter       - $1.00
 //   3D Printed Case          - $2.00
