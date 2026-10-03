@@ -7,6 +7,7 @@ require_once("html.php");
 <html lang="en" data-bs-theme="dark">
 <head>
   <title>LCC Mission Control v<?= VERSION ?></title>
+  <meta charset="UTF-8">
   <meta http-equiv="cache-control" content="max-age=0">
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
