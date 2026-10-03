@@ -63,11 +63,17 @@
 //
 // NOTE: The location transponder MCU can actually run up to 11 unique LED transmitters.
 /************************************************************************************************/
+//#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
 //#define STEPPER                // Remember, no sound effects are possible when using a stepper
 /************************************************************************************************/
 #define DISABLE_CODE_FOR_TRANSMITTER
 #define SEND_LEDC_CHANNEL 2
 #include "IRremote.hpp"          // IR remote controller library, for location/position detection
+
+#ifdef I2CSWITCH
+#include "Adafruit_MCP23X17.h"   // MCP23017 I2C 16 port GPIO expansion module library
+#include "WiFi.h"                // WiFi interface library
+#endif
 
 #ifndef STEPPER
 #include "DFRobotDFPlayerMini.h" // From https://github.com/DFRobot/DFRobotDFPlayerMini
@@ -90,8 +96,8 @@
 #define LIMIT_1 1                // Limit switch 1 (forward)
 #define LIMIT_2 2                // Limit switch 2 (reverse)
 #define IR_RCV 3                 // TSOP34838 input pin
-#define OUT_1 4                  // Output 1 (SSR) or DRV8825 M0
-#define OUT_2 5                  // Output 2 (SSR) or DRV8825 M1
+#define OUT_1 4                  // Output 1 (SSR) or I2C SDA or DRV8825 M0
+#define OUT_2 5                  // Output 2 (SSR) or I2C SCL or DRV8825 M1
 #define MOT_PWM 6                // H-Bridge PWM or DRV8825 M2
 // GPIO Right side (USB top)
 #define OUT_3 13                 // Output 3 (SSR)
@@ -102,6 +108,10 @@
 #define BUS_2 8                  // DFRobot RX or DRV8825 direction pin
 #define BUS_3 7                  // NeoPixel/WS2812 bus or DRV8825 sleep pin
 //------------------------------------------------------------------------------------------------
+#ifdef I2CSWITCH
+Adafruit_MCP23X17 mcp;
+#endif
+
 #ifndef STEPPER
 DFRobotDFPlayerMini myDFPlayer;  // Set up the sound effects system object
 Adafruit_NeoPixel lights(TOTAL_LEDS,BUS_3,NEO_RGB + NEO_KHZ800); // Set up the Neopixel/WS2812 lighting bus
@@ -208,10 +218,24 @@ void setup() {
   pinMode(IR_RCV,INPUT_PULLUP);
   pinMode(LIMIT_1,INPUT_PULLUP); // Probably not of much use in a model train locomotive
   pinMode(LIMIT_2,INPUT_PULLUP); // Convert these to outputs if you need additional ones
+  #ifndef I2CSWITCH
+  // Expand this part as needed if you are using a larger ESP32 with more exposed GPIO pins for output switching
   pinMode(OUT_1,OUTPUT); digitalWrite(OUT_1,LOW);
   pinMode(OUT_2,OUTPUT); digitalWrite(OUT_2,LOW);
   pinMode(OUT_3,OUTPUT); digitalWrite(OUT_3,LOW);
   pinMode(OUT_4,OUTPUT); digitalWrite(OUT_4,LOW);
+  #else
+  Wire.begin(OUT_1,OUT_2);
+  // Initialize MCP23017
+  if (mcp.begin_I2C(MCP_ADDR)) {
+    for (byte i = 0; i <= 15; i ++) {
+      mcp.pinMode(i,OUTPUT);
+      mcp.digitalWrite(i,LOW);
+    }
+  } else {
+    if (Serial) Serial.println("MCP23017 init failed!");
+  }
+  #endif
   pinMode(MOT_F,OUTPUT); digitalWrite(MOT_F,LOW); // AIN1 (Standby is pulled high to enable the driver)
   pinMode(MOT_R,OUTPUT); digitalWrite(MOT_R,LOW); // AIN2
   pinMode(MOT_PWM,OUTPUT); digitalWrite(MOT_PWM,LOW); // PWMA
