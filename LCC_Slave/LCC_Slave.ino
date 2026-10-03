@@ -64,7 +64,7 @@
 // NOTE: The location transponder MCU can actually run up to 11 unique LED transmitters.
 /************************************************************************************************/
 //#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
-//#define STEPPER                // Remember, no sound effects are possible when using a stepper
+#define STEPPER                // Remember, no sound effects are possible when using a stepper
 /************************************************************************************************/
 #define DISABLE_CODE_FOR_TRANSMITTER
 #define SEND_LEDC_CHANNEL 2
@@ -675,8 +675,11 @@ void loop() {
       currentPos = targetPos;
       // Send the runtime end status to mission control
       String Status = "/runtime/end";
-      if (Serial) Serial.println("Status: " + Status);
-      Serial.println("Stepper position: " + String(currentPos));
+      if (Serial) {    
+        Serial.println("Stepper position: " + String(currentPos));
+        Serial.println("Status: " + Status);
+      }
+      sendCommand(Status);
     }
   }
   #endif
