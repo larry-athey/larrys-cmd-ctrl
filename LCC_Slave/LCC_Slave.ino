@@ -494,8 +494,6 @@ void setMotorDirection(byte Direction) { // Set the motor direction
     digitalWrite(MOT_F,LOW);
     digitalWrite(MOT_R,HIGH);
   }
-  #else
-
   #endif
 }
 //------------------------------------------------------------------------------------------------
@@ -682,7 +680,8 @@ void loop() {
   }
   #endif
 
-  // Shut down the motor if either limit switch has been tripped
+  // Shut down the motor/stepper if either limit switch has been tripped
+  #ifndef STEPPER
   if ((motorSpeed > 0) && ((digitalRead(LIMIT_1) == 0) || (digitalRead(LIMIT_2) == 0))) {
     setMotorSpeed(0);
     targetRuntime = 0;
@@ -698,6 +697,23 @@ void loop() {
     // Send the status notification to mission control
     sendCommand(Status);
   }
+  #else
+  if ((currentPos != targetPos) && ((digitalRead(LIMIT_1) == 0) || (digitalRead(LIMIT_2) == 0))) {
+    Stepper.stop();
+    currentPos = 0;
+    targetPos  = 0;
+    stepperRunning = false;
+    String Status;
+    if (digitalRead(LIMIT_1) == 0) {
+      Status = "/limit/0";
+    } else {
+      Status = "/limit/1";
+    }
+    if (Serial) Serial.println("Limit switch tripped: " + Status);
+    // Send the status notification to mission control
+    sendCommand(Status);
+  }
+  #endif
 
   // Handle new location transponder detection
   if (IrReceiver.decode()) {
