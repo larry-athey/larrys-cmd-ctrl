@@ -102,11 +102,11 @@ if ($_GET["ID"] == 1) { // Set command start and stop timer
   $Content .= "</div>";
 } elseif ($_GET["ID"] == 14) { // Send GPIO switch toggle - type 5
   $Content .= "<div>";
-  $Content .=   "<label for=\"gpio_pin\" class=\"form-label fw-bolder\">GPIO Pin Number [0..31]</label>";
-  $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"gpio_pin\" name=\"gpio_pin\" min=\"1\" max=\"32\" step=\"1\" value=\"1\">";
+  $Content .=   "<label for=\"gpio_pin\" class=\"form-label fw-bolder\">Output Switch [0..15]</label>";
+  $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"gpio_pin\" name=\"gpio_pin\" min=\"0\" max=\"15\" step=\"1\" value=\"0\">";
   $Content .= "</div>";
   $Content .= "<div style=\"margin-top: 0.5em;\">";
-  $Content .=   "<label for=\"gpio_state\" class=\"form-label fw-bolder\">GPIO Pin State</label>";
+  $Content .=   "<label for=\"gpio_state\" class=\"form-label fw-bolder\">Switch State</label>";
   $Content .=    OnOffSelector(0,"gpio_state");
   $Content .= "</div>";
 } elseif ($_GET["ID"] == 15) { // Send Neopixel/WS2812 lighting command - type 6

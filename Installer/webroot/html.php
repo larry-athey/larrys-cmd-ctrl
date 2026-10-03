@@ -128,7 +128,7 @@ function editCommand($DBcnx) {
         $Cmd["cmd_name"]        = "";
         $Cmd["cmd_type"]        = $_GET["cmd_type"];
         $Cmd["cmd_class"]       = $_GET["cmd_class"];
-        $Cmd["gpio_pin"]        = 1;
+        $Cmd["gpio_pin"]        = 0;
         $Cmd["direction"]       = 1;
         $Cmd["speed"]           = 0;
         $Cmd["duration"]        = 0;
@@ -217,11 +217,11 @@ function editCommand($DBcnx) {
     $Content .= "</div>";
   } elseif ($Cmd["cmd_type"] == 5) {
     $Content .= "<div style=\"margin-top: 0.5em;\">";
-    $Content .=   "<label for=\"gpio_pin\" class=\"form-label fw-bolder\">GPIO Pin Number [0..15]</label>";
+    $Content .=   "<label for=\"gpio_pin\" class=\"form-label fw-bolder\">Output Switch [0..15]</label>";
     $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"gpio_pin\" name=\"gpio_pin\" min=\"0\" max=\"15\" step=\"1\" value=\"" . $Cmd["gpio_pin"] . "\">";
     $Content .= "</div>";
     $Content .= "<div style=\"margin-top: 0.5em;\">";
-    $Content .=   "<label for=\"gpio_state\" class=\"form-label fw-bolder\">GPIO Pin State</label>";
+    $Content .=   "<label for=\"gpio_state\" class=\"form-label fw-bolder\">Switch State</label>";
     $Content .=    OnOffSelector($Cmd["direction"],"gpio_state");
     $Content .= "</div>";
   } elseif ($Cmd["cmd_type"] == 6) {
