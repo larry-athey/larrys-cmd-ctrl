@@ -673,6 +673,9 @@ void loop() {
     if ((stepperRunning) && (currentPos != targetPos)) {
       stepperRunning = false;
       currentPos = targetPos;
+      // Send the runtime end status to mission control
+      String Status = "/runtime/end";
+      if (Serial) Serial.println("Status: " + Status);
       Serial.println("Stepper position: " + String(currentPos));
     }
   }
