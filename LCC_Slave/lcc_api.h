@@ -197,8 +197,16 @@ inline void setupSound(int FileNumber, byte Loop) { // Set up sound effect backg
 //------------------------------------------------------------------------------------------------
 inline void toggleSwitch(byte gpioPin, byte State) { // Toggle a specific GPIO pin
   #ifndef I2CSWITCH
-  // Map gpioPin to new values if needed
-  digitalWrite(gpioPin,State);
+  // Map gpioPin to new values as necessary
+  byte thePin = 0;
+  if (gpioPin == 0) {
+    thePin = 5;
+  } else if (gpioPin == 1) {
+    thePin = 6;
+  } else {
+    return;
+  }
+  digitalWrite(thePin,State);
   #else
   mcp.digitalWrite(gpioPin,State);
   #endif
