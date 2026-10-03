@@ -434,14 +434,31 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
         Request = "/replay/scr/" + String(Locations[i][2]);
         sendCommand(Request);
       } else if (Locations[i][1] == 5) { // Toggle GPIO pin
-        byte State = digitalRead(Locations[i][2]);
-        if (State == 0) {
-          digitalWrite(Locations[i][2],HIGH);
-        } else {
-          digitalWrite(Locations[i][2],LOW);
+        #ifndef I2CSWITCH
+        // Map gpioPin to new values as necessary
+        byte thePin = 0;
+        if (Locations[i][2] == 0) {
+          thePin = OUT_1;
+        } else if (Locations[i][2] == 1) {
+          thePin = OUT_2;
         }
+        byte State = digitalRead(thePin);
+        if (State == 0) {
+          digitalWrite(thePin,HIGH);
+        } else {
+          digitalWrite(thePin,LOW);
+        }
+        #else
+        byte State = mcp.digitalRead(thePin);
+        if (State == 0) {
+          mcp.digitalWrite(thePin,HIGH);
+        } else {
+          mcp.digitalWrite(thePin,LOW);
+        }
+        #endif
       } else if (Locations[i][1] == 6) { // Toggle a specific (or all) Neopixel/WS2812 (off or full white)
         #ifndef STEPPER
+        if (basic.isRunning()) basic.stop();
         if (Locations[i][2] < 65535) {
           uint32_t currentColor = lights.getPixelColor(Locations[i][2]);
           if (currentColor == 0) {
