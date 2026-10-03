@@ -413,11 +413,13 @@ function locationActionSelector($Selected) {
   return $Content;
 }
 //---------------------------------------------------------------------------------------------------
-function logViewerMenu() {
+function logViewerMenu($DBcnx) {
   $lines = 50;
   $log = 0;
+  $address = "";
   if (isset($_POST["lines"])) $lines = $_POST["lines"];
   if (isset($_POST["log"])) $log = $_POST["log"];
+  if (isset($_POST["address"])) $address = $_POST["address"];
   if ($log == 0) {
     $S0 = "selected";
     $S1 = "";
@@ -426,6 +428,19 @@ function logViewerMenu() {
     $S1 = "selected";
   }
   $Content  = "<form class=\"d-flex\" method=\"post\" action=\"/index.php?page=logs\">";
+  $Content .= "<select class=\"form-control form-select fw-bolder\" style=\"width: 16em;\" size=\"1\" id=\"address\" name=\"address\" onChange=\"this.form.submit()\">";
+  $Content .= "<option value=\"\">All Devices</option>";
+  $Result = mysqli_query($DBcnx,"SELECT * FROM devices ORDER BY dev_name");
+  if (mysqli_num_rows($Result) > 0) {
+    while ($Dev = mysqli_fetch_assoc($Result)) {
+      if (($address != "") && ($Dev["address"] == $address)) {
+        $Content .= "<option selected value=\"" . $Dev["address"] . "\">" . $Dev["dev_name"] . "</option>";
+      } else {
+        $Content .= "<option value=\"" . $Dev["address"] . "\">" . $Dev["dev_name"] . "</option>";
+      }
+    }
+  }
+  $Content .= "</select>";
   $Content .= "<select class=\"form-control form-select fw-bolder\" style=\"width: 8em;\" size=\"1\" id=\"log\" name=\"log\" onChange=\"this.form.submit()\">";
   $Content .= "<option $S0 value=\"0\">Inbound</option>";
   $Content .= "<option $S1 value=\"1\">Outbound</option>";
