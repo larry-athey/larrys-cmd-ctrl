@@ -90,8 +90,11 @@
 #include "Preferences.h"         // ESP32 Flash memory read/write library
 #include "ota_update.h"          // Over-The-Air firmware updating library
 //------------------------------------------------------------------------------------------------
-#define LED_PIN 21               // Internal LED on GPIO21
-#define TOTAL_LEDS 50            // Total number of LEDs on the Neopixel/WS2812 lighting bus
+#define LED_PIN 21               // Internal LED on GPIO21 used for the heartbeat indicator
+
+#define TOTAL_LEDS 50            // Total number of LEDs on the Neopixel/WS2812 lighting bus.
+                                 // This value cannot be dynamicaly updated if you add more LEDs.
+                                 // You need to modify this value here and re-flash the ESP32.
 // GPIO Left side (USB top)
 #define LIMIT_1 1                // Limit switch 1 (forward)
 #define LIMIT_2 2                // Limit switch 2 (reverse)
