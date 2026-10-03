@@ -67,6 +67,9 @@ function drawMenu($DBcnx) {
   $Content .=           "<a class=\"nav-link fw-bolder\" aria-current=\"page\" href=\"/index.php?page=scripts\">Scripts</a>";
   $Content .=         "</li>";
   $Content .=         "<li class=\"nav-item\">";
+  $Content .=           "<a class=\"nav-link fw-bolder\" aria-current=\"page\" href=\"/index.php?page=scenes\">Scenes</a>";
+  $Content .=         "</li>";
+  $Content .=         "<li class=\"nav-item\">";
   $Content .=           "<a class=\"nav-link fw-bolder\" aria-current=\"page\" href=\"/index.php?page=locations\">Locations</a>";
   $Content .=         "</li>";
   $Content .=         "<li class=\"nav-item\">";
@@ -79,7 +82,7 @@ function drawMenu($DBcnx) {
   if (! isset($_GET["page"])) {
     $Content .= deviceFilter();
   } elseif ($_GET["page"] == "logs") {
-    $Content .= logViewerMenu();
+    $Content .= logViewerMenu($DBcnx);
   }
   $Content .=     "</div>";
   $Content .=   "</div>";
@@ -702,8 +705,10 @@ function showLocations($DBcnx) {
 function showLogs($DBcnx) {
   $lines = 50;
   $log = 0;
+  $address = "";
   if (isset($_POST["lines"])) $lines = $_POST["lines"];
   if (isset($_POST["log"])) $log = $_POST["log"];
+  if (isset($_POST["address"])) $address = $_POST["address"];
 
   if ($log == 0) {
     $Content  = "<div class=\"table-responsive\" style=\"width: 99%; margin-left: 0.25em;\">";
@@ -717,7 +722,11 @@ function showLogs($DBcnx) {
     $Content .=     "</tr>";
     $Content .=   "</thead>";
     $Content .=   "<tbody>";
-    $Result = mysqli_query($DBcnx,"SELECT * FROM inbound ORDER BY ID DESC LIMIT $lines");
+    if ($address != "") {
+      $Result = mysqli_query($DBcnx,"SELECT * FROM inbound WHERE address='$address' ORDER BY ID DESC LIMIT $lines");
+    } else {
+      $Result = mysqli_query($DBcnx,"SELECT * FROM inbound ORDER BY ID DESC LIMIT $lines");
+    }
     while ($RS = mysqli_fetch_assoc($Result)) {
       $Content .=   "<tr>";
       $Content .=     "<td>" . $RS["ID"] . "</td>";
@@ -744,7 +753,11 @@ function showLogs($DBcnx) {
     $Content .=     "</tr>";
     $Content .=   "</thead>";
     $Content .=   "<tbody>";
-    $Result = mysqli_query($DBcnx,"SELECT * FROM outbound ORDER BY ID DESC LIMIT $lines");
+    if ($address != "") {
+      $Result = mysqli_query($DBcnx,"SELECT * FROM outbound address='$address' ORDER BY ID DESC LIMIT $lines");
+    } else {
+      $Result = mysqli_query($DBcnx,"SELECT * FROM outbound ORDER BY ID DESC LIMIT $lines");
+    }
     while ($RS = mysqli_fetch_assoc($Result)) {
       $Content .=   "<tr>";
       $Content .=     "<td>" . $RS["ID"] . "</td>";
