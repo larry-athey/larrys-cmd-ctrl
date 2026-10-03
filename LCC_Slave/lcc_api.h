@@ -11,60 +11,73 @@ inline void sendReplayRequest(String Request, String ID) { // Request a repeat o
 //------------------------------------------------------------------------------------------------
 inline void setupLights(int ID, uint8_t targetR, uint8_t targetG, uint8_t targetB, float Fade) { // Sets the color of a specific LED or all of them
   #ifndef STEPPER
-  uint32_t durationMs = Fade * 1000;
-  if (ID < 65535) { // Update a single LED/fixture
-    if (ID > (TOTAL_LEDS - 1)) return;
-    if (Serial) Serial.println("Updating RGB LED/fixture: " + String(ID));
-    uint32_t currentColor = lights.getPixelColor(ID);
-    uint8_t currentR = (currentColor >> 16) & 0xFF;
-    uint8_t currentG = (currentColor >> 8) & 0xFF;
-    uint8_t currentB = currentColor & 0xFF;
+  char scriptBuf[512];
 
-    // Number of steps for the transition (e.g., 100 steps for smooth fading)
-    const int steps = 100;
-    uint32_t delayPerStep = durationMs / steps;
+  // Stop any currently running script so we can replace it cleanly
+  if (basic.isRunning()) basic.stop();
 
-    // Perform the crossfade
-    for (int step = 0; step <= steps; step ++) {
-      float t = (float)step / steps;
-      uint8_t r = currentR + (targetR - currentR) * t;
-      uint8_t g = currentG + (targetG - currentG) * t;
-      uint8_t b = currentB + (targetB - currentB) * t;
+  // Guard against zero / negative fade
+  if (Fade <= 0.0f) Fade = 0.001f;
 
-      // Set the new color
-      lights.setPixelColor(ID,lights.Color(r,g,b));
-      lights.show();
+  // Number of steps (aim for ~25 ms per step)
+  const int stepMs = 25;
+  int steps = (int)(Fade * 1000.0f / stepMs);
+  if (steps < 1) steps = 1;
+  if (steps > 200) steps = 200; // safety limit
 
-      // Delay to control the speed of the fade
-      delay(delayPerStep);
-    }
-  } else { // Update the entire network of LEDs/fixtures
-    if (Serial) Serial.println("Updating all RGB LEDs/fixtures");
-    uint32_t currentColor = lights.getPixelColor(0);
-    uint8_t currentR = (currentColor >> 16) & 0xFF;
-    uint8_t currentG = (currentColor >> 8) & 0xFF;
-    uint8_t currentB = currentColor & 0xFF;
+  // LedBasic variable map (all single letters A–Z only):
+  //   T = total steps
+  //   U = target R
+  //   V = target G
+  //   W = target B
+  //   S = current step
+  //   P = pixel index (single-LED mode)
+  //   R,G,B = interpolated color
 
-    // Number of steps for the transition (e.g., 100 steps for smooth fading)
-    const int steps = 100;
-    uint32_t delayPerStep = durationMs / steps;
+  if (ID == 65535) {
+    // Fade whole strip
+    snprintf(scriptBuf, sizeof(scriptBuf),
+            "10 T = %d\n"                 // total steps
+            "20 U = %d\n"                 // target R
+            "30 V = %d\n"                 // target G
+            "40 W = %d\n"                 // target B
+            "50 S = 0\n"                  // current step
+            "100 R = U * S / T\n"         // linear interpolation 0 → target
+            "110 G = V * S / T\n"
+            "120 B = W * S / T\n"
+            "130 FILL R , G , B\n"
+            "140 WAIT %d\n"
+            "150 S = S + 1\n"
+            "160 IF S <= T THEN GOTO 100\n"
+            "170 FILL U , V , W\n"        // guarantee exact final color
+            "180 SHOW\n",
+            steps, targetR, targetG, targetB, stepMs);
+  } else {
+    // Fade single LED
+    snprintf(scriptBuf, sizeof(scriptBuf),
+            "10 T = %d\n"
+            "20 U = %d\n"
+            "30 V = %d\n"
+            "40 W = %d\n"
+            "50 P = %d\n"                 // pixel index
+            "60 S = 0\n"
+            "100 R = U * S / T\n"
+            "110 G = V * S / T\n"
+            "120 B = W * S / T\n"
+            "130 SET P , R , G , B\n"
+            "140 WAIT %d\n"
+            "150 S = S + 1\n"
+            "160 IF S <= T THEN GOTO 100\n"
+            "170 SET P , U , V , W\n"
+            "180 SHOW\n",
+            steps, targetR, targetG, targetB, ID, stepMs);
+  }
 
-    // Perform the crossfade
-    for (int step = 0; step <= steps; step ++) {
-      float t = (float)step / steps;
-      uint8_t r = currentR + (targetR - currentR) * t;
-      uint8_t g = currentG + (targetG - currentG) * t;
-      uint8_t b = currentB + (targetB - currentB) * t;
-
-      // Set the new color
-      for (int x = 0; x < TOTAL_LEDS; x ++) {
-        lights.setPixelColor(x,lights.Color(r,g,b));
-      }
-      lights.show();
-
-      // Delay to control the speed of the fade
-      delay(delayPerStep);
-    }
+  // Compile & start
+  if (basic.compileFromText(scriptBuf)) {
+    basic.play();
+  } else {
+    // else: compile failed – you can add Serial.printf debugging here
   }
   #endif
 }
@@ -170,7 +183,7 @@ inline void setupScene(int Scene) { // Pull an LedBasic script from the Mission 
   #ifndef STEPPER
   if (sendCommand("/scene-request/" + String(Scene))) {
     Serial.end();
-    basic.stop();
+    if (basic.isRunning()) basic.stop();
     basic.compileFromText(scriptCode.c_str());
     basic.play();
     Serial.begin(115200);

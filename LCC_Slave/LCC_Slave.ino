@@ -227,7 +227,7 @@ void setup() {
   #else
   Wire.begin(OUT_1,OUT_2);
   // Initialize MCP23017
-  if (mcp.begin_I2C(MCP_ADDR)) {
+  if (mcp.begin_I2C()) {
     for (byte i = 0; i <= 15; i ++) {
       mcp.pinMode(i,OUTPUT);
       mcp.digitalWrite(i,LOW);
