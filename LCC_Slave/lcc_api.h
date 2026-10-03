@@ -200,9 +200,9 @@ inline void toggleSwitch(byte gpioPin, byte State) { // Toggle a specific GPIO p
   // Map gpioPin to new values as necessary
   byte thePin = 0;
   if (gpioPin == 0) {
-    thePin = 5;
+    thePin = OUT_1;
   } else if (gpioPin == 1) {
-    thePin = 6;
+    thePin = OUT_2;
   } else {
     return;
   }
