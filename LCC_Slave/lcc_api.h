@@ -13,13 +13,13 @@ inline void setupLights(int ID, uint8_t targetR, uint8_t targetG, uint8_t target
   #ifndef STEPPER
   char scriptBuf[512];
 
-  // Stop any currently running script so we can replace it cleanly
+  // Stop any currently running LedBasic script
   if (basic.isRunning()) basic.stop();
 
-  // Guard against zero / negative fade
+  // Guard against zero / negative fade times
   if (Fade <= 0.0f) Fade = 0.001f;
 
-  // Number of steps (aim for ~25 ms per step)
+  // Number of steps (aiming for ~25 ms per step)
   const int stepMs = 25;
   int steps = (int)(Fade * 1000.0f / stepMs);
   if (steps < 1) steps = 1;
@@ -35,7 +35,7 @@ inline void setupLights(int ID, uint8_t targetR, uint8_t targetG, uint8_t target
   //   R,G,B = interpolated color
 
   if (ID == 65535) {
-    // Fade whole strip
+    // Fade whole bus
     snprintf(scriptBuf, sizeof(scriptBuf),
             "10 T = %d\n"                 // total steps
             "20 U = %d\n"                 // target R
@@ -51,7 +51,7 @@ inline void setupLights(int ID, uint8_t targetR, uint8_t targetG, uint8_t target
             "160 IF S <= T THEN GOTO 100\n"
             "170 FILL U , V , W\n"        // guarantee exact final color
             "180 SHOW\n",
-            steps, targetR, targetG, targetB, stepMs);
+            steps,targetR,targetG,targetB,stepMs);
   } else {
     // Fade single LED
     snprintf(scriptBuf, sizeof(scriptBuf),
@@ -70,14 +70,14 @@ inline void setupLights(int ID, uint8_t targetR, uint8_t targetG, uint8_t target
             "160 IF S <= T THEN GOTO 100\n"
             "170 SET P , U , V , W\n"
             "180 SHOW\n",
-            steps, targetR, targetG, targetB, ID, stepMs);
+            steps,targetR,targetG,targetB,ID,stepMs);
   }
 
   // Compile & start
   if (basic.compileFromText(scriptBuf)) {
     basic.play();
   } else {
-    // else: compile failed – you can add Serial.printf debugging here
+    // else: compile failed
   }
   #endif
 }
