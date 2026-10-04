@@ -160,6 +160,7 @@ byte sysInit = 0;                // Flag to indicate whether this is a first boo
 byte wifiCheckCounter = 0;       // Used to check the WiFi connection once every 30 seconds
 int Locations[16][3];            // Queue for caching location ID numbers and associated actions
 int soundFile = -1;              // Sound file number to play from the DFPlayer Mini
+unsigned long fadeTarget = 0;    // Timestamp of when the current RGB LED fade ends
 unsigned long motorTimestamp = 0;// Timestamp of the last motor command execution
 unsigned long targetRuntime = 0; // Timestamp of the motor end run (0 = indefinite runtime)
 long currentPos = 0;             // Stepper current position of the current running command
