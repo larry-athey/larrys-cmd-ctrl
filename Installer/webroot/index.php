@@ -16,10 +16,10 @@ require_once("html.php");
   <meta http-equiv="refresh" content="3600">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css"><!-- -->
-  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- script src="/js/chart.js"></script -->
-  <script src="/js/jquery.min.js"></script>
+  <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- script src="/assets/js/chart.js"></script -->
+  <script src="/assets/js/jquery.min.js"></script>
   <link rel="icon" href="/favicon.ico?v=1.1">
   <script type="text/javascript">
     //---------------------------------------------------------------------------------------------------

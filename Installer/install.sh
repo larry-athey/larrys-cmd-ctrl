@@ -81,10 +81,8 @@ sudo systemctl restart lighttpd.service
 sudo rm -f /var/www/html/index.lighttpd.html
 sudo cp -f ./webroot/* /var/www/html
 cd /var/www/html
-sudo tar -xzvf bootstrap.tar.gz
-sudo rm -f bootstrap.tar.gz
-sudo tar -xzvf js.tar.gz
-sudo rm -f js.tar.gz
+sudo tar -xzvf assets.tar.gz
+sudo rm -f assets.tar.gz
 cd -
 sudo chown -R www-data:www-data /var/www/html
 sudo chmod g+w -R /var/www/html
