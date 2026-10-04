@@ -32,8 +32,6 @@ File: `~/Arduino/libraries/LedBasic/src/LedBasic.h`
 
 Find `hsv2rgb_fast` and remove `IRAM_ATTR`:
 
-`// change this:`
-`IRAM_ATTR static inline void hsv2rgb_fast(...)`
+`// change this:``IRAM_ATTR static inline void hsv2rgb_fast(...)`
 
-`// to this:`
-`static inline void hsv2rgb_fast(...)`
+`// to this:``static inline void hsv2rgb_fast(...)`
