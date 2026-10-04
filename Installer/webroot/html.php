@@ -149,6 +149,7 @@ function editCommand($DBcnx) {
         $Cmd["green"]           = 0;
         $Cmd["blue"]            = 0;
         $Cmd["fade"]            = "1.0";
+        $Cmd["scene"]           = 0;
       }
     }
   } else {
@@ -249,6 +250,8 @@ function editCommand($DBcnx) {
     $Content .=   "<label for=\"fade\" class=\"form-label fw-bolder\">Fade Time [0..30 seconds]</label>";
     $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"fade\" name=\"fade\" min=\"0\" max=\"30\" step=\"0.1\" value=\"" . $Cmd["fade"] . "\">";
     $Content .= "</div>";
+  } elseif ($Cmd["cmd_type"] == 7) {
+
   }
   $Content .=     "</div>";
   $Content .=     "<div class=\"border-bottom\"></div>";
@@ -387,17 +390,20 @@ function editScene($DBcnx) {
   $Content .=     "</div>\n";
   $Content .=   "</div>\n";
 
-  $Content .=   "<script src=\"https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js\"></script>\n";
-  $Content .=   "<script src=\"https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-basic.min.js\"></script>\n";
-  $Content .=   "<script src=\"https://cdn.jsdelivr.net/npm/codejar@4.3.0/dist/codejar.umd.js\"></script>\n";
+  $Content .=   "<script src=\"/assets/js/prism-core.min.js\"></script>\n";
+  $Content .=   "<script src=\"/assets/js/prism-basic.min.js\"></script>\n";
+  $Content .=   "<script src=\"/assets/js/codejar.js\"></script>\n";
   $Content .=   "<script type=\"module\">\n";
-  $Content .=   "import { CodeJar } from 'https://cdn.jsdelivr.net/npm/codejar@4.3.0/dist/codejar.js';\n";
+  $Content .=   "import { CodeJar } from '/assets/js/codejar.js';\n";
   $Content .=   "const highlight = (editor) => { const code = editor.textContent; editor.innerHTML = Prism.highlight(code, Prism.languages.basic, 'basic'); };\n";
-  $Content .=   "const editorEl = document.getElementById('editor'); const jar = CodeJar(editorEl, highlight, { tab: '  ' });\n";
+  $Content .=   "const editorEl = document.getElementById('editor');\n";
+  $Content .=   "const jar = CodeJar(editorEl, highlight, { tab: '  ' });\n";
+  $Content .=   "const hidden = document.getElementById('scriptContent');\n";
+  $Content .=   "jar.onUpdate((code) => { if (hidden) hidden.value = code; });\n";
   $Content .=   "const sampleScript = `" . $Scn["source"] . "`;\n";
   $Content .=   "jar.updateCode(sampleScript);\n";
-  $Content .=   "jar.onUpdate((code) => { document.getElementById('scriptContent').value = code; });\n";
-  $Content .=   "document.getElementById('scriptForm').addEventListener('submit', function () { document.getElementById('scriptContent').value = jar.toString(); });\n";
+  $Content .=   "if (hidden) { hidden.value = jar.toString(); }\n";
+  $Content .=   "const form = document.getElementById('scriptForm'); if (form) { form.addEventListener('submit', () => { if (hidden) { hidden.value = jar.toString(); } }); }\n";
   $Content .=   "</script>\n";
 
   $Content .= "</div>";

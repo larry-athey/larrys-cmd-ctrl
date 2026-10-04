@@ -68,6 +68,8 @@ function createMessage($DBcnx,$ID) {
       $Msg = "/switch/" . $Cmd["gpio_pin"] . "/" . $Cmd["direction"] . "|0";
     } elseif ($Cmd["cmd_type"] == 6) { // RGB LED control
       $Msg = "/light/" . $Cmd["light"] . "/" . $Cmd["red"] . "/" . $Cmd["green"] . "/" . $Cmd["blue"] . "/" . $Cmd["fade"] . "|0";
+    } elseif ($Cmd["cmd_type"] == 7) { // LedBasic scene
+      $Msg = "/scene/" . $Cmd["scene"] . "|0";
     }
   }
   return $Msg;

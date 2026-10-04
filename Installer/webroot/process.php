@@ -76,6 +76,8 @@ elseif (isset($_POST["edit_command"])) {
     $blue = $_POST["blue"];
     $fade = $_POST["fade"];
     $Result = mysqli_query($DBcnx,"UPDATE commands SET cmd_name='$cmd_name',cmd_type=$cmd_type,cmd_class=$cmd_class,light=$light,red=$red,green=$green,blue=$blue,fade=$fade WHERE ID=$ID");
+  } elseif ($_POST["cmd_type"] == 7) {
+
   }
   $Return = "/index.php?page=commands";
 //echo("<pre>");
@@ -130,13 +132,14 @@ elseif (isset($_POST["edit_scene"])) {
   } else {
     $ID = $_POST["ID"];
   }
+  $scn_name = trim($_POST["scn_name"]);
+  $source   = trim($_POST["script"]);
 
 
-
-//echo("<pre>");
-//print_r($_POST);
-//echo("</pre>");
-//exit;
+echo("<pre>");
+print_r($_POST);
+echo("</pre>");
+exit;
 }
 //---------------------------------------------------------------------------------------------------
 elseif (isset($_POST["edit_script"])) {

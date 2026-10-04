@@ -278,7 +278,7 @@
         <tr>
           <td class="cmd">PIXEL</td>
           <td>—</td>
-          <td>num_leds − 1</td>
+          <td>total_leds − 1</td>
           <td>Highest valid pixel index.</td>
         </tr>
         <tr>
