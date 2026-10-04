@@ -10,4 +10,4 @@ You still have the capabilities to use IR location detection, limit switches, an
 
 `#define I2CSWITCH`
 
-Defining the I2CSWITCH constant enables the I2C bus on the original OUT_1 and OUT_2 GPIO pins and enables support for the MCP23017 GPIO expansion module.
+Defining the I2CSWITCH constant enables the I2C bus on the original OUT_1 and OUT_2 GPIO pins and enables support for the MCP23017 GPIO expansion module. This increases the GPIO switching capabilities from 2 outputs to 16.
