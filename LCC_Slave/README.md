@@ -18,7 +18,7 @@ Stock unmodified LedBasic code doesn't play nice with ESP32-S3 board libraries a
 
 `dangerous relocation: l32r: literal placed after use: .literal._ZN8LedBasic12hsv2rgb_fast...`
 
-comes from this function in `LedBasic.h` (around line 202–247):
+This comes from this function in `LedBasic.h` (around line 202–247):
 
 `IRAM_ATTR static inline void hsv2rgb_fast(uint8_t h, uint8_t s, uint8_t v, uint8_t &r, uint8_t &g, uint8_t &b)`
 
