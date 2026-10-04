@@ -76,7 +76,7 @@ inline void setupLights(int ID, uint8_t targetR, uint8_t targetG, uint8_t target
   // Compile & start
   if (basic.compileFromText(scriptBuf)) {
     basic.play();
-    fadeTarget = (int)(Fade * 1000.0f);
+    fadeTarget = millis() + (int)(Fade * 1000.0f);
   } else {
     // else: compile failed
   }
