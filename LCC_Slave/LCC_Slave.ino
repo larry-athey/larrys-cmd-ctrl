@@ -249,7 +249,7 @@ void setup() {
       mcp.digitalWrite(i,LOW);
     }
   } else {
-    if (Serial) Serial.println("MCP23017 init failed!");
+    if (Serial) Serial.println("MCP23017 initialization failed!");
   }
   #endif
   pinMode(MOT_F,OUTPUT); digitalWrite(MOT_F,LOW); // AIN1 (Standby is pulled high to enable the driver)
