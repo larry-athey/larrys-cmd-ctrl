@@ -13,6 +13,11 @@ elseif (isset($_GET["delete_device"])) {
   $Update = mysqli_query($DBcnx,"DELETE FROM devices WHERE ID=" . $_GET["ID"]);
   $Return = "/index.php?page=devices";
 }
+//--------------------------------------------------------------------------------------------------
+elseif (isset($_GET["delete_scene"])) {
+  $Update = mysqli_query($DBcnx,"DELETE FROM scenes WHERE ID=" . $_GET["ID"]);
+  $Return = "/index.php?page=scenes";
+}
 //---------------------------------------------------------------------------------------------------
 elseif (isset($_GET["delete_location"])) {
   $Update = mysqli_query($DBcnx,"DELETE FROM locations WHERE ID=" . $_GET["ID"]);
@@ -132,14 +137,13 @@ elseif (isset($_POST["edit_scene"])) {
   } else {
     $ID = $_POST["ID"];
   }
-  $scn_name = trim($_POST["scn_name"]);
-  $source   = trim($_POST["script"]);
-
-
-echo("<pre>");
-print_r($_POST);
-echo("</pre>");
-exit;
+  $scn_name = mysqli_escape_string($DBcnx,trim($_POST["scn_name"]));
+  $source   = mysqli_escape_string($DBcnx,trim($_POST["script"]));
+  $Result = mysqli_query($DBcnx,"UPDATE scenes SET scn_name='$scn_name',source='$source' WHERE ID=$ID");
+//echo("<pre>");
+//print_r($_POST);
+//echo("</pre>");
+//exit;
 }
 //---------------------------------------------------------------------------------------------------
 elseif (isset($_POST["edit_script"])) {
