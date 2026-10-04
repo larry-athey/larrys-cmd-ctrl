@@ -1,8 +1,9 @@
 //------------------------------------------------------------------------------------------------
 // Larry's CMD & CTRL (LCC) | (CopyLeft) 2025-Present | Larry Athey (https://panhandleponics.com)
 //
-// You must be using the Espressif ESP32 v2.0.17 library to compile this code. You will need to
-// add the URL below in your Arduino IDE preferences under Additional Boards Manager URLs.
+// You must be using the Espressif ESP32 v2.0.17 library to compile this code. This code will not
+// fit in the majority of ESP32 boards using v3.x board libraries. You will need to add the URL
+// below in your Arduino IDE preferences under Additional Boards Manager URLs.
 //
 // https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
 //
