@@ -11,3 +11,11 @@ You still have the capabilities to use IR location detection, limit switches, an
 `#define I2CSWITCH`
 
 Defining the I2CSWITCH constant enables the I2C bus on the original OUT_1 and OUT_2 GPIO pins and enables support for the MCP23017 GPIO expansion module. This increases the GPIO switching capabilities from 2 outputs to 16.
+
+### LedBasic Compile Error
+
+The LedBasic code doesn't play nice with some ESP32-S3 board libraries and you may see this linker error.
+
+`dangerous relocation: l32r: literal placed after use: .literal._ZN8LedBasic12hsv2rgb_fast...`
+
+On ESP32 / ESP32-S3 the compiler places the function in IRAM (`.iram1.xx`), but the literal pool (the constants the l32r instruction needs) does not get the matching .iram section name. The linker then puts the literals in flash, which is too far away for the l32r instruction → “dangerous relocation”.This is a classic problem with IRAM_ATTR on C++ methods that are defined inline in a header, and it shows up frequently with Arduino-ESP32 2.0.x (including 2.0.17).LedBasic was written with ESP8266-style IRAM optimizations in mind; those attributes are not always safe on ESP32.
