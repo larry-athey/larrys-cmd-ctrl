@@ -23,3 +23,17 @@ On ESP32 / ESP32-S3 the compiler places the function in IRAM (`.iram1.xx`), but 
 This is a classic problem with `IRAM_ATTR` on C++ methods that are defined inline in a header, and it shows up frequently with Arduino-ESP32 2.0.x (including 2.0.17).
 
 LedBasic was written with ESP8266-style IRAM optimizations in mind; those attributes are not always safe on ESP32.
+
+### Quick fix (recommended)
+
+Edit the library header:
+
+File: `~/Arduino/libraries/LedBasic/src/LedBasic.h`
+
+Find `hsv2rgb_fast` and remove `IRAM_ATTR`:
+
+`// change this:`
+`IRAM_ATTR static inline void hsv2rgb_fast(...)`
+
+`// to this:`
+`static inline void hsv2rgb_fast(...)`
