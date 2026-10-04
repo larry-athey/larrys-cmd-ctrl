@@ -24,7 +24,7 @@ This is a classic problem with `IRAM_ATTR` on C++ methods that are defined inlin
 
 LedBasic was written with ESP8266-style IRAM optimizations in mind; those attributes are not always safe on ESP32.
 
-### Quick fix (recommended)
+### Quick fix
 
 Edit the library header:
 
