@@ -646,7 +646,7 @@ void loop() {
 
   // Non-blocking heartbeat LED fader so users know the ESP32 isn't locked up or dead
   // NOTE: This only works with basic single-color LEDs, not Neopixel/WS2812 LEDs, use
-  // neopixelWrite(LED_PIN,dutyCycle,0,0) for a really basic pulsing red light
+  // neopixelWrite(LED_PIN,dutyCycle,dutyCycle,0) for a really basic pulsing yellow light
   if (CurrentTime - ledUpdate >= 10) {
     ledUpdate = CurrentTime;
     int dutyCycle = (sin(angle) + 1.0) * 127.5;
