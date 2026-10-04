@@ -76,6 +76,7 @@ inline void setupLights(int ID, uint8_t targetR, uint8_t targetG, uint8_t target
   // Compile & start
   if (basic.compileFromText(scriptBuf)) {
     basic.play();
+    fadeTarget = (int)(Fade * 1000.0f);
   } else {
     // else: compile failed
   }
@@ -318,9 +319,9 @@ inline void runCommand(String Cmd) { // Execute a queued LCC Mission Control com
 }
 //------------------------------------------------------------------------------------------------
 inline void processQueue() { // Process the next command in the queue (FIFO style handling)
-  // Prevent new motor/stepper control commands from cancelling incomplete ones
+  // Prevent new motor/stepper control and RGB LED commands from cancelling incomplete ones
   #ifndef STEPPER
-  if (motorSpeed != targetSpeed) return;
+  if ((motorSpeed != targetSpeed) || (millis() < fadeTarget)) return;
   #else
   if (Stepper.isRunning()) return;
   #endif
