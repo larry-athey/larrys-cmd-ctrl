@@ -63,7 +63,7 @@
 //
 // NOTE: The location transponder MCU can actually run up to 11 unique LED transmitters.
 /************************************************************************************************/
-//#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
+#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
 //#define STEPPER                // Remember, no sound effects are possible when using a stepper
 /************************************************************************************************/
 #define DISABLE_CODE_FOR_TRANSMITTER
@@ -461,11 +461,11 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
           digitalWrite(thePin,LOW);
         }
         #else
-        byte State = mcp.digitalRead(thePin);
+        byte State = mcp.digitalRead(Locations[i][2]);
         if (State == 0) {
-          mcp.digitalWrite(thePin,HIGH);
+          mcp.digitalWrite(Locations[i][2],HIGH);
         } else {
-          mcp.digitalWrite(thePin,LOW);
+          mcp.digitalWrite(Locations[i][2],LOW);
         }
         #endif
       } else if (Locations[i][1] == 6) { // Toggle a specific (or all) Neopixel/WS2812 (off or full white)

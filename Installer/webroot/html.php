@@ -24,6 +24,10 @@ function deleteConfirm($DBcnx) {
     $Return = "schedule";
     $btdID  = "delete_task";
     $Name   = getTaskName($DBcnx,$ID);
+  } elseif ($_GET["type"] == 6) {
+    $Return = "scenes";
+    $btdID  = "delete_scene";
+    $Name   = getSceneName($DBcnx,$ID);
   } else {
     return;
   }
@@ -349,7 +353,7 @@ function editScene($DBcnx) {
     $Scn["scn_name"] = "";
     $Scn["source"]   = "";
   }
-  $Content  = "<div style=\"width: 31em; margin-left: 0.25em; margin-top: 0.5em;\">";
+  $Content  = "<div style=\"width: 99.5%; margin-left: 0.25em; margin-top: 0.5em;\">";
   $Content .=   "<form id=\"device_editor\" method=\"post\" action=\"/process.php\">";
   $Content .=   "<input type=\"hidden\" id=\"ID\" name=\"ID\" value=\"" . $_GET["ID"] . "\">";
   $Content .=   "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
@@ -360,8 +364,8 @@ function editScene($DBcnx) {
   $Content .=         "<input type=\"text\" class=\"form-control fw-bolder\" id=\"scn_name\" name=\"scn_name\" maxlength=\"255\" value=\"" . $Scn["scn_name"] . "\">";
   $Content .=       "</div>";
   $Content .=       "<div style=\"margin-top: 0.5em;\">";
-  //$Content .=         "<label for=\"pin\" class=\"form-label fw-bolder\">Transponder Pin</label>";
-  //$Content .=         "<input type=\"number\" class=\"form-control fw-bolder\" id=\"pin\" name=\"pin\" min=\"1\"  max=\"65535\" step=\"1\" value=\"" . $Loc["pin"] . "\">";
+  $Content .=         "<div class=\"editor\" id=\"editor\" data-gramm=\"false\"></div>";
+  $Content .=         "<textarea name=\"script\" id=\"scriptContent\" hidden></textarea>";
   $Content .=       "</div>";
   $Content .=     "</div>";
   $Content .=     "<div class=\"border-bottom\"></div>";
@@ -370,7 +374,21 @@ function editScene($DBcnx) {
   $Content .=       "<button type=\"submit\" class=\"btn btn-primary fw-bolder\" name=\"edit_scene\" id=\"edit_scene\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Save</button></p>";
   $Content .=     "</div>";
   $Content .=   "</div>";
-  $Content .=   "</form>";
+  $Content .=   "</form>\n";
+
+  $Content .=   "<script src=\"https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js\"></script>\n";
+  $Content .=   "<script src=\"https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-basic.min.js\"></script>\n";
+  $Content .=   "<script src=\"https://cdn.jsdelivr.net/npm/codejar@4.3.0/dist/codejar.umd.js\"></script>\n";
+  $Content .=   "<script type=\"module\">\n";
+  $Content .=   "import { CodeJar } from 'https://cdn.jsdelivr.net/npm/codejar@4.3.0/dist/codejar.js';\n";
+  $Content .=   "const highlight = (editor) => { const code = editor.textContent; editor.innerHTML = Prism.highlight(code, Prism.languages.basic, 'basic'); };\n";
+  $Content .=   "const editorEl = document.getElementById('editor'); const jar = CodeJar(editorEl, highlight, { tab: '  ' });\n";
+  $Content .=   "const sampleScript = `" . $Scn["source"] . "`;\n";
+  $Content .=   "jar.updateCode(sampleScript);\n";
+  $Content .=   "jar.onUpdate((code) => { document.getElementById('scriptContent').value = code; });\n";
+  $Content .=   "document.getElementById('scriptForm').addEventListener('submit', function () { document.getElementById('scriptContent').value = jar.toString(); });\n";
+  $Content .=   "</script>\n";
+
   $Content .= "</div>";
   return $Content;
 }
@@ -823,7 +841,7 @@ function showScenes($DBcnx) {
     $Content .=   "<div class=\"card-body\">";
     $Content .=     "<p class=\"fw-bolder mb-0\">" . $Scn["scn_name"] . "</p>";
     $Content .=     "<p class=\"text-secondary fs-6 mb-0\">" . strlen($Scn["source"]) . " bytes, " . substr_count($Scn["source"],"\n") + 1 . " lines</p>";
-    $Content .=     "<p class=\"mb-0\" style=\"float: right;\"><a href=\"?page=delete_confirm&type=3&ID=" . $Scn["ID"] . "\" class=\"btn btn-danger fw-bolder\" name=\"delete_scene\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+    $Content .=     "<p class=\"mb-0\" style=\"float: right;\"><a href=\"?page=delete_confirm&type=6&ID=" . $Scn["ID"] . "\" class=\"btn btn-danger fw-bolder\" name=\"delete_scene\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;";
     $Content .=     "<a href=\"?page=edit_scene&ID=" . $Scn["ID"] . "\" class=\"btn btn-primary fw-bolder\" name=\"edit_scene\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Edit</a></p>";
     $Content .=   "</div>";
     $Content .= "</div>";

@@ -326,6 +326,16 @@ function getLocationName($DBcnx,$ID) {
   }
 }
 //---------------------------------------------------------------------------------------------------
+function getSceneName($DBcnx,$ID) {
+  $Result = mysqli_query($DBcnx,"SELECT * FROM scenes WHERE ID=$ID");
+  if (mysqli_num_rows($Result) > 0) {
+    $Scr = mysqli_fetch_assoc($Result);
+    return $Scr["scn_name"];
+  } else {
+    return "Unknown";
+  }
+}
+//---------------------------------------------------------------------------------------------------
 function getScriptName($DBcnx,$ID) {
   $Result = mysqli_query($DBcnx,"SELECT * FROM scripts WHERE ID=$ID");
   if (mysqli_num_rows($Result) > 0) {

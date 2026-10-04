@@ -184,9 +184,13 @@ inline void setupScene(int Scene) { // Pull an LedBasic script from the Mission 
   if (sendCommand("/scene-request/" + String(Scene))) {
     Serial.end();
     if (basic.isRunning()) basic.stop();
-    basic.compileFromText(scriptCode.c_str());
-    basic.play();
+    bool Pass = basic.compileFromText(scriptCode.c_str());
+    if (Pass) basic.play();
     Serial.begin(115200);
+    if ((! Pass) && (Serial)) {
+      delay(1000);
+      Serial.println("ERROR: LedBasic code failed to compile!");
+    }
   }
   #endif
 }
