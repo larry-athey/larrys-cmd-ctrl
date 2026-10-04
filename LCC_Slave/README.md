@@ -12,6 +12,7 @@ You still have the capabilities to use IR location detection, limit switches, an
 
 Defining the I2CSWITCH constant enables the I2C bus on the original OUT_1 and OUT_2 GPIO pins and enables support for the MCP23017 GPIO expansion module. This increases the GPIO switching capabilities from 2 outputs to 16.
 
+
 ### LedBasic Compile Error
 
 Stock unmodified LedBasic code doesn't play nice with ESP32-S3 board libraries and you may see this linker error.
