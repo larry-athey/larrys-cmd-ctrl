@@ -96,14 +96,15 @@
 #define TOTAL_LEDS 50            // Total number of LEDs on the Neopixel/WS2812 lighting bus.
                                  // This value cannot be dynamicaly updated if you add more LEDs.
                                  // You need to modify this value here and re-flash the ESP32.
-// GPIO Left side (USB top)
+/*
+// Waveshare ESP32-S3FH4R2 (Mini/Stamp) GPIO Left side (USB top)
 #define LIMIT_1 1                // Limit switch 1 (forward)
 #define LIMIT_2 2                // Limit switch 2 (reverse)
 #define IR_RCV 3                 // TSOP34838 input pin
 #define OUT_1 4                  // Output 1 (SSR) or I2C SDA or DRV8825 M0
 #define OUT_2 5                  // Output 2 (SSR) or I2C SCL or DRV8825 M1
 #define MOT_PWM 6                // H-Bridge PWM or DRV8825 M2
-// GPIO Right side (USB top)
+// Waveshare ESP32-S3FH4R2 (Mini/Stamp) Right side (USB top)
 #define OUT_3 13                 // Output 3 (SSR)
 #define OUT_4 12                 // Output 4 (SSR)
 #define MOT_F 11                 // H-Bridge forward pin or user defined if using a stepper
@@ -111,6 +112,20 @@
 #define BUS_1 9                  // DFRobot TX or DRV8825 step pin
 #define BUS_2 8                  // DFRobot RX or DRV8825 direction pin
 #define BUS_3 7                  // NeoPixel/WS2812 bus or DRV8825 sleep pin
+*/
+// Seeed Studios XAIO ESP32-S3 GPIO Left side (USB top)
+#define MOT_F 1                  // H-Bridge forward pin or user defined if using a stepper
+#define MOT_R 2                  // H-Bridge reverse pin or user defined if using a stepper
+#define MOT_PWM 3                // H-Bridge PWM or DRV8825 M2
+#define BUS_3 4                  // NeoPixel/WS2812 bus or DRV8825 sleep pin
+#define OUT_1 5                  // Output 1 (SSR) or I2C SDA or DRV8825 M0
+#define OUT_2 6                  // Output 2 (SSR) or I2C SCL or DRV8825 M1
+#define BUS_1 43                 // DFRobot TX or DRV8825 step pin
+// Seeed Studios XAIO ESP32-S3 GPIO Right side (USB top)
+#define LIMIT_1 9                // Limit switch 1 (forward)
+#define LIMIT_2 8                // Limit switch 2 (reverse)
+#define IR_RCV 7                 // TSOP34838 input pin
+#define BUS_2 44                 // DFRobot RX or DRV8825 direction pin
 //------------------------------------------------------------------------------------------------
 #ifdef I2CSWITCH
 Adafruit_MCP23X17 mcp;
@@ -226,8 +241,9 @@ void setup() {
   // Expand this part as needed if you are using a larger ESP32 with more exposed GPIO pins for output switching
   pinMode(OUT_1,OUTPUT); digitalWrite(OUT_1,LOW);
   pinMode(OUT_2,OUTPUT); digitalWrite(OUT_2,LOW);
-  pinMode(OUT_3,OUTPUT); digitalWrite(OUT_3,LOW);
-  pinMode(OUT_4,OUTPUT); digitalWrite(OUT_4,LOW);
+  // Outputs 3 and 4 only exist if a Waveshare ESP32-S3FH4R2 is in use
+  //pinMode(OUT_3,OUTPUT); digitalWrite(OUT_3,LOW);
+  //pinMode(OUT_4,OUTPUT); digitalWrite(OUT_4,LOW);
   #else
   Wire.begin(OUT_1,OUT_2);
   // Initialize MCP23017
