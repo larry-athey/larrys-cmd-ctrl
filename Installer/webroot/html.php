@@ -32,7 +32,7 @@ function deleteConfirm($DBcnx) {
     return;
   }
   $Content  = "<div style=\"width: 31em; margin-left: 0.25em; margin-top: 0.5em;\">";
-  $Content .=   "<form id=\"device_editor\" method=\"post\" action=\"/process.php\">";
+  $Content .=   "<form id=\"delete_confirmation\" method=\"post\" action=\"/process.php\">";
   $Content .=   "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
   $Content .=     "<div class=\"card-header\"><span class=\"text-muted fw-bolder\">Delete Item</div>";
   $Content .=     "<div class=\"card-body\">";
@@ -857,7 +857,7 @@ function showScenes($DBcnx) {
     $Content .= "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
     $Content .=   "<div class=\"card-body\">";
     $Content .=     "<p class=\"fw-bolder mb-0\">" . $Scn["scn_name"] . "</p>";
-    $Content .=     "<p class=\"text-secondary fs-6 mb-0\">" . strlen($Scn["source"]) . " bytes, " . substr_count($Scn["source"],"\n") + 1 . " lines</p>";
+    $Content .=     "<p class=\"text-secondary fs-6 mb-0\">" . strlen($Scn["source"]) . " bytes, " . substr_count($Scn["source"],"\n") + 1 . " lines, ID " . $Scn["ID"] . "</p>";
     $Content .=     "<p class=\"mb-0\" style=\"float: right;\"><a href=\"?page=delete_confirm&type=6&ID=" . $Scn["ID"] . "\" class=\"btn btn-danger fw-bolder\" name=\"delete_scene\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;";
     $Content .=     "<a href=\"?page=edit_scene&ID=" . $Scn["ID"] . "\" class=\"btn btn-primary fw-bolder\" name=\"edit_scene\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Edit</a></p>";
     $Content .=   "</div>";
