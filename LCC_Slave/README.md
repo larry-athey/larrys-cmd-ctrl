@@ -18,7 +18,7 @@ You will notice that there are GPIO pin definitions for the **Seed Studio XAIO E
 
 ### LedBasic Compile Error
 
-Stock unmodified LedBasic code doesn't play nice with ESP32-S3 board libraries and you may see this linker error.
+Stock unmodified LedBasic code doesn't play nice with ESP32-S3 2.x board libraries and you may see this linker error.
 
 `dangerous relocation: l32r: literal placed after use: .literal._ZN8LedBasic12hsv2rgb_fast...`
 
