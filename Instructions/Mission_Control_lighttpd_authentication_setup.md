@@ -15,14 +15,6 @@ Lighttpd uses standard `.htpasswd` files generated using the `htpasswd` utility 
   sudo apt-get update
   sudo apt-get install apache2-utils
   ```
-- **Arch Linux:**
-  ```bash
-  sudo pacman -S apache-tools
-  ```
-- **Fedora / RHEL:**
-  ```bash
-  sudo dnf install httpd-tools
-  ```
 
 ---
 
