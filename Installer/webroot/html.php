@@ -246,8 +246,8 @@ function editCommand($DBcnx) {
     $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"blue\" name=\"blue\" min=\"0\" max=\"255\" step=\"1\" value=\"" . $Cmd["blue"] . "\">";
     $Content .= "</div>";
     $Content .= "<div style=\"margin-top: 0.5em;\">";
-    $Content .=   "<label for=\"fade\" class=\"form-label fw-bolder\">Fade Time [0..5 seconds]</label>";
-    $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"fade\" name=\"fade\" min=\"0\" max=\"5\" step=\"0.1\" value=\"" . $Cmd["fade"] . "\">";
+    $Content .=   "<label for=\"fade\" class=\"form-label fw-bolder\">Fade Time [0..30 seconds]</label>";
+    $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"fade\" name=\"fade\" min=\"0\" max=\"30\" step=\"0.1\" value=\"" . $Cmd["fade"] . "\">";
     $Content .= "</div>";
   }
   $Content .=     "</div>";
@@ -370,11 +370,22 @@ function editScene($DBcnx) {
   $Content .=     "</div>";
   $Content .=     "<div class=\"border-bottom\"></div>";
   $Content .=     "<div style=\"margin-top: 1em;\">";
-  $Content .=       "<p style=\"float: right; margin-right: 1em;\"><a href=\"?page=scenes\" class=\"btn btn-danger fw-bolder\" name=\"cancel\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+  $Content .=       "<p style=\"float: right; margin-right: 1em;\"><button type=\"button\" class=\"btn btn-outline-info btn-sm fw-bolder me-2\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\" data-bs-toggle=\"offcanvas\" data-bs-target=\"#langRefOffcanvas\">Language Reference</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+  $Content .=       "<a href=\"?page=scenes\" class=\"btn btn-danger fw-bolder\" name=\"cancel\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;";
   $Content .=       "<button type=\"submit\" class=\"btn btn-primary fw-bolder\" name=\"edit_scene\" id=\"edit_scene\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Save</button></p>";
   $Content .=     "</div>";
   $Content .=   "</div>";
   $Content .=   "</form>\n";
+
+  $Content .=   "<div class=\"offcanvas offcanvas-end text-bg-dark\" tabindex=\"-1\" id=\"langRefOffcanvas\" style=\"width: min(100%, 42rem);\">\n";
+  $Content .=     "<div class=\"offcanvas-header border-bottom\">\n";
+  $Content .=       "<h5 class=\"offcanvas-title\">LedBasic Language Reference</h5>\n";
+  $Content .=       "<button type=\"button\" class=\"btn-close btn-close-white\" data-bs-dismiss=\"offcanvas\"></button>\n";
+  $Content .=     "</div>\n";
+  $Content .=     "<div class=\"offcanvas-body p-0\">\n";
+  $Content .=       "<iframe src=\"/lang-ref.php\" style=\"width:100%; height:100%; border:0;\"></iframe>\n";
+  $Content .=     "</div>\n";
+  $Content .=   "</div>\n";
 
   $Content .=   "<script src=\"https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js\"></script>\n";
   $Content .=   "<script src=\"https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-basic.min.js\"></script>\n";
