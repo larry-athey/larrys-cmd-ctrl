@@ -14,7 +14,7 @@ Defining the I2CSWITCH constant enables the I2C bus on the original OUT_1 and OU
 
 ### LedBasic Compile Error
 
-The LedBasic code doesn't play nice with ESP32-S3 board libraries and you may see this linker error.
+Stock unmodified LedBasic code doesn't play nice with ESP32-S3 board libraries and you may see this linker error.
 
 `dangerous relocation: l32r: literal placed after use: .literal._ZN8LedBasic12hsv2rgb_fast...`
 
