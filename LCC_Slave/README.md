@@ -14,7 +14,7 @@ Defining the I2CSWITCH constant enables the I2C bus on the original OUT_1 and OU
 
 ### GPIO Pin Definitions
 
-You will notice that there are GPIO pin definitions for both **Seed Studio XAIO ESP32-S3** and **Waveshare ESP32-S3FH4R2 (Mini/Stamp)** boards. While the default target for this code is the Seeed Studio board, I originally wrote the initial code while working with the Waveshare board. The Waveshare board works perfectly fine, but only has a chip antenna and runs quite a bit hotter. I switched to the Seeed Studio board because of the external antenna and cooler operating temperature. Yes, the Waveshare board has two extra GPIO pins on the edge of the board, but they're unnecessary and unused. The Waveshare board is still a perfectly suitable target for an LCC Slave.
+You will notice that there are GPIO pin definitions for both the **Seed Studio XAIO ESP32-S3** and **Waveshare ESP32-S3FH4R2 (Mini/Stamp)**. While the default target for this code is the Seeed Studio board, I originally wrote the initial code while working with the Waveshare board. The Waveshare board works perfectly fine, but only has a chip antenna and runs quite a bit hotter. I switched to the Seeed Studio board because of the external antenna and cooler operating temperature. Yes, the Waveshare board has two extra GPIO pins on the edge of the board, but they're unnecessary and unused. The Waveshare board is still a perfectly suitable target for an LCC Slave.
 
 ### LedBasic Compile Error
 
