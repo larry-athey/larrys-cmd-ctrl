@@ -105,8 +105,6 @@
 #define OUT_2 5                  // Output 2 (SSR) or I2C SCL or DRV8825 M1
 #define MOT_PWM 6                // H-Bridge PWM or DRV8825 M2
 // Waveshare ESP32-S3FH4R2 (Mini/Stamp) Right side (USB top)
-#define OUT_3 13                 // Output 3 (SSR)
-#define OUT_4 12                 // Output 4 (SSR)
 #define MOT_F 11                 // H-Bridge forward pin or user defined if using a stepper
 #define MOT_R 10                 // H-Bridge reverse pin or user defined if using a stepper
 #define BUS_1 9                  // DFRobot TX or DRV8825 step pin
@@ -241,9 +239,6 @@ void setup() {
   // Expand this part as needed if you are using a larger ESP32 with more exposed GPIO pins for output switching
   pinMode(OUT_1,OUTPUT); digitalWrite(OUT_1,LOW);
   pinMode(OUT_2,OUTPUT); digitalWrite(OUT_2,LOW);
-  // Outputs 3 and 4 only exist if a Waveshare ESP32-S3FH4R2 is in use
-  //pinMode(OUT_3,OUTPUT); digitalWrite(OUT_3,LOW);
-  //pinMode(OUT_4,OUTPUT); digitalWrite(OUT_4,LOW);
   #else
   Wire.begin(OUT_1,OUT_2);
   // Initialize MCP23017
