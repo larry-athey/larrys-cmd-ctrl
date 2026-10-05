@@ -113,7 +113,7 @@
 #define BUS_2 8                  // DFRobot RX or DRV8825 direction pin
 #define BUS_3 7                  // NeoPixel/WS2812 bus or DRV8825 sleep pin
 #else
-// Seeed Studios XAIO ESP32-S3 GPIO Left side (USB top)
+// Seeed Studio XAIO ESP32-S3 GPIO Left side (USB top)
 #define MOT_F 1                  // H-Bridge forward pin or DRV8825 M0
 #define MOT_R 2                  // H-Bridge reverse pin or DRV8825 M1
 #define MOT_PWM 3                // H-Bridge PWM or DRV8825 M2
@@ -121,7 +121,7 @@
 #define OUT_1 5                  // Output 1 (SSR) or I2C SDA
 #define OUT_2 6                  // Output 2 (SSR) or I2C SCL
 #define BUS_1 43                 // DFRobot TX or DRV8825 step pin
-// Seeed Studios XAIO ESP32-S3 GPIO Right side (USB top)
+// Seeed Studio XAIO ESP32-S3 GPIO Right side (USB top)
 #define LIMIT_1 9                // Limit switch 1 (forward)
 #define LIMIT_2 8                // Limit switch 2 (reverse)
 #define IR_RCV 7                 // TSOP34838 input pin
