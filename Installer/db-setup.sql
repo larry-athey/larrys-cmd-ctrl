@@ -47,7 +47,15 @@ INSERT INTO `commands` (`ID`, `cmd_name`, `cmd_type`, `cmd_class`, `gpio_pin`, `
 (3, 'Reverse to 80%, 30 second progression', 1, 4, NULL, 0, 80, 0, 30, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
 (4, 'Forward to 25%, 15 second progression', 1, 4, NULL, 1, 25, 0, 15, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
 (5, 'Reverse to 25%, 15 second progression', 1, 4, NULL, 0, 25, 0, 15, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(6, 'Reverse stop, 10 second progression', 1, 4, NULL, 0, 0, 0, 10, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL);
+(6, 'Reverse stop, 10 second progression', 1, 4, NULL, 0, 0, 0, 10, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(128, 'Forward 25K, 1/8 Step Resolution', 2, 2, NULL, 1, NULL, NULL, NULL, 25000, 4, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(129, 'Reverse 25K, 1/8 Step Resolution', 2, 2, NULL, 0, NULL, NULL, NULL, 25000, 4, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(132, 'Port 0 On', 5, 3, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(133, 'Port 0 Off', 5, 3, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(134, 'Fixture 0, White, Full Brightness', 6, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 255, 255, 255, 1, NULL),
+(135, 'Fixture 0, Purple, 50% Brightness', 6, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 127, 0, 127, 1, NULL),
+(136, 'Show Fireworks Scene', 7, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, 4),
+(137, 'Show Plasma Scene', 7, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -72,10 +80,10 @@ CREATE TABLE `devices` (
 --
 
 INSERT INTO `devices` (`ID`, `address`, `dev_name`, `status`, `signal_level`, `dev_type`, `last_loc`, `favorites`, `replay`) VALUES
-(1, 'e8-06-90-95-ef-90', '1-Model Train Locomotive', 'cmd://motor/0/0/10/0', '<span class=\"text-info\">-67 dBm</span>', 4, 16, '1|4|2', 1),
-(2, '44-bd-8d-ee-81-34', '4-Switching Controller', 'cmd://reboot', '<span class=\"text-info\">-57 dBm</span>', 3, 0, '', 1),
-(3, 'e4-b3-23-f8-0d-2c', '3-Stepper Motor Controller', '<span class=\"text-warning\">Runtime has ended</span>', '<span class=\"text-info\">-28 dBm</span>', 2, 0, '', 1),
-(4, '44-bd-8d-ee-80-24', '2-Brushed Motor Controller', 'cmd://reboot', '<span class=\"text-info\">-17 dBm</span>', 1, 0, '', 1);
+(1, 'e8-06-90-95-ef-90', '1-Model Train Locomotive', 'cmd://motor/1/0/10/0', '<span class=\"text-info\">-68 dBm</span>', 4, 16, '1|4|2', 1),
+(2, '44-bd-8d-ee-81-34', '4-Switching Controller', 'cmd://scene/9', '<span class=\"text-info\">-56 dBm</span>', 3, 0, '136|137', 1),
+(3, 'e4-b3-23-f8-0d-2c', '3-Stepper Motor Controller', '<span class=\"text-warning\">Runtime has ended</span>', '<span class=\"text-secondary\">Offline</span>', 2, 0, '128|129', 1),
+(4, '44-bd-8d-ee-80-24', '2-Brushed Motor Controller', 'cmd://light/0/255/255/255/1', '<span class=\"text-info\">-17 dBm</span>', 1, 0, '135|134', 1);
 
 -- --------------------------------------------------------
 
