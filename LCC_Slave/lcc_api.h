@@ -13,6 +13,7 @@ inline void setupLights(int ID, uint8_t targetR, uint8_t targetG, uint8_t target
   #ifndef STEPPER
   char scriptBuf[512];
 
+  Serial.end();
   // Stop any currently running LedBasic script
   if (basic.isRunning()) basic.stop();
 
@@ -74,11 +75,15 @@ inline void setupLights(int ID, uint8_t targetR, uint8_t targetG, uint8_t target
   }
 
   // Compile & start
-  if (basic.compileFromText(scriptBuf)) {
+  bool Pass = basic.compileFromText(scriptBuf);
+  if (Pass) {
     basic.play();
     fadeTarget = millis() + (int)(Fade * 1000.0f);
-  } else {
-    if (Serial) Serial.println("ERROR: LedBasic source code failed to compile");
+  }
+  Serial.begin(115200);
+  if ((! Pass) && (Serial)) {
+    delay(1000);
+    Serial.println("ERROR: LedBasic code failed to compile!");
   }
   #endif
 }
