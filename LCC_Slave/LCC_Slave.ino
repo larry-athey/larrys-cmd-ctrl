@@ -66,6 +66,7 @@
 /************************************************************************************************/
 //#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
 //#define STEPPER                // Remember, no sound effects are possible when using a stepper
+//#define WAVESHARE              // Define this if you are using a Waveshare ESP32-S3FH4R2 board
 /************************************************************************************************/
 #define DISABLE_CODE_FOR_TRANSMITTER
 #define SEND_LEDC_CHANNEL 2
@@ -97,7 +98,7 @@
 #define TOTAL_LEDS 50            // Total number of LEDs on the Neopixel/WS2812 lighting bus.
                                  // This value cannot be dynamicaly updated if you add more LEDs.
                                  // You need to modify this value here and re-flash the ESP32.
-/*
+#ifdef WAVESHARE
 // Waveshare ESP32-S3FH4R2 (Mini/Stamp) GPIO Left side (USB top)
 #define LIMIT_1 1                // Limit switch 1 (forward)
 #define LIMIT_2 2                // Limit switch 2 (reverse)
@@ -111,7 +112,7 @@
 #define BUS_1 9                  // DFRobot TX or DRV8825 step pin
 #define BUS_2 8                  // DFRobot RX or DRV8825 direction pin
 #define BUS_3 7                  // NeoPixel/WS2812 bus or DRV8825 sleep pin
-*/
+#else
 // Seeed Studios XAIO ESP32-S3 GPIO Left side (USB top)
 #define MOT_F 1                  // H-Bridge forward pin or DRV8825 M0
 #define MOT_R 2                  // H-Bridge reverse pin or DRV8825 M1
@@ -125,6 +126,7 @@
 #define LIMIT_2 8                // Limit switch 2 (reverse)
 #define IR_RCV 7                 // TSOP34838 input pin
 #define BUS_2 44                 // DFRobot RX or DRV8825 direction pin
+#endif
 //------------------------------------------------------------------------------------------------
 #ifdef I2CSWITCH
 Adafruit_MCP23X17 mcp;
@@ -643,12 +645,15 @@ void loop() {
   } 
 
   // Non-blocking heartbeat LED fader so users know the ESP32 isn't locked up or dead
-  // NOTE: This only works with basic single-color LEDs, not Neopixel/WS2812 LEDs, use
-  // neopixelWrite(LED_PIN,dutyCycle,dutyCycle,0) for a decent pulsing yellow light
   if (CurrentTime - ledUpdate >= 10) {
     ledUpdate = CurrentTime;
     int dutyCycle = (sin(angle) + 1.0) * 127.5;
+    #ifdef WAVESHARE
+    // NOTE: LedBasic operations may cause this WS2812 LED to go haywire
+    neopixelWrite(LED_PIN,dutyCycle / 4,dutyCycle / 4,0);
+    #else
     ledcWrite(LED_CHANNEL,255 - dutyCycle);
+    #endif
     angle += 0.03;
     if (angle >= 2 * PI) {
       angle -= 2 * PI;
