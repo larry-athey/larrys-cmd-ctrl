@@ -59,7 +59,7 @@ if ($_POST) {
     sendCommand($DBcnx,$_POST["address"],"/reboot");
     $Result = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-danger\">Sent panic reboot</span>' WHERE address='" . $_POST["address"] . "'");
     echo($jsonSuccess);
-  } elseif ($_POST["form-id"] >= 10) { // Send CTRL button commands
+  } elseif ($_POST["form-id"] >= 10) { // Send CTRL button commands (there is no significance to each command class being 1)
     $Result = mysqli_query($DBcnx, "INSERT INTO commands (cmd_name) VALUES ('Temp Command')");
     $ID = mysqli_insert_id($DBcnx);
     if ($_POST["form-id"] == 10) { // Brushed motor control
@@ -99,11 +99,15 @@ if ($_POST) {
       $fade = $_POST["fade"];
       $Result = mysqli_query($DBcnx, "UPDATE commands SET cmd_type=6,cmd_class=1,light=$light,red=$red,green=$green,blue=$blue,fade=$fade WHERE ID=$ID");
       $Result = mysqli_query($DBcnx, "UPDATE devices SET status='<span class=\"text-success\">Sent RGB LED command</span>' WHERE address='" . $_POST["address"] . "'");
+    } elseif ($_POST["form-id"] == 16) { // RGB LED Scene
+      $scene_id = $_POST["scene_id"];
+      $Result = mysqli_query($DBcnx, "UPDATE commands SET cmd_type=7,cmd_class=1,scene='$scene_id' WHERE ID=$ID");
+      $Result = mysqli_query($DBcnx, "UPDATE devices SET status='<span class=\"text-success\">Sent RGB LED scene</span>' WHERE address='" . $_POST["address"] . "'");
     }
     $Temp = createMessage($DBcnx,$ID);
     $Msg = explode("|",$Temp);
     sendCommand($DBcnx,$_POST["address"],$Msg[0]);
-    $Result = mysqli_query($DBcnx, "DELETE FROM commands WHERE ID=$ID");
+    $Result = mysqli_query($DBcnx,"DELETE FROM commands WHERE ID=$ID"); // This is why the command class doesn't matter, it's just a temporary buffer
     echo($jsonSuccess);
   } else {
     echo($jsonFailure);

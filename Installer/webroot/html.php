@@ -122,6 +122,7 @@ function editCommand($DBcnx) {
         }
         if ($_GET["cmd_class"] != 3) $Content .= "<a href=\"./index.php?page=edit_command&ID=0&cmd_class=" . $_GET["cmd_class"] . "&cmd_type=3\" class=\"btn btn-sm btn-primary fw-bolder\" style=\"width: 100%; margin-top: 1em;\">Location Based Action</a>";
         if ($_GET["cmd_class"] != 2) $Content .= "<a href=\"./index.php?page=edit_command&ID=0&cmd_class=" . $_GET["cmd_class"] . "&cmd_type=6\" class=\"btn btn-sm btn-primary fw-bolder\" style=\"width: 100%; margin-top: 1em;\">RGB LED Control</a>";
+        if ($_GET["cmd_class"] != 2) $Content .= "<a href=\"./index.php?page=edit_command&ID=0&cmd_class=" . $_GET["cmd_class"] . "&cmd_type=7\" class=\"btn btn-sm btn-primary fw-bolder\" style=\"width: 100%; margin-top: 1em;\">RGB LED Scene</a>";
         if ($_GET["cmd_class"] != 2) $Content .= "<a href=\"./index.php?page=edit_command&ID=0&cmd_class=" . $_GET["cmd_class"] . "&cmd_type=4\" class=\"btn btn-sm btn-primary fw-bolder\" style=\"width: 100%; margin-top: 1em;\">Sound Effect Command</a>";
         $Content .=       "<a href=\"./index.php?page=edit_command&ID=0&cmd_class=" . $_GET["cmd_class"] . "&cmd_type=5\" class=\"btn btn-sm btn-primary fw-bolder\" style=\"width: 100%; margin-top: 1em;\">Switching Control Command</a>";
         $Content .=     "</div>";
@@ -251,7 +252,10 @@ function editCommand($DBcnx) {
     $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"fade\" name=\"fade\" min=\"0\" max=\"30\" step=\"0.1\" value=\"" . $Cmd["fade"] . "\">";
     $Content .= "</div>";
   } elseif ($Cmd["cmd_type"] == 7) {
-
+    $Content .= "<div>";
+    $Content .=   "<label for=\"scene_id\" class=\"form-label fw-bolder\">Scene To Send</label>";
+    $Content .=    sceneSelector($DBcnx,0);
+    $Content .= "</div>";
   }
   $Content .=     "</div>";
   $Content .=     "<div class=\"border-bottom\"></div>";

@@ -83,7 +83,8 @@ elseif (isset($_POST["edit_command"])) {
     $fade = $_POST["fade"];
     $Result = mysqli_query($DBcnx,"UPDATE commands SET cmd_name='$cmd_name',cmd_type=$cmd_type,cmd_class=$cmd_class,light=$light,red=$red,green=$green,blue=$blue,fade=$fade WHERE ID=$ID");
   } elseif ($_POST["cmd_type"] == 7) {
-
+    $scene = $_POST["scene_id"];
+    $Result = mysqli_query($DBcnx,"UPDATE commands SET cmd_name='$cmd_name',cmd_type=$cmd_type,cmd_class=$cmd_class,scene='$scene' WHERE ID=$ID");
   }
   $Return = "/index.php?page=commands";
 //echo("<pre>");

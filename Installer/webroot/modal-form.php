@@ -130,6 +130,11 @@ if ($_GET["ID"] == 1) { // Set command start and stop timer
   $Content .=   "<label for=\"fade\" class=\"form-label fw-bolder\">Fade Time [0..30 seconds]</label>";
   $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"fade\" name=\"fade\" min=\"0\" max=\"30\" step=\"0.1\" value=\"1.0\">";
   $Content .= "</div>";
+} elseif ($_GET["ID"] == 16) { // Send Neopixel/WS2812 lighting scene - type 7
+  $Content .= "<div>";
+  $Content .=   "<label for=\"scene_id\" class=\"form-label fw-bolder\">Scene To Send</label>";
+  $Content .=    sceneSelector($DBcnx,0);
+  $Content .= "</div>";
 } else {
   $Content = "<p>Unknown form requested</p>";
 }

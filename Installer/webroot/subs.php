@@ -83,6 +83,7 @@ function ctrlButtonMenu($DevType,$Address) {
   if ($DevType == 2) $Content .= "<li><a onClick=\"LoadForm('Stepper Motor Control','11','$Address')\" class=\"dropdown-item\" href=\"#\">Stepper Control</a></li>";
   if ($DevType != 3) $Content .= "<li><a onClick=\"LoadForm('Location Based Action','12','$Address')\" class=\"dropdown-item\" href=\"#\">Location Detection</a></li>";
   if ($DevType != 2) $Content .= "<li><a onClick=\"LoadForm('RGB LED Control','15','$Address')\" class=\"dropdown-item\" href=\"#\">RGB LED Control</a></li>";
+  if ($DevType != 2) $Content .= "<li><a onClick=\"LoadForm('RGB LED Scene','16','$Address')\" class=\"dropdown-item\" href=\"#\">RGB LED Scene</a></li>";
   if ($DevType != 2) $Content .= "<li><a onClick=\"LoadForm('Play Sound Effects','13','$Address')\" class=\"dropdown-item\" href=\"#\">Sound Effects</a></li>";
   $Content .=     "<li><a onClick=\"LoadForm('Remote Switching','14','$Address')\" class=\"dropdown-item\" href=\"#\">Switching Control</a></li>";
   $Content .=     "<li><a onClick=\"LoadForm('Set Timer','1','$Address')\" class=\"dropdown-item\" href=\"#\">Timed Task</a></li>";
@@ -500,6 +501,24 @@ function resolutionSelector($Selected) {
   $Content .= "<option $S6 value=\"6\">1/32 Step</option>";
   $Content .= "</select>";
   return $Content;
+}
+//---------------------------------------------------------------------------------------------------
+function sceneSelector($DBcnx,$ID) {
+  $Result = mysqli_query($DBcnx,"SELECT * FROM scenes ORDER BY scn_name");
+  if (mysqli_num_rows($Result) > 0) {
+    $Content  = "<select class=\"form-control form-select fw-bolder\" style=\"width: 100%;\" size=\"1\"  id=\"scene_id\" name=\"scene_id\">";
+    while ($Scn = mysqli_fetch_assoc($Result)) {
+      if ($Scn["ID"] == $ID) {
+         $Content .= "<option selected value=\"" . $Scn["ID"] . "\">" . $Scn["scn_name"] . "</option>";
+      } else {
+         $Content .= "<option value=\"" . $Scn["ID"] . "\">" . $Scn["scn_name"] . "</option>";
+      }
+    }
+    $Content .= "</select>";
+    return $Content;
+  } else {
+    return "<span class=\"text-danger fw-bolder\">No scenes configured</span>";
+  }
 }
 //---------------------------------------------------------------------------------------------------
 function scriptCommandSelector($DBcnx,$DevType,$ID) {
