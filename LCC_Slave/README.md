@@ -6,6 +6,8 @@ While you will notice that there are four different device types in the Mission 
 
 Defining the STEPPER constant is used to tell the LCC Slave that we're running a stepper motor rather than a PWM driven brushed motor. A stepper motor requires the use of 6 GPIO pins rather than the 3 required by a brushed motor. Defining this constant disables the two serial data lines used by the DFRobot MP3 player and the Neopixel/WS2812 RGB LED bus.
 
+While I mention the DRV8825 stepper motor driver in the code, whatever driver that you decide to use is completely up to you.
+
 You still have the capabilities to use IR location detection, limit switches, and GPIO switching when using a stepper motor.
 
 `#define I2CSWITCH`
