@@ -223,7 +223,6 @@ void setup() {
   }
 
   #ifndef STEPPER
-
   // Initialize the Neopixel/WS2812 bus for LedBasic
   lights.begin();
   lights.setBrightness(100);
