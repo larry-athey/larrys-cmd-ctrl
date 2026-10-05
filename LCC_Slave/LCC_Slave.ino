@@ -708,7 +708,7 @@ void loop() {
     if ((stepperRunning) && (currentPos != targetPos)) {
       stepperRunning = false;
       currentPos = targetPos;
-      // Send the runtime end status to mission control
+      // Send the runtime end status to Mission Control
       String Status = "/runtime/end";
       if (Serial) {    
         Serial.println("Stepper position: " + String(currentPos));
@@ -733,7 +733,7 @@ void loop() {
       Status = "/limit/1";
     }
     if (Serial) Serial.println("Limit switch tripped: " + Status);
-    // Send the status notification to mission control
+    // Send the status notification to Mission Control
     sendCommand(Status);
   }
   #else
@@ -749,7 +749,7 @@ void loop() {
       Status = "/limit/1";
     }
     if (Serial) Serial.println("Limit switch tripped: " + Status);
-    // Send the status notification to mission control
+    // Send the status notification to Mission Control
     sendCommand(Status);
   }
   #endif
@@ -777,7 +777,7 @@ void loop() {
     targetSpeed = 0;
     progressFactor = 0;
     targetRuntime = 0;
-    // Send the runtime end status to mission control
+    // Send the runtime end status to Mission Control
     String Status = "/runtime/end";
     if (Serial) Serial.println("Status: " + Status);
     sendCommand(Status);
