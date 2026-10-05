@@ -130,8 +130,13 @@ function dayCheckboxes($Days) {
   return $Content;
 }
 //---------------------------------------------------------------------------------------------------
-function deviceFilter() {
+function deviceFilter($Location) {
   if (! isset($_GET["filter"])) $_GET["filter"] = 0;
+  if ($Location == "index.php") {
+    $Filter = "?filter";
+  } else {
+    $Filter = "&filter";
+  }
   $S1 = "";
   $S2 = "";
   $S3 = "";
@@ -141,11 +146,11 @@ function deviceFilter() {
   if ($_GET["filter"] == 3) $S3 = "selected";
   if ($_GET["filter"] == 4) $S4 = "selected";
   $Content  = "<form class=\"d-flex\">";
-  $Content .=   "<select class=\"form-control form-select\" onChange=\"window.location.href='?filter=' + this.value\">";
-  $Content .=     "<option value=\"0\">All Devices</option>";
-  $Content .=     "<option $S1 value=\"1\">Brushed Motor Controller</option>";
-  $Content .=     "<option $S2 value=\"2\">Stepper Motor Controller</option>";
-  $Content .=     "<option $S3 value=\"3\">Switching Controller</option>";
+  $Content .=   "<select class=\"form-control form-select\" onChange=\"window.location.href='$Location" . "$Filter=' + this.value\">";
+  $Content .=     "<option value=\"0\">All Device Types</option>";
+  $Content .=     "<option $S1 value=\"1\">Brushed Motor Controllers</option>";
+  $Content .=     "<option $S2 value=\"2\">Stepper Motor Controllers</option>";
+  $Content .=     "<option $S3 value=\"3\">Switching Controllers</option>";
   $Content .=     "<option $S4 value=\"4\">Model Train Locomotives</option>";
   $Content .=   "</select>";
   $Content .= "</form>";

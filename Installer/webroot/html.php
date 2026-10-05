@@ -84,7 +84,7 @@ function drawMenu($DBcnx) {
   $Content .=         "</li>";
   $Content .=       "</ul>";
   if (! isset($_GET["page"])) {
-    $Content .= deviceFilter();
+    $Content .= deviceFilter("index.php");
   } elseif ($_GET["page"] == "logs") {
     $Content .= logViewerMenu($DBcnx);
   }
@@ -607,9 +607,14 @@ function setPairing($DBcnx) {
 function showCommands($DBcnx) {
   $Counter  = 0;
   $Content  = "<div style=\"width: 31em; margin-left: 0.25em;\">";
+  $Content .= deviceFilter("index.php?page=commands");
   $Content .= "<a href=\"?page=edit_command&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_command\">Create New Command</a><br>";
 
-  $Result = mysqli_query($DBcnx,"SELECT * FROM commands ORDER BY cmd_name");
+  if ((! isset($_GET["filter"])) || ($_GET["filter"] == 0)) {
+    $Result = mysqli_query($DBcnx,"SELECT * FROM commands ORDER BY cmd_name");
+  } else {
+    $Result = mysqli_query($DBcnx,"SELECT * FROM commands WHERE cmd_class=" . $_GET["filter"] . " ORDER BY cmd_name");
+  }
   while ($Cmd = mysqli_fetch_assoc($Result)) {
     $Counter ++;
     $Content .= "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
@@ -630,9 +635,14 @@ function showCommands($DBcnx) {
 function showDevices($DBcnx) {
   $Counter  = 0;
   $Content  = "<div style=\"width: 31em; margin-left: 0.25em;\">";
+  $Content .= deviceFilter("index.php?page=devices");
   $Content .= "<a href=\"?page=edit_device&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_device\">Create New Device</a><br>";
 
-  $Result = mysqli_query($DBcnx,"SELECT * FROM devices ORDER BY dev_name");
+  if ((! isset($_GET["filter"])) || ($_GET["filter"] == 0)) {
+    $Result = mysqli_query($DBcnx,"SELECT * FROM devices ORDER BY dev_name");
+  } else {
+    $Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE dev_type=" . $_GET["filter"] . " ORDER BY dev_name");
+  }
   while ($Dev = mysqli_fetch_assoc($Result)) {
     $Counter ++;
     $Content .= "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
@@ -899,9 +909,14 @@ function showSchedule($DBcnx) {
 function showScripts($DBcnx) {
   $Counter  = 0;
   $Content  = "<div style=\"width: 31em; margin-left: 0.25em;\">";
+  $Content .= deviceFilter("index.php?page=scripts");
   $Content .= "<a href=\"?page=edit_script&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_script\">Create New Script</a><br>";
 
-  $Result = mysqli_query($DBcnx,"SELECT * FROM scripts ORDER BY scr_name");
+  if ((! isset($_GET["filter"])) || ($_GET["filter"] == 0)) {
+    $Result = mysqli_query($DBcnx,"SELECT * FROM scripts ORDER BY scr_name");
+  } else {
+    $Result = mysqli_query($DBcnx,"SELECT * FROM scripts WHERE cmd_class=" . $_GET["filter"] . " ORDER BY scr_name");
+  }
   while ($Scr = mysqli_fetch_assoc($Result)) {
     $Counter ++;
     $Content .= "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
