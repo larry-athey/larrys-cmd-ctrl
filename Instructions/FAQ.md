@@ -11,3 +11,9 @@ Q: Can you add the capability to update the MP3 files on the LCC Slave remotely?
 A: Unfortunately, this will never be possible. The MP3s are played by a completely separate circuit board, not the ESP32 itself. The DFRobot DFPlayer board has no file transfer capabilities, the ESP32 only talks to it by serial communications. You can only update the MP3 files by modifying the contents of the SD card.
 
 ---
+
+Q: Are there any plans to create a DCC-style handheld controller for this?
+
+A: That would be up to somebody else. As far as I'm concerned, your cell phone is all the handheld controller that a person needs for this system. I don't have the necessary engineering resources for that kind of production work.
+
+---
