@@ -28,11 +28,11 @@ Stock unmodified LedBasic code doesn't play nice with ESP32-S3 2.x board librari
 
 `dangerous relocation: l32r: literal placed after use: .literal._ZN8LedBasic12hsv2rgb_fast...`
 
-This comes from this function in `LedBasic.h` (around line 202–247):
+This comes from this function in `LedBasic.h` (around line 202-247):
 
 `IRAM_ATTR static inline void hsv2rgb_fast(uint8_t h, uint8_t s, uint8_t v, uint8_t &r, uint8_t &g, uint8_t &b)`
 
-On ESP32 / ESP32-S3 the compiler places the function in IRAM (`.iram1.xx`), but the **literal pool** (the constants the `l32r` instruction needs) does not get the matching `.iram` section name. The linker then puts the literals in flash, which is too far away for the `l32r` instruction → “dangerous relocation”.
+On ESP32 / ESP32-S3 the compiler places the function in IRAM (`.iram1.xx`), but the **literal pool** (the constants the `l32r` instruction needs) does not get the matching `.iram` section name. The linker then puts the literals in flash, which is too far away for the `l32r` instruction -> “dangerous relocation”.
 
 This is a classic problem with `IRAM_ATTR` on C++ methods that are defined inline in a header, and it shows up frequently with Arduino-ESP32 2.0.x (including 2.0.17).
 
