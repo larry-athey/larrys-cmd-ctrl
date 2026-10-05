@@ -78,7 +78,7 @@ inline void setupLights(int ID, uint8_t targetR, uint8_t targetG, uint8_t target
     basic.play();
     fadeTarget = millis() + (int)(Fade * 1000.0f);
   } else {
-    // else: compile failed
+    if (Serial) Serial.println("ERROR: LedBasic source code failed to compile");
   }
   #endif
 }
