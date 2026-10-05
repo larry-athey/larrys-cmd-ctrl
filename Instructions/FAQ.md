@@ -14,7 +14,7 @@ A: Unfortunately, this will never be possible. The MP3s are played by a complete
 
 Q: Are there any plans to create a DCC-style handheld controller for this?
 
-A: That would be up to somebody else. As far as I'm concerned, your cell phone is all the handheld controller that a person needs for this system. I don't have the necessary engineering team and resources for that kind of production work.
+A: That will have to be up to somebody else. As far as I'm concerned, your cell phone is all the handheld controller that a person needs for this system. I don't have the necessary engineering team and resources for that kind of production work.
 
 ---
 
