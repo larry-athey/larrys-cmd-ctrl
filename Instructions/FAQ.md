@@ -17,3 +17,9 @@ Q: Are there any plans to create a DCC-style handheld controller for this?
 A: That would be up to somebody else. As far as I'm concerned, your cell phone is all the handheld controller that a person needs for this system. I don't have the necessary engineering resources for that kind of production work.
 
 ---
+
+Q: What is the maximum wireless range of this system?
+
+A: That all depends on the antennas that you choose for both ends and obstacles in the path between the antennas. Realistically, a person could install the Mission Control server in a white weather-proof box outside on a pole connected to a high gain omni directional antenna with a short pigtail. Then use either panel or yagi antennas on the LCC Slaves pointed at the server's antenna. With a setup like that and fairly clear line of sight, you could likely get up to a mile or possibly even more.
+
+---
