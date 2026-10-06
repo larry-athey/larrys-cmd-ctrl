@@ -6,6 +6,12 @@ A: It's mainly for command class segregation. For example, the **Brushed Motor C
 
 ---
 
+Q: When using location transponders with a model train, how do you solve the over-shoot caused by the train's inertia?
+
+A:
+
+---
+
 Q: Can you add the capability to update the MP3 files on the LCC Slave remotely?
 
 A: Unfortunately, this will never be possible. The MP3s are played by a completely separate circuit board, not the ESP32 itself. The DFRobot DFPlayer board has no file transfer capabilities, the ESP32 only talks to it by low-speed 9600 baud serial communications. You can only update the MP3 files by modifying the contents of the SD card.
