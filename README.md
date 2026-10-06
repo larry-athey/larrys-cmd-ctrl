@@ -45,7 +45,7 @@ In the case of mobile LCC Slaves such as those on a model train or conveyor bot,
 The LCC Slave module uses two GPIO pins for limit sensing so that the motor will stop running in the current direction if its limit switch is triggered. These are common in linear actuators and motorized ball valves. The unit will phone home to Mission Control to report this status.
 
 ### Remote Switching
-The LCC Slave module can be any variety of ESP32, the switching capabilities are only limited by the number of exposed GPIO pins. The base code uses the Seeed Studio XAIO ESP32-S3 has 2 outputs for switching but can be easily expanded to 16 with an MCP23017 GPIO expansion module.
+The LCC Slave module can be any variety of ESP32, the switching capabilities are only limited by the number of exposed GPIO pins. The base code uses the Seeed Studio XAIO ESP32-S3 and has 2 outputs for switching but can be easily expanded to 16 with an MCP23017 GPIO expansion module.
 
 ### Remote MP3 Playback
 Sound files (.mp3) can be stored on an SD card and played back as needed. These are useful for greetings, sound effects, warnings, etc. This requires a WWZMDiB _(DFRobot DFPlayer)_ sound module and speaker attached. Sound files can play as a single shot or in a continuous loop.
