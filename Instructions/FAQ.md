@@ -6,6 +6,12 @@ A: It's mainly for command class segregation. For example, the **Brushed Motor C
 
 ---
 
+Q: How many total RGB LEDs can an LCC Slave address? Meaning, how many can I drive with one LCC Slave?
+
+A: In theory, there is no limit, but in reality you should never use more than 500 because of the amount of delay that is introduced as LEDs relay messages down the bus. The default code for the LCC Slave is set to 50, you will need to modify the TOTAL_LEDS constant to match what you intend to use and then flash the ESP32 again.
+
+---
+
 Q: When using location transponders with a model train to stop it, how do you solve the over-shoot caused by the train's inertia?
 
 A: Use two transponders where the first one slows down the motor in advance and the second one is the actual stopping point.
