@@ -12,6 +12,12 @@ A: Unfortunately, this will never be possible. The MP3s are played by a complete
 
 ---
 
+Q: Can you make it possible to select MP3s to play by file name rather than by number?
+
+A: Technically, that's how it already works, the number is the file name. The DFRobot DFPlayer requires each MP3 to have a number as the file name. Even if it allowed full verbal file names, there's no way to query the list of files on the SD card. Anything else would require a lookup table on the Mission Control side that you would have to manually keep updated and in sync at a per-device level.
+
+---
+
 Q: Are there any plans to create a DCC-style handheld controller for this?
 
 A: That will have to be up to somebody else. As far as I'm concerned, your cell phone is all the handheld controller that a person needs for this system. I don't have the necessary engineering team and resources for that kind of production work.
