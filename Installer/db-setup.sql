@@ -25,6 +25,7 @@ CREATE TABLE `commands` (
   `steps` int(11) DEFAULT NULL,
   `resolution` tinyint(4) DEFAULT NULL,
   `sound` int(11) DEFAULT NULL,
+  `volume` tinyint(4) NOT NULL DEFAULT 25,
   `replay` tinyint(4) DEFAULT 0,
   `location_id` int(11) DEFAULT NULL,
   `location_action` int(11) DEFAULT NULL,
@@ -41,21 +42,21 @@ CREATE TABLE `commands` (
 -- Dumping data for table `commands`
 --
 
-INSERT INTO `commands` (`ID`, `cmd_name`, `cmd_type`, `cmd_class`, `gpio_pin`, `direction`, `speed`, `duration`, `progression`, `steps`, `resolution`, `sound`, `replay`, `location_id`, `location_action`, `location_data`, `light`, `red`, `green`, `blue`, `fade`, `scene`) VALUES
-(1, 'Forward stop, 10 second progression', 1, 4, NULL, 1, 0, 0, 10, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(2, 'Forward to 80%, 30 second progression', 1, 4, NULL, 1, 80, 0, 30, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(3, 'Reverse to 80%, 30 second progression', 1, 4, NULL, 0, 80, 0, 30, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(4, 'Forward to 25%, 15 second progression', 1, 4, NULL, 1, 25, 0, 15, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(5, 'Reverse to 25%, 15 second progression', 1, 4, NULL, 0, 25, 0, 15, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(6, 'Reverse stop, 10 second progression', 1, 4, NULL, 0, 0, 0, 10, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(128, 'Forward 25K, 1/8 Step Resolution', 2, 2, NULL, 1, NULL, NULL, NULL, 25000, 4, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(129, 'Reverse 25K, 1/8 Step Resolution', 2, 2, NULL, 0, NULL, NULL, NULL, 25000, 4, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(132, 'Port 0 On', 5, 3, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(133, 'Port 0 Off', 5, 3, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(134, 'Fixture 0, White, Full Brightness', 6, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 255, 255, 255, 1, NULL),
-(135, 'Fixture 0, Purple, 50% Brightness', 6, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 127, 0, 127, 1, NULL),
-(136, 'Show Fireworks Scene', 7, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, 4),
-(137, 'Show Plasma Scene', 7, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, 9);
+INSERT INTO `commands` (`ID`, `cmd_name`, `cmd_type`, `cmd_class`, `gpio_pin`, `direction`, `speed`, `duration`, `progression`, `steps`, `resolution`, `sound`, `volume`, `replay`, `location_id`, `location_action`, `location_data`, `light`, `red`, `green`, `blue`, `fade`, `scene`) VALUES
+(1, 'Forward stop, 10 second progression', 1, 4, NULL, 1, 0, 0, 10, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(2, 'Forward to 80%, 30 second progression', 1, 4, NULL, 1, 80, 0, 30, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(3, 'Reverse to 80%, 30 second progression', 1, 4, NULL, 0, 80, 0, 30, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(4, 'Forward to 25%, 15 second progression', 1, 4, NULL, 1, 25, 0, 15, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(5, 'Reverse to 25%, 15 second progression', 1, 4, NULL, 0, 25, 0, 15, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(6, 'Reverse stop, 10 second progression', 1, 4, NULL, 0, 0, 0, 10, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(128, 'Forward 25K, 1/8 Step Resolution', 2, 2, NULL, 1, NULL, NULL, NULL, 25000, 4, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(129, 'Reverse 25K, 1/8 Step Resolution', 2, 2, NULL, 0, NULL, NULL, NULL, 25000, 4, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(132, 'Port 0 On', 5, 3, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(133, 'Port 0 Off', 5, 3, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(134, 'Fixture 0, White, Full Brightness', 6, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 255, 255, 255, 1, NULL),
+(135, 'Fixture 0, Purple, 50% Brightness', 6, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 127, 0, 127, 1, NULL),
+(136, 'Show Fireworks Scene', 7, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, 4),
+(137, 'Show Plasma Scene', 7, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, 9);
 
 -- --------------------------------------------------------
 
