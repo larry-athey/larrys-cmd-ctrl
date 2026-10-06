@@ -161,6 +161,7 @@ bool UpdateMode = false;         // True if the LCC Slave is running in firmware
 bool stepperRunning = false;     // True if the stepper is running (no built-in ending callback function)
 byte motorDirection = 1;         // Motor direction, 0 = reverse, 1 = forward
 byte progressDir = 0;            // Motor speed progress direction, 0 = down, 1 = up
+byte sfxVolume = 25;             // Dound effects volume level [0..30]
 byte sysInit = 0;                // Flag to indicate whether this is a first boot and no flash settings
 byte wifiCheckCounter = 0;       // Used to check the WiFi connection once every 30 seconds
 int Locations[16][3];            // Queue for caching location ID numbers and associated actions
@@ -292,7 +293,7 @@ void setup() {
     if (Serial) Serial.println(F("Unable to initialize DFPlayer Mini!"));
   } else {
     if (Serial) Serial.println(F("DFPlayer Mini successfully started"));
-    myDFPlayer.volume(25); // [0..30]
+    myDFPlayer.volume(sfxVolume);
     SFX = true;
   }
   #endif
@@ -446,6 +447,7 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
         #endif
       } else if (Locations[i][1] == 2) { // Play sound effect
         soundFile = Locations[i][2];
+        sfxVolume = 25;
         sfxLoop = false;
       } else if (Locations[i][1] == 3) { // Request command with /replay/cmd/#
         Request = "/replay/cmd/" + String(Locations[i][2]);
@@ -698,6 +700,7 @@ void loop() {
   // Handle the sound effects as necessary
   if (SFX) {
     if (soundFile >= 0) {
+      myDFPlayer.volume(sfxVolume);
       if (sfxLoop)  {
         myDFPlayer.loop(soundFile);
       } else {

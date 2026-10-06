@@ -201,10 +201,11 @@ inline void setupScene(int Scene) { // Pull an LedBasic script from the Mission 
   #endif
 }
 //------------------------------------------------------------------------------------------------
-inline void setupSound(int FileNumber, byte Loop) { // Set up sound effect background process
+inline void setupSound(int FileNumber, byte Volume, byte Loop) { // Set up sound effect background process
   #ifndef STEPPER
   if (SFX) {
     soundFile = FileNumber;
+    sfxVolume = Volume;
     if (Loop == 1) {
       sfxLoop = true;
     } else {
@@ -304,8 +305,8 @@ inline void runCommand(String Cmd) { // Execute a queued LCC Mission Control com
     //ID/scene/scene-id
     if (partCount == 3) setupScene(parts[2].toInt());
   } else if (parts[1] == "sound") {
-    //ID/sound/file-number/loop
-    if (partCount == 4) setupSound(parts[2].toInt(),parts[3].toInt());
+    //ID/sound/file-number/volume/loop
+    if (partCount == 5) setupSound(parts[2].toInt(),parts[3].toInt(),parts[4].toInt());
   } else if (parts[1] == "stepper") {
     //ID/stepper/direction/resolution/steps
     if (partCount == 5) setupStepper(parts[2].toInt(),parts[3].toInt(),parts[4].toInt());
