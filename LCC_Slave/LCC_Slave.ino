@@ -856,7 +856,7 @@ void loop() {
 #include "IRremote.hpp"
 
 #define IR_SEND_PIN 6  // Use D6 (PA06) for IR LED, a PWM-capable pin
-const uint16_t LOCATION_ID = 1234;  // Unique ID for this track section
+const uint16_t LOCATION_ID = 1234;  // Unique ID for this location
 
 IRsend irsend(IR_SEND_PIN);  // Initialize IRsend with specific pin
 
