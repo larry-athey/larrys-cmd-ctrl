@@ -8,7 +8,13 @@ A: It's mainly for command class segregation. For example, the **Brushed Motor C
 
 Q: Can you add the capability to update the MP3 files on the LCC Slave remotely?
 
-A: Unfortunately, this will never be possible. The MP3s are played by a completely separate circuit board, not the ESP32 itself. The DFRobot DFPlayer board has no file transfer capabilities, the ESP32 only talks to it by serial communications. You can only update the MP3 files by modifying the contents of the SD card.
+A: Unfortunately, this will never be possible. The MP3s are played by a completely separate circuit board, not the ESP32 itself. The DFRobot DFPlayer board has no file transfer capabilities, the ESP32 only talks to it by low-speed 9600 baud serial communications. You can only update the MP3 files by modifying the contents of the SD card.
+
+---
+
+Q: Can you make it possible to select MP3s to play by file name rather than by number?
+
+A: Technically, that's how it already works, the number is the file name. The DFRobot DFPlayer requires each MP3 to have a number as the file name. Even if it allowed full verbal file names, there's no way to remotely query the list of files on the SD card. Anything else would require a lookup table on the Mission Control side that you would have to manually keep updated and in-sync on a per-device level.
 
 ---
 
