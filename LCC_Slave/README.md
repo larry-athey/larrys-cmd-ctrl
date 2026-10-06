@@ -36,7 +36,7 @@ This comes from this function in `LedBasic.h` (around line 202-247, depending on
 
 On ESP32 / ESP32-S3 the compiler places the function in IRAM (`.iram1.xx`), but the **literal pool** (the constants the `l32r` instruction needs) does not get the matching `.iram` section name. The linker then puts the literals in flash, which is too far away for the `l32r` instruction -> “dangerous relocation”.
 
-This is a classic problem with `IRAM_ATTR` on C++ methods that are defined inline in a header, and it shows up frequently with Arduino-ESP32 2.0.x (including 2.0.17).
+This is a classic problem with `IRAM_ATTR` on C++ methods that are defined inline in a header, and it shows up frequently with Arduino-ESP32 2.0.x (including 2.0.17 used here).
 
 LedBasic was written with ESP8266-style IRAM optimizations in mind; those attributes are not always safe on ESP32.
 
