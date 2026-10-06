@@ -24,6 +24,8 @@ I switched to the Seeed Studio board because of the external antenna and cooler 
 
 ### LedBasic Compile Error
 
+_Don't let the geek-speak below impress you too much, I'm just a nobody self-taught programmer who started back in 1980._
+
 Stock unmodified LedBasic code doesn't play nice with ESP32-S3 2.x board libraries and you may see this linker error.
 
 `dangerous relocation: l32r: literal placed after use: .literal._ZN8LedBasic12hsv2rgb_fast...`
