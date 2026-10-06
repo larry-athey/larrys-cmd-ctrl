@@ -20,7 +20,7 @@ A: Use two transponders where the first one slows down the motor in advance and 
 
 Q: Why do script and manual commands appear to be delayed after a motor command has been sent?
 
-A: If you send a motor command with a progression time, all commands after that will be held in the queue until the progression completes. If you're using a stepper motor, later commands are also queued until the stepper has reached its target position. The same rule also applies to RGB LED commands with a non-zero fade time. This is intentional and not an oversight or design flaw.
+A: If you send a motor command with a progression time, all commands after that will be held in the queue until the progression completes. If there's no progression time, there's no delay because the command completes immediately. If you're using a stepper motor, later commands are also queued until the stepper has reached its target position. The same rule also applies to RGB LED commands with a non-zero fade time. This is intentional and not an oversight or design flaw.
 
 ---
 
