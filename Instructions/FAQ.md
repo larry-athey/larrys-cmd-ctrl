@@ -1,5 +1,11 @@
 # Frequently Asked Questions
 
+Q: If you're not a model railroader, what exactly do you use this system for?
+
+A: A friend of mine who is a model railroader asked me if I could make a cheaper alternative to DCC and I said, yes - but it has to be something that I can use it for as well. So I thought about it and said...Remote switching? Hey, that works for underground sprinklers, especially if it has timers! Remote RGB LED control? Hey, I have lots of NeoPixel light strips sitting around! Remote stepper motor control? Hey, I'd love to be able to open my greenhouse vents without having to go out there! Hey, what about integrating RGB LEDs inside of a sprinkler head?
+
+---
+
 Q: Why does the Mission Control system show 4 different device types but the ESP32 code really only provides 2 types?
 
 A: It's mainly for command class segregation. For example, the **Brushed Motor Controller** and the **Model Train Locomotive** are 100% identical in functionality. Mission Control calls these two different device types so the commands for each device type aren't inter-mingled. The **Switching Controller** is also the same but the motor control functionality is hidden so that you can't accidentally send a motor control command to it and cause switching delays. The only one that's really different is the **Stepper Motor Controller** device.
