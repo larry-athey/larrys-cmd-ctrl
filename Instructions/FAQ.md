@@ -6,9 +6,9 @@ A: It's mainly for command class segregation. For example, the **Brushed Motor C
 
 ---
 
-Q: When using location transponders with a model train, how do you solve the over-shoot caused by the train's inertia?
+Q: When using location transponders with a model train to stop it, how do you solve the over-shoot caused by the train's inertia?
 
-A:
+A: Use two transponders where the first one slows down the motor in advance and the second one is the actual stopping point.
 
 ---
 
