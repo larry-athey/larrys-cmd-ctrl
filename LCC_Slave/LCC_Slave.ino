@@ -853,25 +853,25 @@ void loop() {
 /*
 // Location transponder code
 
-#include <IRremote.hpp>
+#include "IRremote.hpp"
 
 #define IR_SEND_PIN 6  // Use D6 (PA06) for IR LED, a PWM-capable pin
-const uint16_t LOCATION_ID = 0x03;  // Unique ID for this track section
+const uint16_t LOCATION_ID = 1234;  // Unique ID for this track section
 
 IRsend irsend(IR_SEND_PIN);  // Initialize IRsend with specific pin
 
 void setup() {
   Serial.begin(115200);
-  while (!Serial) {
-    ; // Wait for Serial to initialize (important for XIAO SAMD21)
-  }
-  Serial.println("XIAO SAMD21 IR Transmitter Initialized");
+  delay(1000);
+  if (Serial) Serial.println("XIAO SAMD21 IR Transmitter Initialized");
 }
 
 void loop() {
-  irsend.sendNEC(LOCATION_ID, 8);  // Send 8-bit LOCATION_ID using NEC protocol
-  Serial.print("Sent IR Code: 0x");
-  Serial.println(LOCATION_ID, HEX);
+  irsend.sendNEC(LOCATION_ID,8);  // Send 8-bit LOCATION_ID using NEC protocol
+  if (Serial) {
+    Serial.print("Sent IR Code: 0x");
+    Serial.println(LOCATION_ID, HEX);
+  }
   delay(50);  // Repeat every 50 ms
 }
 */
