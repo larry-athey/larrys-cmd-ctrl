@@ -14,7 +14,7 @@ A: It's mainly for command class segregation. For example, the **Brushed Motor C
 
 Q: Why does it appear that sometimes there is a delay in what appears on the Mission Control dashboard even in the same room?
 
-A: Your phone/computer isn't establishing a real-time connection with each LCC Slave. The undercarriage of the Mission Control server only checks for incoming messages from LCC Slaves once every 5 seconds. So, while you can manually send a command to a slave and see it react instantly, there can be up to a 5 second delay between the Mission Control server seeing the acknowledgment message from the LCC Slave and displaying it on your screen. This is 100% normal behavior any time that you're working in the client/server world. 
+A: Your phone/computer isn't establishing a real-time connection with each LCC Slave. The undercarriage of the Mission Control server only checks for incoming messages from LCC Slaves once every 5 seconds. So, while you can manually send a command to a slave and see it react instantly, there can be up to a 5 second delay between the Mission Control server seeing an acknowledgment message from an LCC Slave and displaying it on your screen. This is 100% normal behavior any time that you're working in the client/server world. 
 
 ---
 
