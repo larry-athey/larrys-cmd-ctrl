@@ -213,6 +213,7 @@ inline void setupSound(int FileNumber, byte Volume, byte Loop) { // Set up sound
     }
     if (Serial) {
       Serial.println("Sound file queued: " + String(soundFile));
+      Serial.println("Volume Level: " + String(Volume));
       Serial.println("Playback loop: " + String(Loop));
     }
   }
