@@ -18,6 +18,12 @@ A: Use two transponders where the first one slows down the motor in advance and 
 
 ---
 
+Q: Why do script and manual commands appear to be delayed after a motor command has been sent?
+
+A: If you send a motor command with a progression time, all commands after that will be held in the queue until the progression completes. If you're using a stepper motor, later commands are also queued until the stepper has reached its target position. The same rule also applies to RGB LED commands with a non-zero fade time. This is intentional and not an oversight or design flaw.
+
+---
+
 Q: Can you add the capability to update the MP3 files on the LCC Slave remotely?
 
 A: Unfortunately, this will never be possible. The MP3s are played by a completely separate circuit board, not the ESP32 itself. The DFRobot DFPlayer board has no file transfer capabilities, the ESP32 only talks to it by low-speed 9600 baud serial communications. You can only update the MP3 files by modifying the contents of the SD card.
