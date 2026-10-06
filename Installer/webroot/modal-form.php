@@ -96,6 +96,10 @@ if ($_GET["ID"] == 1) { // Set command start and stop timer
   $Content .=   "<label for=\"sound\" class=\"form-label fw-bolder\">Remote Sound File ID Number</label>";
   $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"sound\" name=\"sound\" min=\"0\" max=\"1000\" step=\"1\" value=\"0\">";
   $Content .= "</div>";
+  $Content .= "<div>";
+  $Content .=   "<label for=\"volume\" class=\"form-label fw-bolder\">Volume [0..30]</label>";
+  $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"volume\" name=\"volume\" min=\"0\" max=\"30\" step=\"1\" value=\"25\">";
+  $Content .= "</div>";
   $Content .= "<div style=\"margin-top: 0.5em;\">";
   $Content .=   "<label for=\"sound_loop\" class=\"form-label fw-bolder\">Loop Playback</label>";
   $Content .=    YNSelector(0,"sound_loop");

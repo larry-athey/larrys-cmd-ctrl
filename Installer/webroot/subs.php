@@ -51,7 +51,7 @@ function checkDays($DayArray) {
 }
 //---------------------------------------------------------------------------------------------------
 function createMessage($DBcnx,$ID) {
-  // The |# at the end of each message is the command replay flag, but is not implemented in the UI.
+  // The |# at the end of each message is the command replay flag, but is only used at the back-end level.
   $Msg = "";
   $Result = mysqli_query($DBcnx,"SELECT * FROM commands WHERE ID=$ID");
   if (mysqli_num_rows($Result) > 0) {
@@ -63,7 +63,7 @@ function createMessage($DBcnx,$ID) {
     } elseif ($Cmd["cmd_type"] == 3) { // Location based action
       $Msg = "/location/" . $Cmd["location_id"] . "/" . $Cmd["location_action"] . "/" . $Cmd["location_data"] . "|0";
     } elseif ($Cmd["cmd_type"] == 4) { // Sound effects
-      $Msg = "/sound/" . $Cmd["sound"] . "/" . $Cmd["replay"] . "|0";
+      $Msg = "/sound/" . $Cmd["sound"] . "/" . $Cmd["volume"] . "/" . $Cmd["replay"] . "|0";
     } elseif ($Cmd["cmd_type"] == 5) { // GPIO output switching
       $Msg = "/switch/" . $Cmd["gpio_pin"] . "/" . $Cmd["direction"] . "|0";
     } elseif ($Cmd["cmd_type"] == 6) { // RGB LED control

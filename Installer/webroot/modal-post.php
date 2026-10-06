@@ -83,8 +83,9 @@ if ($_POST) {
       $Result = mysqli_query($DBcnx, "UPDATE devices SET status='<span class=\"text-success\">Sent location action command</span>' WHERE address='" . $_POST["address"] . "'");
     } elseif ($_POST["form-id"] == 13) { // Sound effects
       $sound = $_POST["sound"];
+      $volume = $_POST["volume"];
       $sound_loop = $_POST["sound_loop"];
-      $Result = mysqli_query($DBcnx, "UPDATE commands SET cmd_type=4,cmd_class=5,sound=$sound,replay=$sound_loop WHERE ID=$ID");
+      $Result = mysqli_query($DBcnx, "UPDATE commands SET cmd_type=4,cmd_class=5,sound=$sound,volume=$volume,replay=$sound_loop WHERE ID=$ID");
       $Result = mysqli_query($DBcnx, "UPDATE devices SET status='<span class=\"text-success\">Sent sound effect command</span>' WHERE address='" . $_POST["address"] . "'");
     } elseif ($_POST["form-id"] == 14) { // GPIO output switching
       $gpio_pin = $_POST["gpio_pin"];

@@ -141,6 +141,7 @@ function editCommand($DBcnx) {
         $Cmd["steps"]           = 0;
         $Cmd["resolution"]      = 0;
         $Cmd["sound"]           = 0;
+        $Cmd["volume"]          = 25;
         $Cmd["replay"]          = 0;
         $Cmd["location_id"]     = 0;
         $Cmd["location_action"] = 0;
@@ -216,6 +217,10 @@ function editCommand($DBcnx) {
     $Content .= "<div style=\"margin-top: 0.5em;\">";
     $Content .=   "<label for=\"sound\" class=\"form-label fw-bolder\">Remote Sound File ID Number</label>";
     $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"sound\" name=\"sound\" min=\"0\" max=\"1000\" step=\"1\" value=\"" . $Cmd["sound"] . "\">";
+    $Content .= "</div>";
+    $Content .= "<div style=\"margin-top: 0.5em;\">";
+    $Content .=   "<label for=\"volume\" class=\"form-label fw-bolder\">Volume [0..30]</label>";
+    $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"volume\" name=\"Volume\" min=\"0\" max=\"30\" step=\"1\" value=\"" . $Cmd["volume"] . "\">";
     $Content .= "</div>";
     $Content .= "<div style=\"margin-top: 0.5em;\">";
     $Content .=   "<label for=\"sound_loop\" class=\"form-label fw-bolder\">Loop Playback</label>";

@@ -69,8 +69,9 @@ elseif (isset($_POST["edit_command"])) {
     $Result = mysqli_query($DBcnx,"UPDATE commands SET cmd_name='$cmd_name',cmd_type=$cmd_type,cmd_class=$cmd_class,location_id=$location_id,location_action=$location_action,location_data=$location_data WHERE ID=$ID");
   } elseif ($_POST["cmd_type"] == 4) {
     $sound = $_POST["sound"];
+    $volume = $_POST["volume"];
     $sound_loop = $_POST["sound_loop"];
-    $Result = mysqli_query($DBcnx,"UPDATE commands SET cmd_name='$cmd_name',cmd_type=$cmd_type,cmd_class=$cmd_class,sound=$sound,replay=$sound_loop WHERE ID=$ID");
+    $Result = mysqli_query($DBcnx,"UPDATE commands SET cmd_name='$cmd_name',cmd_type=$cmd_type,cmd_class=$cmd_class,sound=$sound,volume=$volume,replay=$sound_loop WHERE ID=$ID");
   } elseif ($_POST["cmd_type"] == 5) {
     $gpio_pin = $_POST["gpio_pin"];
     $gpio_state = $_POST["gpio_state"];
