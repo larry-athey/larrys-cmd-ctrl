@@ -284,6 +284,7 @@ void setup() {
   #ifndef STEPPER
   // Initialize the sound effects system
   Serial1.begin(9600,SERIAL_8N1,BUS_2,BUS_1);
+  delay(1000);
   if (Serial) Serial.println(F("Initializing DFPlayer Mini..."));
   if (! myDFPlayer.begin(Serial1)) {
     if (Serial) Serial.println(F("Unable to initialize DFPlayer Mini!"));
