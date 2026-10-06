@@ -24,6 +24,12 @@ A: In theory, there is no limit, but in reality you should never use more than 5
 
 ---
 
+Q: I'm not a programmer. How does a non-programmer create RGB LED lighting scenes?
+
+A: You're in luck! The programming language it uses is called BASIC, which stands for Beginner's All-Purpose Symbolic Instruction Code. The language it uses is specifically for non-programmers and is so simple to learn that kids in elementary school used to learn it back in the 1980s when home computers were a totally new thing. The dialect of BASIC used here is a really simplified version too, so it's even easier to learn. Click on the Language Reference button and then go watch this [YouTube Video](https://www.youtube.com/watch?v=seM9SqTsRG4).
+
+---
+
 Q: When using location transponders with a model train to stop it, how do you resolve the over-shoot caused by the train's inertia?
 
 A: Use two transponders where the first one slows down the motor in advance and the second one is the actual stopping point.
