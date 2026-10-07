@@ -445,10 +445,15 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
         targetPos  = 0;
         stepperRunning = false;
         #endif
-      } else if (Locations[i][1] == 2) { // Play sound effect through the DFRobot DFPlayer
+      } else if (Locations[i][1] == 2) { // Play sound effect
+        #ifndef STEPPER
         soundFile = Locations[i][2];
         sfxVolume = 30;
         sfxLoop = false;
+        if (! SFX) { // Play sound remotely on the sound server
+
+        }
+        #endif
       } else if (Locations[i][1] == 3) { // Request command with /replay/cmd/#
         Request = "/replay/cmd/" + String(Locations[i][2]);
         sendCommand(Request);
@@ -502,9 +507,6 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
         }
         lights.show();
         #endif
-      } else if (Locations[i][1] == 7) { // Play a sound effect through the sound server
-        // This will be part of the existing sound effect action but will include a selector to choose
-        // a local MP3 on the device or an MP3 on the sound server (if one exists on the network)
       }
       // Clear the location memory slot
       Locations[i][0] = 0;
