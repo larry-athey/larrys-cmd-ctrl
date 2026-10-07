@@ -8,6 +8,8 @@ When a person is using LCC in a model railroad setup, some locomotives don't hav
 ### The solution
 LCC Slave units play sound files on the sound server instead. The sound server has stereo audio output and can play multiple MP3 files simultaneously.
 
-- The right output feeds a central speaker in the center of the model railroad, this is for sound effects not related to the train itself.
+- The right channel feeds a central speaker in the center of the model railroad, this is for sound effects not related to the train itself.
 
-- The left output feeds any number of remote amplified speakers that use a LIDAR sensor to tell when a train is near and increase the volume of that speaker. The volume reduces again when there is no train near the speaker. This simulates the effect of sound coming from the train itself.
+- The left channel feeds any number of remote amplified speakers that use a LIDAR sensor to tell when a train is near and increase the volume of that speaker. The volume reduces again when there is no train near the speaker. This simulates the effect of sound coming from the train itself.
+
+- Left channel speakers can be of anything of your choosing, the amplifier used for these is the Adafruit Stereo 2.8W Class D Audio Amplifier (TPA2016D2, part number 1712). These are controlled by a Seeed Studio XAIO SAMD21
