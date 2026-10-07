@@ -203,7 +203,7 @@ inline void setupScene(int Scene) { // Pull an LedBasic script from the Mission 
 //------------------------------------------------------------------------------------------------
 inline void setupSound(int FileNumber, byte Volume, byte Loop) { // Set up sound effect background process
   #ifndef STEPPER
-  if (SFX) { // Play sounds locally
+  if (SFX) { // Play sound effects locally
     if (FileNumber == 0) {
       myDFPlayer.stop();
       return;
@@ -216,13 +216,13 @@ inline void setupSound(int FileNumber, byte Volume, byte Loop) { // Set up sound
     } else {
       sfxLoop = false;
     }
-    if (Serial) {
-      Serial.println("Sound file queued: " + String(soundFile));
-      Serial.println("Volume level: " + String(Volume));
-      Serial.println("Playback loop: " + String(Loop));
-    }
-  } else { // Play sounds remotely on a sound server
-  
+  } else { // Play sound effects remotely on a sound server
+
+  }
+  if (Serial) {
+    Serial.println("Sound file #: " + String(soundFile));
+    Serial.println("Volume level: " + String(Volume));
+    Serial.println("Playback loop: " + String(Loop));
   }
   #endif
 }
