@@ -239,15 +239,16 @@ INSERT INTO `scripts` (`ID`, `scr_name`, `cmd_class`, `replay`, `replay_id`, `co
 
 CREATE TABLE `settings` (
   `ID` int(11) NOT NULL,
-  `usb_device` varchar(255) DEFAULT NULL
+  `usb_device` varchar(255) DEFAULT NULL,
+  `sound_server` varchar(17) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `settings`
 --
 
-INSERT INTO `settings` (`ID`, `usb_device`) VALUES
-(1, '/dev/ttyACM0');
+INSERT INTO `settings` (`ID`, `usb_device`, sound_server) VALUES
+(1, '/dev/ttyACM0', '00-00-00-00-00-00');
 
 -- --------------------------------------------------------
 
