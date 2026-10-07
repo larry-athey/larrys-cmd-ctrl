@@ -14,4 +14,4 @@ LCC Slave units play sound files on the sound server instead. The sound server h
 
 - Left channel speakers can be of any speaker of your choosing, the amplifier used for these is the Adafruit Stereo 2.8W Class D Audio Amplifier (TPA2016D2, part number 1712). These are managed by a Seeed Studio XAIO SAMD21 development board and a VL53L0X LIDAR sensor for the proximity sensor that controls the volume.
 
-- Sound files can easily be customized using the free **Audacity** sound editor so you can pan train sound effects to the left channel and everything else to the right channel.
+- Sound files can easily be customized using the free **Audacity** audio editor so you can pan train sound effects to the left channel and everything else to the right channel.
