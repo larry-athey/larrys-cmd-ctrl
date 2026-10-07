@@ -2,7 +2,7 @@
 
 Q: If you're not a model railroader, what exactly do you use this LCC system for?
 
-A: A friend of mine who is a model railroader asked me if I could build a cheaper alternative to DCC and I said, _"yes - but it has to be something that I can use it for as well"_. So I thought about it and said...Remote switching? Hey, that works for underground sprinklers, especially if it has timers! Remote RGB LED control? Hey, I have lots of NeoPixel light strips sitting around! Remote stepper motor control? Hey, I'd love to be able to open my greenhouse vents without having to go out there! Hey, what about integrating RGB LEDs inside of a sprinkler head for a DIY Bellagio light show with water works? And that's how I ended up where I am with this.
+A: A friend of mine who is a model railroader asked me if I could build a cheaper alternative to DCC/WCC and I said, _"yes - but it has to be something that I can use it for as well"_. So I thought about it and said...Remote switching? Hey, that works for underground sprinklers, especially if it has timers! Remote RGB LED control? Hey, I have lots of NeoPixel light strips sitting around! Remote stepper motor control? Hey, I'd love to be able to open my greenhouse vents without having to go out there! Hey, what about integrating RGB LEDs inside of a sprinkler head for a DIY Bellagio light show with water works? And that's how I ended up where I am with this.
 
 ---
 
