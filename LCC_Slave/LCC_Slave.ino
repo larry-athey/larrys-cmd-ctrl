@@ -502,8 +502,9 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
         }
         lights.show();
         #endif
-      } else if (Locations[i][1] == 7) { // Play a sound effect through the quaddraphonic sound server
-        // Still in the planning and prototyping stages
+      } else if (Locations[i][1] == 7) { // Play a sound effect through the quadraphonic sound server
+        // This will be part of the existing sound effect action but will include a selector to choose
+        // a local MP3 on the device or an MP3 on the sound server (if one exists on the network)
       }
       // Clear the location memory slot
       Locations[i][0] = 0;
