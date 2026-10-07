@@ -202,10 +202,8 @@ inline void setupScene(int Scene) { // Pull an LedBasic script from the Mission 
 }
 //------------------------------------------------------------------------------------------------
 inline void setupSound(int FileNumber, byte Volume, byte Loop) { // Set up sound effect background process
-  // Handle LCC Sound Server events here and return
-
   #ifndef STEPPER
-  if (SFX) {
+  if (SFX) { // Play sounds locally
     if (FileNumber == 0) {
       myDFPlayer.stop();
       return;
@@ -223,6 +221,8 @@ inline void setupSound(int FileNumber, byte Volume, byte Loop) { // Set up sound
       Serial.println("Volume level: " + String(Volume));
       Serial.println("Playback loop: " + String(Loop));
     }
+  } else { // Play sounds remotely on a sound server
+  
   }
   #endif
 }
