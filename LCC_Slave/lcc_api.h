@@ -202,6 +202,8 @@ inline void setupScene(int Scene) { // Pull an LedBasic script from the Mission 
 }
 //------------------------------------------------------------------------------------------------
 inline void setupSound(int FileNumber, byte Volume, byte Loop) { // Set up sound effect background process
+  // Handle LCC Sound Server events here and return
+
   #ifndef STEPPER
   if (SFX) {
     if (FileNumber == 0) {
