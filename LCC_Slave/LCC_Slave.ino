@@ -445,9 +445,9 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
         targetPos  = 0;
         stepperRunning = false;
         #endif
-      } else if (Locations[i][1] == 2) { // Play sound effect
+      } else if (Locations[i][1] == 2) { // Play sound effect through the DFRobot DFPlayer
         soundFile = Locations[i][2];
-        sfxVolume = 25;
+        sfxVolume = 30;
         sfxLoop = false;
       } else if (Locations[i][1] == 3) { // Request command with /replay/cmd/#
         Request = "/replay/cmd/" + String(Locations[i][2]);
@@ -502,6 +502,8 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
         }
         lights.show();
         #endif
+      } else if (Locations[i][1] == 7) { // Play a sound effect through the quaddraphonic sound server
+        // Still in the planning and prototyping stages
       }
       // Clear the location memory slot
       Locations[i][0] = 0;
