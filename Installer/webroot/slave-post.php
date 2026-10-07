@@ -4,6 +4,9 @@ require_once("subs.php");
 //---------------------------------------------------------------------------------------------------
 $DBcnx = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 //---------------------------------------------------------------------------------------------------
+$Result = mysqli_query($DBcnx,"SELECT * FROM settings WHERE ID=1");
+$Settings = mysqli_fetch_assoc($Result);
+//---------------------------------------------------------------------------------------------------
 if ((isset($_GET["addr"])) && (isset($_GET["cmd"]))) {
   $Address = $_GET["addr"];
   $Cmd = $_GET["cmd"];
@@ -21,6 +24,11 @@ if ((isset($_GET["addr"])) && (isset($_GET["cmd"]))) {
       } else {
         echo("10 CLEAR\n");
       }
+    } elseif (InStr("/sound-server/",$Cmd)) { // LCC Slave request to play a sound on the sound server rather than locally
+      $Update = mysqli_query($DBcnx,"UPDATE inbound SET rcvd=1 WHERE ID=" . $LastID);
+      $Data = explode("/",trim($Cmd,"/"));
+      $Response = curlRequest("http://" . $Settings["sound_server"] . ".lcc.local/play-sound.php?addr=$Address&cmd=$Cmd");
+      echo("$Response\n");
     } else {
       echo("$jsonSuccess\n");
     }
