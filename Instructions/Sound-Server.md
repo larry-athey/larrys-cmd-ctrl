@@ -12,4 +12,4 @@ LCC Slave units play sound files on the sound server instead. The sound server h
 
 - The left channel feeds any number of remote amplified speakers that use a LIDAR sensor to tell when a train is near and increase the volume of that speaker. The volume reduces again when there is no train near the speaker. This simulates the effect of sound coming from the train itself.
 
-- Left channel speakers can be of anything of your choosing, the amplifier used for these is the Adafruit Stereo 2.8W Class D Audio Amplifier (TPA2016D2, part number 1712). These are controlled by a Seeed Studio XAIO SAMD21 development board and a VL53L0X LIDAR sensor for the proximity sensor that controls the volume.
+- Left channel speakers can be of any speaker of your choosing, the amplifier used for these is the Adafruit Stereo 2.8W Class D Audio Amplifier (TPA2016D2, part number 1712). These are controlled by a Seeed Studio XAIO SAMD21 development board and a VL53L0X LIDAR sensor for the proximity sensor that controls the volume.
