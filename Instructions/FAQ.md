@@ -2,7 +2,7 @@
 
 Q: If you're not a model railroader, what exactly do you use this LCC system for?
 
-A: A friend of mine who is a model railroader asked me if I could build a cheaper alternative to DCC and I said, _"yes - but it has to be something that I can use it for as well"_. So I thought about it and said...Remote switching? Hey, that works for underground sprinklers, especially if it has timers! Remote RGB LED control? Hey, I have lots of NeoPixel light strips sitting around! Remote stepper motor control? Hey, I'd love to be able to open my greenhouse vents without having to go out there! Hey, what about integrating RGB LEDs inside of a sprinkler head for a DIY Bellagio light show with water works? And that's how I ended up where I am with this.
+A: A friend of mine who is a model railroader asked me if I could build a cheaper alternative to DCC/WCC and I said, _"yes - but it has to be something that I can use it for as well"_. So I thought about it...Remote switching? Hey, that works for underground sprinklers, especially if it has timers! Remote RGB LED control? Hey, I have lots of NeoPixel light strips sitting around! Remote stepper motor control? Hey, I'd love to be able to open my greenhouse vents without having to go out there! Hey, what about integrating RGB LEDs inside of a sprinkler head for a DIY Bellagio light show with water works? And that's how I ended up where I am with this.
 
 ---
 
@@ -14,7 +14,7 @@ A: It's mainly for command class segregation. For example, the **Brushed Motor C
 
 Q: Why does it appear that sometimes there is a delay in what appears on the Mission Control dashboard even in the same room?
 
-A: Your phone/computer isn't establishing a real-time connection with each LCC Slave. The undercarriage of the Mission Control server only checks for incoming messages from LCC Slaves once every 5 seconds and signal level queries only happen at the top of the hour. So, while you can manually send a command to a slave and see it react instantly, there can be up to a 5 second delay between the Mission Control server seeing an acknowledgment message from an LCC Slave and displaying it on your screen. This is 100% normal behavior in the client/server world, it's all message exchanges, not a live data stream.
+A: Your phone/computer isn't establishing a real-time connection with each LCC Slave. The undercarriage of the Mission Control server only checks for incoming messages from LCC Slaves once every 5 seconds and signal level queries only happen at the top of the hour. So, while you can manually send a command to a slave and see it react instantly, there can be up to a 5 second delay between the Mission Control server seeing an acknowledgment message from an LCC Slave and displaying it on your screen. This is 100% normal behavior in the client/server world, it's all message exchanges (just like SMB), not a live data stream.
 
 ---
 
