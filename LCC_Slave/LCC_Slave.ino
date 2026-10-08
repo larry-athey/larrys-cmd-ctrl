@@ -64,7 +64,7 @@
 //
 // NOTE: The location transponder MCU can actually run up to 11 unique LED transmitters.
 /************************************************************************************************/
-#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
+//#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
 //#define STEPPER                // Remember, no sound effects are possible when using a stepper
 //#define WAVESHARE              // Define this if you are using a Waveshare ESP32-S3FH4R2 board
 /************************************************************************************************/
@@ -131,7 +131,7 @@
 #endif
 //------------------------------------------------------------------------------------------------
 #ifdef I2CSWITCH
-Adafruit_MCP23X17 mcp;
+Adafruit_MCP23X17 mcp;           // Be sure to use 4.7K pullup resistors on the I2C lines with these
 #endif
 
 #ifndef STEPPER
@@ -248,7 +248,7 @@ void setup() {
   #else
   Wire.begin(OUT_1,OUT_2);
   delay(1000);
-  if (mcp.begin_I2C(0x20)) {
+  if (mcp.begin_I2C(0x27)) {
     if (Serial) Serial.println("MCP23017 successfully started");
     for (byte i = 0; i <= 15; i ++) {
       mcp.pinMode(i,OUTPUT);
