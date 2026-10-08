@@ -73,8 +73,8 @@
 #include "IRremote.hpp"          // IR remote controller library, for location/position detection
 
 #ifdef I2CSWITCH
+#include "Wire.h"                // I2C communications library
 #include "Adafruit_MCP23X17.h"   // MCP23017 I2C 16 port GPIO expansion module library
-#include "Wire.h"                // I2C communication library
 #endif
 
 #ifndef STEPPER
