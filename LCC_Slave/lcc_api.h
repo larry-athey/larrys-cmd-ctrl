@@ -217,7 +217,7 @@ inline void setupSound(int FileNumber, byte Volume, byte Loop) { // Set up sound
       sfxLoop = false;
     }
   } else { // Play sound effects remotely on a sound server
-
+    sendCommand("/sound-server/" + String(FileNumber) + "/" + String(Volume) + "/" + String(Loop));
   }
   if (Serial) {
     Serial.println("Sound file #: " + String(soundFile));

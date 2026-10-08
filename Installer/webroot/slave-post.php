@@ -26,6 +26,7 @@ if ((isset($_GET["addr"])) && (isset($_GET["cmd"]))) {
       }
     } elseif (InStr("/sound-server/",$Cmd)) { // LCC Slave request to play a sound on the sound server rather than locally
       $Update = mysqli_query($DBcnx,"UPDATE inbound SET rcvd=1 WHERE ID=" . $LastID);
+      $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-purple\">cmd:/$Cmd</span>' WHERE address='$Address'");
       $Data = explode("/",trim($Cmd,"/"));
       $Response = curlRequest("http://" . $Settings["sound_server"] . ".lcc.local/play-sound.php?addr=$Address&cmd=$Cmd");
       echo("$Response\n");

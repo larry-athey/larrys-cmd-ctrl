@@ -64,7 +64,7 @@
 //
 // NOTE: The location transponder MCU can actually run up to 11 unique LED transmitters.
 /************************************************************************************************/
-//#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
+#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
 //#define STEPPER                // Remember, no sound effects are possible when using a stepper
 //#define WAVESHARE              // Define this if you are using a Waveshare ESP32-S3FH4R2 board
 /************************************************************************************************/
@@ -449,10 +449,10 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
       } else if (Locations[i][1] == 2) { // Play sound effect
         #ifndef STEPPER
         soundFile = Locations[i][2];
-        sfxVolume = 30;
+        sfxVolume = 25;
         sfxLoop = false;
         if (! SFX) { // Play sound remotely on the sound server
-
+          sendCommand("/sound-server/" + String(soundFile) + "/25/0");
         }
         #endif
       } else if (Locations[i][1] == 3) { // Request command with /replay/cmd/#
