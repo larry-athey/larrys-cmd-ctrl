@@ -16,4 +16,4 @@ LCC Slave units play sound files on the sound server instead. The sound server h
 
 - All speakers are the same and are custom designed by myself. Two enclosure styles are available, a cube and a matchbox style. Both use a Dayton Audio 2" bass reflex full-range speaker with a 2" passive radiator for enhanced bass. Without the LIDAR sensor plugged in, the speaker runs normally with no proximity based volume control. This would be the one that you attach to the right channel of the sound-server for the middle of the railroad. Since these are active speakers, there's really no limit to the number that you can have. They all use a simple 3-conductor TRS headphone style cable that carries the audio and 5 volt power.
 
-- Sound files can easily be customized using the free **Audacity** audio editor so you can pan train sound effects to the left channel and everything else to the right channel.
+- Sound files can easily be customized using the free **Audacity** audio editor so you can pan train sound effects to the left channel and everything else to the right channel. They're still stereo MP3 files, one channel is just silent depending on the purpose of the sound file.
