@@ -132,7 +132,7 @@
 //------------------------------------------------------------------------------------------------
 #ifdef I2CSWITCH
 Adafruit_MCP23X17 mcp;           // Be sure to use 4.7K pullup resistors on the I2C lines with these
-#endif
+#endif                           // I use the Waveshare boards https://www.amazon.com/dp/B082MMRNM4
 
 #ifndef STEPPER
 DFRobotDFPlayerMini myDFPlayer;  // Set up the sound effects system object
