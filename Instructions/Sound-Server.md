@@ -1,6 +1,6 @@
 # LCC Sound Server
 
-This is a companion project still in development and not available to download from here yet. This is based on another Pi style SBC but must have an audio output jack, such as an Orange Pi 3B or Banana Pi M4 Berry. Those are just two examples, there are many others out there that will also work for this. I just always recommend anything else besides a Raspberry Pi.
+This device is based on a Pi style SBC and must have a stereo audio output jack, such as an Orange Pi 3B or Banana Pi M4 Berry. Those are just two examples, there are many others out there that will also work for this. I just always recommend anything else besides a Raspberry Pi.
 
 ### The Problem
 When a person is using LCC in a model railroad setup, some locomotives don't have enough room inside to install the DFRobot DFPlayer MP3 player module and sugar-cube speaker.
