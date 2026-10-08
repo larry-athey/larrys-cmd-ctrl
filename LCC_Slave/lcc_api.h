@@ -206,7 +206,7 @@ inline void setupSound(int FileNumber, byte Volume, byte Loop) { // Set up sound
   if (SFX) { // Play sound effects locally
     if (FileNumber == 0) {
       myDFPlayer.stop();
-      return;
+      return; 
     }
 
     soundFile = FileNumber;
