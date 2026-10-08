@@ -82,6 +82,9 @@ function drawMenu($DBcnx) {
   $Content .=         "<li class=\"nav-item\">";
   $Content .=           "<a class=\"nav-link fw-bolder\" aria-current=\"page\" href=\"/index.php?page=logs\">Log&nbsp;Viewer</a>";
   $Content .=         "</li>";
+  $Content .=         "<li class=\"nav-item\">";
+  $Content .=           "<a class=\"nav-link fw-bolder\" aria-current=\"page\" href=\"/index.php?page=settings\"><span class=\"text-dark\">Settings</span></a>";
+  $Content .=         "</li>";
   $Content .=       "</ul>";
   if (! isset($_GET["page"])) {
     $Content .= deviceFilter("index.php");
