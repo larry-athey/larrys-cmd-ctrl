@@ -74,6 +74,7 @@
 
 #ifdef I2CSWITCH
 #include "Adafruit_MCP23X17.h"   // MCP23017 I2C 16 port GPIO expansion module library
+#include "Wire.h"                // I2C communication library
 #endif
 
 #ifndef STEPPER
