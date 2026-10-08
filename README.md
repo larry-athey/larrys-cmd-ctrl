@@ -8,7 +8,7 @@ _**NOTE:** While this can be used as an alternative to DCC and WCC in the model 
 
 _...No, I don't use AI to design and build my projects, I actually still know how to use my brain..._
 
-**This project began on July 1, 2025 and does not yet have an official release.**
+**This project began on July 1, 2025 and does not yet have an official release but I am hoping to have the first one around the beginning of 2027.**
 
 ---
 <img width="1024" src="Diagrams/LCC-Mobile-UI.jpg"><br>
