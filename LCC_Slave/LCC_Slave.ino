@@ -773,16 +773,16 @@ void loop() {
   // Handle new location transponder detection
   if (IrReceiver.decode()) {
     uint32_t Location = IrReceiver.decodedIRData.decodedRawData;
-
-    String Status;
-    if (beaconCheck(Location)) {
-      Status = "/location/" + String(Location) + "/action";
-    } else {
-      Status = "/location/" + String(Location) + "/report";
+    if (Location > 0) {
+      String Status;
+      if (beaconCheck(Location)) {
+        Status = "/location/" + String(Location) + "/action";
+      } else {
+        Status = "/location/" + String(Location) + "/report";
+      }
+      if (Serial) Serial.println("Location transponder detected: " + Status);
+      sendCommand(Status);
     }
-    if (Serial) Serial.println("Location transponder detected: " + Status);
-    sendCommand(Status);
-
     IrReceiver.resume();
   }
 
