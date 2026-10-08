@@ -125,7 +125,7 @@ CREATE TABLE `locations` (
 --
 
 INSERT INTO `locations` (`ID`, `loc_name`, `pin`) VALUES
-(1, 'Outside track transponder 1', 16);
+(1, 'Outside track transponder 1', 1234);
 
 -- --------------------------------------------------------
 
