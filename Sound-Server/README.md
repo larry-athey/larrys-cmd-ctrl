@@ -39,5 +39,5 @@ After the installation is complete, you will need to open the browser-based file
 
 On the LCC-WLAN network: http://sound-server-address.lcc.local:8080
 
-Username: admin
+Username: admin<br>
 Password: sound-server
