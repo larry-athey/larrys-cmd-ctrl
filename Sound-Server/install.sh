@@ -53,6 +53,7 @@ sudo systemctl restart lighttpd.service
 
 sudo rm -f /var/www/html/index.lighttpd.html
 sudo cp -f play-sound.php /var/www/html/play-sound.php
+sudo cp -f hostname /etc/hostname
 sudo mkdir -p /var/www/html/mp3
 sudo chown -R www-data:www-data /var/www/html
 sudo chmod g+w -R /var/www/html
