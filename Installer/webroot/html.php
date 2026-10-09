@@ -345,8 +345,8 @@ function editLocation($DBcnx) {
   $Content .=         "<input type=\"text\" class=\"form-control fw-bolder\" id=\"loc_name\" name=\"loc_name\" maxlength=\"255\" value=\"" . $Loc["loc_name"] . "\">";
   $Content .=       "</div>";
   $Content .=       "<div style=\"margin-top: 0.5em;\">";
-  $Content .=         "<label for=\"pin\" class=\"form-label fw-bolder\">Transponder Pin</label>";
-  $Content .=         "<input type=\"number\" class=\"form-control fw-bolder\" id=\"pin\" name=\"pin\" min=\"1\"  max=\"65535\" step=\"1\" value=\"" . $Loc["pin"] . "\">";
+  $Content .=         "<label for=\"pin\" class=\"form-label fw-bolder\">Transponder Pin [1..1000]</label>";
+  $Content .=         "<input type=\"number\" class=\"form-control fw-bolder\" id=\"pin\" name=\"pin\" min=\"1\"  max=\"1000\" step=\"1\" value=\"" . $Loc["pin"] . "\">";
   $Content .=       "</div>";
   $Content .=     "</div>";
   $Content .=     "<div class=\"border-bottom\"></div>";
