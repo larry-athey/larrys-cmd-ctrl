@@ -53,6 +53,7 @@ sudo systemctl restart lighttpd.service
 
 sudo rm -f /var/www/html/index.lighttpd.html
 sudo cp -f play-sound.php /var/www/html/play-sound.php
+sudo mkdir -p /var/www/html/mp3
 sudo chown -R www-data:www-data /var/www/html
 sudo chmod g+w -R /var/www/html
 sudo usermod -a -G www-data pi
@@ -60,7 +61,7 @@ sudo usermod -a -G audio www-data
 ln -s /var/www/html /home/pi/webroot
 
 sudo curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
-sudo mkdir -p /etc/filebrowser /var/www/html/mp3
+sudo mkdir -p /etc/filebrowser
 cat << 'EOF' > /tmp/filebrowser.service
 [Unit]
 Description=File Browser
