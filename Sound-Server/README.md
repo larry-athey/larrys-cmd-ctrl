@@ -32,3 +32,5 @@ After that
 
 `cd larrys-cmd-ctrl/Sound-Server`<br>
 `./install.sh`
+
+At the end of the installation, the script will tell you the Sound Server address that you need to add to the Mission Control settings page.
