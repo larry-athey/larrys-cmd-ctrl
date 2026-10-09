@@ -8,6 +8,13 @@
 // No, this project isn't a misspelling of the ServoDrive (BassTech 7) speaker brand name from the
 // 1980s. This is just the main driver of the LCC Sound Server, because it would just be any other
 // MP3 player if it simply used off-the-shelf speakers.
+//
+// The TPA2016(D2) runs a single Dayton Audio 2" full-range driver on one channel with a passive
+// radiator. The spare channel is active in case a person wants to add a second non-powered unit
+// next to it.
+//
+// No compression/limiting or noise gating features of the TPA2016(D2) are used in this speaker,
+// we want the passive radiator to do what it's intended for so we need the amp 100% unrestricted.
 //------------------------------------------------------------------------------------------------
 #include "Adafruit_TPA2016.h"  // TPA2016(D2) digital auudio amp library by Adafruit
 #include "Adafruit_VL53L0X.h"  // VL53L0X LIDAR sensor library by Adafruit
