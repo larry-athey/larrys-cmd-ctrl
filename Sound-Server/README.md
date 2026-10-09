@@ -6,7 +6,7 @@ This device is based on a Pi style SBC and must have a stereo audio output jack,
 When a person is using LCC in a model railroad setup, some locomotives don't have enough room inside to install the DFRobot DFPlayer MP3 player module and sugar-cube speaker.
 
 ### The solution
-LCC Slave units play sound files on the sound server instead, which is actually extremely low-tech, but does what it's intended to do without barfing all over the track bed. The sound server has stereo audio output and can play multiple MP3 files simultaneously.
+LCC Slave units play sound files on the sound server instead, which is actually extremely low-tech, but does what it's intended to do without barfing all over the track bed. The sound server has stereo audio output and can reliably play & mix multiple MP3 files simultaneously.
 
 - The right channel feeds a central speaker in the middle of the model railroad, this is for sound effects not related to the train itself.
 
