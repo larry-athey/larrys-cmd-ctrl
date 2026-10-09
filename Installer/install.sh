@@ -99,31 +99,29 @@ ln -s /usr/share/lcc /home/pi/undercarriage
 sudo systemctl enable mariadb > /dev/null 2>&1
 sudo systemctl start mariadb > /dev/null 2>&1
 
-clear
-
-echo " .----------------.  .----------------.  .----------------. "
-echo "| .--------------. || .--------------. || .--------------. |"
-echo "| |   _____      | || |     ______   | || |     ______   | |"
-echo "| |  |_   _|     | || |   .' ___  |  | || |   .' ___  |  | |"
-echo "| |    | |       | || |  / .'   \_|  | || |  / .'   \_|  | |"
-echo "| |    | |   _   | || |  | |         | || |  | |         | |"
-echo "| |   _| |__/ |  | || |  \ \`.___.'\  | || |  \ \`.___.'\  | |"
-echo "| |  |________|  | || |   \`._____.'  | || |   \`._____.'  | |"
-echo "| |              | || |              | || |              | |"
-echo "| '--------------' || '--------------' || '--------------' |"
-echo " '----------------'  '----------------'  '----------------' "
-echo
-echo "                 Larry's Command & Control"
-echo
-echo "Time to secure the MySQL server, you will want to answer Yes to all questions"
-echo "EXCEPT for the one about using a Unix socket for authentication. Just be sure"
-echo "to set the root password to one that you can remember, simple is fine. Keep in"
-echo "mind that this system isn't designed to for inbound internet access, you don't"
-echo "have to worry about anything too complicated. THIS IS NOT A PUBLIC WEB SERVER!"
-echo
-
 which mysql_secure_installation > /dev/null 2>&1
 if [ $? -eq 0 ]; then
+  clear
+  echo " .----------------.  .----------------.  .----------------. "
+  echo "| .--------------. || .--------------. || .--------------. |"
+  echo "| |   _____      | || |     ______   | || |     ______   | |"
+  echo "| |  |_   _|     | || |   .' ___  |  | || |   .' ___  |  | |"
+  echo "| |    | |       | || |  / .'   \_|  | || |  / .'   \_|  | |"
+  echo "| |    | |   _   | || |  | |         | || |  | |         | |"
+  echo "| |   _| |__/ |  | || |  \ \`.___.'\  | || |  \ \`.___.'\  | |"
+  echo "| |  |________|  | || |   \`._____.'  | || |   \`._____.'  | |"
+  echo "| |              | || |              | || |              | |"
+  echo "| '--------------' || '--------------' || '--------------' |"
+  echo " '----------------'  '----------------'  '----------------' "
+  echo
+  echo "                 Larry's Command & Control"
+  echo
+  echo "Time to secure the MySQL server, you will want to answer Yes to all questions"
+  echo "EXCEPT for the one about using a Unix socket for authentication. Just be sure"
+  echo "to set the root password to one that you can remember, simple is fine. Keep in"
+  echo "mind that this system isn't designed to for inbound internet access, you don't"
+  echo "have to worry about anything too complicated. THIS IS NOT A PUBLIC WEB SERVER!"
+  echo
   sudo mysql_secure_installation
 fi
 
