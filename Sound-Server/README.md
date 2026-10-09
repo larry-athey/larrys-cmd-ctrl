@@ -31,4 +31,4 @@ You will need this computer already connected to the LCC-WLAN network as well, s
 After that
 
 `cd larrys-cmd-ctrl/Sound-Server`<br>
-`install.sh`
+`./install.sh`
