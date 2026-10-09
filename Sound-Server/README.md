@@ -34,3 +34,10 @@ After that
 `./install.sh`
 
 At the end of the installation, the script will tell you the Sound Server address that you need to add to the Mission Control settings page.
+
+After the installation is complete, you will need to open the browser-based file browser on the Sound Server in order to upload MP3 files to it.
+
+On the LCC-WLAN network: http://sound-server-address.lcc.local:8080
+
+Username: admin
+Password: sound-server
