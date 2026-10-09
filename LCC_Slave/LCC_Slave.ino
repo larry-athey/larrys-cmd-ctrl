@@ -773,7 +773,7 @@ void loop() {
   // Handle new location transponder detection
   if (IrReceiver.decode()) {
     uint32_t Location = IrReceiver.decodedIRData.decodedRawData;
-    if ((Location > 0) && (Location < 10001)) {
+    if ((Location > 0) && (Location < 1001)) {
       String Status;
       if (beaconCheck(Location)) {
         Status = "/location/" + String(Location) + "/action";
@@ -865,7 +865,7 @@ void loop() {
 #include "IRremote.hpp"
 
 #define IR_SEND_PIN 6  // Use D6 (PA06) for IR LED, a PWM-capable pin
-const uint16_t LOCATION_ID = 1234;  // Unique ID for this location (1..10000)
+const uint16_t LOCATION_ID = 1234;  // Unique ID for this location (1..1000)
 
 IRsend irsend(IR_SEND_PIN);  // Initialize IRsend with specific pin
 
