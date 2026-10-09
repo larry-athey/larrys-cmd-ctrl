@@ -27,3 +27,8 @@ As with the Mission Control server, you must install this on a Pi style computer
 You will need this computer already connected to the LCC-WLAN network as well, so you will need to connect its ethernet port to a router with internet access in order to git-clone this repository to it. This is because the LCC-WLAN network has no internet access, even if the Mission Control server has an ethernet connection.
 
 `git clone https://github.com/larry-athey/larrys-cmd-ctrl`
+
+After that
+
+`cd larrys-cmd-ctrl/Sound-Server`<br>
+`install.sh`
