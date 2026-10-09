@@ -41,10 +41,8 @@ sudo systemctl enable lighttpd.service
 sudo systemctl start lighttpd.service
 sudo lighttpd-enable-mod fastcgi
 sudo lighttpd-enable-mod fastcgi-php
-if [ $Bullseye -eq 0 ]; then
-  PHPversion=$(php --version | sed -n 's/^PHP \([0-9]\+\.[0-9]\+\).*/\1/p')
-  sed -i "s/7.4/$PHPversion/g" ./15-fastcgi-php.conf
-fi
+PHPversion=$(php --version | sed -n 's/^PHP \([0-9]\+\.[0-9]\+\).*/\1/p')
+sed -i "s/7.4/$PHPversion/g" ./15-fastcgi-php.conf
 sudo cp -f 15-fastcgi-php.conf /etc/lighttpd/conf-available/15-fastcgi-php.conf
 sudo chown -R www-data:www-data /var/log/lighttpd
 sudo systemctl restart lighttpd.service
