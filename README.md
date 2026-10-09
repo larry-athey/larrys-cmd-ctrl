@@ -24,7 +24,7 @@ Command delay time is negligible, even if a LCC Slave unit is reporting a -67 dB
 
 The recommended LCC Mission Control server is an [Orange Pi Zero 3 (1GB)](https://www.amazon.com/Orange-Pi-Allwinner-Bluetooth-Development/dp/B0H6HL19Q6/). You simply connect your phone or computer to its isolated WiFi network, or connect the server's ethernet port to your home router if you need local network access to it.
 
-**DO NOT** use simple port forwarding from your router into the Mission Control server, there is no login system! This system is intended for **PRIVATE USE ONLY!** It is not designed for exposure to the open internet. If you feel that you need remote access, use your router's built-in VPN capability, they all have one these days! 
+**DO NOT** use simple port forwarding from your router into the Mission Control server, there is no login system! This system is intended for **PRIVATE USE ONLY!** It is not designed for exposure to the open internet. If you feel that you need remote access, use your router's built-in VPN gateway, they all have one these days! 
 
 ### Use Cases
 - RGB LED lighting automation/scripting
