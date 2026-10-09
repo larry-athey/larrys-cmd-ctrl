@@ -20,6 +20,8 @@ LCC Slave units play sound files on the sound server instead. The sound server h
 
 - Sound files can easily be customized using the free **Audacity** audio editor so you can pan train sound effects to the left channel and everything else to the right channel. They're still stereo MP3 files, one channel is just silent depending on the purpose of the sound file.
 
+- A breakout box is necessary for this setup, but it's not hard to build. Audio comes from the Pi computer, right channel goes to the tip of one TRS jack, left channel goes to the tip of four or more TRS jacks. The ring connector for all of them are connected together and powered by a 5 volt power supply. Common grounds all the way around.
+
 # Installation
 
 As with the Mission Control server, you must install this on a Pi style computer running a fresh unmodified OS installation under a user account named "pi".
