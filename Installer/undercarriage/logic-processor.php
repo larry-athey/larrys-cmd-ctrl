@@ -12,10 +12,10 @@ if (mysqli_num_rows($Result) > 0) {
     $Tries = 0;
     while ($Tries < 3) {
       $Tries ++;
-      $Result = curlRequest("http://". $Outbound["address"] . ".lcc.local" . $Outbound["msg"]);
-      if ($Result == $jsonSuccess) break;
+      $Response = curlRequest("http://". $Outbound["address"] . ".lcc.local" . $Outbound["msg"]);
+      if ($Response == $jsonSuccess) $Tries = 3;
     }
-    if ($Result  == $jsonSuccess) {
+    if ($Response != $jsonFailure) {
       $Update = mysqli_query($DBcnx,"UPDATE outbound SET sent_time=NOW(),ack_time=NOW(),sent=1,ack=1 WHERE ID='" . $Outbound["ID"] . "'");
     } else {
       $Update = mysqli_query($DBcnx,"UPDATE outbound SET sent_time=NOW(),sent=1 WHERE ID='" . $Outbound["ID"] . "'");
