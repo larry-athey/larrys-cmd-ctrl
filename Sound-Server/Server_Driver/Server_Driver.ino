@@ -72,11 +72,11 @@ void setup() {
   // LIDAR – optional
   if (Lidar.begin(VL53L0X_I2C_ADDR,false,&Wire,Adafruit_VL53L0X::VL53L0X_SENSE_HIGH_ACCURACY)) {
     lidarPresent = true;
-    if (Serial) Serial.println("LIDAR present - proximity volume control active.");
+    Serial.println("LIDAR present - proximity volume control active.");
   } else {
     lidarPresent = false;
     setVolumePercent(100); // Wide open amp
-    if (Serial) Serial.println("No LIDAR - amp is running unmanaged.");
+    Serial.println("No LIDAR - amp is running unmanaged.");
   }
 }
 //------------------------------------------------------------------------------------------------
