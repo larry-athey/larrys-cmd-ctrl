@@ -31,12 +31,8 @@ if [ "$apt" != "/usr/bin/apt" ]; then
   exit 1
 fi
 
-sudo dpkg-reconfigure locales
-
-sudo apt update
-sudo apt upgrade -y
-
 sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+sudo apt update
 sudo apt install -y alsa-utils curl ffmpeg mpg123 lighttpd php php-common php-fpm php-mysql mariadb-server mariadb-client
 sudo apt --fix-broken install -y
 sudo apt autoremove -y
@@ -45,9 +41,9 @@ sudo systemctl enable lighttpd.service
 sudo systemctl start lighttpd.service
 sudo lighttpd-enable-mod fastcgi
 sudo lighttpd-enable-mod fastcgi-php
-sudo cp -f 15-fastcgi-php.conf /etc/lighttpd/conf-available/15-fastcgi-php.conf
 PHPversion=$(php --version | sed -n 's/^PHP \([0-9]\+\.[0-9]\+\).*/\1/p')
-sudo sed -i "s/7.4/$PHPversion/g" /etc/lighttpd/conf-available/15-fastcgi-php.conf
+sed -i "s/7.4/$PHPversion/g" ./15-fastcgi-php.conf
+sudo cp -f 15-fastcgi-php.conf /etc/lighttpd/conf-available/15-fastcgi-php.conf
 sudo chown -R www-data:www-data /var/log/lighttpd
 sudo systemctl restart lighttpd.service
 
@@ -129,7 +125,7 @@ echo "| |              | || |              | || |              | |"
 echo "| '--------------' || '--------------' || '--------------' |"
 echo " '----------------'  '----------------'  '----------------' "
 echo
-echo "          Larry's Command & Control - Sound Server"
+echo "                 Larry's Command & Control"
 echo
 echo "Now installing phpMyAdmin, be sure to select the lighttpd configuration!"
 echo
@@ -157,6 +153,6 @@ echo " '----------------'  '----------------'  '----------------' "
 echo
 echo "          Larry's Command & Control - Sound Server"
 echo
-echo "Installation is now complete. Here is the Sound Server Address"
-echo "to add to your Mission Control settings page: $MAC"
+
+echo "Here is the Sound Server Address to add to Mission Control: $MAC"
 echo
