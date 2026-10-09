@@ -41,3 +41,5 @@ On the LCC-WLAN network: http://sound-server-address.lcc.local:8080
 
 Username: admin<br>
 Password: sound-server
+
+Unlike the bizarre SD card formatting/structure, you can just upload the numbered MP3 files all in the same folder here. No need to add extra zeros at the beginning of the file name in order to maintain a 3 digit number. You can also create a text file on the server stating what each MP3 file is.
