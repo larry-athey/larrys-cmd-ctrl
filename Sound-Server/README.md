@@ -47,3 +47,5 @@ Password: **sound-server**
 Unlike the bizarre SD card folder and file name structure, you just upload the numbered MP3 files all in the same folder here. No need to add extra zeros at the beginning of the file name in order to maintain a 3 digit number for the file name. You can also create a text file on the Sound Server stating what each MP3 file is.
 
 If you already use on-board sounds in your locomotives and now want to use the Sound Server instead, simply eject its SD card.
+
+_**NOTE:** This server also has phpMyAdmin installed using the same credentials as the Mission Control server. However, the database on this one is used for nothing more than logging which devices sent sound requests through it. The database here may be used for more in the future, but it's just a device log at this time._
