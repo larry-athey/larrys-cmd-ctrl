@@ -19,3 +19,7 @@ LCC Slave units play sound files on the sound server instead. The sound server h
 - Speaker placement can be done creatively and easily. The cube enclosure is 70x70x70 mm and the matchbox is 100x55x45 mm. If you mount them under the track bed, all you need is a 2" hole saw and something to disguise the hole with after the fact. Neither one is better than the other, the passive radiator is on the back side of each one. If you've ever heard a [JBL Flip 5](https://www.amazon.com/JBL-Waterproof-Portable-Bluetooth-Speaker/dp/B07QK2SPP7) speaker then you know how much impact a 2" passive radiator has in any room. Now imagine 4 or more of them in a room.
 
 - Sound files can easily be customized using the free **Audacity** audio editor so you can pan train sound effects to the left channel and everything else to the right channel. They're still stereo MP3 files, one channel is just silent depending on the purpose of the sound file.
+
+# Installation
+
+As with the Mission Control server, you must install this on a Pi style computer running a fresh unmodified OS installation under a user account named "pi".
