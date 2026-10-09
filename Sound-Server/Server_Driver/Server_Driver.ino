@@ -49,7 +49,7 @@ void setup() {
   if (Lidar.begin(VL53L0X_I2C_ADDR,false,&Wire,Lidar.VL53L0X_SENSE_HIGH_ACCURACY)) {
     // Using proximity based volume control, idle at IDLE_VOLUME % boost to 100% when triggered
   } else {
-    // Amplifier runs wide open, Sound Server and LCC commands control the volume
+    // Amplifier runs wide open, the Sound Server and LCC commands control the volume
   }
 }
 //------------------------------------------------------------------------------------------------
