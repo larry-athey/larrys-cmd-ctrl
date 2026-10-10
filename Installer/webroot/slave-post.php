@@ -24,7 +24,7 @@ if ((isset($_GET["addr"])) && (isset($_GET["cmd"]))) {
       } else {
         echo("10 CLEAR\n");
       }
-    } elseif (InStr("/sound-server/",$Cmd)) { // LCC Slave request to play a sound on the sound server rather than locally
+    } elseif ((InStr("/sound-server/",$Cmd)) && ($Settings["sound_server"] != "00-00-00-00-00-00")) { // LCC Slave request to play a sound on the sound server rather than locally
       $Update = mysqli_query($DBcnx,"UPDATE inbound SET rcvd=1 WHERE ID=" . $LastID);
       $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-info\">cmd:/$Cmd</span>' WHERE address='$Address'");
       $Data = explode("/",trim($Cmd,"/"));
