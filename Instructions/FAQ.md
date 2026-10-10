@@ -6,6 +6,12 @@ A: A friend of mine who is a model railroader asked me if I could build a cheape
 
 ---
 
+Q: Why do you so strongly emphasize the _"personal use"_ and _"don't put it on the internet"_ bits?
+
+A: That's easy, three words...**ZERO SECURITY MECHANISMS** This is why everything is so fast and lightweight. This is why everything runs on a 100% isolated wireless network with no internet access. If you port forward your router into this system, you are going to create a honey pot that is going to attract every bit of attention that you never want.
+
+---
+
 Q: Why does the Mission Control system show 4 different device types but the ESP32 code really only provides 2 types?
 
 A: It's mainly for command class segregation. For example, the **Brushed Motor Controller** and the **Model Train Locomotive** are 100% identical in functionality. Mission Control calls these two different device types so the commands for each device type aren't inter-mingled. The **Switching Controller** is also the same but the motor control functionality is hidden so that you can't accidentally send a motor control command to it and cause switching delays. The only one that's really different is the **Stepper Motor Controller** device.
