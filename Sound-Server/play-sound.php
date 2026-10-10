@@ -48,9 +48,9 @@ if ((isset($_GET["addr"])) && (isset($_GET["cmd"]))) {
   shell_exec("pkill -f /tmp/$Address");
   $Script = "#!/bin/bash\n";
   if ($Data[3] == 1) {
-    $Script .= "mpg123 -f " . mpg123_scale($Data[2]) . " --loop /var/www/html/mp3/" . $Data[1] . "\n";
+    $Script .= "mpg123 -f " . mpg123_scale($Data[2]) . " --loop /var/www/html/mp3/" . $Data[1] . ".mp3\n";
   } else {
-    $Script .= "mpg123 -f " . mpg123_scale($Data[2]) . " /var/www/html/mp3/" . $Data[1] . "\n";
+    $Script .= "mpg123 -f " . mpg123_scale($Data[2]) . " /var/www/html/mp3/" . $Data[1] . ".mp3\n";
   }
   put_file_contents("/tmp/$Address",Script);
   shell_exec("chmod +x /tmp/$Address");
