@@ -1,6 +1,6 @@
 # Enabling HTTP Basic Authentication in Lighttpd
 
-> **Disclaimer:** **Larry's Cmd-Ctrl** is designed and intended for **isolated local network or loopback deployment only**. It does not include native user authentication mechanisms. If you choose to port-forward or expose your server to the internet or an untrusted network, **you do so at your own risk**. 
+> **Disclaimer:** **Larry's Cmd-Ctrl** is designed and intended for **isolated local network or loopback deployment only**. It does not include native user authentication or secure form post sanitization mechanisms. If you choose to port-forward or expose your server to the internet or an untrusted network, **you do so at your own risk**. 
 
 This guide provides step-by-step instructions for locking down your web root (including phpMyAdmin and administration tools) using Lighttpd's built-in `mod_auth` module and `.htpasswd` basic authentication.
 
