@@ -23,8 +23,11 @@
 //   SCL -> D5 / A5 (PA09)
 //
 // Then you do the same with the VCC and GND lines. In very rare cases, the VL53L0X has to run off
-// the 3.3 volt output of the Seeed Studio XIAO SAMD21. After that, just feed the audio signal to
-// both amp inputs, connect the speaker to one output, and that's it.
+// the 3.3 volt output of the Seeed Studio XIAO SAMD21. The amp also has an I2C VCC pin that needs
+// to be powered by the same voltage that your MCU logic runs at, so you need to connect this to the
+// Seeed Studio XIAO SAMD21 3.3 volt output pin.
+//
+// After that, just feed the audio signal to both amp inputs and connect the speaker to one output.
 //------------------------------------------------------------------------------------------------
 #include "Adafruit_TPA2016.h"  // TPA2016(D2) digital auudio amp library by Adafruit
 #include "Adafruit_VL53L0X.h"  // VL53L0X LIDAR sensor library by Adafruit
