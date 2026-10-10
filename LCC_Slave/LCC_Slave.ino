@@ -64,7 +64,7 @@
 //
 // NOTE: The location transponder MCU can actually run up to 11 unique LED transmitters.
 /************************************************************************************************/
-//#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
+#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
 //#define STEPPER                // Remember, no sound effects are possible when using a stepper
 //#define WAVESHARE              // Define this if you are using a Waveshare ESP32-S3FH4R2 board
 /************************************************************************************************/
@@ -773,7 +773,7 @@ void loop() {
 
   // Handle new location transponder detection
   if (IrReceiver.decode()) {
-    uint32_t Location = IrReceiver.decodedIRData.decodedRawData;
+    uint16_t Location = IrReceiver.decodedIRData.address;
     Location -= TX_OFFSET;
     if ((Location >= 1) && (Location <= 1000)) {
       String Status;
@@ -880,7 +880,7 @@ void setup() {
 }
 
 void loop() {
-  irsend.sendNEC(LOCATION_ID,8,0);  // Send 8-bit LOCATION_ID using NEC protocol
+  irsend.sendNEC(LOCATION_ID,0,0);  // Send 18-bit LOCATION_ID using NEC protocol
   if (Serial) {
     Serial.print("Sent IR Code: 0x");
     Serial.println(LOCATION_ID, HEX);
