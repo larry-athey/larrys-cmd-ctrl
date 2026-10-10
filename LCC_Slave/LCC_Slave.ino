@@ -71,6 +71,8 @@
 #define DISABLE_CODE_FOR_TRANSMITTER
 #define SEND_LEDC_CHANNEL 2
 #include "IRremote.hpp"          // IR remote controller library, for location/position detection
+                                 // LCC only uses location ID values of 1 to 1000 in order to steer
+                                 // clear of any appliance remote controls that may be in the room.
 
 #ifdef I2CSWITCH
 #include "Wire.h"                // I2C communications library
@@ -865,7 +867,7 @@ void loop() {
 #include "IRremote.hpp"
 
 #define IR_SEND_PIN 6  // Use D6 (PA06) for IR LED, a PWM-capable pin
-const uint16_t LOCATION_ID = 1234;  // Unique ID for this location (1..1000)
+const uint16_t LOCATION_ID = 1000;  // Unique ID for this location (1..1000)
 
 IRsend irsend(IR_SEND_PIN);  // Initialize IRsend with specific pin
 
@@ -876,7 +878,7 @@ void setup() {
 }
 
 void loop() {
-  irsend.sendNEC(LOCATION_ID,8);  // Send 8-bit LOCATION_ID using NEC protocol
+  irsend.sendNEC(LOCATION_ID,8,0);  // Send 8-bit LOCATION_ID using NEC protocol
   if (Serial) {
     Serial.print("Sent IR Code: 0x");
     Serial.println(LOCATION_ID, HEX);
