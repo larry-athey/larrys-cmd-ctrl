@@ -43,6 +43,8 @@ if ((isset($_GET["addr"])) && (isset($_GET["cmd"]))) {
 
   $Update = mysqli_query($DBcnx,"UPDATE sound_server SET sound=$Data[1],volume=$Data[2],replay=$Data[3],last_update=NOW() WHERE address='$Address'");
 
+  // Laugh all you want, this works reliably and has been tested with a couple dozen MP3s playing simultaneously.
+  // If I was writing something intended for actual internet exposure, I'd be doing things differently.
   shell_exec("pkill -f /tmp/$Address");
   $Script = "#!/bin/bash\n";
   if ($Data[3] == 1) {
