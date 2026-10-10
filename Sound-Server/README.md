@@ -7,7 +7,7 @@ _**NOTE:** I just always recommend anything else besides a Raspberry Pi because 
 ### The Problem
 When a person is using LCC in a model railroad setup, some locomotives don't have enough room inside to install the DFRobot DFPlayer MP3 player module and sugar-cube speaker.
 
-### The solution
+### The Solution
 LCC Slave units play sound files on the sound server instead, which is actually a low-tech - yet unique and convincing 3D surround sound system. That does what it's intended to do without barfing all over the track bed even if a couple dozen MP3s are playing.
 
 - The right channel feeds a central speaker in the middle of the model railroad, this is for sound effects not related to the train itself.
