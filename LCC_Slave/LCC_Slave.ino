@@ -70,9 +70,8 @@
 /************************************************************************************************/
 #define DISABLE_CODE_FOR_TRANSMITTER
 #define SEND_LEDC_CHANNEL 2
+#define TX_OFFSET 60000          // Location ID numbers are actually 60001 to 61000 for safety
 #include "IRremote.hpp"          // IR remote controller library, for location/position detection
-                                 // LCC only uses location ID values of 1 to 1000 in order to steer
-                                 // clear of any appliance remote controls that may be in the room.
 
 #ifdef I2CSWITCH
 #include "Wire.h"                // I2C communications library
@@ -775,7 +774,8 @@ void loop() {
   // Handle new location transponder detection
   if (IrReceiver.decode()) {
     uint32_t Location = IrReceiver.decodedIRData.decodedRawData;
-    if ((Location > 0) && (Location < 1001)) {
+    Location -= TX_OFFSET;
+    if ((Location >= 1) && (Location <= 1000)) {
       String Status;
       if (beaconCheck(Location)) {
         Status = "/location/" + String(Location) + "/action";
@@ -867,7 +867,9 @@ void loop() {
 #include "IRremote.hpp"
 
 #define IR_SEND_PIN 6  // Use D6 (PA06) for IR LED, a PWM-capable pin
-const uint16_t LOCATION_ID = 1000;  // Unique ID for this location (1..1000)
+#define TX_OFFSET 60000  // Location ID numbers are actually 60001 to 61000 for safety
+
+const uint16_t LOCATION_ID = TX_OFFSET + 1000;  // Unique ID for this location (1..1000)
 
 IRsend irsend(IR_SEND_PIN);  // Initialize IRsend with specific pin
 
