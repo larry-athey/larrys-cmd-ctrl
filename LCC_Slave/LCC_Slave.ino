@@ -136,7 +136,7 @@ Adafruit_MCP23X17 mcp;           // Be sure to use 4.7K pullup resistors on the 
 
 #ifndef STEPPER
 DFRobotDFPlayerMini myDFPlayer;  // Set up the sound effects system object
-Adafruit_NeoPixel lights(TOTAL_LEDS,BUS_3,NEO_RGB + NEO_KHZ800); // Set up the Neopixel/WS2812 lighting bus
+Adafruit_NeoPixel lights(TOTAL_LEDS,BUS_3,NEO_GRB + NEO_KHZ800); // Set up the Neopixel/WS2812 lighting bus
 LedBasic basic( // Set up the LedBasic callbacks
   TOTAL_LEDS,
   // set pixel
