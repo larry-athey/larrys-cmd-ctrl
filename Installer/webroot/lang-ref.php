@@ -9,8 +9,8 @@
   <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
   <meta http-equiv="pragma" content="no-cache">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
   <style>
     body { padding: 1.5rem; }
     .cmd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
