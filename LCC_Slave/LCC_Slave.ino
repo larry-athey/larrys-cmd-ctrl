@@ -65,8 +65,8 @@
 // NOTE: The location transponder MCU can actually run up to 11 unique LED transmitters.
 /************************************************************************************************/
 //#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
-#define STEPPER                // Remember, no sound effects are possible when using a stepper
-#define WAVESHARE              // Define this if you are using a Waveshare ESP32-S3FH4R2 board
+//#define STEPPER                // Remember, no sound effects are possible when using a stepper
+//#define WAVESHARE              // Define this if you are using a Waveshare ESP32-S3FH4R2 board
 /************************************************************************************************/
 #define DISABLE_CODE_FOR_TRANSMITTER
 #define SEND_LEDC_CHANNEL 2
@@ -91,7 +91,6 @@
 #include "WiFi.h"                // ESP32 high-level WiFi connectivity library
 #include "esp_wifi.h"            // ESP32 low-level WiFi connectivity library
 #include "HTTPClient.h"          // HTTP client library used for communicating with slave units
-#include "ESP32Ping.h"           // ICMP (ping) library from https://github.com/marian-craciunescu/ESP32Ping
 #include "Preferences.h"         // ESP32 Flash memory read/write library
 #include "ota_update.h"          // Over-The-Air firmware updating library
 //------------------------------------------------------------------------------------------------
@@ -825,8 +824,7 @@ void loop() {
     wifiCheckCounter ++;
 
     if (wifiCheckCounter >= 30) {
-      bool PingTest = Ping.ping(serverIP.c_str(),2);
-      if ((WiFi.status() != WL_CONNECTED) || (! PingTest)) { // Reconnect WiFi if we got dropped
+      if (WiFi.status() != WL_CONNECTED) { // Reconnect WiFi if we got dropped
         WiFi.disconnect(true);
         delay(250);
         if ((wifiSSID != "") && (wifiPW != "")) {
