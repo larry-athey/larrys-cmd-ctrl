@@ -8,7 +8,7 @@
 // This device repeatedly transmits its ID number (1 to 1000) just like an IR remote control and
 // can be used by LCC Slaves as a locatio/position marker. Depending on how you have things set up
 // in your Mission Control server, these can trigger actions when encountered or simply update the
-// device status to reflect it's last known location.
+// device status to reflect its last known location.
 //
 // Parts list for each transponder:
 //
