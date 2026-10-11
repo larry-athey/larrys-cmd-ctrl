@@ -65,8 +65,8 @@
 // NOTE: The location transponder MCU can actually run up to 11 unique LED transmitters.
 /************************************************************************************************/
 //#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
-//#define STEPPER                // Remember, no sound effects are possible when using a stepper
-//#define WAVESHARE              // Define this if you are using a Waveshare ESP32-S3FH4R2 board
+#define STEPPER                // Remember, no sound effects are possible when using a stepper
+#define WAVESHARE              // Define this if you are using a Waveshare ESP32-S3FH4R2 board
 /************************************************************************************************/
 #define DISABLE_CODE_FOR_TRANSMITTER
 #define SEND_LEDC_CHANNEL 2
