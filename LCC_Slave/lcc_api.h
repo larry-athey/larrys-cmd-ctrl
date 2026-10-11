@@ -106,15 +106,16 @@ inline void setupLocation(int Pin, int Action, int Data) { // Add a transponder 
 //------------------------------------------------------------------------------------------------
 inline void setupMotor(byte Direction, float Speed, int Progression, int Duration) { // Set up motor background process
   #ifndef STEPPER
-  unsigned long motorTimestamp = millis();
+  motorTimestamp = millis();
 
-  if ((motorSpeed > 0) && (Direction != motorDirection)) {
-    setMotorSpeed(0);
+  if ((motorSpeed > 0) && (Direction != motorDirection)) { // I'm thinking that I don't use this anymore since everything is non-blocking now
+    setMotorSpeed(0);                                      // We "shouldn't" even be here if the current motorSpeed is > 0
     while (millis() < motorTimestamp + 2000) {
       delay(10);
     }
     motorTimestamp += 2000;
   }
+
   setMotorDirection(Direction);
 
   if (Duration > 0) {
@@ -188,6 +189,7 @@ inline void setupStepper(byte Direction, byte Resolution, int Steps, byte Speed)
   Stepper.setCurrentPosition(0);
   Stepper.moveTo(targetPos);
   stepperRunning = true;
+  motorTimestamp = millis();
   #endif
 }
 //------------------------------------------------------------------------------------------------
