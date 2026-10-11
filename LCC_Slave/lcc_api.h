@@ -176,12 +176,11 @@ inline void setupStepper(byte Direction, byte Resolution, int Steps, byte Speed)
     Serial.println("Total steps: " + String(Steps));
     Serial.println("Stepper speed: " + String(Speed));
   }
-  digitalWrite(BUS_3,HIGH);
+  digitalWrite(BUS_3,HIGH); // Enable the stepper driver, otherwise the motor still pulls current even when idle
 
   const float BASE_FULLSTEPS_PER_SEC = 800.0f;
   float maxPulseRate = BASE_FULLSTEPS_PER_SEC * Resolution * (Speed / 100.0f);
   float accel = maxPulseRate * 2.0f;
-
   targetPos = (Direction == 1) ? (long)Steps : -(long)Steps;
 
   Stepper.setMaxSpeed(maxPulseRate);
