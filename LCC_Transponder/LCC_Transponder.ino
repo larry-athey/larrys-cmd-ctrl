@@ -1,12 +1,24 @@
 //------------------------------------------------------------------------------------------------
 // Larry's CMD & CTRL (LCC) | (CopyLeft) 2025-Present | Larry Athey (https://panhandleponics.com)
 //------------------------------------------------------------------------------------------------
-// XIAO SAMD21 Powered Dephlegmator Cooling Valve Emulator for Peristaltic Pump
+// XIAO SAMD21 Powered Location Transponder For Larry's CMD & CTRL (LCC)
 // MCU: Seeed Studio XIAO SAMD21 (Arduino IDE board name “Seeeduino XIAO”)
 // Board library: https://files.seeedstudio.com/arduino/package_seeeduino_boards_index.json
 //
 // This device repeatedly transmits its ID number (1 to 1000) just like an IR remote control and
-// can be used by LCC Slaves as a locatio/position marker.
+// can be used by LCC Slaves as a locatio/position marker. Depending on how you have things set up
+// in your Mission Control server, these can trigger actions when encountered or simply update the
+// device status to reflect it's last known location.
+//
+// Parts list for each transponder:
+//
+//   Seeed XIAO SAMD21        - $5.00
+//   5V 1.8A Buck Regulator   - $1.50
+//   IR LED with 220 ohm res. - $1.50
+//   3D Printed Case          - $2.00
+//
+// If used in a model railroad, these can be track powered but this will require the addition of a
+// $1.00 bridge rectifier to make it polarity agnostic.
 //------------------------------------------------------------------------------------------------
 #include "IRremote.hpp"
 //------------------------------------------------------------------------------------------------
