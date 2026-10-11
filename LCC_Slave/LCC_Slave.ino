@@ -165,6 +165,7 @@ byte sfxVolume = 25;             // Dound effects volume level [0..30]
 byte sysInit = 0;                // Flag to indicate whether this is a first boot and no flash settings
 byte wifiCheckCounter = 0;       // Used to check the WiFi connection once every 30 seconds
 int Locations[16][3];            // Queue for caching location ID numbers and associated actions
+int lastLocation = 0;            // The last location transponder ID detected (prevents redundant notifications)
 int soundFile = -1;              // Sound file number to play from the DFPlayer Mini
 unsigned long fadeTarget = 0;    // Timestamp of when the current RGB LED fade ends
 unsigned long motorTimestamp = 0;// Timestamp of the last motor/stepper startup
@@ -735,7 +736,7 @@ void loop() {
   #endif
 
   // Shut down the motor/stepper if either limit switch has been tripped
-  // Both of which need to be running for at least 1 second so this check doesn't leave it hopelessly stuck on a limit switch
+  // Both of which must be running for at least 1 second so this test doesn't leave the device hopelessly stuck on a limit switch
   #ifndef STEPPER
   if ((millis() > motorTimestamp + 1000) && (motorSpeed > 0) && ((digitalRead(LIMIT_1) == 0) || (digitalRead(LIMIT_2) == 0))) {
     setMotorSpeed(0);
@@ -775,7 +776,7 @@ void loop() {
   if (IrReceiver.decode()) {
     uint16_t Location = IrReceiver.decodedIRData.address;
     Location -= TX_OFFSET;
-    if ((Location >= 1) && (Location <= 1000)) {
+    if ((Location != lastLocation) && (Location >= 1) && (Location <= 1000)) {
       String Status;
       if (beaconCheck(Location)) {
         Status = "/location/" + String(Location) + "/action";
@@ -784,6 +785,7 @@ void loop() {
       }
       if (Serial) Serial.println("Location transponder detected: " + Status);
       sendCommand(Status);
+      lastLocation = Location;
     }
     IrReceiver.resume();
   }
