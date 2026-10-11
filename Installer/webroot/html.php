@@ -322,7 +322,8 @@ function editDevice($DBcnx) {
   $Content .=     "</div>";
   $Content .=     "<div class=\"border-bottom\"></div>";
   $Content .=     "<div style=\"margin-top: 1em;\">";
-  $Content .=       "<p style=\"float: right; margin-right: 1em;\"><a href=\"?page=devices\" class=\"btn btn-danger fw-bolder\" name=\"cancel\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+  $Content .=       "<p style=\"float: right; margin-right: 1em;\"><a href=\"?page=firmware\" class=\"btn btn-outline-info fw-bolder\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Update Firmware</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+  $Content .=       "<a href=\"?page=devices\" class=\"btn btn-danger fw-bolder\" name=\"cancel\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;";
   $Content .=       "<button type=\"submit\" class=\"btn btn-primary fw-bolder\" name=\"edit_device\" id=\"edit_device\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Save</button></p>";
   $Content .=     "</div>";
   $Content .=   "</div>";
