@@ -18,7 +18,8 @@
 //   3D Printed Case          - $2.00
 //
 // If used in a model railroad, these can be track powered but this will require the addition of a
-// $1.00 bridge rectifier to make it polarity agnostic.
+// $1.00 bridge rectifier to make it polarity agnostic. These are simply placed 6 to 8 inches from
+// the track pointing outward so the locomotive can't possibly read two of them at the same time.
 //------------------------------------------------------------------------------------------------
 #include "IRremote.hpp"
 //------------------------------------------------------------------------------------------------
