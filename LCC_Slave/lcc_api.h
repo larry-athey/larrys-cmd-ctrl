@@ -153,7 +153,7 @@ inline void setupMotor(byte Direction, float Speed, int Progression, int Duratio
   #endif
 }
 //------------------------------------------------------------------------------------------------
-inline void setupStepper(byte Direction, byte Resolution, int Steps) { // Set up stepper background process
+inline void setupStepper(byte Direction, byte Resolution, int Steps, byte Speed) { // Set up stepper background process
   #ifdef STEPPER
   String Res = "";
   switch (Resolution) {
@@ -174,12 +174,18 @@ inline void setupStepper(byte Direction, byte Resolution, int Steps) { // Set up
     Serial.println("Stepper direction: " + String(Direction));
     Serial.println("Stepper resolution: " + Res);
     Serial.println("Total steps: " + String(Steps));
+    Serial.println("Stepper speed: " + String(Speed));
   }
   digitalWrite(BUS_3,HIGH);
+
+  const float BASE_FULLSTEPS_PER_SEC = 800.0f;
+  float maxPulseRate = BASE_FULLSTEPS_PER_SEC * Resolution * (Speed / 100.0f);
+  float accel = maxPulseRate * 2.0f;
+
   targetPos = (Direction == 1) ? (long)Steps : -(long)Steps;
-  float stepsPerSec = 400.0 * Resolution;
-  Stepper.setMaxSpeed(stepsPerSec);
-  Stepper.setAcceleration(stepsPerSec * 2.0);
+
+  Stepper.setMaxSpeed(maxPulseRate);
+  Stepper.setAcceleration(accel);
   Stepper.setCurrentPosition(0);
   Stepper.moveTo(targetPos);
   stepperRunning = true;
@@ -317,8 +323,8 @@ inline void runCommand(String Cmd) { // Execute a queued LCC Mission Control com
     //ID/sound/file-number/volume/loop
     if (partCount == 5) setupSound(parts[2].toInt(),parts[3].toInt(),parts[4].toInt());
   } else if (parts[1] == "stepper") {
-    //ID/stepper/direction/resolution/steps
-    if (partCount == 5) setupStepper(parts[2].toInt(),parts[3].toInt(),parts[4].toInt());
+    //ID/stepper/direction/resolution/steps/speed
+    if (partCount == 6) setupStepper(parts[2].toInt(),parts[3].toInt(),parts[4].toInt(),parts[5].toInt());
   } else if (parts[1] == "switch") {
     //ID/switch/gpio/state
     if (partCount == 4) toggleSwitch(parts[2].toInt(),parts[3].toInt());
