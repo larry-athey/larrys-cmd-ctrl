@@ -175,6 +175,7 @@ inline void setupStepper(byte Direction, byte Resolution, int Steps) { // Set up
     Serial.println("Stepper resolution: " + Res);
     Serial.println("Total steps: " + String(Steps));
   }
+  digitalWrite(BUS_3,HIGH);
   targetPos = (Direction == 1) ? (long)Steps : -(long)Steps;
   float stepsPerSec = 400.0 * Resolution;
   Stepper.setMaxSpeed(stepsPerSec);
