@@ -443,6 +443,7 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
         progressFactor = 0;
         #else
         Stepper.stop();
+        digitalWrite(BUS_3,LOW);
         currentPos = 0;
         targetPos  = 0;
         stepperRunning = false;
@@ -722,6 +723,7 @@ void loop() {
   if (Stepper.isRunning()) {
     currentPos = Stepper.currentPosition();
   } else {
+    digitalWrite(BUS_3,LOW);
     if ((stepperRunning) && (currentPos != targetPos)) {
       stepperRunning = false;
       currentPos = targetPos;
@@ -756,6 +758,7 @@ void loop() {
   #else
   if ((currentPos != targetPos) && ((digitalRead(LIMIT_1) == 0) || (digitalRead(LIMIT_2) == 0))) {
     Stepper.stop();
+    digitalWrite(BUS_3,LOW);
     currentPos = 0;
     targetPos  = 0;
     stepperRunning = false;
