@@ -37,7 +37,7 @@ inline void setupLights(int ID, uint8_t targetR, uint8_t targetG, uint8_t target
 
   if (ID == 65535) {
     // Fade whole bus
-    snprintf(scriptBuf, sizeof(scriptBuf),
+    snprintf(scriptBuf,sizeof(scriptBuf),
             "10 T = %d\n"                 // total steps
             "20 U = %d\n"                 // target R
             "30 V = %d\n"                 // target G
@@ -55,7 +55,7 @@ inline void setupLights(int ID, uint8_t targetR, uint8_t targetG, uint8_t target
             steps,targetR,targetG,targetB,stepMs);
   } else {
     // Fade single LED
-    snprintf(scriptBuf, sizeof(scriptBuf),
+    snprintf(scriptBuf,sizeof(scriptBuf),
             "10 T = %d\n"
             "20 U = %d\n"
             "30 V = %d\n"
