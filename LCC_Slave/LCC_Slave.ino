@@ -167,7 +167,7 @@ byte wifiCheckCounter = 0;       // Used to check the WiFi connection once every
 int Locations[16][3];            // Queue for caching location ID numbers and associated actions
 int soundFile = -1;              // Sound file number to play from the DFPlayer Mini
 unsigned long fadeTarget = 0;    // Timestamp of when the current RGB LED fade ends
-unsigned long motorTimestamp = 0;// Timestamp of the last motor command execution
+unsigned long motorTimestamp = 0;// Timestamp of the last motor/stepper startup
 unsigned long targetRuntime = 0; // Timestamp of the motor end run (0 = indefinite runtime)
 long currentPos = 0;             // Stepper current position of the current running command
 long targetPos = 0;              // Stepper target position of the current running command
@@ -735,8 +735,9 @@ void loop() {
   #endif
 
   // Shut down the motor/stepper if either limit switch has been tripped
+  // Both of which need to be running for at least 1 second so this check doesn't leave it hopelessly stuck on a limit switch
   #ifndef STEPPER
-  if ((motorSpeed > 0) && ((digitalRead(LIMIT_1) == 0) || (digitalRead(LIMIT_2) == 0))) {
+  if ((millis() > motorTimestamp + 1000) && (motorSpeed > 0) && ((digitalRead(LIMIT_1) == 0) || (digitalRead(LIMIT_2) == 0))) {
     setMotorSpeed(0);
     targetRuntime = 0;
     targetSpeed = 0;
@@ -752,7 +753,7 @@ void loop() {
     sendCommand(Status);
   }
   #else
-  if ((currentPos != targetPos) && ((digitalRead(LIMIT_1) == 0) || (digitalRead(LIMIT_2) == 0))) {
+  if ((millis() > motorTimestamp + 1000) && (currentPos != targetPos) && ((digitalRead(LIMIT_1) == 0) || (digitalRead(LIMIT_2) == 0))) {
     Stepper.stop();
     digitalWrite(BUS_3,LOW);
     currentPos = 0;
