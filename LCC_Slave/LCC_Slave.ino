@@ -30,14 +30,14 @@
 //
 // These components are as follows:
 //
-//   Seeed XAIO ESP32-S3  - $7.50
-//   TB6612FNG H-Bridge   - $3.50
-//   TSOP34838 IR Rcvr    - $1.00
-//   WWZMDiB Audio Module - $2.00
-//   10x15mm Speaker      - $0.80
-//   2x WS2812 RGB LED    - $2.00
-//   5V 1.8A Regulator    - $0.70
-//   2A Bridge Rectifier  - $0.50
+//   Seeed XAIO ESP32-S3    - $7.50
+//   TB6612FNG H-Bridge     - $3.50
+//   TSOP34838 IR Rcvr      - $1.00
+//   WWZMDiB Audio Module   - $2.00
+//   10x15mm Speaker        - $0.80
+//   2x WS2812 RGB LED      - $2.00
+//   5V 1.8A Buck Regulator - $1.50
+//   2A Bridge Rectifier    - $1.00
 //
 // Less than $20 in parts to convert any model train locomotive to have all of the features found
 // in a full blown DCC enabled locomotive with sound effects.
@@ -53,16 +53,16 @@
 // LCC Mission Control Server:
 //
 //   Orange Pi Zero 3 1GB     - $40.00 (with power supply)
+//   16 GB SD Card            - $3.00
 //   3D Printed Case          - $3.00
 //
 // LCC Location Transponder:
 //
-//   Seeed XIAO ESP32-S3      - $5.00
-//   3.3v 3A Regulator        - $0.70
-//   IR LED Transmitter       - $1.00
+//   Seeed XIAO SAMD21        - $5.00
+//   5V 1.8A Buck Regulator   - $1.50
+//   IR LED and 220 ohm res.  - $1.50
 //   3D Printed Case          - $2.00
 //
-// NOTE: The location transponder MCU can actually run up to 11 unique LED transmitters.
 /************************************************************************************************/
 //#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
 //#define STEPPER                // Remember, no sound effects are possible when using a stepper
