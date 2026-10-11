@@ -59,7 +59,7 @@ function createMessage($DBcnx,$ID) {
     if ($Cmd["cmd_type"] == 1) { // Motor Control
       $Msg = "/motor/" . $Cmd["direction"] . "/" . $Cmd["speed"] . "/" . $Cmd["progression"] . "/" . $Cmd["duration"] . "|0";
     } elseif ($Cmd["cmd_type"] == 2) { // Stepper Control
-      $Msg = "/stepper/" . $Cmd["direction"] . "/" . $Cmd["resolution"] . "/" . $Cmd["steps"] . "|0";
+      $Msg = "/stepper/" . $Cmd["direction"] . "/" . $Cmd["resolution"] . "/" . $Cmd["steps"] . "/" . $Cmd["speed"] . "|0";
     } elseif ($Cmd["cmd_type"] == 3) { // Location based action
       $Msg = "/location/" . $Cmd["location_id"] . "/" . $Cmd["location_action"] . "/" . $Cmd["location_data"] . "|0";
     } elseif ($Cmd["cmd_type"] == 4) { // Sound effects

@@ -136,6 +136,8 @@ if (! isset($_GET["page"])) {
     $Content .= showSchedule($DBcnx);
   } elseif ($_GET["page"] == "scripts") {
     $Content .= showScripts($DBcnx);
+  } elseif ($_GET["page"] == "settings") {
+    $Content .= showSettings($DBcnx);
   }
 }
 

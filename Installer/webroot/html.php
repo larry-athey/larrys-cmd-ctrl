@@ -155,6 +155,7 @@ function editCommand($DBcnx) {
         $Cmd["blue"]            = 0;
         $Cmd["fade"]            = "1.0";
         $Cmd["scene"]           = 0;
+        if ($Cmd["cmd_type"] == 2) $Cmd["speed"] = 50;
       }
     }
   } else {
@@ -202,6 +203,10 @@ function editCommand($DBcnx) {
     $Content .= "<div style=\"margin-top: 0.5em;\">";
     $Content .=   "<label for=\"steps\" class=\"form-label fw-bolder\">Steps</label>";
     $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"steps\" name=\"steps\" min=\"1\" max=\"100000\" step=\"1\" value=\"" . $Cmd["steps"] . "\">";
+    $Content .= "</div>";
+    $Content .= "<div style=\"margin-top: 0.5em;\">";
+    $Content .=   "<label for=\"speed\" class=\"form-label fw-bolder\">Speed [0..100] Percent</label>";
+    $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"speed\" name=\"speed\" min=\"0\" max=\"100\" step=\"1\" value=\"" . $Cmd["speed"] . "\">";
     $Content .= "</div>";
   } elseif ($Cmd["cmd_type"] == 3) {
     $Content .= "<div style=\"margin-top: 0.5em;\">";
@@ -614,7 +619,7 @@ function setPairing($DBcnx) {
 //---------------------------------------------------------------------------------------------------
 function showCommands($DBcnx) {
   $Counter  = 0;
-  $Content  = "<div style=\"width: 31em; margin-left: 0.25em;\">";
+  $Content  = "<div style=\"width: 31em; margin-left: 0.25em; margin-top: 0.5em;\">";
   $Content .= deviceFilter("index.php?page=commands");
   $Content .= "<a href=\"?page=edit_command&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_command\">Create New Command</a><br>";
 
@@ -642,7 +647,7 @@ function showCommands($DBcnx) {
 //---------------------------------------------------------------------------------------------------
 function showDevices($DBcnx) {
   $Counter  = 0;
-  $Content  = "<div style=\"width: 31em; margin-left: 0.25em;\">";
+  $Content  = "<div style=\"width: 31em; margin-left: 0.25em; margin-top: 0.5em;\">";
   $Content .= deviceFilter("index.php?page=devices");
   $Content .= "<a href=\"?page=edit_device&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_device\">Create New Device</a><br>";
 
@@ -916,7 +921,7 @@ function showSchedule($DBcnx) {
 //---------------------------------------------------------------------------------------------------
 function showScripts($DBcnx) {
   $Counter  = 0;
-  $Content  = "<div style=\"width: 31em; margin-left: 0.25em;\">";
+  $Content  = "<div style=\"width: 31em; margin-left: 0.25em; margin-top: 0.5em;\">";
   $Content .= deviceFilter("index.php?page=scripts");
   $Content .= "<a href=\"?page=edit_script&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_script\">Create New Script</a><br>";
 
@@ -938,6 +943,21 @@ function showScripts($DBcnx) {
   }
 
   if ($Counter == 0) $Content .= "<p class=\"fw-bolder\">No scripts found...</p>";
+  $Content .= "</div>";
+  return $Content;
+}
+//---------------------------------------------------------------------------------------------------
+function showSettings($DBcnx) {
+  $Result = mysqli_query($DBcnx,"SELECT * FROM settings WHERE ID=1");
+  $Settings = mysqli_fetch_assoc($Result);
+  $Content  = "<div style=\"width: 31em; margin-left: 0.25em; margin-top: 0.5em;\">";
+  $Content .=   "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
+  $Content .=     "<div class=\"card-body\">";
+
+
+
+  $Content .=     "</div>";
+  $Content .=   "</div>";
   $Content .= "</div>";
   return $Content;
 }

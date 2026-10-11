@@ -78,6 +78,10 @@ if ($_GET["ID"] == 1) { // Set command start and stop timer
   $Content .=   "<label for=\"steps\" class=\"form-label fw-bolder\">Steps</label>";
   $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"steps\" name=\"steps\" min=\"1\" max=\"100000\" step=\"1\" value=\"1\">";
   $Content .= "</div>";
+  $Content .= "<div style=\"margin-top: 0.5em;\">";
+  $Content .=   "<label for=\"speed\" class=\"form-label fw-bolder\">Speed [1..100] Percent</label>";
+  $Content .=   "<input type=\"number\" class=\"form-control fw-bolder\" id=\"speed\" name=\"speed\" min=\"1\" max=\"100\" step=\"1\" value=\"50\">";
+  $Content .= "</div>";
 } elseif ($_GET["ID"] == 12) { // Send location based action - type 3
   $Content .= "<div>";
   $Content .=   "<label for=\"location_id\" class=\"form-label fw-bolder\">Location</label>";

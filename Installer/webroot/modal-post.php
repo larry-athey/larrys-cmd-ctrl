@@ -73,7 +73,8 @@ if ($_POST) {
       $direction = $_POST["direction"];
       $resolution = $_POST["resolution"];
       $steps = $_POST["steps"];
-      $Result = mysqli_query($DBcnx, "UPDATE commands SET cmd_type=2,cmd_class=5,direction=$direction,resolution=$resolution,steps=$steps WHERE ID=$ID");
+      $speed = $_POST["speed"];
+      $Result = mysqli_query($DBcnx, "UPDATE commands SET cmd_type=2,cmd_class=5,direction=$direction,resolution=$resolution,steps=$steps,speed=$speed WHERE ID=$ID");
       $Result = mysqli_query($DBcnx, "UPDATE devices SET status='<span class=\"text-success\">Sent stepper control command</span>' WHERE address='" . $_POST["address"] . "'");
     } elseif ($_POST["form-id"] == 12) { // Location based action
       $location_id = $_POST["location_id"];
