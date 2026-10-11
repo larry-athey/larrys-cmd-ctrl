@@ -52,7 +52,7 @@ if ((isset($_GET["addr"])) && (isset($_GET["cmd"]))) {
   } else {
     $Script .= "mpg123 -f " . mpg123_scale($Data[2]) . " /var/www/html/mp3/" . $Data[1] . ".mp3\n";
   }
-  put_file_contents("/tmp/$Address",Script);
+  file_put_contents("/tmp/$Address",$Script);
   shell_exec("chmod +x /tmp/$Address");
   shell_exec("/tmp/$Address &");
 
