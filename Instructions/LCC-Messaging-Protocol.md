@@ -35,3 +35,23 @@ The commands control individual Neopixel/WS2812 RGB LEDs on the lighting bus. Th
 ### RGB LED Scenes (LedBasic Scripts)
 
 `cmd://ID/scene/scene-id`
+
+### Sound Effects
+
+`cmd://ID/sound/file-number/volume/loop`
+
+### Stepper Motor Control
+
+`cmd://ID/stepper/direction/resolution/steps/speed`
+
+### GPIO Switching
+
+`cmd://ID/switch/gpio/state`
+
+### Firmware Updating
+
+`cmd://ID/update-firmware`
+
+### WiFi Signal Level Reporting
+
+`cmd://ID/wifi-signal`
