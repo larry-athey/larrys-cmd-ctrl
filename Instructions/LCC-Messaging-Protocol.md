@@ -88,6 +88,8 @@ This is an invisible command. Mission control sends this to all LCC slaves at th
 
 `/replay/cmd/command-id` and `/replay/scr/script-id`
 
+`/runtime/end`
+
 `/scene-request/scene-id`
 
 `/wifi-signal/signal-level`
