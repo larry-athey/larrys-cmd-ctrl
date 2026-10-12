@@ -34,7 +34,7 @@ LCC Slaves have a buffer that stores up to 16 location transponder ID numbers an
 
 `cmd://ID/replay/cmd or script/cmd-id or script-id`
 
-This is mostly a behind-the-scenes command and only one variant of it is visible to the Mission Control user. The last option in the command script editor lets you choose a script replay option to either re-run the same script or run a different script. Command replays are supported in the undercarriage code, but aren't implemented anywhere at this time. This only works if replays are enabled in the device settings itself.
+This is mostly a behind-the-scenes command and only one variant of it is visible to the Mission Control user. The last option in the command script editor lets you choose a script replay option to either re-run the same script or run a different script. Command replays are supported in the undercarriage code, but aren't implemented anywhere at this time. These only work if replays are enabled in the device settings itself.
 
 ### RGB LED Scenes (LedBasic Scripts)
 
