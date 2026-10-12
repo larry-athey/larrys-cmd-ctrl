@@ -35,6 +35,12 @@ elseif (isset($_GET["delete_task"])) {
   $Return = "/index.php?page=schedule";
 }
 //---------------------------------------------------------------------------------------------------
+elseif (isset($_GET["firmware_id"])) {
+  $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-warning\">Starting OTA Firmware Update mode</span>' WHERE ID=" . $_GET["pairing_id"]);
+  $Insert = mysqli_query($DBcnx,"INSERT INTO outbound (address,msg) VALUES ('00-00-00-00-00-00','/firmware/" . $_GET["firmware_id"] . "')");
+  $Return = "/index.php"
+}
+//---------------------------------------------------------------------------------------------------
 elseif (isset($_GET["pairing_id"])) {
   $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-warning\">Waiting for LCC Slave pairing</span>' WHERE ID=" . $_GET["pairing_id"]);
   $Insert = mysqli_query($DBcnx,"INSERT INTO outbound (address,msg) VALUES ('00-00-00-00-00-00','/pairing/" . $_GET["pairing_id"] . "')");
