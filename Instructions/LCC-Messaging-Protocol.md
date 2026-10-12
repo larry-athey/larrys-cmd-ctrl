@@ -28,7 +28,7 @@ These commands control individual Neopixel/WS2812 RGB LEDs on the lighting bus. 
 
 LCC Slaves have a buffer that stores up to 16 location transponder ID numbers and associated actions that they should trigger when they are encountered. These commands are used to stuff entries into that buffer. Once an associated action has been triggered and executed, that entry is removed from the buffer.
 
-### Brushed Motor Control (PWM)
+### /motor/ : Brushed Motor Control (PWM)
 
 `cmd://ID/motor/direction/speed/progression/duration`
 
