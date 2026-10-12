@@ -124,6 +124,8 @@ if (! isset($_GET["page"])) {
     $Content .= editScript($DBcnx);
   } elseif ($_GET["page"] == "edit_task") {
     $Content .= editTask($DBcnx);
+  } elseif ($_GET["page"] == "firmware") {
+    $Content .= setFirmwareUpdate($DBcnx);
   } elseif ($_GET["page"] == "locations") {
     $Content .= showLocations($DBcnx);
   } elseif ($_GET["page"] == "logs") {
