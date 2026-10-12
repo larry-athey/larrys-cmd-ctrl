@@ -84,3 +84,9 @@ This is an invisible command. Mission control sends this to all LCC slaves at th
 
 # Inbound Messages From LCC Slaves
 
+`/replay/cmd/command-id` and `/replay/scr/script-id`
+
+`/scene-request/scene-id`
+
+`/wifi-signal/signal-level`
+
