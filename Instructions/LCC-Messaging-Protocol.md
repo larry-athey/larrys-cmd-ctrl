@@ -84,7 +84,7 @@ This is an invisible command. Mission control sends this to all LCC slaves at th
 
 # Inbound Messages From LCC Slaves
 
-Below is an outline of LCC Slave messages to Mission Control that you will see in the inbound message log.
+Below is an outline of LCC Slave messages to Mission Control that you will see in the inbound message log. Knowing what these messages actually mean will help you greatly any time that you need to troubleshoot an LCC Slave that seems to be misbehaving.
 
 `/exec/messaged-id` and `/exec/command-name` : As explained at the beginning of this document, an LCC Slave will always notify Mission Control every time it begins executing a command. On-the-fly commands not stored in the database with a messaged ID will just send this message showing the command name after the `/exec/`.
 
