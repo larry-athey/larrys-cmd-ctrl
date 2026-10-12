@@ -86,7 +86,7 @@ This is an invisible command. Mission control sends this to all LCC slaves at th
 
 Below is an outline of LCC Slave messages to Mission Control that you will see in the inbound message log.
 
-`/exec/messaged-id` and `/exec/command-name`
+`/exec/messaged-id` and `/exec/command-name` : As explained at the beginning of this document, an LCC Slave will always notify Mission Control every time it begins executing a command. On-the-fly commands not stored in the database with a messaged ID will just send this message showing the command name after the `/exec/`.
 
 `/limit/switch-id` : If you are utilizing limit switches with your LCC Slaves, these messages will appear in the inbound message log to let you know that a limit switch has been reached and closed. There is no specific designation as to which one is an upper or lower limit switch, that's up to you to decide based on the physical location of the switch.
 
