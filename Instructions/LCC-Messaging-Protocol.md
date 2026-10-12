@@ -74,6 +74,8 @@ These commands tell the LCC Slave to set GPIO pins on and off when you are perfo
 
 `cmd://update-firmware`
 
+Mission Control sends this command when you click on the "Update Firmware button in the device editor. This reboots the LCC Slave in over-the-air (OTA) firmware update mode so you can connect to it with your computer and upload new firmware to it with your web browser.
+
 ### /wifi-signal/ : WiFi Signal Level Reporting
 
 `cmd://wifi-signal`
