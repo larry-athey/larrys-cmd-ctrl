@@ -68,6 +68,8 @@ If you're using a stepper motor rather than a brushed motor, you will see these 
 
 `cmd://switch/gpio/state`
 
+These commands tell the LCC Slave to set GPIO pins on and off when you are performing remote switching. Such as when you are controlling a bank of solid state relays to switch AC powered devices on and off.
+
 ### /update-firmware/ : Firmware Updating
 
 `cmd://update-firmware`
