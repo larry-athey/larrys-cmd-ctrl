@@ -322,7 +322,7 @@ function editDevice($DBcnx) {
   $Content .=     "</div>";
   $Content .=     "<div class=\"border-bottom\"></div>";
   $Content .=     "<div style=\"margin-top: 1em;\">";
-  $Content .=       "<p style=\"float: right; margin-right: 1em;\"><a href=\"?page=firmware\" class=\"btn btn-outline-info fw-bolder\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Update Firmware</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+  $Content .=       "<p style=\"float: right; margin-right: 1em;\"><a href=\"?page=firmware&ID=" . $_GET["ID"] . "\" class=\"btn btn-outline-info fw-bolder\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Update Firmware</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
   $Content .=       "<a href=\"?page=devices\" class=\"btn btn-danger fw-bolder\" name=\"cancel\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;";
   $Content .=       "<button type=\"submit\" class=\"btn btn-primary fw-bolder\" name=\"edit_device\" id=\"edit_device\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Save</button></p>";
   $Content .=     "</div>";
@@ -595,6 +595,26 @@ function editTask($DBcnx) {
   $Content .=     "</div>";
   $Content .=   "</div>";
   $Content .=   "</form>";
+  $Content .= "</div>";
+  return $Content;
+}
+//---------------------------------------------------------------------------------------------------
+function setFirmwareUpdate($DBcnx) {
+  $Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE ID=" . $_GET["ID"]);
+  $Dev = mysqli_fetch_assoc($Result);
+  $Content  = "<div style=\"width: 31em; margin-top: 0.5em; margin-left: 0.25em;\">";
+  $Content .=   "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
+  $Content .=     "<div class=\"card-body\">";
+  $Content .=       "<p style=\"text-align: justify;\" class=\"fw-bolder\">LCC Slave units feature an OTA (over the air) firmware update system. This allows you to update a device using nothing more than your web browser to upload a file to it.</p>";
+  $Content .=       "<p style=\"text-align: justify;\" class=\"fw-bolder\">You should only start up one device at a time in OTA update mode so you know which device you're connecting to. This will save you from uploading the wrong firmware to it.</p>";
+  $Content .=       "<p style=\"text-align: justify;\" class=\"fw-bolder\">Clicking the Start button below will cause the device to reboot and start up its own WiFi access point. Just connect to the access point and open its web server in your browser.</p>";
+  $Content .=       "<p class=\"fw-bolder\">WiFi Network: LCC-Slave-Update<br>WiFi Password: 12345678<br>Web Server Address: http://192.168.4.1</p>";
+  $Content .=       "<div style=\"margin-top: 1em;\">";
+  $Content .=         "<p style=\"float: right; margin-right: 1em;\"><a href=\"index.php\" class=\"btn btn-danger fw-bolder\" name=\"cancel\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+  $Content .=         "<a href=\"process.php?firmware_id=" . $_GET["ID"] . "\" class=\"btn btn-primary fw-bolder\" name=\"firmware_update\" id=\"firmware_update\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Start</a></p>";
+  $Content .=       "</div>";
+  $Content .=     "</div>";
+  $Content .=   "</div>";
   $Content .= "</div>";
   return $Content;
 }
