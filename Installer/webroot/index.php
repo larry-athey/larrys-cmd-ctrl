@@ -139,7 +139,7 @@ if (! isset($_GET["page"])) {
   } elseif ($_GET["page"] == "scripts") {
     $Content .= showScripts($DBcnx);
   } elseif ($_GET["page"] == "settings") {
-    $Content .= showSettings($DBcnx);
+    $Content .= editSettings($DBcnx);
   }
 }
 
