@@ -84,6 +84,8 @@ This is an invisible command. Mission control sends this to all LCC slaves at th
 
 # Inbound Messages From LCC Slaves
 
+`/location/id/action` and `/location/id/report`
+
 `/replay/cmd/command-id` and `/replay/scr/script-id`
 
 `/scene-request/scene-id`
