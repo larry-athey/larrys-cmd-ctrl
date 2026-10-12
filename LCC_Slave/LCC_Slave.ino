@@ -365,6 +365,7 @@ void setup() {
     ConnectWiFi();
     if (Serial) {
       if (WiFi.status() == WL_CONNECTED) {
+        sendCommand("/wifi-signal/" + String(WiFi.RSSI()));
         Serial.println("LCC Slave waiting for commands.");
       } else{
         Serial.println("LCC Slave waiting for network connection.");
