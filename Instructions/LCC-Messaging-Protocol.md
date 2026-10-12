@@ -98,5 +98,5 @@ Below is an outline of LCC Slave messages to Mission Control that you will see i
 
 `/scene-request/scene-id`
 
-`/wifi-signal/signal-level`
+`/wifi-signal/signal-level` : Every time an LCC Slave unit reboots and connects to the network, you will see one of these messages showing its current signal level. Mission Control will also query all devices at the top of the hour to request this reading. Keep in mind that this is the signal level of how strong the LCC Slave sees the Mission Control server, not the other way around.
 
