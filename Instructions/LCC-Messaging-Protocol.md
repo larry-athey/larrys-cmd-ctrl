@@ -46,7 +46,7 @@ This one pretty much explains itself, or at least I certainly hope that it does.
 
 This is mostly a behind-the-scenes command and only one variant of it is visible to the Mission Control user. The last option in the command script editor lets you choose a script replay option to either re-run the same script or run a different script. Command replays are supported in the undercarriage code, but aren't implemented anywhere at this time. These only work if replays are enabled in the device settings itself.
 
-### /scene[ : RGB LED Scenes (LedBasic Scripts)
+### /scene/ : RGB LED Scenes (LedBasic Scripts)
 
 `cmd://ID/scene/scene-id`
 
