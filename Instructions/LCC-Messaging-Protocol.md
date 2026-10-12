@@ -1,6 +1,6 @@
 # LCC Messaging Protocol
 
-The purpose of this document is to help demystify that device status line in the Mission Control dashboard when it displays the current command being executed on the LCC Slave. This isn't intended to be any kind of developer's guide, the source code itself would explain that stuff far better.
+_The purpose of this document is to help demystify that device status line in the Mission Control dashboard when it displays the current command being executed on the LCC Slave. This isn't intended to be any kind of developer's guide, the source code itself would explain that stuff far better._
 
 LCC slave units only respond to messages that meet a very strict structure and these messages may only come from the Mission Control server's IP address. Meaning, the slave's WiFi default gateway IP address. If you try to send one to an LCC Slave from your laptop on the LCC-WLAN network, you will get a JSON failure message every time.
 
