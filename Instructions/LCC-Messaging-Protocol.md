@@ -94,7 +94,7 @@ Below is an outline of LCC Slave messages to Mission Control that you will see i
 
 `/replay/cmd/command-id` and `/replay/scr/script-id`
 
-`/runtime/end` : Any time you are using a stepper motor or a brushed motor with a runtime duration set, the LCC Slave will send this message to Mission Control when the runtime has ended. While a stepper motor doesn't have a duration setting, it does have a specific number of steps in every command, which constitutes its actual runtime.
+`/runtime/end` : Any time you are using a stepper motor or a brushed motor with a run duration set, the LCC Slave will send this message to Mission Control when the runtime has ended. While a stepper motor doesn't have a run duration setting, it does have a specific number of steps in every command, which constitutes the motor's actual runtime.
 
 `/scene-request/scene-id` : Any time that a `cmd://scene/scene-id` command is sent to an LCC Slave, this will cause it to turn around and download an LedBasic script (a scene) from Mission Control. This is because the LedBasic scripts have no maximum possible size and all LCC messages are intentionally kept below 100 characters. There's no way to guarantee an LedBasic script would fit within that limit, so the LCC Slave does a U-Turn and downloads the script itself.
 
