@@ -6,4 +6,4 @@ Messages from the Mission Control server are somewhat structured like a URL wher
 
 Example mesage: `/765c6123585c702a248fbc47b4dd74c9/stepper/0/4/800/50`
 
-Messages all begin with a 32-character ID tag that is used to match LCC Slave responses with database records on the server. For example, when a slave executes a command, the message ID is echoed back to Mission Control so the command can be marked as executed. You can view this status on the **Log Viewer** page in the **Outbound** log.
+Messages all begin with a 32-character ID tag that is used to match LCC Slave responses with database records on the server. For example, when a slave executes a command, the message ID is echoed back to Mission Control so the command can be marked as executed. You can view this status on the **Log Viewer** page in the **Outbound** log. The **Acknowledged** column means that the message was successfully transmitted to the LCC Slave.
