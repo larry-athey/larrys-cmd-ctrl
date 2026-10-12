@@ -363,9 +363,9 @@ void setup() {
     Serial.println("HTTP server ready. Connect to the AP and go to 192.168.4.1");
   } else {
     ConnectWiFi();
+    if (WiFi.status() == WL_CONNECTED) sendCommand("/wifi-signal/" + String(WiFi.RSSI()));
     if (Serial) {
-      if (WiFi.status() == WL_CONNECTED) {
-        sendCommand("/wifi-signal/" + String(WiFi.RSSI()));
+      if (WiFi.status() == WL_CONNECTED) {    
         Serial.println("LCC Slave waiting for commands.");
       } else{
         Serial.println("LCC Slave waiting for network connection.");
