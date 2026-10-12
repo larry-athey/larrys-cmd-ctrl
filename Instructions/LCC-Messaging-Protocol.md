@@ -30,6 +30,8 @@ LCC Slaves have a buffer that stores up to 16 location transponder ID numbers an
 
 `cmd://ID/reboot`
 
+This one pretty much explains itself, or at least I certainly hope that it does.
+
 ### Replay Command or Script
 
 `cmd://ID/replay/cmd or script/cmd-id or script-id`
