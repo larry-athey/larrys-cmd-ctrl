@@ -88,7 +88,7 @@ Below is an outline of LCC Slave messages to Mission Control that you will see i
 
 `/exec/messaged-id` and `/exec/command-name`
 
-`/limit/switch-id`
+`/limit/switch-id` : If you are utilizing limit switches with your LCC Slaves, these messages will appear in the inbound message log to let you know that a limit switch has been reached and closed. There is no specific designation as to which one is an upper or lower limit switch, that's up to you to decide based on the physical location of the switch.
 
 `/location/id/action` and `/location/id/report` : Any time that a `cmd://location/pin/action-type/action-data` command is sent to an LCC Slave, it creates an entry in what you might call a RAM-based database. The entries are always associated with some kind of action any time an LCC Slave encounters the beacon from an LCC Location Transponder. In which case, a notification is sent to Mission Control to let you know that it has been actioned. If no action is associated with that location ID, it is simply reported so you know the LCC Slave's last known location.
 
