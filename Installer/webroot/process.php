@@ -36,7 +36,7 @@ elseif (isset($_GET["delete_task"])) {
 }
 //---------------------------------------------------------------------------------------------------
 elseif (isset($_GET["firmware_id"])) {
-  $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-warning\">Starting OTA Firmware Update</span>' WHERE ID=" . $_GET["firmware_id"]);
+  $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-warning\">Starting OTA Firmware Update</span>',signal_level='<span class=\"text-secondary\">Offline</span>' WHERE ID=" . $_GET["firmware_id"]);
   $Insert = mysqli_query($DBcnx,"INSERT INTO outbound (address,msg) VALUES ('00-00-00-00-00-00','/firmware/" . $_GET["firmware_id"] . "')");
   $Return = "/index.php";
 }
