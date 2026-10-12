@@ -92,11 +92,10 @@ Below is an outline of LCC Slave messages to Mission Control that you will see i
 
 `/location/id/action` and `/location/id/report`
 
-`/replay/cmd/command-id` and `/replay/scr/script-id`
+`/replay/cmd/command-id` and `/replay/scr/script-id` : Any time that a `cmd://replay/cmd/cmd-id` or `cmd://replay/scr/scr-id` command is sent to an LCC Slave, it is stored in its queue so that it will request a command or script from Mission Control once all other commands in the queue ahead of it have executed. You will see these messages in the inbound message log any time an LCC Slave requests a command or script.
 
 `/runtime/end` : Any time you are using a stepper motor or a brushed motor with a run duration set, the LCC Slave will send this message to Mission Control when the runtime has ended. While a stepper motor doesn't have a run duration setting, it does have a specific number of steps in every command, which constitutes the motor's actual runtime.
 
 `/scene-request/scene-id` : Any time that a `cmd://scene/scene-id` command is sent to an LCC Slave, this will cause it to turn around and download an LedBasic script (a scene) from Mission Control. This is because the LedBasic scripts have no maximum possible size and all LCC messages are intentionally kept below 100 characters. There's no way to guarantee an LedBasic script would fit within that limit, so the LCC Slave does a U-Turn and downloads the script itself.
 
 `/wifi-signal/signal-level` : Every time an LCC Slave unit reboots and connects to the network, you will see one of these messages showing its current signal level. Mission Control will also query all devices at the top of the hour to request this reading. Keep in mind that this is the signal level of how strong the LCC Slave sees the Mission Control server, not the other way around.
-
