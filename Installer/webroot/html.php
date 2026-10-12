@@ -512,6 +512,42 @@ function editScript($DBcnx) {
   return $Content;
 }
 //---------------------------------------------------------------------------------------------------
+function editSettings($DBcnx) {
+  $Result = mysqli_query($DBcnx,"SELECT * FROM settings WHERE ID=1");
+  $Settings = mysqli_fetch_assoc($Result);
+  $Content  = "<div style=\"width: 31em; margin-left: 0.25em; margin-top: 0.5em;\">";
+  $Content .=   "<form id=\"settings_editor\" method=\"post\" action=\"/process.php\">";
+  $Content .=   "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
+  $Content .=     "<div class=\"card-header\"><span class=\"text-muted fw-bolder\">Edit Settings</span></div>";
+  $Content .=     "<div class=\"card-body\">";
+  $Content .=       "<div>";
+  $Content .=         "<label for=\"ssid\" class=\"form-label fw-bolder\">Network Name</label>";
+  $Content .=         "<input type=\"text\" class=\"form-control fw-bolder\" id=\"ssid\" name=\"ssid\" maxlength=\"32\" value=\"" . $Settings["ssid"] . "\">";
+  $Content .=       "</div>";
+  $Content .=       "<div style=\"margin-top: 0.5em;\">";
+  $Content .=         "<label for=\"wifi_pw\" class=\"form-label fw-bolder\">Network Password</label>";
+  $Content .=         "<input type=\"text\" class=\"form-control fw-bolder\" id=\"wifi_pw\" name=\"wifi_pw\" maxlength=\"32\" value=\"" . $Settings["wifi_pw"] . "\">";
+  $Content .=       "</div>";
+  $Content .=       "<div style=\"margin-top: 0.5em;\">";
+  $Content .=         "<label for=\"usb_device\" class=\"form-label fw-bolder\">USB Pairing Device ID</label>";
+  $Content .=         "<input type=\"text\" class=\"form-control fw-bolder\" id=\"usb_device\" name=\"usb_device\" maxlength=\"255\" value=\"" . $Settings["usb_device"] . "\">";
+  $Content .=       "</div>";
+  $Content .=       "<div style=\"margin-top: 0.5em;\">";
+  $Content .=         "<label for=\"sound_server\" class=\"form-label fw-bolder\">Sound Server Address</label>";
+  $Content .=         "<input type=\"text\" class=\"form-control fw-bolder\" id=\"sound_server\" name=\"sound_server\" maxlength=\"17\" value=\"" . $Settings["sound_server"] . "\">";
+  $Content .=       "</div>";
+  $Content .=     "</div>";
+  $Content .=     "<div class=\"border-bottom\"></div>";
+  $Content .=     "<div style=\"margin-top: 1em;\">";
+  $Content .=       "<p style=\"float: right; margin-right: 1em;\"><a href=\"index.php\" class=\"btn btn-danger fw-bolder\" name=\"cancel\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+  $Content .=       "<button type=\"submit\" class=\"btn btn-primary fw-bolder\" name=\"edit_settings\" id=\"edit_settings\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Save</button></p>";
+  $Content .=     "</div>";
+  $Content .=   "</div>";
+  $Content .=   "</form>";
+  $Content .= "</div>";
+  return $Content;
+}
+//---------------------------------------------------------------------------------------------------
 function editTask($DBcnx) {
   if ($_GET["ID"] > 0) {
     $Result = mysqli_query($DBcnx,"SELECT * FROM schedule WHERE ID=" . $_GET["ID"]);
@@ -964,42 +1000,6 @@ function showScripts($DBcnx) {
   }
 
   if ($Counter == 0) $Content .= "<p class=\"fw-bolder\">No scripts found...</p>";
-  $Content .= "</div>";
-  return $Content;
-}
-//---------------------------------------------------------------------------------------------------
-function showSettings($DBcnx) {
-  $Result = mysqli_query($DBcnx,"SELECT * FROM settings WHERE ID=1");
-  $Settings = mysqli_fetch_assoc($Result);
-  $Content  = "<div style=\"width: 31em; margin-left: 0.25em; margin-top: 0.5em;\">";
-  $Content .=   "<form id=\"settings_editor\" method=\"post\" action=\"/process.php\">";
-  $Content .=   "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
-  $Content .=     "<div class=\"card-header\"><span class=\"text-muted fw-bolder\">Edit Settings</span></div>";
-  $Content .=     "<div class=\"card-body\">";
-  $Content .=       "<div>";
-  $Content .=         "<label for=\"ssid\" class=\"form-label fw-bolder\">Network Name</label>";
-  $Content .=         "<input type=\"text\" class=\"form-control fw-bolder\" id=\"ssid\" name=\"ssid\" maxlength=\"32\" value=\"" . $Settings["ssid"] . "\">";
-  $Content .=       "</div>";
-  $Content .=       "<div style=\"margin-top: 0.5em;\">";
-  $Content .=         "<label for=\"wifi_pw\" class=\"form-label fw-bolder\">Network Password</label>";
-  $Content .=         "<input type=\"text\" class=\"form-control fw-bolder\" id=\"wifi_pw\" name=\"wifi_pw\" maxlength=\"32\" value=\"" . $Settings["wifi_pw"] . "\">";
-  $Content .=       "</div>";
-  $Content .=       "<div style=\"margin-top: 0.5em;\">";
-  $Content .=         "<label for=\"usb_device\" class=\"form-label fw-bolder\">USB Pairing Device ID</label>";
-  $Content .=         "<input type=\"text\" class=\"form-control fw-bolder\" id=\"usb_device\" name=\"usb_device\" maxlength=\"255\" value=\"" . $Settings["usb_device"] . "\">";
-  $Content .=       "</div>";
-  $Content .=       "<div style=\"margin-top: 0.5em;\">";
-  $Content .=         "<label for=\"sound_server\" class=\"form-label fw-bolder\">Sound Server Address</label>";
-  $Content .=         "<input type=\"text\" class=\"form-control fw-bolder\" id=\"sound_server\" name=\"sound_server\" maxlength=\"17\" value=\"" . $Settings["sound_server"] . "\">";
-  $Content .=       "</div>";
-  $Content .=     "</div>";
-  $Content .=     "<div class=\"border-bottom\"></div>";
-  $Content .=     "<div style=\"margin-top: 1em;\">";
-  $Content .=       "<p style=\"float: right; margin-right: 1em;\"><a href=\"index.php\" class=\"btn btn-danger fw-bolder\" name=\"cancel\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;";
-  $Content .=       "<button type=\"submit\" class=\"btn btn-primary fw-bolder\" name=\"edit_settings\" id=\"edit_settings\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Save</button></p>";
-  $Content .=     "</div>";
-  $Content .=   "</div>";
-  $Content .=   "</form>";
   $Content .= "</div>";
   return $Content;
 }
