@@ -90,7 +90,7 @@ Below is an outline of LCC Slave messages to Mission Control that you will see i
 
 `/limit/switch-id`
 
-`/location/id/action` and `/location/id/report`
+`/location/id/action` and `/location/id/report` : Any time that a `cmd://location/pin/action-type/action-data` command is sent to an LCC Slave, it creates an entry in what you might call a RAM-based database. The entries are always associated with some kind of action any time an LCC Slave encounters the beacon from an LCC Location Transponder. In which case, a notification is sent to Mission Control to let you know that it has been actioned. If no action is associated with that location ID, it is simply reported so you know the LCC Slave's last known location.
 
 `/replay/cmd/command-id` and `/replay/scr/script-id` : Any time that a `cmd://replay/cmd/cmd-id` or `cmd://replay/scr/scr-id` command is sent to an LCC Slave, it is stored in its queue so that it will request a command or script from Mission Control once all other commands in the queue ahead of it have executed. You will see these messages in the inbound message log any time an LCC Slave requests a command or script.
 
