@@ -108,8 +108,8 @@ inline void setupMotor(byte Direction, float Speed, int Progression, int Duratio
   #ifndef STEPPER
   motorTimestamp = millis();
 
-  if ((motorSpeed > 0) && (Direction != motorDirection)) { // I'm thinking that I don't use this anymore since everything is non-blocking now
-    setMotorSpeed(0);                                      // We "shouldn't" even be here if the current motorSpeed is > 0
+  if ((motorSpeed > 0) && (Direction != motorDirection)) { // Wait for the motor to stop before switching direction
+    setMotorSpeed(0);
     while (millis() < motorTimestamp + 2000) {
       delay(10);
     }
