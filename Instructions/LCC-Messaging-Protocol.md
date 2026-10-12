@@ -96,7 +96,7 @@ Below is an outline of LCC Slave messages to Mission Control that you will see i
 
 `/runtime/end`
 
-`/scene-request/scene-id`
+`/scene-request/scene-id` : Any time that a `cmd://scene/scene-id` command is sent to an LCC Slave, this will cause it to turn around and download an LedBasic script (a scene) from Mission Control. This is because the LedBasic scripts have no maximum possible size and all LCC messages are intentionally kept below 100 characters. There's no way to guarantee an LedBasic script would fit within that limit, so the LCC Slave downloads the script itself.
 
 `/wifi-signal/signal-level` : Every time an LCC Slave unit reboots and connects to the network, you will see one of these messages showing its current signal level. Mission Control will also query all devices at the top of the hour to request this reading. Keep in mind that this is the signal level of how strong the LCC Slave sees the Mission Control server, not the other way around.
 
