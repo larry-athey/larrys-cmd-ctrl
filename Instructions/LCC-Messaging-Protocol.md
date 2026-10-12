@@ -64,10 +64,10 @@ These commands kind of work like replays, but they tell an LCC Slave which scene
 
 `cmd://ID/switch/gpio/state`
 
-### Firmware Updating
+### /update-firmware/ : Firmware Updating
 
 `cmd://ID/update-firmware`
 
-### WiFi Signal Level Reporting
+### /wifi-signal/ : WiFi Signal Level Reporting
 
 `cmd://ID/wifi-signal`
