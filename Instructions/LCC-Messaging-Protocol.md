@@ -62,6 +62,8 @@ These commands tell the LCC Slave to play a sound effect from its internal SD ca
 
 `cmd://ID/stepper/direction/resolution/steps/speed`
 
+If you're using a stepper motor rather than a brushed motor, you will see these messages instead of the `/motor/` commands. In case you aren't aware, stepper motors are used in robotics where you need to precisely position things or rotate something at extremely low speeds (less than 1 RPM).
+
 ### /switch/ : GPIO Switching
 
 `cmd://ID/switch/gpio/state`
