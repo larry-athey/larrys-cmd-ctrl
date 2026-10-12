@@ -10,6 +10,8 @@ Example mesage: `/765c6123585c702a248fbc47b4dd74c9/stepper/0/4/800/50`
 
 Messages all begin with a 32-character ID tag that is used to match LCC Slave responses with database records on the server. For example, when a slave executes a command, the message ID is echoed back to Mission Control so the command can be marked as executed. You can view this status on the **Log Viewer** page in the **Outbound** log. The **Acknowledged** column simply means that the message was successfully transmitted to the LCC Slave.
 
+Command execution message: `/exec/765c6123585c702a248fbc47b4dd74c9`
+
 _**NOTE:** The message ID is stripped from the device status line display, but is still visible in the logs._
 
 Below is an outline of all commands (11 at this time) recognized by LCC Slave units. If you look at the message structures and compare them to the fields in the command editor pages in the Mission Control dashboard, everything will make perfect sense to you.
