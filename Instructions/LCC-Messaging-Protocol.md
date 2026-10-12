@@ -84,6 +84,8 @@ This is an invisible command. Mission control sends this to all LCC slaves at th
 
 # Inbound Messages From LCC Slaves
 
+Below is an outline of LCC Slave messages to Mission Control that you will see in the inbound message log.
+
 `/limit/switch-id`
 
 `/location/id/action` and `/location/id/report`
