@@ -19,3 +19,19 @@ The commands control individual Neopixel/WS2812 RGB LEDs on the lighting bus. Th
 ### Location Detection and Triggered Actions
 
 `cmd://ID/location/pin/action-type/action-data`
+
+### Brushed Motor Control (PWM)
+
+`cmd://ID/motor/direction/speed/progression/duration`
+
+### System Reboot
+
+`cmd://ID/reboot`
+
+### Replay Command or Script
+
+`cmd://ID/replay/cmd or script/cmd-id or script-id`
+
+### RGB LED Scenes (LedBasic Scripts)
+
+`cmd://ID/scene/scene-id`
