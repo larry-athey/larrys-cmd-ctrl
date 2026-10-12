@@ -16,13 +16,13 @@ _**NOTE:** The message ID is stripped from the device status line display, but i
 
 Below is an outline of all commands (11 at this time) recognized by LCC Slave units. If you look at the message structures and compare them to the fields in the command editor pages in the Mission Control dashboard, everything will make perfect sense to you.
 
-### RGB LED Light (individual lights)
+### /light/ : RGB LED Light (individual lights)
 
 `cmd://ID/light/led-id/red-level/green-level/blue-level/fade-time`
 
 These commands control individual Neopixel/WS2812 RGB LEDs on the lighting bus. The first LED is ID #0 and the last one in a chain of 30 would be #29. You'll need to modify the TOTAL_LEDS constant in the source code and re-flash the ESP32 if you intend to have more than the default value of 30. These LEDs can be anything from discrete surface mount LEDs up to individual light fixtures.
 
-### Location Detection and Triggered Actions
+### /location/ : Location Detection and Triggered Actions
 
 `cmd://ID/location/pin/action-type/action-data`
 
