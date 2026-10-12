@@ -56,6 +56,8 @@ These commands kind of work like replays, but they tell an LCC Slave which scene
 
 `cmd://ID/sound/file-number/volume/loop`
 
+These commands tell the LCC Slave to play a sound effect from its internal SD card or from an LCC Sound Server. If the LCC Slave doesn't have an on-board DFRobot DFPlayer, you will see the device status line show a `/sound-server/` version of this message first.
+
 ### /stepper/ : Stepper Motor Control
 
 `cmd://ID/stepper/direction/resolution/steps/speed`
