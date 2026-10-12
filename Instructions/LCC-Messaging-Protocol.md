@@ -26,7 +26,7 @@ LCC Slaves have a buffer that stores up to 16 location transponder ID numbers an
 
 `cmd://ID/motor/direction/speed/progression/duration`
 
-These commands are what drives a brushed motor, such those used in a model train locomotive, DC pumps, battery powered power tools, etc. LCC Slaves run brushed electric motors using pulse width modulation (PWM) so you can control the speed and direction and perform smooth speed changes.
+These commands are what drives a brushed motor, such those used in a model train locomotive, DC pumps, battery powered power tools, etc. LCC Slaves run brushed electric motors using pulse width modulation (PWM) so you can control the speed and direction and perform smooth timed speed changes.
 
 ### System Reboot
 
