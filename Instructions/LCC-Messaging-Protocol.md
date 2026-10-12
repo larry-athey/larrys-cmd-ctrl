@@ -75,3 +75,6 @@ If you're using a stepper motor rather than a brushed motor, you will see these 
 ### /wifi-signal/ : WiFi Signal Level Reporting
 
 `cmd://wifi-signal`
+
+# Inbound Messages From LCC Slaves
+
