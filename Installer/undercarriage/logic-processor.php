@@ -23,8 +23,20 @@ if (mysqli_num_rows($Result) > 0) {
   }
 }
 
+// Check for device firmare update requests
+$Result = mysqli_query($DBcnx,"SELECT * FROM outbound WHERE address='00-00-00-00-00-00' AND msg LIKE BINARY '%/firmware/%'");
+if (mysqli_num_rows($Result) > 0) {
+  $Outbound = mysqli_fetch_assoc($Result);
+  $Data = explode("/",trim($Outbound["msg"],"/"));
+  $Result2 = mysqli_query($DBcnx,"SELECT * FROM devices WHERE ID=" . $Data[1]);
+  $Dev = mysqli_fetch_assoc($Result2);
+  $ID = md5(generateRandomString(32));
+  $Response = curlRequest("http://". $Dev["address"] . ".lcc.local/$ID/update-firmware");
+  $Delete = mysqli_query($DBcnx,"DELETE FROM outbound WHERE ID=" . $Outbound["ID"]);
+}
+
 // Check for device pairing requests
-$Result = mysqli_query($DBcnx,"SELECT * FROM outbound WHERE address='00-00-00-00-00-00'");
+$Result = mysqli_query($DBcnx,"SELECT * FROM outbound WHERE address='00-00-00-00-00-00' AND msg LIKE BINARY '%/pairing/%'");
 if (mysqli_num_rows($Result) > 0) {
   $Result2 = mysqli_query($DBcnx,"SELECT * FROM settings WHERE ID=1");
   $RS = mysqli_fetch_assoc($Result2);
@@ -32,25 +44,23 @@ if (mysqli_num_rows($Result) > 0) {
   $SSID = $RS["ssid"];
   $PASS = $RS["wifi_pw"];
   while ($Outbound = mysqli_fetch_assoc($Result)) {
-    if (InStr("/pairing/",$Outbound["msg"])) {
-      $Data = explode("/",trim($Outbound["msg"],"/"));
-      $Passed = false;
-      $Tries = 0;
-      while (($Tries < 3) && (! $Passed)) {
-        $Tries ++;
-        $Mac = trim(shell_exec("/usr/share/lcc/usb-pair $USB $SSID $PASS | tail -n 1"));
-        if (strlen($Mac) == 17) {
-          $Passed = true;
-          $Update = mysqli_query($DBcnx,"UPDATE devices SET address='$Mac' WHERE ID=" . $Data[1]);
-        }
+    $Data = explode("/",trim($Outbound["msg"],"/"));
+    $Passed = false;
+    $Tries = 0;
+    while (($Tries < 3) && (! $Passed)) {
+      $Tries ++;
+      $Mac = trim(shell_exec("/usr/share/lcc/usb-pair $USB $SSID $PASS | tail -n 1"));
+      if (strlen($Mac) == 17) {
+        $Passed = true;
+        $Update = mysqli_query($DBcnx,"UPDATE devices SET address='$Mac' WHERE ID=" . $Data[1]);
       }
-      if ($Passed) {
-        $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-success\">LCC Slave successfully paired</span>' WHERE ID=" . $Data[1]);
-      } else {
-        $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-danger\">LCC Slave pairing failure</span>' WHERE ID=" . $Data[1]);
-      }
-      $Delete = mysqli_query($DBcnx,"DELETE FROM outbound WHERE ID=" . $Outbound["ID"]);
     }
+    if ($Passed) {
+      $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-success\">LCC Slave successfully paired</span>' WHERE ID=" . $Data[1]);
+    } else {
+      $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-danger\">LCC Slave pairing failure</span>' WHERE ID=" . $Data[1]);
+    }
+    $Delete = mysqli_query($DBcnx,"DELETE FROM outbound WHERE ID=" . $Outbound["ID"]);
   }
 }
 
