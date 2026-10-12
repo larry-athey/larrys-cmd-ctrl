@@ -20,7 +20,7 @@ Below is an outline of all commands (11 at this time) recognized by LCC Slave un
 
 `cmd://light/led-id/red-level/green-level/blue-level/fade-time`
 
-These commands control individual Neopixel/WS2812 RGB LEDs on the lighting bus. The first LED is ID #0 and the last one in a chain of 30 would be #29. You'll need to modify the TOTAL_LEDS constant in the source code and re-flash the ESP32 if you intend to have more than the default value of 30. These LEDs can be anything from discrete surface mount LEDs up to individual light fixtures.
+These commands control individual Neopixel/WS2812 RGB LEDs on the lighting bus. The first LED is ID #0 and the last one in a chain of 30 would be #29. You'll need to modify the TOTAL_LEDS constant in the source code and re-flash the ESP32 if you intend to have more than the default value of 30. These LEDs can be anything from discrete surface mount LEDs up to full size DC RGB LED light fixtures.
 
 ### /location/ : Location Detection and Triggered Actions
 
