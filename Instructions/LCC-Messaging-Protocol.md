@@ -50,7 +50,7 @@ This is mostly a behind-the-scenes command and only one variant of it is visible
 
 `cmd://ID/scene/scene-id`
 
-These commands kind of work like replays, but they tell an LCC Slave which scene source code (LedBasic script) to download from the Mission Control server and execute. Much like replays tell LCC Slaves which command or script to download and execute. You will see these requests show up as `/scene-request/#` in the inbound message log.
+These commands kind of work like replays, but they tell an LCC Slave which scene source code (LedBasic script) to download from the Mission Control server and execute. Much like replays tell LCC Slaves which command or script to request. You will see these requests show up as `/scene-request/#` in the inbound message log.
 
 ### /sound/ : Sound Effects
 
