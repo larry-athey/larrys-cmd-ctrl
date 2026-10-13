@@ -16,7 +16,7 @@ _**NOTE:** The message ID is stripped from the device status line display, but i
 
 Below is an outline of all commands (11 at this time) recognized by LCC Slave units. If you look at the message structures and compare them to the fields in the command editor pages in the Mission Control dashboard, everything will make perfect sense to you.
 
-### /light/ : RGB LED Light (individual lights)
+### /light/ : RGB LED Lights (individual lights)
 
 `cmd://light/led-id/red-level/green-level/blue-level/fade-time`
 
