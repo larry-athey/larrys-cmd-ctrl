@@ -173,8 +173,22 @@ elseif (isset($_POST["edit_script"])) {
   $cmd_class = $_POST["cmd_class"];
   $replay = $_POST["replay"];
   $replay_id = $_POST["replay_id"];
-  $Result = mysqli_query($DBcnx,"UPDATE scripts SET scr_name='$scr_name',cmd_class=$cmd_class,replay=$replay,replay_id=$replay_id,commands='$commands'  WHERE ID=$ID");
+  $Result = mysqli_query($DBcnx,"UPDATE scripts SET scr_name='$scr_name',cmd_class=$cmd_class,replay=$replay,replay_id=$replay_id,commands='$commands' WHERE ID=$ID");
   $Return = "/index.php?page=scripts";
+//echo("<pre>");
+//print_r($_POST);
+//echo($commands);
+//echo("</pre>");
+//exit;
+}
+//---------------------------------------------------------------------------------------------------
+elseif (isset($_POST["edit_settings"])) {
+  $ssid = trim($_POST["ssid"]);
+  $wifi_pw = trim($_POST["wifi_pw"]);
+  $usb_device = trim($_POST["usb_device"]);
+  $sound_server = trim($_POST["sound_server"]);
+  $Result = mysqli_query($DBcnx,"UPDATE settings SET ssid='$ssid',wifi_pw='$wifi_pw',usb_device='$usb_device',sound_server='$sound_server' WHERE ID=1");
+  $Return = "/index.php";
 //echo("<pre>");
 //print_r($_POST);
 //echo($commands);
