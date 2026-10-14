@@ -1,6 +1,6 @@
 # Notes On Diagrams
 
-Both of the LCC Slave boards below require a well filtered power supply for reliable and stable motor operation. The places where these boards are expected to live, don't have the room for a big 470uf/50v electrolytic on the input side of the buck regulator. Get a [Mean Well](https://www.amazon.com/dp/B0131UU9E2) 3D printer power supply, they're not expensive!
+Both of the LCC Slave boards below require a well filtered power supply for reliable and stable motor operation. The places where these boards are expected to live, don't have the room for a big 470uf/50v electrolytic on the input side of the buck regulator. Get a basic [Mean Well](https://www.amazon.com/dp/B0131UU9E2) 3D printer power supply, they're not expensive!
 
 ### LCC Slave PCB (type 1)
 
