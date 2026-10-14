@@ -39,7 +39,7 @@
 #define RELEASE_TIME 1200      // Milliseconds to fade back to IDLE_VOLUME after LIDAR measurement goes over 300mm
 // Gain mapping for tuning
 #define GAIN_FULL 6            // dB ≈ 100%
-#define GAIN_IDLE -2           // dB ≈ 60%  (Hack job, adjust by ear)
+#define GAIN_IDLE -2           // dB ≈ 60%  (Adjust as needed)
 //------------------------------------------------------------------------------------------------
 Adafruit_TPA2016 audioAmp = Adafruit_TPA2016();
 Adafruit_VL53L0X Lidar = Adafruit_VL53L0X();
