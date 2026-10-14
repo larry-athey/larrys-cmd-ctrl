@@ -14,6 +14,7 @@
 //
 //   Seeed XIAO SAMD21        - $5.00
 //   5V 1.8A Buck Regulator   - $1.50
+//   2A Bridge Rectifier      - $1.00 (Only if you need these to be polarity-agnostic)
 //   IR LED with 220 ohm res. - $1.50
 //   3D Printed Case          - $2.00
 //
