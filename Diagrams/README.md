@@ -14,4 +14,4 @@ This is the LCC Slave printed circuit board for stepper motor controllers. Unlik
 
 ### LCC Transponder
 
-This is the infrared transponder that LCC Slaves respond to for location detection and associated actions. As with the LCC Slave type 1 boards, these are also polarity-agnostic so they can also run on model railroad track power. The board measures 25mm x 75mm.
+This is the infrared transponder that LCC Slaves respond to for location detection and associated actions. As with the LCC Slave type 1 boards, these are also polarity-agnostic so they can also run on model railroad track power. Keep in mind that polarity-agnostic doesn't mean AC powered, these still require filtered DC voltage. The board measures 25mm x 75mm.
