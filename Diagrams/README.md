@@ -1,6 +1,6 @@
 # Notes On Diagrams
 
-Both of the LCC Slave boards below require a well filtered power supply for reliable and stable motor operation. The places where these boards are expected to live, don't have the room for a big 470uf/50v electrolytic on the input side of the buck regulator. Get a basic [Mean Well](https://www.amazon.com/dp/B0131UU9E2) 3D printer power supply, they're not expensive! Also, on type 1 LCC Slave boards being used as a brushed motor controller or model train locomotive, be sure that your **Enable** pin on your H-Bridge is always pulled high or your motor will not run.
+Both of the LCC Slave boards below require a well filtered power supply for reliable and stable motor operation. The places where these boards are expected to live, don't have the room for a big 470uf/50v electrolytic on the input side of the buck regulator. Get a basic [Mean Well](https://www.amazon.com/dp/B0131UU9E2) 3D printer power supply, they're not expensive! Also, on type 1 LCC Slave boards being used as a brushed motor controller or model train locomotive, be sure that your **Enable** pin on your H-Bridge is always pulled high or your motor won't run.
 
 ### LCC Slave PCB (type 1)
 
