@@ -1,6 +1,6 @@
 # Notes On Diagrams
 
-_No schematics here, these boards are stupid simple, they either require a Seeed Studio XIAO ESP32-S3 or SAMD21 and the board is labeled as such. if you see +/- in and out, that's a 5 volt buck regulator footprint. If you see a diode/rectifier, it's a 2 amp Schottky rectifier. Anything else is a pin header or screw terminal, your choice. In the LCC Slave type 2 board, the DRV8825 VMOT pin connects to the +IN pin of the 5 volt buck regulator. That's it._
+_No schematics necessary here, these boards are stupid simple, they either require a Seeed Studio XIAO ESP32-S3 or SAMD21 and the board is labeled as such. if you see +/- in and out, that's a 5 volt buck regulator footprint. If you see a diode/rectifier, it's a 2 amp Schottky rectifier. Anything else is a pin header or screw terminal, your choice. In the LCC Slave type 2 board, the DRV8825 VMOT pin connects to the +IN pin of the 5 volt buck regulator. That's it._
 
 Both of the LCC Slave boards below require a well filtered power supply for reliable and stable motor operation. The places where these boards are expected to live, don't have the room for a big 470uf/50v electrolytic on the input side of the buck regulator. Get a basic [Mean Well](https://www.amazon.com/dp/B0131UU9E2) 3D printer power supply, they're not expensive! Also, on type 1 LCC Slave boards being used as a brushed motor controller or model train locomotive, be sure that the **Enable** pin on your H-Bridge is always pulled high or your motor won't run.
 
