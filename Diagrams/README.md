@@ -6,4 +6,4 @@ This is the LCC Slave printed circuit board for everything other than a stepper 
 
 ### LCC Slave PCB (type 2)
 
-This is the LCC Slave printed circuit board for stepper motor controllers. Unlike the type 1 boards, these are not polarity-agnostic. This board is based on the DRV8825 stepper motor driver module which is compatible with a number of stepper motors. However, a person could just as easily use it with any other stepper driver which may require jumper wires to the driver if the pin footprint is different.
+This is the LCC Slave printed circuit board for stepper motor controllers. Unlike the type 1 boards, these are not polarity-agnostic. This board is based on the DRV8825 stepper motor driver module which is compatible with a number of stepper motors. However, a person could just as easily use it with any other stepper driver which may require jumper wires to the driver if the pin footprint is different. Stepper motor controllers do not support sound or RGB LED lighting, but still support limit switches, GPIO switching, and remote location detection.
