@@ -11,3 +11,5 @@ If you want to 3D print a case for your Orange Pi Zero 3, I will provide links t
 If you are using a Sound Server with an LCC controlled model railroad, this will be the most common speaker enclosure used on the top side of the track bed. This enclosure requires a Dayton Audio DMA58-8 or DMA58-4 full range 2" speaker and a matching 2" passive radiator. Two speakers can be driven by the same Server Driver PCB since those are a stereo amplifier, just plug the unused hole on top with silicone if one is used as an extension speaker. You should use triple wall perimeters and 30% or more infill in order to eliminate cabinet resonance.
 
 ## Matchbox Speaker Models
+
+If you are using a Sound Server with an LCC controlled model railroad, this will be the most common speaker enclosure used on the under side of the track bed.
