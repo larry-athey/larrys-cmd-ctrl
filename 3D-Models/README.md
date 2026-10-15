@@ -13,3 +13,7 @@ If you are using a Sound Server with an LCC controlled model railroad, this will
 ## Matchbox Speaker Models
 
 If you are using a Sound Server with an LCC controlled model railroad, this will be the most common speaker enclosure used on the under side of the track bed. These use the same speaker and passive radiator as the Cube Speaker models. It's recommended that you use the passive radiator as a template for the hole that you will need to cut in the track bed for the speaker to lock into and then use a small section of strapping material to snug the speaker cabinet up against the under side of the track bed.
+
+## SS-LIDAR-Mount.stl
+
+This is the LIDAR sensor mount for the Server Driver circuit used in the Sound Server surround sound speakers. This is meant to be mounted to the track bed within 1 foot of the track to detect the presence of the train in order to increase that speaker's volume. This produces a 3D sound effect where the sound effects follow the train around the track. If the LIDAR sensor detects any object within 300mm (12 inches) it will trigger the volume boost.
