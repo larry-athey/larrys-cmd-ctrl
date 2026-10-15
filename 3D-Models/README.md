@@ -16,4 +16,4 @@ If you are using a Sound Server with an LCC controlled model railroad, this will
 
 ## SS-LIDAR-Mount.stl
 
-This is the LIDAR sensor mount for the Server Driver PCB used in the Sound Server surround sound speakers. This is meant to be mounted to the track bed within 1 foot of the track to detect the presence of the train in order to increase that speaker's volume. This produces a 3D sound effect where the sound effects follow the train around the track. If the LIDAR sensor detects any object within 300mm (12 inches) it will trigger the volume boost.
+This is the LIDAR sensor mount for the Server Driver PCB used in the Sound Server surround sound speakers. This is meant to be mounted to the track bed within 1 foot of the track to detect the presence of the train in order to increase that speaker's volume. This produces a 3D sound effect where the sound effects follow the train around the track. If the LIDAR sensor detects any object within 300mm (12 inches) it will trigger the volume boost, then release the boost when the obstacle has gone.
