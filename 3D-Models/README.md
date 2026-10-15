@@ -7,3 +7,7 @@ If you want to 3D print a case for your Orange Pi Zero 3, I will provide links t
 - Sound Server: https://www.printables.com/model/572566-orange-pi-zero-3-case-with-expansion-board
 
 ## Cube Speaker Models
+
+If you are using a Sound Server with an LCC controlled model railroad, this will be the most common speaker enclosure used on the top side of the track bed.
+
+## Matchbox Speaker Models
