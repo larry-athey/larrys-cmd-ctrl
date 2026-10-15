@@ -5,3 +5,5 @@ If you want to 3D print a case for your Orange Pi Zero 3, I will provide links t
 - Mission Control Server: https://www.printables.com/model/542569-orange-pi-zero-3-case
 
 - Sound Server: https://www.printables.com/model/572566-orange-pi-zero-3-case-with-expansion-board
+
+## Cube Speaker Models
