@@ -14,7 +14,7 @@ If you are using a Sound Server with an LCC controlled model railroad, this will
 
 If you are using a Sound Server with an LCC controlled model railroad, this will be the most common speaker enclosure used on the under side of the track bed. These use the same speaker and passive radiator as the Cube Speaker models. It's recommended that you use the passive radiator as a template for the hole that you will need to cut in the track bed for the speaker to lock into and then use a small section of strapping material to snug the speaker cabinet up against the under side of the track bed.
 
-_**NOTE:** The backs of the speaker enclosures fit stupidly tight and may need sanded. This intentional because these need to be absolutely air-tight for the passive raditor to do what it's intended to do. If you have air leaks, then the passive raidiator is nothing more than a cheap decoration._
+_**NOTE:** The backs of the speaker enclosures fit stupidly tight and may need sanded. This intentional because these need to be absolutely air-tight for the passive raditor to do what it's intended to do. Even the wire holes need to be silicone sealed. If you have air any leaks, then the passive radiator is nothing more than a cheap decoration._
 
 ## SD-LIDAR-Mount.stl
 
