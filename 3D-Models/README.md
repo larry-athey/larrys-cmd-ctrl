@@ -12,4 +12,4 @@ If you are using a Sound Server with an LCC controlled model railroad, this will
 
 ## Matchbox Speaker Models
 
-If you are using a Sound Server with an LCC controlled model railroad, this will be the most common speaker enclosure used on the under side of the track bed.
+If you are using a Sound Server with an LCC controlled model railroad, this will be the most common speaker enclosure used on the under side of the track bed. These use the same speaker and passive radiator as the Cube Speaker models. It's recommended that you use the passive radiator as a template for the hole that you will need to cut in the track bed for the speaker to lock into and then use a small section of strapping material to snug the speaker cabinet up against the under side of the track bed.
