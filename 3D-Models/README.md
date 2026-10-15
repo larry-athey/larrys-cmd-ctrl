@@ -1,4 +1,4 @@
-# About 3D Models
+## Orange Pi Zero 3 Case
 
 If you want to 3D print a case for your Orange Pi Zero 3, I will provide links to 2 different ones rather than bothering with designing my own from scratch. Why reinvent the wheel?
 
