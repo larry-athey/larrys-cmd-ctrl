@@ -706,6 +706,7 @@ void loop() {
   // Handle the sound effects as necessary
   if (SFX) {
     if (soundFile >= 0) {
+      myDFPlayer.EQ(DFPLAYER_EQ_POP);
       myDFPlayer.volume(sfxVolume);
       if (sfxLoop)  {
         //myDFPlayer.loop(soundFile);
