@@ -52,12 +52,17 @@ if (mysqli_num_rows($Result) > 0) {
     $Mac = trim(shell_exec("/usr/share/lcc/usb-pair $USB $SSID $PASS | tail -n 1"));
     if (strlen($Mac) == 17) {
       $Passed = true;
-      // Get the old MAC address and save it
+      // Get the old MAC address and store it in $Dev
+      $Result3 = mysqli_query($DBcnx,"SELECT * FROM devices WHERE ID=" . $Data[1]);
+      $Dev = mysqli_fetch_assoc($Result3);
       $Update = mysqli_query($DBcnx,"UPDATE devices SET address='$Mac' WHERE ID=" . $Data[1]);
     }
   }
   if ($Passed) {
-    // Update any existing tasks owned by the old MAC address
+    if ($Dev["address"] != "00-00-00-00-00-00") {
+      // Update any existing tasks owned by the old MAC address
+      $Update = mysqli_query($DBcnx,"UPDATE schedule SET address='" . $Data[1] . "' WHERE address='" . $Dev["address"] . "'");
+    }
     $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-success\">LCC Slave successfully paired</span>' WHERE ID=" . $Data[1]);
   } else {
     $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-danger\">LCC Slave pairing failure</span>' WHERE ID=" . $Data[1]);
