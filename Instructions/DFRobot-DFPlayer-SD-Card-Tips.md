@@ -18,4 +18,4 @@ While the DFRobot DFPlayer makes it easy to add MP3 file playing to about any pr
 
 While these rules may sound outrageous and unnecessarily complicated, just try not following these rules and see how the DFPlayer behaves. You'll be asking yourself why file 10 always plays when you tell the LCC Slave play the 9th one. Or, you will try to play the 6th one and it doesn't play, even though the file is really there. This is how bad disk fragmentation will affect the DFPlayer and why you always need to do a long format before modifying or updating the files on it.
 
-This is yet another reason why I came up with the [Sound Server](https://github.com/larry-athey/larrys-cmd-ctrl/tree/main/Sound-Server).
+This is yet another reason why I came up with the [Sound Server](https://github.com/larry-athey/larrys-cmd-ctrl/tree/main/Sound-Server) which can be used with more than just model railroads.
