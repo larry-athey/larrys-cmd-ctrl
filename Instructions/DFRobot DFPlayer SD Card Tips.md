@@ -8,7 +8,7 @@ While the DFRobot DFPlayer makes it easy to add MP3 file playing to about any pr
 
 - You need to use two digit folder names and anything less than 10 needs to start with a zero.
 
-- Each folder can only contain the file 001.mp3 (yes, now it needs two leading zeros.
+- Each folder can only contain the file 001.mp3 (yes, the MP3 actually needs two leading zeros).
 
 - You must do a full long format (erase) before copying any files to the SD card.
 
