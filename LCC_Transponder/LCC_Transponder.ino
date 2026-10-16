@@ -61,7 +61,7 @@ void loop() {
       Serial.print("Sent IR Code: 0x");
       Serial.println(LOCATION_ID, HEX);
     }
+    lastCheck = CurrentTime;
   }
-  lastCheck = CurrentTime;
 }
 //------------------------------------------------------------------------------------------------
