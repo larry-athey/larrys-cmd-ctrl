@@ -57,6 +57,7 @@ void setup() {
   Serial.begin(115200);
   delay(1000);
 
+  pinMode(LED_BUILTIN,OUTPUT);
   Wire.begin();
 
   // Amp – mandatory
@@ -94,72 +95,90 @@ void setVolumePercent(float pct) {
 }
 //------------------------------------------------------------------------------------------------
 void loop() {
+  static unsigned long ledUpdate = 0;
+  static unsigned long lastCheck = millis();
+  static float angle = 0.0;
+  unsigned long CurrentTime = millis();
+
+  if (CurrentTime - ledUpdate >= 10) {
+    ledUpdate = CurrentTime;
+    int dutyCycle = (sin(angle) + 1.0) * 127.5;
+    analogWrite(LED_BUILTIN,255 - dutyCycle);
+    angle += 0.03;
+    if (angle >= 2 * PI) {
+      angle -= 2 * PI;
+    }
+  }
+
   if (! lidarPresent) {
     // Nothing to do - volume is fixed at 100%
-    delay(100);
+    delay(1);
     return;
   }
 
-  // Read LIDAR sensor
-  VL53L0X_RangingMeasurementData_t measure;
-  Lidar.rangingTest(&measure,false);
-  bool triggered = (measure.RangeStatus != 4) && (measure.RangeMilliMeter <= TRIGGER_RANGE);
+  if (CurrentTime - lastCheck >= 20) {
 
-  unsigned long now = millis();
+    // Read LIDAR sensor
+    VL53L0X_RangingMeasurementData_t measure;
+    Lidar.rangingTest(&measure,false);
+    bool triggered = (measure.RangeStatus != 4) && (measure.RangeMilliMeter <= TRIGGER_RANGE);
 
-  if (triggered) {
-    lastTrigger = now;
-    if (state != ATTACK && state != SUSTAIN) {
-      state = ATTACK;
-      stateStart = now;
-    } else if (state == ATTACK) {
-      // Stay in attack
-    } else {
-      state = SUSTAIN;
-      stateStart = now;
-    }
-  }
+    unsigned long now = millis();
 
-  switch (state) {
-    case IDLE:
-      // Already at idle
-      break;
-
-    case ATTACK: {
-      float progress = (float)(now - stateStart) / ATTACK_TIME;
-      if (progress >= 1.0) {
-        setVolumePercent(100);
+    if (triggered) {
+      lastTrigger = now;
+      if (state != ATTACK && state != SUSTAIN) {
+        state = ATTACK;
+        stateStart = now;
+      } else if (state == ATTACK) {
+        // Stay in attack
+      } else {
         state = SUSTAIN;
         stateStart = now;
-      } else {
-        float pct = IDLE_VOLUME + progress * (100.0 - IDLE_VOLUME);
-        setVolumePercent(pct);
       }
-      break;
     }
 
-    case SUSTAIN:
-      if (now - lastTrigger > SUSTAIN_TIME) {
-        state = RELEASE;
-        stateStart = now;
-      } else {
-        setVolumePercent(100);
-      }
-      break;
+    switch (state) {
+      case IDLE:
+        // Already at idle
+        break;
 
-    case RELEASE: {
-      float progress = (float)(now - stateStart) / RELEASE_TIME;
-      if (progress >= 1.0) {
-        setVolumePercent(IDLE_VOLUME);
-        state = IDLE;
-      } else {
-        float pct = 100.0 - progress * (100.0 - IDLE_VOLUME);
-        setVolumePercent(pct);
+      case ATTACK: {
+        float progress = (float)(now - stateStart) / ATTACK_TIME;
+        if (progress >= 1.0) {
+          setVolumePercent(100);
+          state = SUSTAIN;
+          stateStart = now;
+        } else {
+          float pct = IDLE_VOLUME + progress * (100.0 - IDLE_VOLUME);
+          setVolumePercent(pct);
+        }
+        break;
       }
-      break;
+
+      case SUSTAIN:
+        if (now - lastTrigger > SUSTAIN_TIME) {
+          state = RELEASE;
+          stateStart = now;
+        } else {
+          setVolumePercent(100);
+        }
+        break;
+
+      case RELEASE: {
+        float progress = (float)(now - stateStart) / RELEASE_TIME;
+        if (progress >= 1.0) {
+          setVolumePercent(IDLE_VOLUME);
+          state = IDLE;
+        } else {
+          float pct = 100.0 - progress * (100.0 - IDLE_VOLUME);
+          setVolumePercent(pct);
+        }
+        break;
+      }
     }
+
+    lastCheck = CurrentTime;
   }
-
-  delay(20); // ~50 Hz update seems reasonable
 }
 //------------------------------------------------------------------------------------------------
