@@ -10,6 +10,8 @@ While the DFRobot DFPlayer makes it easy to add MP3 file playing to about any pr
 
 - Each folder can only contain the file 001.mp3 (yes, the MP3 actually needs two leading zeros).
 
+- If you put more than one file in the folder, all of the files will be played back-to-back.
+
 - You must do a full long format (erase) before copying any files to the SD card.
 
 - You should build your SD card structure on your computer and then copy all the files to the SD card as a group.
