@@ -56,7 +56,7 @@ void loop() {
   }
 
   if (CurrentTime - lastCheck >= 50) {
-    IrSender.sendNEC(LOCATION_ID,0,0);  // Send 18-bit LOCATION_ID using NEC protocol
+    IrSender.sendNEC(LOCATION_ID,0,0); // Send 16-bit LOCATION_ID using NEC protocol
     if (Serial) {
       Serial.print(lastCheck);
       Serial.print(" : ");
