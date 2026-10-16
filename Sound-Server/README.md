@@ -20,7 +20,7 @@ LCC Slave units play sound files on the sound server instead, which is actually 
 
 - A breakout box is necessary for this setup, but it's not hard to build. Audio comes from the Pi computer, right channel goes to the tip of one TRS jack, left channel goes to the tip of four or more TRS jacks. The ring connector of all jacks are connected together and powered by a 5 volt power supply. Common grounds all the way around, no engineering degree necessary.
 
-- Speaker placement can be done creatively and easily. The cube enclosure is 70x70x70 mm and the matchbox is 110x60x50 mm. If you mount them under the track bed, all you need is a 2" hole saw and something to disguise the hole with after the fact. Neither one is better than the other, the passive radiator is on the back side of each one. If you've ever heard a [JBL Flip 5](https://www.amazon.com/JBL-Waterproof-Portable-Bluetooth-Speaker/dp/B07QK2SPP7) speaker then you know how much impact a 2" passive radiator has in any room. Now imagine 4 or more of them in a room.
+- Speaker placement can be done creatively and easily. The cube enclosure is 70x70x70 mm and the matchbox is 110x60x50 mm. If you mount them under the track bed, all you need is a 2" hole saw and something to disguise the hole with after the fact. Neither one is better than the other, the passive radiator is on the back side of each one to give the speak a more rounded bottom end. So you can safely stuff the speaker away and disguise it without having much impact on its sound.
 
 - The LIDAR sensor needs to be within 300mm/12in of the track in order to detect the presence of the train in front of it. You also want to make sure that the sensor isn't detecting something else on the other side of the track when a train isn't there.
 
