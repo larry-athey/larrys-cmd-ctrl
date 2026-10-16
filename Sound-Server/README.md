@@ -22,7 +22,7 @@ LCC Slave units play sound files on the sound server instead, which is actually 
 
 - Speaker placement can be done creatively and easily. The cube enclosure is 70x70x70 mm and the matchbox is 110x60x50 mm. If you mount them under the track bed, all you need is a 2" hole saw and something to disguise the hole with after the fact. Neither one is better than the other, the passive radiator is on the back side of each one to give the speak a more rounded bottom end. So you can safely stuff the speaker away and disguise it without having much impact on its sound.
 
-- The LIDAR sensor needs to be within 300mm/12in of the track in order to detect the presence of the train in front of it. You also want to make sure that the sensor isn't detecting something else on the other side of the track when a train isn't there.
+- The LIDAR sensor needs to be within 300mm/12in of the tracks in order to detect the presence of the train in front of it. You also want to make sure that the sensor isn't detecting something else on the other side of the tracks when a train isn't there.
 
 - Sound files can easily be customized using the free **Audacity** audio editor so you can pan train sound effects to the left channel and everything else to the right channel. They're still stereo MP3 files, one channel is just silent depending on the purpose of the sound file.
 
