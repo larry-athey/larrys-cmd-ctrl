@@ -64,7 +64,7 @@
 //   3D Printed Case          - $2.00
 //
 /************************************************************************************************/
-#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
+//#define I2CSWITCH              // Use an MCP23017 GPIO expansion module for all GPIO switching
 //#define STEPPER                // Remember, no sound effects are possible when using a stepper
 //#define WAVESHARE              // Define this if you are using a Waveshare ESP32-S3FH4R2 board
 /************************************************************************************************/
