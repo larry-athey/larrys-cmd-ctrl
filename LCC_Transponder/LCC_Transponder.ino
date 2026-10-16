@@ -22,27 +22,46 @@
 // $1.00 bridge rectifier to make it polarity agnostic. These are simply placed 6 to 8 inches from
 // the track pointing outward so the locomotive can't possibly read two of them at the same time.
 //------------------------------------------------------------------------------------------------
-#include "IRremote.hpp"
-//------------------------------------------------------------------------------------------------
 #define IR_SEND_PIN 6  // Use D6 (PA06) for IR LED, a PWM-capable pin
 #define TX_OFFSET 60000  // Location ID numbers are actually 60001 to 61000 for safety
 //------------------------------------------------------------------------------------------------
-const uint16_t LOCATION_ID = TX_OFFSET + 1000;  // Unique ID for this location (1..1000)
+#include "IRremote.hpp"
 //------------------------------------------------------------------------------------------------
-IRsend irsend(IR_SEND_PIN);  // Initialize IRsend with specific pin
+const uint16_t LOCATION_ID = TX_OFFSET + 1000;  // Unique ID for this location (1..1000)
 //------------------------------------------------------------------------------------------------
 void setup() {
   Serial.begin(115200);
   delay(1000);
+
+  IrSender.begin();
+  pinMode(LED_BUILTIN,OUTPUT);
+
   if (Serial) Serial.println("LCC Location Tranponder Initialized");
 }
 //------------------------------------------------------------------------------------------------
 void loop() {
-  irsend.sendNEC(LOCATION_ID,0,0);  // Send 18-bit LOCATION_ID using NEC protocol
-  if (Serial) {
-    Serial.print("Sent IR Code: 0x");
-    Serial.println(LOCATION_ID, HEX);
+  static unsigned long ledUpdate = 0;
+  static unsigned long lastCheck = millis();
+  static float angle = 0.0;
+  unsigned long CurrentTime = millis();
+
+  if (CurrentTime - ledUpdate >= 10) {
+    ledUpdate = CurrentTime;
+    int dutyCycle = (sin(angle) + 1.0) * 127.5;
+    analogWrite(LED_BUILTIN,255 - dutyCycle);
+    angle += 0.03;
+    if (angle >= 2 * PI) {
+      angle -= 2 * PI;
+    }
   }
-  delay(50);  // Repeat every 50 ms
+
+  if (CurrentTime - lastCheck >= 50) {
+    IrSender.sendNEC(LOCATION_ID,0,0);  // Send 18-bit LOCATION_ID using NEC protocol
+    if (Serial) {
+      Serial.print("Sent IR Code: 0x");
+      Serial.println(LOCATION_ID, HEX);
+    }
+  }
+  lastCheck = CurrentTime;
 }
 //------------------------------------------------------------------------------------------------
