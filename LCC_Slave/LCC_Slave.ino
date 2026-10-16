@@ -709,10 +709,8 @@ void loop() {
       myDFPlayer.EQ(DFPLAYER_EQ_POP);
       myDFPlayer.volume(sfxVolume);
       if (sfxLoop)  {
-        //myDFPlayer.loop(soundFile);
         myDFPlayer.loopFolder(soundFile);
       } else {
-        //myDFPlayer.play(soundFile);
         myDFPlayer.playFolder(soundFile,1);
       }
       soundFile = -1;
