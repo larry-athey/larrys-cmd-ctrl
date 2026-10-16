@@ -4,7 +4,7 @@ While the DFRobot DFPlayer makes it easy to add MP3 file playing to about any pr
 
 ### Here are the rules that you need to follow for LCC usage...
 
-- File and folder names can only be numbers, not verbal file names.
+- File and folder names can only be numbers, not verbal names.
 
 - You need to use two digit folder names and anything less than 10 needs to start with a zero.
 
