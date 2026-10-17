@@ -37,6 +37,8 @@ _**DO NOT** use simple port forwarding from your router into the Mission Control
 
 ☀ _Currently developing a linear timeline editor for creating precision timed performances, necessary for elaborate holiday decoration setups._
 
+## Control Features
+
 ### Motor Control
 The LCC Slave module can control standard DC brushed motors using a PWM driven H bridge driver such as an L298N, or stepper motors such as a Nema 17 with a DRV8825 driver. _(You may actually use any driver you like.)_ Brushed motor control includes direction, speed, runtime, progression time to smooth out speed changes. If you're running a stepper motor, you choose direction, the number of steps, speed, and the driver resolution from whole steps up to 1/32 steps.
 
