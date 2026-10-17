@@ -449,7 +449,7 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
       } else if (Locations[i][1] == 2) { // Play sound effect
         #ifndef STEPPER
         soundFile = Locations[i][2];
-        sfxVolume = 25;
+        sfxVolume = 30;
         sfxLoop = false;
         if (! SFX) { // Play sound remotely on the sound server
           sendCommand("/sound-server/" + String(soundFile) + "/25/0");
@@ -507,6 +507,16 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
           }
         }
         lights.show();
+        #endif
+      } else if (Locations[i][1] == 7) { // Request and run an LedBasic scene script
+        #ifndef STEPPER
+        if (sendCommand("/scene-request/" + String(Locations[i][2]))) {
+          Serial.end();
+          if (basic.isRunning()) basic.stop();
+          bool Pass = basic.compileFromText(scriptCode.c_str());
+          if (Pass) basic.play();
+          Serial.begin(115200);
+        }
         #endif
       }
       // Clear the location memory slot

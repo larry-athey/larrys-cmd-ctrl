@@ -89,7 +89,7 @@ if ($_GET["ID"] == 1) { // Set command start and stop timer
   $Content .= "</div>";
   $Content .= "<div style=\"margin-top: 0.5em;\">";
   $Content .=   "<label for=\"location_action\" class=\"form-label fw-bolder\">Action to Perform</label>";
-  $Content .=    locationActionSelector(1);
+  $Content .=    locationActionSelector(1,$Dev["dev_type"]);
   $Content .= "</div>";
   $Content .= "<div style=\"margin-top: 0.5em;\">";
   $Content .=   "<label for=\"location_data\" class=\"form-label fw-bolder\">Associated Action Data</label>";
