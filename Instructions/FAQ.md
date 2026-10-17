@@ -14,7 +14,7 @@ A: That's easy, three words. **ZERO SECURITY MECHANISMS!** This is why everythin
 
 Q: How many devices does this system support? I see that WCC claims 10,000 devices.
 
-A: My answer will always be "as many as you need". Sure, I could switch the default configuration to set up a 10.*.*.* subnet and say "LCC supports 16,581,375 devices". But, out of the box, it supports 150 devices plus the Mission Control server. If you really need more than 150, it's not hard to change the network configuration.
+A: My answer will always be "as many as you need". Sure, I could switch the default configuration to set up a 10.*.*.* subnet and say "LCC supports 16,581,375 devices". But, out of the box, it supports 150 devices plus the Mission Control server. If you really need more than 150, it's not hard to change the network configuration to support more devices.
 
 ---
 
