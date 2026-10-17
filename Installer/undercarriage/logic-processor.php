@@ -165,9 +165,9 @@ if (mysqli_num_rows($Result) > 0) {
     $Inbound["msg"] = trim($Inbound["msg"],"/");
     $Data = explode("/",$Inbound["msg"]);
     if ($Data[2] == "/action") {
-      $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-primary\">Location $Data[1] executed</span>' WHERE address='" . $Inbound["address"] . "'");
+      $Update = mysqli_query($DBcnx,"UPDATE devices SET last_loc=$Data[1],status='<span class=\"text-primary\">Location $Data[1] executed</span>' WHERE address='" . $Inbound["address"] . "'");
     } else {
-      $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-success\">Location $Data[1] encountered</span>' WHERE address='" . $Inbound["address"] . "'");
+      $Update = mysqli_query($DBcnx,"UPDATE devices SET last_loc=$Data[1],status='<span class=\"text-success\">Location $Data[1] encountered</span>' WHERE address='" . $Inbound["address"] . "'");
     }
   }
 }
