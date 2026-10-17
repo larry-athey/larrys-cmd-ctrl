@@ -1,0 +1,7 @@
+#!/bin/bash
+# Check if hostapd is running and the AP interface is up
+if ! systemctl is-active --quiet hostapd || ! ip link show wlan0 | grep -q "UP"; then
+  logger "LCC AP check: restarting hostapd + dnsmasq"
+  rmmod sprdwl_ng && sudo modprobe sprdwl_ng
+  systemctl restart hostapd dnsmasq
+fi
