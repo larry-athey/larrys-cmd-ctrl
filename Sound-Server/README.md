@@ -2,7 +2,7 @@
 
 This device is based on a Pi style SBC and must have a stereo audio output jack, such as an Orange Pi 3B or Banana Pi M4 Berry. Those are just two examples, there are many others out there that will also work for this. You could even use the same Orange Pi Zero 3 as the Mission Control server uses, just with the [expansion hat](https://www.amazon.com/Orange-Pi-Expansion-Board-Development/dp/B0C5LJQKF4) added on. Once you hear this system in action, I can guarantee that you won't even bother with onboard sound effects in the locomotive itself.
 
-_**NOTE:** This server can also be used in other settings as well, not strictly in a model railroad, and with any speakers of your choosing._
+_**NOTE:** This server can also be used in other settings as well, not strictly in a model railroad, and with any speakers or FM transmitter._
 
 ### The Problem
 When a person is using LCC in a model railroad setup, some locomotives don't have enough room inside to install the DFRobot DFPlayer MP3 player module and sugar-cube speaker.
