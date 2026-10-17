@@ -215,7 +215,7 @@ function editCommand($DBcnx) {
     $Content .= "</div>";
     $Content .= "<div style=\"margin-top: 0.5em;\">";
     $Content .=   "<label for=\"location_action\" class=\"form-label fw-bolder\">Action to Perform</label>";
-    $Content .=    locationActionSelector($Cmd["location_action"]);
+    $Content .=    locationActionSelector($Cmd["location_action"],$Cmd["cmd_class"]);
     $Content .= "</div>";
     $Content .= "<div style=\"margin-top: 0.5em;\">";
     $Content .=   "<label for=\"location_data\" class=\"form-label fw-bolder\">Associated Action Data</label>";
