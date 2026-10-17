@@ -12,6 +12,12 @@ A: That's easy, three words. **ZERO SECURITY MECHANISMS!** This is why everythin
 
 ---
 
+Q: How many devices does this system support? I see that WCC claims 10,000 devices.
+
+A: My answer will always be "as many as you need". Sure, I could switch the default configuration to set up a 10.*.*.* subnet and say "LCC supports 16,581,375 devices". But, out of the box, it supports 150 devices plus the Mission Control server. If you really need more than 150, it's not hard to change the network configuration.
+
+---
+
 Q: Why does the Mission Control system show 4 different device types but the ESP32 code really only provides 2 types?
 
 A: It's mainly for command class segregation. For example, the **Brushed Motor Controller** and the **Model Train Locomotive** are 100% identical in functionality. Mission Control calls these two different device types so the commands for each device type aren't inter-mingled. The **Switching Controller** is also the same but the motor control functionality is hidden so that you can't accidentally send a motor control command to it and cause switching delays. The only one that's really different is the **Stepper Motor Controller** device.
