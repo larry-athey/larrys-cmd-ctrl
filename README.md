@@ -35,7 +35,7 @@ The recommended LCC Mission Control server is an [Orange Pi Zero 3 (1GB)](https:
 - Seasonal decoration automation ☀
 - Model railroad automation
 
-☀ _Currently working on a timeline editor for precision timed performances necessary for elaborate holiday decoration setups._
+☀ _Currently developing a linear timeline editor for creating precision timed performances, necessary for elaborate holiday decoration setups._
 
 **NOTE:** The WiFi radio in an Orange Pi Zero 3 is nothing to write home about. All slave devices should be in clear line of site of the server's antenna. If you need more range, you will need to use a high gain omnidirectional antenna. The Orange Pi Zero 3's antenna can be easily unplugged and replaced with another. A fancier Orange Pi will likely be of no value here since this is strictly an 802.11bg network, no N channel support at all.
 
