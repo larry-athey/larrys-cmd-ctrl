@@ -8,6 +8,8 @@ chmod g+w -R /usr/share/lcc
 
 cd /usr/share/lcc
 
+./ap-check
+
 Hour=$(date +%H)
 Min=$(date +%M)
 
