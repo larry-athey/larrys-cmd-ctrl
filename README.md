@@ -35,7 +35,7 @@ _**DO NOT** use simple port forwarding from your router into the Mission Control
 - Seasonal decoration automation ☀
 - Model railroad automation
 
-☀ _Currently developing a linear timeline editor for creating precision timed performances, necessary for elaborate holiday decoration setups. This will be included here once I feel that it is ready._
+☀ _Currently developing a linear timeline editor for creating precision timed performances, necessary for elaborate holiday decoration setups. This will be included here once I feel that it is ready, but this is a seriously tedious process._
 
 ## Control Features
 
