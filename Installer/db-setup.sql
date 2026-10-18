@@ -243,7 +243,8 @@ CREATE TABLE `settings` (
   `wifi_pw` varchar(32) DEFAULT NULL,
   `usb_device` varchar(255) DEFAULT NULL,
   `sound_server` varchar(17) DEFAULT NULL,
-  `timeline_running` tinyint(4) DEFAULT NULL
+  `timeline_running` tinyint(4) DEFAULT NULL,
+  `timeline_filename` varchar(255) NOT NULL DEFAULT 'none'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -251,7 +252,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`ID`, `ssid`, `wifi_pw`, `usb_device`, `sound_server`, `timeline_running`) VALUES
-(1, 'LCC-WLAN', '1a2b3c4d5e', '/dev/ttyACM0', '00-00-00-00-00-00', 0);
+(1, 'LCC-WLAN', '1a2b3c4d5e', '/dev/ttyACM0', '00-00-00-00-00-00', 0, 'none');
 
 -- --------------------------------------------------------
 
