@@ -263,7 +263,7 @@ INSERT INTO `settings` (`ID`, `ssid`, `wifi_pw`, `usb_device`, `sound_server`, `
 CREATE TABLE `timeline` (
   `ID` int(11) NOT NULL,
   `address` varchar(17) DEFAULT NULL,
-  `time` int(11) DEFAULT NULL,
+  `position` int(11) DEFAULT NULL,
   `cmd_name` varchar(255) DEFAULT NULL,
   `cmd_type` tinyint(4) DEFAULT NULL,
   `gpio_pin` tinyint(4) DEFAULT NULL,
