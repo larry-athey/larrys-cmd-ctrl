@@ -38,7 +38,7 @@ while (true) {
     $Result2 = mysqli_query($DBcnx,"SELECT * FROM timeline ORDER BY position DESC LIMIT 1");
     if (mysqli_num_rows($Result) > 0) {
       $Test = mysqli_fetch_assoc($Result2);
-      if ($Test["position"] < $Status["position"]) {
+      if ($Test["position"] > $Status["position"]) {
         // Process any timeline frames that match the current position up to 9/10 of a second (900 ms) in the future
         $Result3 = mysqli_query($DBcnx,"SELECT * FROM timeline WHERE (position >= " . $Status["position"] . ") AND (position <= " . $Status["position"] + 900 . ")");
         if (mysqli_num_rows($Result3) > 0) {
