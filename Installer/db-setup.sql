@@ -302,6 +302,27 @@ CREATE TABLE `timeline_queue` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `timeline_status`
+--
+
+CREATE TABLE `timeline_status` (
+  `ID` int(11) NOT NULL,
+  `current_script` varchar(255) NOT NULL DEFAULT 'Default',
+  `running` tinyint(4) NOT NULL DEFAULT 0,
+  `start_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `position` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+--
+-- Dumping data for table `timeline_status`
+--
+
+INSERT INTO `timeline_status` (`ID`, `current_script`, `running`, `start_time`, `position`) VALUES
+(1, 'Default', 0, '2026-10-18 15:48:03', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `timer`
 --
 
@@ -387,6 +408,12 @@ ALTER TABLE `timeline_queue`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `timeline_status`
+--
+ALTER TABLE `timeline_status`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `timer`
 --
 ALTER TABLE `timer`
@@ -461,6 +488,12 @@ ALTER TABLE `timeline`
 --
 ALTER TABLE `timeline_queue`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `timeline_status`
+--
+ALTER TABLE `timeline_status`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `timer`
