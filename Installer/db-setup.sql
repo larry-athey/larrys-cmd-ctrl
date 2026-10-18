@@ -253,6 +253,39 @@ INSERT INTO `settings` (`ID`, `usb_device`, sound_server) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `timeline`
+--
+
+CREATE TABLE `timeline` (
+  `ID` int(11) NOT NULL,
+  `address` varchar(17) DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
+  `cmd_name` varchar(255) DEFAULT NULL,
+  `cmd_type` tinyint(4) DEFAULT NULL,
+  `gpio_pin` tinyint(4) DEFAULT NULL,
+  `direction` tinyint(4) DEFAULT NULL,
+  `speed` tinyint(4) DEFAULT NULL,
+  `duration` int(11) DEFAULT NULL,
+  `progression` int(11) DEFAULT NULL,
+  `steps` int(11) DEFAULT NULL,
+  `resolution` tinyint(4) DEFAULT NULL,
+  `sound` int(11) DEFAULT NULL,
+  `volume` tinyint(4) NOT NULL DEFAULT 25,
+  `replay` tinyint(4) DEFAULT 0,
+  `location_id` int(11) DEFAULT NULL,
+  `location_action` int(11) DEFAULT NULL,
+  `location_data` int(11) DEFAULT NULL,
+  `light` int(11) NOT NULL DEFAULT 0,
+  `red` int(11) NOT NULL DEFAULT 0,
+  `green` int(11) NOT NULL DEFAULT 0,
+  `blue` int(11) NOT NULL DEFAULT 0,
+  `fade` float NOT NULL DEFAULT 1,
+  `scene` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `timer`
 --
 
@@ -326,6 +359,12 @@ ALTER TABLE `settings`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `timeline`
+--
+ALTER TABLE `timeline`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `timer`
 --
 ALTER TABLE `timer`
@@ -388,6 +427,12 @@ ALTER TABLE `scripts`
 --
 ALTER TABLE `settings`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `timeline`
+--
+ALTER TABLE `timeline`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `timer`
