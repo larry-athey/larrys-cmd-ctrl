@@ -45,7 +45,7 @@ while (true) {
           while ($Timeline = mysqli_fetch_assoc($Result3)) {
             // Add the frames to the timeline_queue table as formatted commands
             $Msg = formatCommand($DBcnx,$Timeline["ID"]);
-            $Insert = mysqli_query($DBcnx,"INSERT INTO timeline_queue (address,msg,creation) VALUES ('" . $Timeline["address"] . "','$Msg',NOW())");
+            if ($Msg != "") $Insert = mysqli_query($DBcnx,"INSERT INTO timeline_queue (address,msg,creation) VALUES ('" . $Timeline["address"] . "','$Msg',NOW())");
           }
         }
         // Increment the current timeline position
