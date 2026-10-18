@@ -40,7 +40,7 @@ _**DO NOT** use simple port forwarding from your router into the Mission Control
 ## Control Features
 
 ### Motor Control
-The LCC Slave module can control standard DC brushed motors using a PWM driven H bridge driver such as an L298N, or stepper motors such as a Nema 17 with a DRV8825 driver. _(You may actually use any driver you like.)_ Brushed motor control includes direction, speed, runtime, progression time to smooth out speed changes. If you're running a stepper motor, you choose direction, the number of steps, speed, and the driver resolution from whole steps up to 1/32 steps.
+The LCC Slave module can control standard DC brushed motors using a PWM driven H bridge driver such as an L298N, or stepper motors such as a Nema 17 with a DRV8825 driver. _(You may actually use any driver you like.)_ Brushed motor control includes direction, speed, runtime, and progression time to smooth out speed changes. If you're running a stepper motor, you have direction, the number of steps, speed, and the driver resolution from whole steps up to 1/32 steps.
 
 ### Position/Location Tracking
 In the case of mobile LCC Slaves such as those on a model train or conveyor bot, position and location detection is handled by way of IR LED transponders. These are basically an IR remote control transmitter that repeats the same number over and over. The LCC Slave phones home to Mission Control when these are detected to report its location and may perform actions based on the location.
