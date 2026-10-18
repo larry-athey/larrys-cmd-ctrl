@@ -286,6 +286,20 @@ CREATE TABLE `timeline` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `timeline_queue`
+--
+
+CREATE TABLE `timeline_queue` (
+  `ID` int(11) NOT NULL,
+  `address` varchar(17) DEFAULT NULL,
+  `msg` varchar(255) DEFAULT NULL,
+  `creation` timestamp NULL DEFAULT current_timestamp(),
+  `sent` tinyint(4) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `timer`
 --
 
@@ -365,6 +379,12 @@ ALTER TABLE `timeline`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `timeline_queue`
+--
+ALTER TABLE `timeline_queue`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `timer`
 --
 ALTER TABLE `timer`
@@ -432,6 +452,12 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `timeline`
 --
 ALTER TABLE `timeline`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `timeline_queue`
+--
+ALTER TABLE `timeline_queue`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
