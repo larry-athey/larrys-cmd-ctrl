@@ -122,7 +122,7 @@ if (isset($_GET["action"])) {
       case "delete": // Delete an existing command frame in the timeline
 
         break;
-      case "setrunning": // Set the running state the timeline script
+      case "setrunning": // Set the running state of the timeline script
 
         break;
       case "setstart": // Set the start point to start running the timeline script from (or rewind to zero)
