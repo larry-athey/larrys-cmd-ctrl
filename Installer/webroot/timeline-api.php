@@ -72,7 +72,7 @@ if (isset($_GET["action"])) {
         }
       }
       break;
-    case "status":
+    case "status": // ?action=status : Returns a JSON object containing various attributes for updating the display as a timeline script is running.
 
       break;
     default:
@@ -80,17 +80,17 @@ if (isset($_GET["action"])) {
   }
 } elseif (isset($_POST["action"])) {
   switch ($_POST["action"]) {
-    case "add":
+    case "add": // Add a new device frame to the timeline
       break;
-    case "update":
+    case "update": // Update an existing device frame in the timeline
       break;
-    case "delete":
+    case "delete": // Delete an existing device frame in the timeline
       break;
-    case "setstart":
+    case "setstart": // Set the start point to start running the timeline script from (or rewind to zero)
       break;
-    case "start":
+    case "start": // Start running the timeline script
       break;
-    case "stop":
+    case "stop": // Stop the timeline script
       break;
     default:
       // Do nothing, return $jsonFailure
