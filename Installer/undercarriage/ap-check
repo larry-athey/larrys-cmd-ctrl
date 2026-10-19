@@ -1,58 +1,8 @@
 #!/bin/bash
-# Run every 30–60 seconds via cron or a systemd timer
-# Show syslog entries for times that this action runs
-# journalctl | grep "LCC AP check"
 
-LOG_TAG="LCC AP check"
-INTERFACE="wlan0"
-MAX_FAILURES=2 # require consecutive failures before acting
-STATE_FILE="/tmp/ap_check_fail_count"
+arp | grep "192.168.4."
 
-fail_count=$(cat "$STATE_FILE" 2>/dev/null || echo 0)
-
-# 1. Basic health
-if ! systemctl is-active --quiet hostapd; then
-    logger -t "$LOG_TAG" "hostapd not active"
-    NEED_RESTART=1
-fi
-
-if ! ip link show "$INTERFACE" 2>/dev/null | grep -q "UP"; then
-    logger -t "$LOG_TAG" "$INTERFACE not UP"
-    NEED_RESTART=1
-fi
-
-# 2. hostapd itself thinks everything is fine?
-if ! hostapd_cli -i "$INTERFACE" status >/dev/null 2>&1; then
-    logger -t "$LOG_TAG" "hostapd_cli status failed"
-    NEED_RESTART=1
-fi
-
-# 3. Force a soft check that the driver is still talking
-if ! iw dev "$INTERFACE" info >/dev/null 2>&1; then
-    logger -t "$LOG_TAG" "iw failed – driver wedged"
-    NEED_RESTART=1
-fi
-
-# 4. Look for known bad messages in the last few minutes (adjust as needed)
-if dmesg -T | tail -n 200 | grep -qE "sprdwl_report_connection|sprdwl_change_beacon|sprdwl_cfg80211_start_ap failed|Failed to set beacon"; then
-    logger -t "$LOG_TAG" "bad sprdwl messages in dmesg"
-    NEED_RESTART=1
-fi
-
-if [[ -n "$NEED_RESTART" ]]; then
-    fail_count=$((fail_count + 1))
-    echo "$fail_count" > "$STATE_FILE"
-
-    if (( fail_count >= MAX_FAILURES )); then
-        logger -t "$LOG_TAG" "AP appears dead – reloading sprdwl_ng + restarting services"
-
-        # This is external so a person can manually force an AP restart if they need to
-        ./ap-restart
-
-        echo 0 > "$STATE_FILE"
-        logger -t "$LOG_TAG" "reload complete"
-    fi
-else
-    # healthy → reset counter
-    echo 0 > "$STATE_FILE"
+if [ ! $? -eq 0 ]; then
+  echo "Restarting AP"
+  ./ap-restart
 fi
