@@ -32,8 +32,8 @@ $Content = $jsonFailure;
 // - The length of MP3 files has no bearing on the timeline length, if a device is playing an
 //   MP3 and you send another /sound/ command to it, this will kill the current MP3 and start
 //   playing the next one. If you're doing a holiday decoration scene/show that you want to
-//   synchronize with lights or motorized items, you'll need to make a note of the length of
-//   the featured background sound track and work within that timeframe.
+//   synchronize with background music, you'll need to make a note of the length of the audio
+//   sound track and work within that timeframe.
 //
 // - Fade times on RGB LEDs work the same way as MP3 files. If you set one with a 30 second
 //   fade time and send another /light/ command within that 30 seconds, it will interrupt the
