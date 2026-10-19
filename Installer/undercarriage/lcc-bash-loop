@@ -11,9 +11,9 @@ while [ true ]; do
 
   LoopCounter=$((LoopCounter + 1))
 
-  if [ $LoopCounter -eq 6 ]; then
-    ./ap-check &
-  fi
+  #if [ $LoopCounter -eq 6 ]; then
+  #  ./ap-check &
+  #fi
 
   if [ $LoopCounter -eq 12 ]; then
     ./ap-check &
