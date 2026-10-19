@@ -80,6 +80,9 @@ function drawMenu($DBcnx) {
   $Content .=           "<a class=\"nav-link fw-bolder\" aria-current=\"page\" href=\"/index.php?page=schedule\">Schedule</a>";
   $Content .=         "</li>";
   $Content .=         "<li class=\"nav-item\">";
+  $Content .=           "<a class=\"nav-link fw-bolder\" aria-current=\"page\" href=\"/index.php?page=timeline\">Timeline</a>";
+  $Content .=         "</li>";
+  $Content .=         "<li class=\"nav-item\">";
   $Content .=           "<a class=\"nav-link fw-bolder\" aria-current=\"page\" href=\"/index.php?page=logs\">Log&nbsp;Viewer</a>";
   $Content .=         "</li>";
   $Content .=         "<li class=\"nav-item\">";
