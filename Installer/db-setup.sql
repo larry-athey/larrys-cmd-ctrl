@@ -307,9 +307,8 @@ CREATE TABLE `timeline_queue` (
 
 CREATE TABLE `timeline_status` (
   `ID` int(11) NOT NULL,
-  `current_script` varchar(255) NOT NULL DEFAULT 'Default',
+  `current_script` int(11) NOT NULL DEFAULT 0,
   `running` tinyint(4) NOT NULL DEFAULT 0,
-  `start_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `position` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
@@ -317,8 +316,8 @@ CREATE TABLE `timeline_status` (
 -- Dumping data for table `timeline_status`
 --
 
-INSERT INTO `timeline_status` (`ID`, `current_script`, `running`, `start_time`, `position`) VALUES
-(1, 'Default', 0, '2026-10-18 15:48:03', 0);
+INSERT INTO `timeline_status` (`ID`, `current_script`, `running`, `position`) VALUES
+(1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
