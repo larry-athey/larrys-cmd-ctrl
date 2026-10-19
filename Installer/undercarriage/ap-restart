@@ -1,0 +1,10 @@
+#!/bin/bash
+
+systemctl stop hostapd dnsmasq 2>/dev/null
+# Sometimes the module is busy; give it a moment
+sleep 1
+rmmod sprdwl_ng 2>/dev/null || true
+sleep 1
+modprobe sprdwl_ng
+sleep 2
+systemctl start hostapd dnsmasq
