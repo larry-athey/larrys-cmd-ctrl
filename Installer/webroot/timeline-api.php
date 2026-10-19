@@ -113,22 +113,19 @@ if (isset($_GET["action"])) {
 
   if ((is_array($json)) && (isset($json["action"]))) {
     switch ($json["action"]) {
-      case "add": // Add a new device frame to the timeline
+      case "add": // Add a new command frame to the timeline
 
         break;
-      case "update": // Update an existing device frame in the timeline
+      case "update": // Update an existing command frame in the timeline
 
         break;
-      case "delete": // Delete an existing device frame in the timeline
+      case "delete": // Delete an existing command frame in the timeline
+
+        break;
+      case "setrunning": // Set the running state the timeline script
 
         break;
       case "setstart": // Set the start point to start running the timeline script from (or rewind to zero)
-
-        break;
-      case "start": // Start running the timeline script
-
-        break;
-      case "stop": // Stop the timeline script
 
         break;
       default:
