@@ -105,25 +105,34 @@ if (isset($_GET["action"])) {
     default:
       // Do nothing, return $jsonFailure
   }
-} elseif (isset($_POST["action"])) {
-  switch ($_POST["action"]) {
-    case "add": // Add a new device frame to the timeline
-      break;
-    case "update": // Update an existing device frame in the timeline
-      break;
-    case "delete": // Delete an existing device frame in the timeline
-      break;
-    case "setstart": // Set the start point to start running the timeline script from (or rewind to zero)
-      break;
-    case "start": // Start running the timeline script
-      break;
-    case "stop": // Stop the timeline script
-      break;
-    default:
-      // Do nothing, return $jsonFailure
-  }
 } else {
-  // Do nothing, return $jsonFailure
+  $rawData = file_get_contents("php://input");
+  $json = json_decode($rawData,true);
+
+  if ((is_array($json)) && (isset($json["action"]))) {
+    switch ($json["action"]) {
+      case "add": // Add a new device frame to the timeline
+
+        break;
+      case "update": // Update an existing device frame in the timeline
+
+        break;
+      case "delete": // Delete an existing device frame in the timeline
+
+        break;
+      case "setstart": // Set the start point to start running the timeline script from (or rewind to zero)
+
+        break;
+      case "start": // Start running the timeline script
+
+        break;
+      case "stop": // Stop the timeline script
+
+        break;
+      default:
+        // Do nothing, return $jsonFailure
+    }
+  }
 }
 
 if ($Content == $jsonFailure) http_response_code(500);
