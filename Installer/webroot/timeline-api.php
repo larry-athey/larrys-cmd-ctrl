@@ -62,18 +62,45 @@ if (isset($_GET["action"])) {
             }
             break;
           case "frames": // ?action=list&type=frames&address=00-11-22-33-44-55-66 : Returns all timeline frames for the device specified by address
-
+            if (isset($_GET["address"])) {
+              $Result = mysqli_query($DBcnx,"SELECT * FROM timeline WHERE address='" . $_GET["address"] . "' ORDER BY position");
+              if (mysqli_num_rows($Result) > 0) {
+                while ($Frame = mysqli_fetch_assoc($Result)) {
+                  $Frames[] = $Frame;
+                }
+                $Content = json_encode($Frames);
+              } else {
+                http_response_code(500);
+                $Content = json_encode(["success" => false,"error" => "Database query failed"]);
+              }
+            }
             break;
           case "getframe": // ?action=list&type=getframe&id=12345 : Returns a specific frame from the timeline by its table ID number
-
+            if (isset($_GET["id"])) {
+              $Result = mysqli_query($DBcnx,"SELECT * FROM timeline WHERE ID=" . $_GET["id"]);
+              if (mysqli_num_rows($Result) > 0) {
+                $Frame = mysqli_fetch_assoc($Result);
+                $Content = json_encode($Frame);
+              } else {
+                http_response_code(500);
+                $Content = json_encode(["success" => false,"error" => "Database query failed"]);
+              }
+            }
             break;
           default:
             // Do nothing, return $jsonFailure
         }
       }
       break;
-    case "status": // ?action=status : Returns a JSON object containing various attributes for updating the display as a timeline script is running.
-
+    case "status": // ?action=status : Returns the timeline_status table (single row) used for updating the display as a timeline script is running.
+      $Result = mysqli_query($DBcnx,"SELECT * FROM timeline_status WHERE ID=1");
+      if (mysqli_num_rows($Result) > 0) {
+        $Status = mysqli_fetch_assoc($Result);
+        $Content = json_encode($Status);
+      } else {
+        http_response_code(500);
+        $Content = json_encode(["success" => false,"error" => "Database query failed"]);
+      }
       break;
     default:
       // Do nothing, return $jsonFailure
