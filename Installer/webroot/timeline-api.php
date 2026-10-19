@@ -10,33 +10,35 @@ $Content = $jsonFailure;
 
 // Points to keep in mind.
 //
+// - There is no timeline length to set, the length is just determined by the position of the
+//   last frame that you insert. In all honesty, when plotting the timeline in a piano roll
+//   view, each frame only needs to be 1 second in length. This is because the back end only
+//   progresses through the timeline one second at a time and commands don't have a length.
+//
 // - While the timeline is considered to be 10 FPS, LCC slaves don't feature this level of
 //   precision. They just execute commands in sequence and can store up to 16 in their cache.
 //   The 10 FPS thing is just there to make timeline editing easier. It's easier to modify
 //   10 back-to-back commands if they aren't stacked right on top of each other. It's OK to
 //   have two commands at the same time on different devices, but they should be separated
-//   by 100ms if they're on the same device. (just a suggestion, users will thank you)
-//
-// - Any time that you create a new frame in the timeline, you need to use the database ID
-//   number zero to tell the API that this is a new record. Otherwise, creating a new record
-//   is no different than editing an existing record.
+//   by 100ms if they're on the same device. (just a suggestion, your users will thank you)
 //
 // - The only commands that pre-empt other commands from executing are specific motor control
 //   commands. If you are using a brushed motor and set a non-zero progression time, nothing
 //   else will execute until the motor has reached its target speed. The same rule applies to
 //   stepper motors, but the rule is that nothing else happens until the stepper has reached
-//   its target position (steps).
+//   its target position (steps). Keep this in mind when sending back-to-back commands to a
+//   device and adjust the order as necessary.
 //
-// - The length of MP3 files has no bearing on the timeline, if one MP3 is playing and you
-//   send another /sound/ command, it will kill the current MP3 and start playing the other.
-//   If you're doing a holiday decoration scene that you want to synchronize with lights or
-//   motorized items, you need to make a note of the length of the featured music track and
-//   work within that timeframe.
+// - The length of MP3 files has no bearing on the timeline length, if a device is playing an
+//   MP3 and you send another /sound/ command to it, this will kill the current MP3 and start
+//   playing the next one. If you're doing a holiday decoration scene/show that you want to
+//   synchronize with lights or motorized items, you'll need to make a note of the length of
+//   the featured background sound track and work within that timeframe.
 //
 // - Fade times on RGB LEDs work the same way as MP3 files. If you set one with a 30 second
-//   fade time and send another command within that 30 seconds, it will interrupt that fade.
-//   The smarter choice here would be to create an LedBasic scene to automate complex fades
-//   and other lighting effects, then send that scene at a specific time instead.
+//   fade time and send another /light/ command within that 30 seconds, it will interrupt the
+//   fade. The smarter choice here would be to create an LedBasic scene to automate complex
+//   fades and other lighting effects, then send that scene at a specific time instead.
 //
 // - Remember that device type 2 (stepper motor controllers) do not have sound effects and
 //   RGB LED capabilities, so you'll need to adjust your command editor forms accordingly.
