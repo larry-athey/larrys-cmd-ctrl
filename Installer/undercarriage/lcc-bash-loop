@@ -10,7 +10,13 @@ while [ true ]; do
   ./logic-processor.php
 
   LoopCounter=$((LoopCounter + 1))
+
+  if [ $LoopCounter -eq 6 ]; then
+    ./ap-check &
+  fi
+
   if [ $LoopCounter -eq 12 ]; then
+    ./ap-check &
     ./scheduler.php
     LoopCounter=0
   fi
