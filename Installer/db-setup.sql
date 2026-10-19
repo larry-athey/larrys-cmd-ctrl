@@ -302,6 +302,18 @@ CREATE TABLE `timeline_queue` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `timeline_scripts`
+--
+
+CREATE TABLE `timeline_scripts` (
+  `ID` int(11) NOT NULL,
+  `script_name` varchar(255) DEFAULT NULL,
+  `script_sql` mediumtext DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `timeline_status`
 --
 
@@ -407,6 +419,12 @@ ALTER TABLE `timeline_queue`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `timeline_scripts`
+--
+ALTER TABLE `timeline_scripts`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `timeline_status`
 --
 ALTER TABLE `timeline_status`
@@ -486,6 +504,12 @@ ALTER TABLE `timeline`
 -- AUTO_INCREMENT for table `timeline_queue`
 --
 ALTER TABLE `timeline_queue`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `timeline_scripts`
+--
+ALTER TABLE `timeline_scripts`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
