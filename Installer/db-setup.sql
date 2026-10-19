@@ -308,6 +308,7 @@ CREATE TABLE `timeline_queue` (
 CREATE TABLE `timeline_scripts` (
   `ID` int(11) NOT NULL,
   `script_name` varchar(255) DEFAULT NULL,
+  `last_update` timestamp NULL DEFAULT NULL,
   `script_sql` mediumtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
