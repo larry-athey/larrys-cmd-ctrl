@@ -13,8 +13,11 @@ $Result = mysqli_query($DBcnx,"OPTIMIZE TABLE devices");
 $Result = mysqli_query($DBcnx,"OPTIMIZE TABLE inbound");
 $Result = mysqli_query($DBcnx,"OPTIMIZE TABLE locations");
 $Result = mysqli_query($DBcnx,"OPTIMIZE TABLE outbound");
+$Result = mysqli_query($DBcnx,"OPTIMIZE TABLE scenes")
 $Result = mysqli_query($DBcnx,"OPTIMIZE TABLE schedule");
 $Result = mysqli_query($DBcnx,"OPTIMIZE TABLE scripts");
+$Result = mysqli_query($DBcnx,"OPTIMIZE TABLE timeline")
+$Result = mysqli_query($DBcnx,"OPTIMIZE TABLE timeline_scripts")
 $Result = mysqli_query($DBcnx,"OPTIMIZE TABLE timer");
 //---------------------------------------------------------------------------------------------
 mysqli_close($DBcnx);

@@ -34,28 +34,22 @@ while (true) {
   $Result = mysqli_query($DBcnx,"SELECT * FROM timeline_status WHERE ID=1");
   $Status = mysqli_fetch_assoc($Result);
   if ($Status["running"] == 1) {
-    // Check to see if there are any remaining frames in the timeline to process
+    // Get the last command in the timeline
     $Result2 = mysqli_query($DBcnx,"SELECT * FROM timeline ORDER BY position DESC LIMIT 1");
-    if (mysqli_num_rows($Result) > 0) {
-      $Test = mysqli_fetch_assoc($Result2);
-      if ($Test["position"] > $Status["position"]) {
-        // Process any timeline frames that match the current position up to 9/10 of a second (900 ms) in the future
-        $Result3 = mysqli_query($DBcnx,"SELECT * FROM timeline WHERE (position >= " . $Status["position"] . ") AND (position <= " . $Status["position"] + 900 . ")");
-        if (mysqli_num_rows($Result3) > 0) {
-          while ($Timeline = mysqli_fetch_assoc($Result3)) {
-            // Add the frames to the timeline_queue table as formatted commands
-            $Msg = formatCommand($DBcnx,$Timeline["ID"]);
-            if ($Msg != "") $Insert = mysqli_query($DBcnx,"INSERT INTO timeline_queue (address,msg,creation) VALUES ('" . $Timeline["address"] . "','$Msg',NOW())");
-          }
-        }
-        // Increment the current timeline position
-        $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET position=(position + 1) WHERE ID=1");
-      } else {
-        // Nothing to do, stop the timeline run
-        $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET running=0 WHERE ID=1");
+    $LastCmd = mysqli_fetch_assoc($Result2);
+    // Process any timeline frames that match the current position up to 9/10 of a second in the future
+    $Result3 = mysqli_query($DBcnx,"SELECT * FROM timeline WHERE (position >= " . $Status["position"] . ") AND (position <= " . $Status["position"] + 0.9 . ") ORDER BY position");
+    if (mysqli_num_rows($Result3) > 0) {
+      while ($Timeline = mysqli_fetch_assoc($Result3)) {
+        // Add the frames to the timeline_queue table as formatted commands
+        $Msg = formatCommand($DBcnx,$Timeline["ID"]);
+        if ($Msg != "") $Insert = mysqli_query($DBcnx,"INSERT INTO timeline_queue (address,msg,creation) VALUES ('" . $Timeline["address"] . "','$Msg',NOW())");
       }
-    } else {
-      // Nothing to do, stop the timeline run
+    }
+    // Increment the current timeline position by one second
+    $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET position=(position + 1) WHERE ID=1");
+    if (($Status["position"] + 1) > $LastCmd["position"]) {
+      // Nothing left to do, stop the timeline run
       $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET running=0 WHERE ID=1");
     }
   }

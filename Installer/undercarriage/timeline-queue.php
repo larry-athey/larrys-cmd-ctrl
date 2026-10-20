@@ -9,16 +9,14 @@ while (true) {
   $startTime = microtime(true);
   $Result = mysqli_query($DBcnx,"SELECT * FROM timeline_status WHERE ID=1");
   $Status = mysqli_fetch_assoc($Result);
-  if ($Status["running"] == 1) {
-    // Process all waiting outbound messages
-    $Result = mysqli_query($DBcnx,"SELECT * FROM timeline_queue WHERE sent=0");
-    if (mysqli_num_rows($Result) > 0) {
-      while ($Msg = mysqli_fetch_assoc($Result)) {
-        $Response = sendCommand($DBcnx,$Msg["address"],$Msg["msg"]);
-        $Update = mysqli_query($DBcnx,"UPDATE devices SET status='$Response' WHERE address=" . $Msg["address"]);
-        $Update = mysqli_query($DBcnx,"UPDATE timeline_queue SET sent=1 WHERE ID=" . $Msg["ID"]);
-        usleep(5000); // Give back some CPU time between command transmissions
-      }
+  $Result = mysqli_query($DBcnx,"SELECT * FROM timeline_queue WHERE sent=0");
+  // Process any waiting outbound messages
+  if (mysqli_num_rows($Result) > 0) {
+    while ($Msg = mysqli_fetch_assoc($Result)) {
+      $Response = sendCommand($DBcnx,$Msg["address"],$Msg["msg"]);
+      $Update = mysqli_query($DBcnx,"UPDATE devices SET status='$Response' WHERE address='" . $Msg["address"] . "'");
+      $Update = mysqli_query($DBcnx,"UPDATE timeline_queue SET sent=1 WHERE ID=" . $Msg["ID"]);
+      usleep(5000); // Give back some CPU time between command transmissions
     }
   }
   $endTime = microtime(true);

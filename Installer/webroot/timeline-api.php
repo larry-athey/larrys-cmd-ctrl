@@ -247,6 +247,10 @@ if (isset($_GET["action"])) {
         break;
       case "setrunning": // Set the running state of the timeline script (requires $json["action"] and $json["running"])
         if ((isset($json["running"])) && (is_numeric($json["running"])) && ($json["running"] >= 0) && ($json["running"] <= 1)) {
+          if ($json["running"] == 1) {
+            // Purge the timeline_queue table when starting a run
+            $Update = mysqli_query($DBcnx,"TRUNCATE timeline_queue");
+          }
           $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET running=" . $json["running"] . " WHERE ID=1");
           $Content = $jsonSuccess;
         }

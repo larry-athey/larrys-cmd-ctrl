@@ -98,8 +98,12 @@ if (! isset($_GET["page"])) $_GET["page"] = "home";
 
 echo(drawMenu($DBcnx) . "\n");
 
-$Content = "<div class=\"container-fluid d-flex flex-column flex-grow-1 p-0 overflow-hidden\" style=\"min-height: 0;\">";
-if ($_GET["page"] != "timeline") $Content .= "<div class=\"row\" style=\"margin-left: 0.1em; margin-top: 0.5em;\">";
+if ($_GET["page"] == "timeline") {
+  $Content = "<div class=\"container-fluid d-flex flex-column flex-grow-1 p-0 overflow-hidden\" style=\"min-height: 0;\">";
+} else {
+  $Content  = "<div class=\"container-fluid\" style=\"min-height: 0;\">";
+  $Content .= "<div class=\"row\" style=\"margin-top: 0.5em;\">";
+}
 
 if ($_GET["page"] == "home") {
   $Content .= showHomePage($DBcnx);
