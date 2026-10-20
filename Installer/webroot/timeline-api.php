@@ -45,8 +45,36 @@ $DBcnx = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 //   send a motor command to it and cause a delay in its GPIO switching.
 //
 //---------------------------------------------------------------------------------------------
-function validateFrame($json) {
-  // Got interrupted by my 9-to-5
+function validateFrame($DBcnx,$json) {
+  if ((! isset($json["id"])) || (! is_numeric($json["id"]))) return false;
+  if ((! isset($json["cmd_name"])) || (strlen($json["cmd_name"]) == 0)) return false;
+  if ((! isset($json["address"])) || (strlen($json["address"]) != 17)) return false;
+  if ((! isset($json["position"])) || (! is_numeric($json["position"]))) return false;
+  if ((! isset($json["cmd_type"])) || (! is_numeric($json["cmd_type"]))) return false;
+  if ((! isset($json["gpio_pin"])) || (! is_numeric($json["gpio_pin"]))) return false;
+  if ((! isset($json["direction"])) || (! is_numeric($json["direction"]))) return false;
+  if ((! isset($json["speed"])) || (! is_numeric($json["speed"]))) return false;
+  if ((! isset($json["duration"])) || (! is_numeric($json["duration"]))) return false;
+  if ((! isset($json["progression"])) || (! is_numeric($json["progression"]))) return false;
+  if ((! isset($json["steps"])) || (! is_numeric($json["steps"]))) return false;
+  if ((! isset($json["resolution"])) || (! is_numeric($json["resolution"]))) return false;
+  if ((! isset($json["sound"])) || (! is_numeric($json["sound"]))) return false;
+  if ((! isset($json["volume"])) || (! is_numeric($json["volume"]))) return false;
+  if ((! isset($json["replay"])) || (! is_numeric($json["replay"]))) return false;
+  if ((! isset($json["location_id"])) || (! is_numeric($json["location_id"]))) return false;
+  if ((! isset($json["location_action"])) || (! is_numeric($json["location_action"]))) return false;
+  if ((! isset($json["location_data"])) || (! is_numeric($json["location_data"]))) return false;
+  if ((! isset($json["light"])) || (! is_numeric($json["light"]))) return false;
+  if ((! isset($json["red"])) || (! is_numeric($json["red"]))) return false;
+  if ((! isset($json["green"])) || (! is_numeric($json["green"]))) return false;
+  if ((! isset($json["blue"])) || (! is_numeric($json["blue"]))) return false;
+  if ((! isset($json["fade"])) || (! is_numeric($json["fade"]))) return false;
+  if ((! isset($json["scene"])) || (! is_numeric($json["scene"]))) return false;
+  if ($json["id"] > 0) {
+    $Result = mysqli_query($DBcnx,"SELECT * FROM timeline WHERE ID=" . $json["id"]);
+    if (mysqli_num_rows($Result) == 0) return false;
+  }
+  return true;
 }
 //---------------------------------------------------------------------------------------------
 function saveFrame($DBcnx,$json) {
@@ -130,7 +158,7 @@ if (isset($_GET["action"])) {
   if ((is_array($json)) && (isset($json["action"]))) {
     switch ($json["action"]) {
       case "add": // Add a new command frame to the timeline (requires $json["action"] and every field of the "timeline" database table, $json["id"] must be zero)
-        if (validateFrame($json)) {
+        if (validateFrame($DBcnx,$json)) {
           $Result = mysqli_query($DBcnx,"INSERT INTO timeline (cmd_name) VALUES ('Temp')");
           $json["id"] = mysqli_insert_id($DBcnx);
           if (saveFrame($DBcnx,$json)) {
@@ -142,7 +170,7 @@ if (isset($_GET["action"])) {
         }
         break;
       case "update": // Update an existing command frame in the timeline (requires $json["action"] and every field of the "timeline" database table)
-        if (validateFrame($json)) {
+        if (validateFrame($DBcnx,$json)) {
           if (saveFrame($DBcnx,$json)) {
             $Content = $jsonSuccess;
           } else {
