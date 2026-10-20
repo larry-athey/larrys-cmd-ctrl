@@ -156,6 +156,31 @@ if (isset($_GET["action"])) {
               }
             }
             break;
+          case "locations": // ?action=list&type=locations : Returns the contents of the "locations" table
+            $Result = mysqli_query($DBcnx,"SELECT * FROM locations ORDER BY loc_name");
+            if (mysqli_num_rows($Result) > 0) {
+              while ($Loc = mysqli_fetch_assoc($Result)) {
+                $List[] = $Loc;
+              }
+              $Content = json_encode($List);
+            } else {
+              http_response_code(500);
+              $Content = json_encode(["success" => false,"error" => "Database query failed"]);
+            }
+            break;
+          case "scenes": // ?action=list&type=scenes : Returns the contents of the "scenes" table (minus the "source" column to reduce data size)
+            $Result = mysqli_query($DBcnx,"SELECT * FROM scenes ORDER BY scn_name");
+            if (mysqli_num_rows($Result) > 0) {
+              while ($Scene = mysqli_fetch_assoc($Result)) {
+                unset($Scene["source"]);
+                $List[] = $Scene;
+              }
+              $Content = json_encode($List);
+            } else {
+              http_response_code(500);
+              $Content = json_encode(["success" => false,"error" => "Database query failed"]);
+            }
+            break;
           default:
             // Do nothing, return $jsonFailure
         }
