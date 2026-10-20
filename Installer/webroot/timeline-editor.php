@@ -106,7 +106,7 @@
             <select class="form-select fw-bolder" id="f-address" required></select>
           </div>
           <div class="mb-2">
-            <label class="form-label fw-bolder">Position (seconds)</label>
+            <label class="form-label fw-bolder">Timeline Position (seconds)</label>
             <input type="number" class="form-control fw-bolder" id="f-position" min="0" step="0.1" value="0" required>
           </div>
           <div class="mb-2">
@@ -118,11 +118,11 @@
           <div class="cmd-section" data-type="1">
             <div class="mb-2"><label class="form-label fw-bolder">Direction</label>
               <select class="form-select" id="f-direction"><option value="1">Forward</option><option value="0">Reverse</option></select></div>
-            <div class="mb-2"><label class="form-label fw-bolder">Speed [0..100]</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Speed [0..100] Percent</label>
               <input type="number" class="form-control" id="f-speed" min="0" max="100" value="50"></div>
-            <div class="mb-2"><label class="form-label fw-bolder">Progression (s)</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Progress Time (seconds)</label>
               <input type="number" class="form-control" id="f-progression" min="0" value="0"></div>
-            <div class="mb-2"><label class="form-label fw-bolder">Duration (s, 0=indefinite)</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Run Duration (seconds, 0=indefinite)</label>
               <input type="number" class="form-control" id="f-duration" min="0" value="0"></div>
           </div>
 
