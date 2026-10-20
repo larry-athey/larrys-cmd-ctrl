@@ -4,8 +4,6 @@ require_once("/var/www/html/subs.php");
 //---------------------------------------------------------------------------------------------
 $DBcnx = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 //---------------------------------------------------------------------------------------------
-$Content = $jsonFailure;
-
 // Handle API calls, hope you stocked up on ibruprophen...
 
 // Points to keep in mind.
@@ -48,13 +46,15 @@ $Content = $jsonFailure;
 //
 //---------------------------------------------------------------------------------------------
 function validateFrame($json) {
-
+  // Got interrupted by my 9-to-5
 }
 //---------------------------------------------------------------------------------------------
 function saveFrame($DBcnx,$json) {
-
+  // Got interrupted by my 9-to-5
 }
 //---------------------------------------------------------------------------------------------
+$Content = $jsonFailure;
+
 if (isset($_GET["action"])) {
   switch ($_GET["action"]) {
     case "list": // ?action=list : Generates JSON arrays from specific MySQL queries
@@ -129,7 +129,7 @@ if (isset($_GET["action"])) {
 
   if ((is_array($json)) && (isset($json["action"]))) {
     switch ($json["action"]) {
-      case "add": // Add a new command frame to the timeline
+      case "add": // Add a new command frame to the timeline (requires $json["action"] and every field of the "timeline" database table, $json["id"] must be zero)
         if (validateFrame($json)) {
           $Result = mysqli_query($DBcnx,"INSERT INTO timeline (cmd_name) VALUES ('Temp')");
           $json["id"] = mysqli_insert_id($DBcnx);
@@ -141,7 +141,7 @@ if (isset($_GET["action"])) {
           }
         }
         break;
-      case "update": // Update an existing command frame in the timeline
+      case "update": // Update an existing command frame in the timeline (requires $json["action"] and every field of the "timeline" database table)
         if (validateFrame($json)) {
           if (saveFrame($DBcnx,$json)) {
             $Content = $jsonSuccess;
@@ -151,7 +151,7 @@ if (isset($_GET["action"])) {
           }
         }
         break;
-      case "delete": // Delete an existing command frame in the timeline
+      case "delete": // Delete an existing command frame in the timeline (requires $json["action"] and $json["id"])
         if ((isset($json["id"])) && (is_numeric($json["id"]))) {
           $Update = mysqli_query($DBcnx,"DELETE FROM timeline WHERE ID=" . $json["id"]);
           if ($Update === false) {
@@ -162,13 +162,13 @@ if (isset($_GET["action"])) {
           }
         }
         break;
-      case "setrunning": // Set the running state of the timeline script
+      case "setrunning": // Set the running state of the timeline script (requires $json["action"] and $json["running"])
         if ((isset($json["running"])) && (is_numeric($json["running"])) && ($json["running"] >= 0) && ($json["running"] <= 1)) {
           $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET running=" . $json["running"] . " WHERE ID=1");
           $Content = $jsonSuccess;
         }
         break;
-      case "setposition": // Set the position to start running the timeline script from (or set to zero to rewind)
+      case "setposition": // Set the position to start running the timeline script from (requires $json["action"] and $json["position"])
         if ((isset($json["position"])) && (is_numeric($json["position"])) && ($json["position"] >= 0)) {
           $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET position=" . $json["position"] . " WHERE ID=1");
           $Content = $jsonSuccess;
