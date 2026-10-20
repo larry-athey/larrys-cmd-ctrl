@@ -79,8 +79,8 @@ function validateFrame($DBcnx,$json) {
 //---------------------------------------------------------------------------------------------
 function saveFrame($DBcnx,$json) {
   $Query = "UPDATE timeline SET " .
-           "cmd_name='" . mysqli_escape_string($DBcnx,json["cmd_name"]) . "'," .
-           "address='" . mysqli_escape_string($DBcnx,json["address"]) . "'," .
+           "cmd_name='" . mysqli_escape_string($DBcnx,$json["cmd_name"]) . "'," .
+           "address='" . mysqli_escape_string($DBcnx,$json["address"]) . "'," .
            "position=" . $json["position"] . "," .
            "cmd_type=" . $json["cmd_type"] . "," .
            "gpio_pin=" . $json["gpio_pin"] . "," .
