@@ -68,7 +68,7 @@
     <div class="vr mx-2"></div>
     <button id="btn-add" class="btn btn-primary btn-sm fw-bolder">+ Add Frame</button>
     <button id="btn-refresh" class="btn btn-outline-light btn-sm">↻ Refresh</button>
-    <span class="ms-auto text-muted small" id="script-name">Unsaved Script</span>
+    <span class="ms-auto text-muted small" id="script-name">Unnamed Script</span>
   </div>
 
   <div id="main">
@@ -514,6 +514,12 @@
         $('#frameModal').modal('hide');
         loadAllFrames();
         $('#status-text').text('Frame saved');
+
+        apiGet({action:'status'}).then(st => {
+          if (st) {
+            $('#script-name').text(st.current_script || 'Unnamed Script');
+          }
+        });
       } else {
         alert('Save failed – check validation / server logs');
       }
@@ -555,7 +561,7 @@
         if (!st) return;
         currentPos = +st.position || 0;
         isRunning = +st.running === 1;
-        $('#script-name').text(st.current_script || 'Unsaved Script');
+        $('#script-name').text(st.current_script || 'Unnamed Script');
         updatePlayhead();
         if (!isRunning) {
           $('#btn-play').prop('disabled', false);
@@ -594,7 +600,7 @@
         if (st) {
           currentPos = +st.position || 0;
           isRunning = +st.running === 1;
-          $('#script-name').text(st.current_script || 'Unsaved Script');
+          $('#script-name').text(st.current_script || 'Unnameded Script');
           updatePlayhead();
           if (isRunning) startPolling();
         }
