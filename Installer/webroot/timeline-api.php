@@ -45,7 +45,16 @@ $Content = $jsonFailure;
 //   All other 3 device types are the same at the electronic level but switching controller
 //   devices simply don't have any motor control capability in Mission Control so you can't
 //   send a motor command to it and cause a delay in its GPIO switching.
+//
+//---------------------------------------------------------------------------------------------
+function validateFrame($json) {
 
+}
+//---------------------------------------------------------------------------------------------
+function saveFrame($DBcnx,$json) {
+
+}
+//---------------------------------------------------------------------------------------------
 if (isset($_GET["action"])) {
   switch ($_GET["action"]) {
     case "list": // ?action=list : Generates JSON arrays from specific MySQL queries
@@ -121,10 +130,26 @@ if (isset($_GET["action"])) {
   if ((is_array($json)) && (isset($json["action"]))) {
     switch ($json["action"]) {
       case "add": // Add a new command frame to the timeline
-
+        if (validateFrame($json)) {
+          $Result = mysqli_query($DBcnx,"INSERT INTO timeline (cmd_name) VALUES ('Temp')");
+          $json["id"] = mysqli_insert_id($DBcnx);
+          if (saveFrame($DBcnx,$json)) {
+            $Content = $jsonSuccess;
+          } else {
+            http_response_code(500);
+            $Content = json_encode(["success" => false,"error" => "Database query failed"]);
+          }
+        }
         break;
       case "update": // Update an existing command frame in the timeline
-
+        if (validateFrame($json)) {
+          if (saveFrame($DBcnx,$json)) {
+            $Content = $jsonSuccess;
+          } else {
+            http_response_code(500);
+            $Content = json_encode(["success" => false,"error" => "Database query failed"]);
+          }
+        }
         break;
       case "delete": // Delete an existing command frame in the timeline
         if ((isset($json["id"])) && (is_numeric($json["id"]))) {
