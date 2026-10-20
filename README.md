@@ -32,12 +32,13 @@ _**DO NOT** use simple port forwarding from your router into the Mission Control
 - Antenna and solar panel positioning
 - Conveyor and gate automation
 - Irrigation system automation
-- Seasonal decoration automation ☀
+- Seasonal decoration automation
 - Model railroad automation
 
-☀ _Currently developing a linear timeline editor for creating precision timed performances, necessary for elaborate holiday decoration setups. This will be included here once I feel that it is ready, but this is a seriously tedious process since it's a Javascript app that runs 100% in the web browser and talks to the Mission Control server using API calls._
-
 ## Control Features
+
+### Automation Timeline Editor
+LCC Mission Control features an automation timeline editor that works like a multi-track DAW or video editor which allows you to create precisely timed automation sequences, and it's just downright simple to use!
 
 ### Motor Control
 The LCC Slave module can control standard DC brushed motors using a PWM driven H bridge driver such as an L298N, or stepper motors such as a Nema 17 with a DRV8825 driver. _(You may actually use any driver you like.)_ Brushed motor control includes direction, speed, runtime, and progression time to smooth out speed changes. If you're running a stepper motor, you have direction, the number of steps, speed, and the driver resolution from whole steps up to 1/32 steps.
@@ -58,7 +59,7 @@ Sound files (.mp3) can be stored on an SD card and played back as needed. These 
 Neopixel/WS2812 addressable LEDs can be controlled at the individual fixture/LED level or the entire network can change color at the same time. Individual fixtures support color changes have an adjustable fade time from 0 to 30 seconds. If you use long chains of LEDs (up to 65535) you may also script complex animated scenes using the built-in BASIC programming language.
 
 ### Scheduling
-The LCC Mission Control server can schedule scripts to run at specific times on specific days. However, in the case of single board computers such as the Raspberry Pi _(or clones)_ this requires the addition of a real time clock module to be added if the Mission Control server is isolated from the internet.
+The LCC Mission Control server can schedule command scripts and automation timelines to run at specific times on specific days. However, in the case of single board computers such as the Raspberry Pi _(or clones)_ this requires the addition of a real time clock module to be added if the Mission Control server is isolated from the internet.
 
 ### Scripting
 LCC remote control commands and scripts are completely open ended and are easy to create. Scripts can contain up to 16 sequential commands that are stored in the LCC Slave's cache and run as a single shot or may run repeatedly. Scripts can also call another script at the end of its run, which means you can actually string an endless number of commands together or create an endless loop between two scripts.
