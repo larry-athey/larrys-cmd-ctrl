@@ -78,7 +78,37 @@ function validateFrame($DBcnx,$json) {
 }
 //---------------------------------------------------------------------------------------------
 function saveFrame($DBcnx,$json) {
-  // Got interrupted by my 9-to-5
+  $Query = "UPDATE timeline SET " .
+           "cmd_name='" . mysqli_escape_string($DBcnx,json["cmd_name"]) . "'," .
+           "address='" . mysqli_escape_string($DBcnx,json["address"]) . "'," .
+           "position=" . $json["position"] . "," .
+           "cmd_type=" . $json["cmd_type"] . "," .
+           "gpio_pin=" . $json["gpio_pin"] . "," .
+           "direction=" . $json["direction"] . "," .
+           "speed=" . $json["speed"] . "," .
+           "duration=" . $json["duration"] . "," .
+           "progression=" . $json["progression"] . "," .
+           "steps=" . $json["steps"] . "," .
+           "resolution=" . $json["resolution"] . "," .
+           "sound=" . $json["sound"] . "," .
+           "volume=" . $json["volume"] . "," .
+           "replay=" . $json["replay"] . "," .
+           "location_id=" . $json["location_id"] . "," .
+           "location_action=" . $json["location_action"] . "," .
+           "location_data=" . $json["location_data"] . "," .
+           "light=" . $json["light"] . "," .
+           "red=" . $json["red"] . "," .
+           "green=" . $json["green"] . "," .
+           "blue=" . $json["blue"] . "," .
+           "fade=" . $json["fade"] . "," .
+           "scene=" . $json["scene"] . " WHERE ID=" . $json["id"];
+
+  $Result = mysqli_query($DBcnx,$Query);
+  if ($Result === false) {
+    return false;
+  } else {
+    return true;
+  }
 }
 //---------------------------------------------------------------------------------------------
 $Content = $jsonFailure;
