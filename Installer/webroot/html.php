@@ -1007,4 +1007,22 @@ function showScripts($DBcnx) {
   return $Content;
 }
 //---------------------------------------------------------------------------------------------------
+function showTimeline($DBcnx) {
+  $Content = "";
+
+  $Content .= "<div class=\"row g-0\">";
+  $Content .=   "<div class=\"col p-2 border-bottom\">";
+  $Content .=      "(Button Row)";
+  $Content .=   "</div>";
+  $Content .= "</div>";
+
+  $Content .= "<div class=\"row g-0 flex-grow-1\">";
+  $Content .=   "<div class=\"col h-100\">";
+  $Content .=     "<iframe class=\"w-100 h-100\" src=\"timeline-editor.php\" title=\"Timeline Editor\"></iframe>";
+  $Content .=   "</div>";
+  $Content .= "</div>";
+
+  return $Content;
+}
+//---------------------------------------------------------------------------------------------------
 ?>
