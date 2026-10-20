@@ -2,6 +2,9 @@
 
 cd /usr/share/lcc
 
+./timeline-run.php &
+./timeline-queue.php &
+
 LoopCounter=0
 
 while [ true ]; do
