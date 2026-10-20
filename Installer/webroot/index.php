@@ -4,7 +4,7 @@ require_once("html.php");
 //---------------------------------------------------------------------------------------------------
 ?>
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="dark" class="h-100">
 <head>
   <title>LCC Mission Control v<?= VERSION ?></title>
   <meta charset="UTF-8">
@@ -75,63 +75,73 @@ require_once("html.php");
       outline: none;
     }
 
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    /* optional safety */
+    .container-fluid.flex-grow-1 {
+      min-height: 0;   /* allows the flex child to shrink properly */
+    }
+
     iframe {
       border: 0;
     }
   </style>
 </head>
-<body class="h-100">
+<body class="d-flex flex-column h-100">
 <?php
 $DBcnx = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 
+if (! isset($_GET["page"])) $_GET["page"] = "home";
+
 echo(drawMenu($DBcnx) . "\n");
 
-$Content  = "<div class=\"container-fluid\" style=\"align: left; margin-top: 0.5em;\">";
-$Content .=   "<div class=\"row\">";
+$Content = "<div class=\"container-fluid d-flex flex-column flex-grow-1 p-0 overflow-hidden\" style=\"min-height: 0;\">";
+if ($_GET["page"] != "timeline") $Content .= "<div class=\"row\" style=\"margin-left: 0.1em; margin-top: 0.5em;\">";
 
-if (! isset($_GET["page"])) {
+if ($_GET["page"] == "home") {
   $Content .= showHomePage($DBcnx);
-} else {
-  if ($_GET["page"] == "commands") {
-    $Content .= showCommands($DBcnx);
-  } elseif ($_GET["page"] == "delete_confirm") {
-    $Content .= deleteConfirm($DBcnx);
-  } elseif ($_GET["page"] == "devices") {
-    $Content .= showDevices($DBcnx);
-  } elseif ($_GET["page"] == "edit_command") {
-    $Content .= editCommand($DBcnx);
-  } elseif ($_GET["page"] == "edit_device") {
-    $Content .= editDevice($DBcnx);
-  } elseif ($_GET["page"] == "edit_location") {
-    $Content .= editLocation($DBcnx);
-  } elseif ($_GET["page"] == "edit_scene") {
-    $Content .= editScene($DBcnx);
-  } elseif ($_GET["page"] == "edit_script") {
-    $Content .= editScript($DBcnx);
-  } elseif ($_GET["page"] == "edit_task") {
-    $Content .= editTask($DBcnx);
-  } elseif ($_GET["page"] == "firmware") {
-    $Content .= setFirmwareUpdate($DBcnx);
-  } elseif ($_GET["page"] == "locations") {
-    $Content .= showLocations($DBcnx);
-  } elseif ($_GET["page"] == "logs") {
-    $Content .= showLogs($DBcnx);
-  } elseif ($_GET["page"] == "pairing") {
-    $Content .= setPairing($DBcnx);
-  } elseif ($_GET["page"] == "scenes") {
-    $Content .= showScenes($DBcnx);
-  } elseif ($_GET["page"] == "schedule") {
-    $Content .= showSchedule($DBcnx);
-  } elseif ($_GET["page"] == "scripts") {
-    $Content .= showScripts($DBcnx);
-  } elseif ($_GET["page"] == "settings") {
-    $Content .= editSettings($DBcnx);
-  } elseif ($_GET["page"] == "timeline") {
-    $Content .= showTimeline($DBcnx);
-  }
+} elseif ($_GET["page"] == "commands") {
+  $Content .= showCommands($DBcnx);
+} elseif ($_GET["page"] == "delete_confirm") {
+  $Content .= deleteConfirm($DBcnx);
+} elseif ($_GET["page"] == "devices") {
+  $Content .= showDevices($DBcnx);
+} elseif ($_GET["page"] == "edit_command") {
+  $Content .= editCommand($DBcnx);
+} elseif ($_GET["page"] == "edit_device") {
+  $Content .= editDevice($DBcnx);
+} elseif ($_GET["page"] == "edit_location") {
+  $Content .= editLocation($DBcnx);
+} elseif ($_GET["page"] == "edit_scene") {
+  $Content .= editScene($DBcnx);
+} elseif ($_GET["page"] == "edit_script") {
+  $Content .= editScript($DBcnx);
+} elseif ($_GET["page"] == "edit_task") {
+  $Content .= editTask($DBcnx);
+} elseif ($_GET["page"] == "firmware") {
+  $Content .= setFirmwareUpdate($DBcnx);
+} elseif ($_GET["page"] == "locations") {
+  $Content .= showLocations($DBcnx);
+} elseif ($_GET["page"] == "logs") {
+  $Content .= showLogs($DBcnx);
+} elseif ($_GET["page"] == "pairing") {
+  $Content .= setPairing($DBcnx);
+} elseif ($_GET["page"] == "scenes") {
+  $Content .= showScenes($DBcnx);
+} elseif ($_GET["page"] == "schedule") {
+  $Content .= showSchedule($DBcnx);
+} elseif ($_GET["page"] == "scripts") {
+  $Content .= showScripts($DBcnx);
+} elseif ($_GET["page"] == "settings") {
+  $Content .= editSettings($DBcnx);
+} elseif ($_GET["page"] == "timeline") {
+  $Content .= showTimeline($DBcnx);
 }
 
-$Content .=   "</div>";
+if ($_GET["page"] != "timeline") $Content .= "</div>";
 $Content .= "</div>";
 
 echo("$Content\n");
