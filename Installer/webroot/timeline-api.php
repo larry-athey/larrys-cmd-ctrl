@@ -103,6 +103,7 @@ function saveFrame($DBcnx,$json) {
            "fade=" . $json["fade"] . "," .
            "scene=" . $json["scene"] . " WHERE ID=" . $json["id"];
 
+  $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET script_modified=1 WHERE ID=1");
   $Result = mysqli_query($DBcnx,$Query);
   if ($Result === false) {
     return false;
@@ -190,12 +191,14 @@ if (isset($_GET["action"])) {
       $Result = mysqli_query($DBcnx,"SELECT * FROM timeline_status WHERE ID=1");
       if (mysqli_num_rows($Result) > 0) {
         $Status = mysqli_fetch_assoc($Result);
+        $Prefix = "";
+        if ($Status["script_modified"] == 1) $Prefix = "* ";
         if ($Status["current_script"] != "0") { // timeline_scripts is isolated from the API so the current_script ID is replaced by its name
           $Result2 = mysqli_query($DBcnx,"SELECT * FROM timeline_scripts WHERE ID=" . $Status["current_script"]);
           $Script = mysqli_fetch_assoc($Result2);
-          $Status["current_script"] = $Script["script_name"];
+          $Status["current_script"] = $Prefix . $Script["script_name"];
         } else {
-          $Status["current_script"] = "Unsaved Script";
+          $Status["current_script"] = $Prefix . "Unnamed Script";
         }
         $Content = json_encode($Status);
       } else {
