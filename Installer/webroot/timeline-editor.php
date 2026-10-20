@@ -19,12 +19,12 @@
     #main { flex: 1; display: flex; overflow: hidden; }
     #device-list { flex: 0 0 var(--label-width); background: #1a1a1a; border-right: 1px solid #333; overflow-y: auto; }
     #timeline-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
-    #time-header { flex: 0 0 var(--header-height); background: #222; border-bottom: 1px solid #333; position: relative; overflow: hidden; }
+    #time-header { flex: 0 0 var(--header-height); background: #222; border-bottom: 1px solid #333; position: relative; overflow: hidden; cursor: pointer; }
     #tracks { flex: 1; overflow: auto; position: relative; }
     .device-label {
       height: var(--track-height); line-height: var(--track-height); padding: 0 10px;
       border-bottom: 1px solid #2a2a2a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      font-weight: 600; cursor: default; user-select: none;
+      font-weight: 600; user-select: none;
     }
     .device-label small { color: #888; font-weight: normal; }
     .track {
@@ -44,15 +44,18 @@
       z-index: 50; pointer-events: none; box-shadow: 0 0 6px #ff4d4d;
     }
     .time-marker { position: absolute; top: 0; bottom: 0; width: 1px; background: #444; }
-    .time-label { position: absolute; top: 4px; font-size: 0.7rem; color: #aaa; transform: translateX(-50%); }
+    .time-label {
+      position: absolute; top: 4px; font-size: 0.7rem; color: #aaa;
+      transform: translateX(-50%); padding: 2px 4px; border-radius: 3px;
+    }
+    .time-label:hover { background: #0d6efd; color: #fff; }
     #status-bar { flex: 0 0 auto; background: #1e1e1e; border-top: 1px solid #333; padding: 4px 12px; font-size: 0.8rem; }
-    .modal-body .form-label { margin-bottom: 0.2rem; }
     .cmd-section { display: none; }
+    .modal-body .form-label { margin-bottom: 0.2rem; }
   </style>
 </head>
 <body>
 <div id="app">
-  <!-- Toolbar -->
   <div id="toolbar" class="d-flex align-items-center gap-2 flex-wrap">
     <button id="btn-play" class="btn btn-success btn-sm fw-bolder">▶ Play</button>
     <button id="btn-stop" class="btn btn-danger btn-sm fw-bolder">■ Stop</button>
@@ -68,7 +71,6 @@
     <span class="ms-auto text-muted small" id="script-name">Unsaved Script</span>
   </div>
 
-  <!-- Main workspace -->
   <div id="main">
     <div id="device-list"></div>
     <div id="timeline-area">
@@ -78,14 +80,13 @@
     </div>
   </div>
 
-  <!-- Status bar -->
   <div id="status-bar" class="d-flex justify-content-between">
     <span id="status-text">Ready</span>
     <span id="frame-count">0 frames</span>
   </div>
 </div>
 
-<!-- Edit / Add Frame Modal -->
+<!-- Frame Modal -->
 <div class="modal fade" id="frameModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -113,7 +114,7 @@
             <select class="form-select fw-bolder" id="f-cmd_type" required></select>
           </div>
 
-          <!-- cmd_type 1 – Motor -->
+          <!-- 1 Motor -->
           <div class="cmd-section" data-type="1">
             <div class="mb-2"><label class="form-label fw-bolder">Direction</label>
               <select class="form-select" id="f-direction"><option value="1">Forward</option><option value="0">Reverse</option></select></div>
@@ -125,7 +126,7 @@
               <input type="number" class="form-control" id="f-duration" min="0" value="0"></div>
           </div>
 
-          <!-- cmd_type 2 – Stepper -->
+          <!-- 2 Stepper -->
           <div class="cmd-section" data-type="2">
             <div class="mb-2"><label class="form-label fw-bolder">Direction</label>
               <select class="form-select" id="f-direction2"><option value="1">Forward</option><option value="0">Reverse</option></select></div>
@@ -140,17 +141,17 @@
               <input type="number" class="form-control" id="f-speed2" min="1" max="100" value="50"></div>
           </div>
 
-          <!-- cmd_type 3 – Location -->
+          <!-- 3 Location -->
           <div class="cmd-section" data-type="3">
-            <div class="mb-2"><label class="form-label fw-bolder">Location ID</label>
-              <input type="number" class="form-control" id="f-location_id" min="0" value="0"></div>
+            <div class="mb-2"><label class="form-label fw-bolder">Location</label>
+              <select class="form-select" id="f-location_id"></select></div>
             <div class="mb-2"><label class="form-label fw-bolder">Action</label>
-              <input type="number" class="form-control" id="f-location_action" min="0" value="0"></div>
-            <div class="mb-2"><label class="form-label fw-bolder">Data</label>
+              <select class="form-select" id="f-location_action"></select></div>
+            <div class="mb-2"><label class="form-label fw-bolder">Associated Data</label>
               <input type="number" class="form-control" id="f-location_data" min="0" value="0"></div>
           </div>
 
-          <!-- cmd_type 4 – Sound -->
+          <!-- 4 Sound -->
           <div class="cmd-section" data-type="4">
             <div class="mb-2"><label class="form-label fw-bolder">Sound File ID</label>
               <input type="number" class="form-control" id="f-sound" min="0" max="1000" value="0"></div>
@@ -160,7 +161,7 @@
               <select class="form-select" id="f-replay"><option value="0">No</option><option value="1">Yes</option></select></div>
           </div>
 
-          <!-- cmd_type 5 – Switch -->
+          <!-- 5 Switch -->
           <div class="cmd-section" data-type="5">
             <div class="mb-2"><label class="form-label fw-bolder">GPIO Pin [0..15]</label>
               <input type="number" class="form-control" id="f-gpio_pin" min="0" max="15" value="0"></div>
@@ -168,7 +169,7 @@
               <select class="form-select" id="f-direction5"><option value="1">On</option><option value="0">Off</option></select></div>
           </div>
 
-          <!-- cmd_type 6 – Light -->
+          <!-- 6 Light -->
           <div class="cmd-section" data-type="6">
             <div class="mb-2"><label class="form-label fw-bolder">LED / Fixture (65535 = all)</label>
               <input type="number" class="form-control" id="f-light" min="0" max="65535" value="0"></div>
@@ -182,10 +183,10 @@
               <input type="number" class="form-control" id="f-fade" min="0" max="30" step="0.1" value="1.0"></div>
           </div>
 
-          <!-- cmd_type 7 – Scene -->
+          <!-- 7 Scene -->
           <div class="cmd-section" data-type="7">
-            <div class="mb-2"><label class="form-label fw-bolder">Scene ID</label>
-              <input type="number" class="form-control" id="f-scene" min="0" value="0"></div>
+            <div class="mb-2"><label class="form-label fw-bolder">Scene</label>
+              <select class="form-select" id="f-scene"></select></div>
           </div>
         </form>
       </div>
@@ -199,18 +200,19 @@
 </div>
 
 <script>
-(function() {
+(function () {
   const API_URL = './timeline-api.php';
 
-  // State
   let devices = [];
-  let framesByAddress = {};   // address → array of frames
+  let locations = [];
+  let scenes = [];
+  let framesByAddress = {};
   let selectedFrameId = null;
-  let pxPerTenth = 12;        // pixels per 0.1 second
-  let currentPos = 0;         // seconds
+  let pxPerTenth = 12;
+  let currentPos = 0;
   let isRunning = false;
   let pollTimer = null;
-  let maxTime = 60;           // seconds (auto-expands)
+  let maxTime = 60;
 
   // ---------- Helpers ----------
   function apiGet(params) {
@@ -226,40 +228,56 @@
     });
   }
   function deviceTypeName(t) {
-    return {1:'Brushed Motor',2:'Stepper',3:'Switching',4:'Train Loco'}[t] || 'Unknown';
+    return {1:'Brushed Motor', 2:'Stepper', 3:'Switching', 4:'Train Loco'}[t] || 'Unknown';
   }
   function allowedCmdTypes(devType) {
-    if (devType === 2) return [2,3,5];                 // stepper
-    if (devType === 3) return [3,4,5,6,7];             // switching
-    return [1,3,4,5,6,7];                              // 1 & 4
+    if (devType === 2) return [2, 3, 5];          // stepper
+    if (devType === 3) return [3, 4, 5, 6, 7];    // switching
+    return [1, 3, 4, 5, 6, 7];                    // 1 & 4
   }
   function cmdTypeName(t) {
-    return {1:'Motor',2:'Stepper',3:'Location',4:'Sound',5:'Switch',6:'Light',7:'Scene'}[t] || '?';
+    return {1:'Motor', 2:'Stepper', 3:'Location', 4:'Sound', 5:'Switch', 6:'Light', 7:'Scene'}[t] || '?';
   }
   function posToPx(pos) { return Math.round(pos * 10 * pxPerTenth); }
   function pxToPos(px)  { return Math.round(px / pxPerTenth) / 10; }
 
-  // ---------- Load data ----------
-  function loadDevices() {
-    return apiGet({action:'list', type:'devices'}).then(list => {
-      devices = Array.isArray(list) ? list : [];
+  // Location actions (from Larry’s locationActionSelector)
+  function getLocationActions(devType) {
+    const actions = [
+      {v:1, t:'Stop Motor/Stepper'},
+      {v:3, t:'Request Command'},
+      {v:4, t:'Request Script'},
+      {v:5, t:'Toggle GPIO Pin'}
+    ];
+    if (devType !== 2) {
+      actions.splice(1, 0, {v:2, t:'Play Sound Effect'});
+      actions.push({v:6, t:'Toggle RGB LED'});
+      actions.push({v:7, t:'Request Scene'});
+    }
+    return actions;
+  }
+
+  // ---------- Data loading ----------
+  function loadAll() {
+    return Promise.all([
+      apiGet({action:'list', type:'devices'}).then(l => { devices = Array.isArray(l) ? l : []; }),
+      apiGet({action:'list', type:'locations'}).then(l => { locations = Array.isArray(l) ? l : []; }),
+      apiGet({action:'list', type:'scenes'}).then(l => { scenes = Array.isArray(l) ? l : []; })
+    ]).then(() => {
       renderDeviceList();
       return loadAllFrames();
     }).catch(() => {
-      devices = [];
-      renderDeviceList();
-      $('#status-text').text('Failed to load devices');
+      $('#status-text').text('Failed to load data');
     });
   }
 
   function loadAllFrames() {
     const promises = devices.map(d =>
-      apiGet({action:'list', type:'frames', address:d.address})
+      apiGet({action:'list', type:'frames', address: d.address})
         .then(fr => { framesByAddress[d.address] = Array.isArray(fr) ? fr : []; })
         .catch(() => { framesByAddress[d.address] = []; })
     );
     return Promise.all(promises).then(() => {
-      // expand maxTime
       let max = 10;
       Object.values(framesByAddress).forEach(arr => {
         arr.forEach(f => { if (+f.position > max) max = +f.position; });
@@ -284,21 +302,24 @@
   function renderTimeline() {
     const $header = $('#time-header').empty();
     const $tracks = $('#tracks').empty();
-
-    // time header
     const totalPx = posToPx(maxTime);
     $header.css('width', totalPx + 40);
-    for (let s = 0; s <= maxTime; s += 1) {
+
+    for (let s = 0; s <= maxTime; s++) {
       const x = posToPx(s);
       $header.append(`<div class="time-marker" style="left:${x}px"></div>`);
-      $header.append(`<div class="time-label" style="left:${x}px">${s}s</div>`);
+      $header.append(`<div class="time-label" data-sec="${s}" style="left:${x}px">${s}s</div>`);
     }
 
-    // tracks + frames
+    // Click on time ribbon → set start position
+    $header.off('click').on('click', '.time-label', function () {
+      const sec = +$(this).data('sec');
+      setPosition(sec);
+    });
+
     devices.forEach(d => {
       const $track = $(`<div class="track" data-address="${d.address}" style="width:${totalPx + 40}px"></div>`);
-      const frames = framesByAddress[d.address] || [];
-      frames.forEach(f => {
+      (framesByAddress[d.address] || []).forEach(f => {
         const left = posToPx(+f.position);
         const $f = $(`<div class="frame" data-id="${f.ID}" style="left:${left}px"
                          title="${f.cmd_name} @ ${f.position}s">${f.cmd_name}</div>`);
@@ -308,8 +329,7 @@
       $tracks.append($track);
     });
 
-    // click empty track → add
-    $tracks.off('click').on('click', '.track', function(e) {
+    $tracks.off('click').on('click', '.track', function (e) {
       if ($(e.target).hasClass('frame')) return;
       const addr = $(this).data('address');
       const rect = this.getBoundingClientRect();
@@ -317,8 +337,7 @@
       openModal(0, addr, pxToPos(x));
     });
 
-    // click frame → edit
-    $tracks.on('click', '.frame', function(e) {
+    $tracks.on('click', '.frame', function (e) {
       e.stopPropagation();
       openModal(+$(this).data('id'));
     });
@@ -341,17 +360,27 @@
   function openModal(id, address, position) {
     selectedFrameId = id;
     const $m = $('#frameModal');
-    const form = document.getElementById('frameForm');
-    form.reset();
+    $('#frameForm')[0].reset();
 
-    // populate device select
+    // devices
     const $addr = $('#f-address').empty();
     devices.forEach(d => {
       $addr.append(`<option value="${d.address}" data-type="${d.dev_type}">${d.dev_name}</option>`);
     });
 
+    // locations
+    const $loc = $('#f-location_id').empty();
+    locations.forEach(l => {
+      $loc.append(`<option value="${l.pin}">${l.loc_name}</option>`);
+    });
+
+    // scenes
+    const $scn = $('#f-scene').empty();
+    scenes.forEach(s => {
+      $scn.append(`<option value="${s.ID}">${s.scn_name}</option>`);
+    });
+
     if (id > 0) {
-      // load existing
       apiGet({action:'list', type:'getframe', id:id}).then(f => {
         if (!f || f.ID === undefined) { alert('Frame not found'); return; }
         $('#modalTitle').text('Edit Frame');
@@ -366,7 +395,6 @@
       if (address) $('#f-address').val(address);
       if (position !== undefined) $('#f-position').val(position);
       updateCmdTypeOptions();
-      showCmdSection(1);
       $m.modal('show');
     }
   }
@@ -380,7 +408,6 @@
     $('#f-cmd_type').val(f.cmd_type);
     showCmdSection(+f.cmd_type);
 
-    // fill type-specific
     $('#f-direction, #f-direction2, #f-direction5').val(f.direction);
     $('#f-speed, #f-speed2').val(f.speed);
     $('#f-progression').val(f.progression);
@@ -407,6 +434,18 @@
     const allowed = allowedCmdTypes(devType);
     const $sel = $('#f-cmd_type').empty();
     allowed.forEach(t => $sel.append(`<option value="${t}">${cmdTypeName(t)}</option>`));
+    if (allowed.length) {
+      $sel.val(allowed[0]);
+      showCmdSection(allowed[0]);
+    }
+    // also refresh location actions
+    updateLocationActions(devType);
+  }
+
+  function updateLocationActions(devType) {
+    const actions = getLocationActions(devType);
+    const $sel = $('#f-location_action').empty();
+    actions.forEach(a => $sel.append(`<option value="${a.v}">${a.t}</option>`));
   }
 
   function showCmdSection(type) {
@@ -414,32 +453,29 @@
     $(`.cmd-section[data-type="${type}"]`).show();
   }
 
-  $('#f-address').on('change', function() {
+  $('#f-address').on('change', function () {
     updateCmdTypeOptions();
-    showCmdSection(+$('#f-cmd_type').val());
   });
-  $('#f-cmd_type').on('change', function() {
+  $('#f-cmd_type').on('change', function () {
     showCmdSection(+$(this).val());
   });
 
   // ---------- Save / Delete ----------
-  $('#btn-save').on('click', function() {
+  $('#btn-save').on('click', function () {
     const type = +$('#f-cmd_type').val();
     const payload = {
-      action: $('#f-id').val() > 0 ? 'update' : 'add',
+      action: +$('#f-id').val() > 0 ? 'update' : 'add',
       id: +$('#f-id').val(),
       cmd_name: $('#f-cmd_name').val().trim(),
       address: $('#f-address').val(),
       position: +$('#f-position').val(),
       cmd_type: type,
-      // defaults for all fields (required by validateFrame)
       gpio_pin: 0, direction: 1, speed: 0, duration: 0, progression: 0,
       steps: 0, resolution: 1, sound: 0, volume: 25, replay: 0,
-      location_id: 0, location_action: 0, location_data: 0,
+      location_id: 0, location_action: 1, location_data: 0,
       light: 0, red: 0, green: 0, blue: 0, fade: 1.0, scene: 0
     };
 
-    // override with visible fields
     if (type === 1) {
       payload.direction = +$('#f-direction').val();
       payload.speed = +$('#f-speed').val();
@@ -479,14 +515,14 @@
         loadAllFrames();
         $('#status-text').text('Frame saved');
       } else {
-        alert('Save failed – check server logs / validation');
+        alert('Save failed – check validation / server logs');
       }
     }).catch(() => alert('Network / API error'));
   });
 
-  $('#btn-delete').on('click', function() {
+  $('#btn-delete').on('click', function () {
     if (!confirm('Delete this frame?')) return;
-    apiPost({action:'delete', id:+$('#f-id').val()}).then(res => {
+    apiPost({action:'delete', id: +$('#f-id').val()}).then(res => {
       if (res && res.status === 'success') {
         $('#frameModal').modal('hide');
         loadAllFrames();
@@ -508,6 +544,7 @@
     apiPost({action:'setposition', position: p}).then(() => {
       currentPos = p;
       updatePlayhead();
+      $('#status-text').text('Start position set to ' + p + 's');
     });
   }
 
@@ -525,7 +562,6 @@
           $('#btn-stop').prop('disabled', true);
           stopPolling();
         }
-        // auto-scroll playhead into view
         const $tr = $('#tracks');
         const px = posToPx(currentPos);
         if (px < $tr.scrollLeft() + 50 || px > $tr.scrollLeft() + $tr.width() - 50) {
@@ -543,19 +579,17 @@
   $('#btn-stop').on('click', () => setRunning(false));
   $('#btn-rewind').on('click', () => setPosition(0));
   $('#btn-add').on('click', () => openModal(0));
-  $('#btn-refresh').on('click', () => loadDevices());
+  $('#btn-refresh').on('click', () => loadAll());
 
-  // Zoom
-  $('#zoom').on('input', function() {
+  $('#zoom').on('input', function () {
     pxPerTenth = +this.value;
     $('#zoom-label').text(pxPerTenth + ' px/0.1s');
     renderTimeline();
   });
 
   // ---------- Init ----------
-  $(function() {
-    loadDevices().then(() => {
-      // initial status
+  $(function () {
+    loadAll().then(() => {
       apiGet({action:'status'}).then(st => {
         if (st) {
           currentPos = +st.position || 0;
