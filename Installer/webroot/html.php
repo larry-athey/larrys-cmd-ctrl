@@ -983,7 +983,7 @@ function showScripts($DBcnx) {
   $Counter  = 0;
   $Content  = "<div style=\"width: 31em; margin-left: 0.25em; margin-top: 0.5em;\">";
   $Content .= deviceFilter("index.php?page=scripts");
-  $Content .= "<a href=\"?page=edit_script&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_script\">Create New Script</a><br>";
+  $Content .= "<a href=\"?page=edit_script&ID=0\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_script\">Create New Command Script</a><br>";
 
   if ((! isset($_GET["filter"])) || ($_GET["filter"] == 0)) {
     $Result = mysqli_query($DBcnx,"SELECT * FROM scripts ORDER BY scr_name");
@@ -1008,17 +1008,16 @@ function showScripts($DBcnx) {
 }
 //---------------------------------------------------------------------------------------------------
 function showTimeline($DBcnx) {
-  $Content = "";
 
-  $Content .= "<div class=\"row g-0\">";
+  $Content  = "<div class=\"row g-0 flex-shrink-0\">";
   $Content .=   "<div class=\"col p-2 border-bottom\">";
-  $Content .=      "(Button Row)";
+  $Content .=     "(Button Row)";
   $Content .=   "</div>";
   $Content .= "</div>";
 
-  $Content .= "<div class=\"row g-0 flex-grow-1\">";
-  $Content .=   "<div class=\"col h-100\">";
-  $Content .=     "<iframe class=\"w-100 h-100\" src=\"timeline-editor.php\" title=\"Timeline Editor\"></iframe>";
+  $Content .= "<div class=\"row g-0 flex-grow-1\" style=\"min-height:0;\">";
+  $Content .=   "<div class=\"col h-100 d-flex flex-column\" style=\"min-height:0;\">";
+  $Content .=     "<iframe class=\"w-100 flex-grow-1 border-0\" src=\"timeline-editor.php\" title=\"Timeline Editor\" style=\"min-height:0;\"></iframe>";
   $Content .=   "</div>";
   $Content .= "</div>";
 
