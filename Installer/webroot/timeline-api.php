@@ -196,7 +196,7 @@ if (isset($_GET["action"])) {
         if ($Status["current_script"] != "0") { // timeline_scripts is isolated from the API so the current_script ID is replaced by its name
           $Result2 = mysqli_query($DBcnx,"SELECT * FROM timeline_scripts WHERE ID=" . $Status["current_script"]);
           $Script = mysqli_fetch_assoc($Result2);
-          $Status["current_script"] = $Prefix . $Script["script_name"];
+          $Status["current_script"] = $Prefix . $Script["scr_name"];
         } else {
           $Status["current_script"] = $Prefix . "Unnamed Script";
         }

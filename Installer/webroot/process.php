@@ -41,6 +41,19 @@ elseif (isset($_GET["firmware_id"])) {
   $Return = "/index.php";
 }
 //---------------------------------------------------------------------------------------------------
+elseif (isset($_GET["new_timeline"])) {
+  $Update = mysqli_query($DBcnx,"TRUNCATE timeline");
+  $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET current_script=0,script_modified=0 WHERE ID=1");
+  $Return = "/index.php?page=timeline";
+}
+//---------------------------------------------------------------------------------------------------
+elseif (isset($_GET["open_timeline"])) {
+  //$Update = mysqli_query($DBcnx,"TRUNCATE timeline");
+  //$Update = mysqli_query($DBcnx,"UPDATE timeline_status SET current_script=0,script_modified=0 WHERE ID=1");
+  $Return = "/index.php?page=edit_timeline";
+}
+
+//---------------------------------------------------------------------------------------------------
 elseif (isset($_GET["pairing_id"])) {
   $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-warning\">Waiting for LCC Slave pairing</span>' WHERE ID=" . $_GET["pairing_id"]);
   $Insert = mysqli_query($DBcnx,"INSERT INTO outbound (address,msg) VALUES ('00-00-00-00-00-00','/pairing/" . $_GET["pairing_id"] . "')");

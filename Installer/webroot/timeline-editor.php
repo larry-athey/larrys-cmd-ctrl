@@ -19,7 +19,13 @@
     #app { display: flex; flex-direction: column; height: 100vh; }
     #toolbar { flex: 0 0 auto; background: #1e1e1e; border-bottom: 1px solid #333; padding: 8px 12px; }
     #main { flex: 1; display: flex; overflow: hidden; }
-    #device-list { flex: 0 0 var(--label-width); background: #1a1a1a; border-right: 1px solid #333; overflow-y: auto; }
+    #device-list {
+      flex: 0 0 var(--label-width);
+      background: #1a1a1a;
+      border-right: 1px solid #333;
+      overflow-y: auto;
+      padding-top: var(--header-height);
+    }
     #timeline-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
     #time-header {
       flex: 0 0 var(--header-height); background: #222; border-bottom: 1px solid #333;

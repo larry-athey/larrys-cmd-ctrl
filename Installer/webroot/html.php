@@ -28,6 +28,10 @@ function deleteConfirm($DBcnx) {
     $Return = "scenes";
     $btdID  = "delete_scene";
     $Name   = getSceneName($DBcnx,$ID);
+  } elseif ($_GET["type"] == 7) {
+    $Return = "list_timelines";
+    $btdID  = "delete_timeline";
+    //$Name   = getTimelineName($DBcnx,$ID);
   } else {
     return;
   }
@@ -1011,7 +1015,7 @@ function showTimeline($DBcnx) {
   $Content  = "<div class=\"row g-0 flex-shrink-0\">";
   $Content .=   "<div class=\"col p-2 border-bottom\">";
   $Content .=     "&nbsp;<a href=\"?page=list_timelines\" class=\"btn btn-sm btn-primary fw-bolder\">List Timeline Scripts</a>&nbsp;";
-  $Content .=     "&nbsp;<a href=\"?page=new_timeline\" class=\"btn btn-sm btn-primary fw-bolder\">New Timeline Script</a>&nbsp;";
+  $Content .=     "&nbsp;<a href=\"#\" onClick=\"confirmNewTimeline();\" class=\"btn btn-sm btn-primary fw-bolder\">New Timeline Script</a>&nbsp;";
   $Content .=     "&nbsp;<a href=\"?page=save_timeline\" class=\"btn btn-sm btn-primary fw-bolder\">Save Current Timeline</a>&nbsp;";
   $Content .=   "</div>";
   $Content .= "</div>";
@@ -1020,6 +1024,29 @@ function showTimeline($DBcnx) {
   $Content .=   "<div class=\"col h-100 d-flex flex-column\" style=\"min-height:0;\">";
   $Content .=     "<iframe class=\"w-100 flex-grow-1 border-0\" src=\"timeline-editor.php\" title=\"Timeline Editor\" style=\"min-height:0;\"></iframe>";
   $Content .=   "</div>";
+  $Content .= "</div>";
+  return $Content;
+}
+//---------------------------------------------------------------------------------------------------
+function showTimelineStash($DBcnx) {
+  $Counter  = 0;
+  $Content  = "<div style=\"width: 31em; margin-left: 0.25em;\">";
+  $Content .= "<a href=\"#\" onClick=\"confirmNewTimeline();\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_location\">Create New Timeline</a><br>";
+
+  $Result = mysqli_query($DBcnx,"SELECT * FROM timeline_scripts ORDER BY scr_name");
+  while ($Scr = mysqli_fetch_assoc($Result)) {
+    $Counter ++;
+    $Content .= "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
+    $Content .=   "<div class=\"card-body\">";
+    $Content .=     "<p class=\"fw-bolder mb-0\">" . $Scr["scr_name"] . "</p>";
+    $Content .=     "<p class=\"text-secondary fs-6 mb-0\"> ID " . $Scr["ID"] . "</p>";
+    $Content .=     "<p class=\"mb-0\" style=\"float: right;\"><a href=\"?page=delete_confirm&type=7&ID=" . $Scr["ID"] . "\" class=\"btn btn-danger fw-bolder\" name=\"delete_location\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+    $Content .=     "<a href=\"#\" onClick=\"confirmOpenTimeline(" . $Scr["ID"] . ");\" class=\"btn btn-primary fw-bolder\" name=\"edit_location\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Edit</a></p>";
+    $Content .=   "</div>";
+    $Content .= "</div>";
+  }
+
+  if ($Counter == 0) $Content .= "<p class=\"fw-bolder\">No timelines found...</p>";
   $Content .= "</div>";
   return $Content;
 }

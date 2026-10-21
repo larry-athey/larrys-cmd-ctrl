@@ -28,6 +28,18 @@ require_once("html.php");
       $("#rssBG").addClass("bg-purple");
     });
     //---------------------------------------------------------------------------------------------------
+    function confirmNewTimeline() {
+      if (confirm('This will clear the current timeline with no undo option. Cancel now if you want to save the current timeline first.')) {
+        window.location.href = '/process.php?new_timeline=1';
+      }
+    }
+    //---------------------------------------------------------------------------------------------------
+    function confirmOpenTimeline(ID) {
+      if (confirm('This will clear the current timeline with no undo option, before opening the selected timeline. Cancel now if you want to save the current timeline first.')) {
+        window.location.href = '/process.php?open_timeline=' + ID;
+      }
+    }
+    //---------------------------------------------------------------------------------------------------
   </script>
   <style>
     .navbar-brand-img {
@@ -127,6 +139,8 @@ if ($_GET["page"] == "home") {
   $Content .= editTask($DBcnx);
 } elseif ($_GET["page"] == "firmware") {
   $Content .= setFirmwareUpdate($DBcnx);
+} elseif ($_GET["page"] == "list_timelines") {
+  $Content .= showTimelineStash($DBcnx);
 } elseif ($_GET["page"] == "locations") {
   $Content .= showLocations($DBcnx);
 } elseif ($_GET["page"] == "logs") {
