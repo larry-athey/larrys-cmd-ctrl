@@ -138,8 +138,8 @@
               <select class="form-select" id="f-direction2"><option value="1">Forward</option><option value="0">Reverse</option></select></div>
             <div class="mb-2"><label class="form-label fw-bolder">Resolution</label>
               <select class="form-select" id="f-resolution">
-                <option value="1">Full</option><option value="2">1/2</option><option value="3">1/4</option>
-                <option value="4">1/8</option><option value="5">1/16</option><option value="6">1/32</option>
+                <option value="1">Full Step</option><option value="2">1/2 Step</option><option value="3">1/4 Step</option>
+                <option value="4">1/8 Step</option><option value="5">1/16 Step</option><option value="6">1/32 Step</option>
               </select></div>
             <div class="mb-2"><label class="form-label fw-bolder">Steps</label>
               <input type="number" class="form-control" id="f-steps" min="1" value="200"></div>
@@ -197,9 +197,9 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" id="btn-delete" style="display:none">Delete</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary fw-bolder" id="btn-save">Save</button>
+        <button type="button" class="btn btn-sm btn-danger" id="btn-delete" style="display:none">Delete</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-sm btn-primary fw-bolder" id="btn-save">Save</button>
       </div>
     </div>
   </div>
