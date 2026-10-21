@@ -50,7 +50,7 @@ elseif (isset($_GET["new_timeline"])) {
 elseif (isset($_GET["open_timeline"])) {
   //$Update = mysqli_query($DBcnx,"TRUNCATE timeline");
   //$Update = mysqli_query($DBcnx,"UPDATE timeline_status SET current_script=0,script_modified=0 WHERE ID=1");
-  $Return = "/index.php?page=edit_timeline";
+  $Return = "/index.php?page=open_timeline&ref=1";
 }
 
 //---------------------------------------------------------------------------------------------------
