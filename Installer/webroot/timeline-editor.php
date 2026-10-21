@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- I (Larry Athey) did not create this timeline editor, this was an anonymous code submission. -->
+<!-- I'm not a Javascript developer, so somebody else will need to enhance this if something else is wanted. -->
 <html lang="en" data-bs-theme="dark">
 <head>
   <meta charset="UTF-8">
@@ -17,25 +19,13 @@
     #app { display: flex; flex-direction: column; height: 100vh; }
     #toolbar { flex: 0 0 auto; background: #1e1e1e; border-bottom: 1px solid #333; padding: 8px 12px; }
     #main { flex: 1; display: flex; overflow: hidden; }
-    #device-list { flex: 0 0 var(--label-width); background: #1a1a1a; border-right: 1px solid #333; overflow-y: auto; padding-top: var(--header-height); }
+    #device-list { flex: 0 0 var(--label-width); background: #1a1a1a; border-right: 1px solid #333; overflow-y: auto; }
     #timeline-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
-
-    /* IMPORTANT: header must be allowed to scroll horizontally */
     #time-header {
-      flex: 0 0 var(--header-height);
-      background: #222;
-      border-bottom: 1px solid #333;
-      position: relative;
-      overflow-x: auto;
-      overflow-y: hidden;
-      cursor: pointer;
-      scrollbar-width: none;          /* Firefox – hide scrollbar */
+      flex: 0 0 var(--header-height); background: #222; border-bottom: 1px solid #333;
+      position: relative; overflow: hidden; cursor: pointer;
     }
-    #time-header::-webkit-scrollbar { /* Chrome / Edge / Safari */
-      height: 0;
-      display: none;
-    }
-
+    #time-header-inner { position: relative; height: 100%; }
     #tracks { flex: 1; overflow: auto; position: relative; }
     .device-label {
       height: var(--track-height); line-height: var(--track-height); padding: 0 10px;
@@ -47,26 +37,14 @@
       height: var(--track-height); border-bottom: 1px solid #2a2a2a; position: relative;
       background: repeating-linear-gradient(90deg, transparent, transparent 9px, #1f1f1f 9px, #1f1f1f 10px);
     }
-
     .frame {
       position: absolute; top: 6px; height: 36px; min-width: 8px; border-radius: 4px;
-      color: #fff; font-size: 0.75rem;
+      border: 1px solid; font-size: 0.75rem;
       padding: 2px 6px; cursor: pointer; overflow: hidden; white-space: nowrap; z-index: 10;
       box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-      border: 1px solid transparent;
     }
     .frame:hover { filter: brightness(1.15); z-index: 20; }
     .frame.selected { outline: 2px solid #ffc107; z-index: 30; }
-
-    /* Command-type colors */
-    .frame.cmd-1 { background: #0d6efd; border-color: #3d8bfd; }   /* Motor */
-    .frame.cmd-2 { background: #0d6efd; border-color: #3d8bfd; }   /* Stepper */
-    .frame.cmd-3 { background: #198754; border-color: #2db87a; }   /* Location */
-    .frame.cmd-4 { background: #6f42c1; border-color: #8c68d4; }   /* Sound */
-    .frame.cmd-5 { background: #fd7e14; border-color: #ff9a3d; }   /* Switch */
-    .frame.cmd-6 { background: #d63384; border-color: #e85a9c; }   /* Light */
-    .frame.cmd-7 { background: #20c997; border-color: #3dd5b0; }   /* Scene */
-
     .playhead {
       position: absolute; top: 0; bottom: 0; width: 2px; background: #ff4d4d;
       z-index: 50; pointer-events: none; box-shadow: 0 0 6px #ff4d4d;
@@ -114,7 +92,7 @@
   </div>
 </div>
 
-<!-- Frame Modal (unchanged) -->
+<!-- Frame Modal -->
 <div class="modal fade" id="frameModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -160,8 +138,8 @@
               <select class="form-select" id="f-direction2"><option value="1">Forward</option><option value="0">Reverse</option></select></div>
             <div class="mb-2"><label class="form-label fw-bolder">Resolution</label>
               <select class="form-select" id="f-resolution">
-                <option value="1">Full Step</option><option value="2">1/2 Step</option><option value="3">1/4 Step</option>
-                <option value="4">1/8 Step</option><option value="5">1/16 Step</option><option value="6">1/32 Step</option>
+                <option value="1">Full</option><option value="2">1/2</option><option value="3">1/4</option>
+                <option value="4">1/8</option><option value="5">1/16</option><option value="6">1/32</option>
               </select></div>
             <div class="mb-2"><label class="form-label fw-bolder">Steps</label>
               <input type="number" class="form-control" id="f-steps" min="1" value="200"></div>
@@ -173,7 +151,7 @@
           <div class="cmd-section" data-type="3">
             <div class="mb-2"><label class="form-label fw-bolder">Location</label>
               <select class="form-select" id="f-location_id"></select></div>
-            <div class="mb-2"><label class="form-label fw-bolder">Action to Perform</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Action</label>
               <select class="form-select" id="f-location_action"></select></div>
             <div class="mb-2"><label class="form-label fw-bolder">Associated Action Data</label>
               <input type="number" class="form-control" id="f-location_data" min="0" value="0"></div>
@@ -193,13 +171,13 @@
           <div class="cmd-section" data-type="5">
             <div class="mb-2"><label class="form-label fw-bolder">Output Switch [0..15]</label>
               <input type="number" class="form-control" id="f-gpio_pin" min="0" max="15" value="0"></div>
-            <div class="mb-2"><label class="form-label fw-bolder">Switch State</label>
+            <div class="mb-2"><label class="form-label fw-bolder">State</label>
               <select class="form-select" id="f-direction5"><option value="1">On</option><option value="0">Off</option></select></div>
           </div>
 
           <!-- 6 Light -->
           <div class="cmd-section" data-type="6">
-            <div class="mb-2"><label class="form-label fw-bolder">LED/Fixture Number (65535 for all)</label>
+            <div class="mb-2"><label class="form-label fw-bolder">LED/Fixture Number (65535 = all)</label>
               <input type="number" class="form-control" id="f-light" min="0" max="65535" value="0"></div>
             <div class="mb-2"><label class="form-label fw-bolder">Red Level [0..255]</label>
               <input type="number" class="form-control" id="f-red" min="0" max="255" value="0"></div>
@@ -207,7 +185,7 @@
               <input type="number" class="form-control" id="f-green" min="0" max="255" value="0"></div>
             <div class="mb-2"><label class="form-label fw-bolder">Blue Level [0..255]</label>
               <input type="number" class="form-control" id="f-blue" min="0" max="255" value="0"></div>
-            <div class="mb-2"><label class="form-label fw-bolder">Fade Time (0..30 seconds)</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Fade Time [0..30 seconds]</label>
               <input type="number" class="form-control" id="f-fade" min="0" max="30" step="0.1" value="1.0"></div>
           </div>
 
@@ -230,7 +208,6 @@
 <script>
 (function () {
   const API_URL = './timeline-api.php';
-  const PAD = 40;
 
   let devices = [];
   let locations = [];
@@ -243,6 +220,7 @@
   let pollTimer = null;
   let maxTime = 60;
 
+  // ---------- Helpers ----------
   function apiGet(params) {
     return $.getJSON(API_URL + '?' + $.param(params));
   }
@@ -269,6 +247,20 @@
   function posToPx(pos) { return Math.round(pos * 10 * pxPerTenth); }
   function pxToPos(px)  { return Math.round(px / pxPerTenth) / 10; }
 
+  // Motor & Stepper = primary blue; other 5 types get distinct colors
+  function frameStyle(cmdType) {
+    const map = {
+      1: { bg: '#0d6efd', border: '#3d8bfd', color: '#fff' }, // Motor
+      2: { bg: '#0d6efd', border: '#3d8bfd', color: '#fff' }, // Stepper
+      3: { bg: '#198754', border: '#2dd4a8', color: '#fff' }, // Location
+      4: { bg: '#6f42c1', border: '#9b6dff', color: '#fff' }, // Sound
+      5: { bg: '#fd7e14', border: '#ff9f43', color: '#fff' }, // Switch
+      6: { bg: '#ffc107', border: '#ffda6a', color: '#000' }, // Light
+      7: { bg: '#20c997', border: '#3dd5b0', color: '#000' }  // Scene
+    };
+    return map[+cmdType] || map[1];
+  }
+
   function getLocationActions(devType) {
     const actions = [
       {v:1, t:'Stop Motor/Stepper'},
@@ -284,6 +276,7 @@
     return actions;
   }
 
+  // ---------- Data loading ----------
   function loadAll() {
     return Promise.all([
       apiGet({action:'list', type:'devices'}).then(l => { devices = Array.isArray(l) ? l : []; }),
@@ -314,6 +307,7 @@
     });
   }
 
+  // ---------- Rendering ----------
   function renderDeviceList() {
     const $list = $('#device-list').empty();
     devices.forEach(d => {
@@ -329,13 +323,16 @@
     const $tracks = $('#tracks').empty();
     const totalPx = posToPx(maxTime);
 
-    // Make the header wide enough so it can scroll
-    $header.css('width', totalPx + PAD);
+    // Inner wrapper gives the header real scroll width (absolute kids alone do not)
+    const $inner = $('<div id="time-header-inner"></div>').css({
+      width: (totalPx + 40) + 'px'
+    });
+    $header.append($inner);
 
     for (let s = 0; s <= maxTime; s++) {
       const x = posToPx(s);
-      $header.append(`<div class="time-marker" style="left:${x}px"></div>`);
-      $header.append(`<div class="time-label" data-sec="${s}" style="left:${x}px">${s}s</div>`);
+      $inner.append(`<div class="time-marker" style="left:${x}px"></div>`);
+      $inner.append(`<div class="time-label" data-sec="${s}" style="left:${x}px">${s}s</div>`);
     }
 
     $header.off('click').on('click', '.time-label', function () {
@@ -343,45 +340,46 @@
     });
 
     devices.forEach(d => {
-      const $track = $(`<div class="track" data-address="${d.address}" style="width:${totalPx + PAD}px"></div>`);
+      const $track = $(`<div class="track" data-address="${d.address}" style="width:${totalPx + 40}px"></div>`);
       (framesByAddress[d.address] || []).forEach(f => {
         const left = posToPx(+f.position);
-        const $f = $(`<div class="frame cmd-${f.cmd_type}" data-id="${f.ID}"
-                         style="left:${left}px"
-                         title="${f.cmd_name} @ ${f.position}s">${f.cmd_name}</div>`);
+        const st = frameStyle(f.cmd_type);
+        const $f = $(`<div class="frame" data-id="${f.ID}"
+          style="left:${left}px;background:${st.bg};border-color:${st.border};color:${st.color}"
+          title="${f.cmd_name} @ ${f.position}s (${cmdTypeName(f.cmd_type)})">${f.cmd_name}</div>`);
         if (f.ID == selectedFrameId) $f.addClass('selected');
         $track.append($f);
       });
       $tracks.append($track);
     });
 
-    // Click empty area of a track
+    // Click empty track: getBoundingClientRect already includes scroll — do not add scrollLeft
     $tracks.off('click').on('click', '.track', function (e) {
       if ($(e.target).hasClass('frame')) return;
       const addr = $(this).data('address');
       const rect = this.getBoundingClientRect();
-      const x = Math.max(0, e.clientX - rect.left + this.parentElement.scrollLeft);
+      const x = e.clientX - rect.left;
       openModal(0, addr, pxToPos(x));
     });
 
-    $tracks.off('click', '.frame').on('click', '.frame', function (e) {
+    $tracks.on('click', '.frame', function (e) {
       e.stopPropagation();
       openModal(+$(this).data('id'));
     });
 
-    // === THE CRITICAL SCROLL SYNC ===
-    $tracks.off('scroll').on('scroll', function () {
-      // Native property is the most reliable
-      document.getElementById('time-header').scrollLeft = this.scrollLeft;
-      updatePlayhead();
-    });
-
+    syncScroll();
     updatePlayhead();
   }
 
+  function syncScroll() {
+    const scrollLeft = $('#tracks').scrollLeft() || 0;
+    const hdr = document.getElementById('time-header');
+    if (hdr) hdr.scrollLeft = scrollLeft;
+  }
+
   function updatePlayhead() {
-    const scroll = $('#tracks').scrollLeft() || 0;
-    $('#playhead').css('left', (posToPx(currentPos) - scroll) + 'px');
+    const scrollLeft = $('#tracks').scrollLeft() || 0;
+    $('#playhead').css('left', (posToPx(currentPos) - scrollLeft) + 'px');
     $('#pos-display').text(currentPos.toFixed(1));
   }
 
@@ -391,7 +389,7 @@
     $('#frame-count').text(n + ' frames');
   }
 
-  // ---------- Modal (unchanged from your version) ----------
+  // ---------- Modal ----------
   function openModal(id, address, position) {
     selectedFrameId = id;
     const $m = $('#frameModal');
@@ -484,7 +482,9 @@
     $(`.cmd-section[data-type="${type}"]`).show();
   }
 
-  $('#f-address').on('change', updateCmdTypeOptions);
+  $('#f-address').on('change', function () {
+    updateCmdTypeOptions();
+  });
   $('#f-cmd_type').on('change', function () {
     showCmdSection(+$(this).val());
   });
@@ -543,8 +543,11 @@
         $('#frameModal').modal('hide');
         loadAllFrames();
         $('#status-text').text('Frame saved');
+
         apiGet({action:'status'}).then(st => {
-          if (st) $('#script-name').text(st.current_script || 'Unnamed Script');
+          if (st) {
+            $('#script-name').text(st.current_script || 'Unnamed Script');
+          }
         });
       } else {
         alert('Save failed – check validation / server logs');
@@ -559,9 +562,6 @@
         $('#frameModal').modal('hide');
         loadAllFrames();
         $('#status-text').text('Frame deleted');
-        apiGet({action:'status'}).then(st => {
-          if (st) $('#script-name').text(st.current_script || 'Unnamed Script');
-        });
       }
     });
   });
@@ -601,6 +601,7 @@
         const px = posToPx(currentPos);
         if (px < $tr.scrollLeft() + 50 || px > $tr.scrollLeft() + $tr.width() - 50) {
           $tr.scrollLeft(Math.max(0, px - 100));
+          syncScroll();
         }
       });
     }, 400);
@@ -620,6 +621,12 @@
     pxPerTenth = +this.value;
     $('#zoom-label').text(pxPerTenth + ' px/0.1s');
     renderTimeline();
+  });
+
+  // Keep time ribbon and playhead locked to the track scroll
+  $('#tracks').on('scroll', function () {
+    syncScroll();
+    updatePlayhead();
   });
 
   // ---------- Init ----------
