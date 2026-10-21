@@ -430,10 +430,13 @@ void SetMemory() { // Update flash memory with the current configuration setting
 }
 //------------------------------------------------------------------------------------------------
 bool beaconCheck(int Pin) { // Perform any registered actions based on the current location beacon
+  bool Result = false;
   String Request;
+  // Execute all actions associated with this location (Stop the motor + play a sound + turn on a light, etc)
   for (byte i = 0; i <= 15; i ++) {
     if (Pin == Locations[i][0]) {
       if (Locations[i][1] == 1) { // Stop motor/stepper
+        Result = true;
         #ifndef STEPPER
         setMotorSpeed(0);
         targetRuntime = 0;
@@ -447,6 +450,7 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
         stepperRunning = false;
         #endif
       } else if (Locations[i][1] == 2) { // Play sound effect
+        Result = true;
         #ifndef STEPPER
         soundFile = Locations[i][2];
         sfxVolume = 30;
@@ -456,12 +460,15 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
         }
         #endif
       } else if (Locations[i][1] == 3) { // Request command with /replay/cmd/#
+        Result = true;
         Request = "/replay/cmd/" + String(Locations[i][2]);
         sendCommand(Request);
       } else if (Locations[i][1] == 4) { // Request script with /replay/scr/#
+        Result = true;
         Request = "/replay/scr/" + String(Locations[i][2]);
         sendCommand(Request);
       } else if (Locations[i][1] == 5) { // Toggle GPIO pin
+        Result = true;
         #ifndef I2CSWITCH
         // Map gpioPin to new values as necessary
         byte thePin = 0;
@@ -485,6 +492,7 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
         }
         #endif
       } else if (Locations[i][1] == 6) { // Toggle a specific (or all) Neopixel/WS2812 (off or full white)
+        Result = true;
         #ifndef STEPPER
         if (basic.isRunning()) basic.stop();
         if (Locations[i][2] < 65535) {
@@ -509,6 +517,7 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
         lights.show();
         #endif
       } else if (Locations[i][1] == 7) { // Request and run an LedBasic scene script
+        Result = true;
         #ifndef STEPPER
         if (sendCommand("/scene-request/" + String(Locations[i][2]))) {
           Serial.end();
@@ -523,10 +532,9 @@ bool beaconCheck(int Pin) { // Perform any registered actions based on the curre
       Locations[i][0] = 0;
       Locations[i][1] = 0;
       Locations[i][2] = 0;
-      return true;
     }
   }
-  return false;
+  return Result;
 }
 //------------------------------------------------------------------------------------------------
 void setMotorSpeed(float Percent) { // Set the motor speed
