@@ -19,17 +19,27 @@ $Result = mysqli_query($DBcnx,"SELECT * FROM settings WHERE ID=1");
 $Settings = mysqli_fetch_assoc($Result);
 if ($Settings["sound_server"] != "00-00-00-00-00-00") {
   $DevTotal = 1;
-  echo("Pinging " . $Settings["sound_server"] . ".lcc.local\n");
-  if (pingHost($Settings["sound_server"] . ".lcc.local")) $DevOnline ++;
+  echo("Pinging Sound Server ");
+  if (pingHost($Settings["sound_server"] . ".lcc.local")) {
+    $DevOnline ++;
+    echo("- online\n");
+  } else {
+    echo("- offline\n");
+  }
 }
 //---------------------------------------------------------------------------------------------
-$Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE address <> '00-00-00-00-00-00'");
+$Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE address <> '00-00-00-00-00-00' ORDER BY dev_name");
 $DevTotal += mysqli_num_rows($Result);
 
 if (mysqli_num_rows($Result) > 0) {
   while ($Dev = mysqli_fetch_assoc($Result)) {
-    echo("Pinging " . $Dev["address"] . ".lcc.local\n");
-    if (pingHost($Dev["address"] . ".lcc.local")) $DevOnline ++;
+    echo("Pinging " . $Dev["dev_name"] . ".lcc.local ");
+    if (pingHost($Dev["address"] . ".lcc.local")) {
+      $DevOnline ++;
+      echo("- online\n");
+    } else {
+      echo("- offline\n");
+    }
   }
 }
 
