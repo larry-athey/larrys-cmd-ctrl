@@ -19,7 +19,23 @@
     #main { flex: 1; display: flex; overflow: hidden; }
     #device-list { flex: 0 0 var(--label-width); background: #1a1a1a; border-right: 1px solid #333; overflow-y: auto; padding-top: var(--header-height); }
     #timeline-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
-    #time-header { flex: 0 0 var(--header-height); background: #222; border-bottom: 1px solid #333; position: relative; overflow: hidden; cursor: pointer; }
+
+    /* IMPORTANT: header must be allowed to scroll horizontally */
+    #time-header {
+      flex: 0 0 var(--header-height);
+      background: #222;
+      border-bottom: 1px solid #333;
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+      cursor: pointer;
+      scrollbar-width: none;          /* Firefox – hide scrollbar */
+    }
+    #time-header::-webkit-scrollbar { /* Chrome / Edge / Safari */
+      height: 0;
+      display: none;
+    }
+
     #tracks { flex: 1; overflow: auto; position: relative; }
     .device-label {
       height: var(--track-height); line-height: var(--track-height); padding: 0 10px;
@@ -31,14 +47,26 @@
       height: var(--track-height); border-bottom: 1px solid #2a2a2a; position: relative;
       background: repeating-linear-gradient(90deg, transparent, transparent 9px, #1f1f1f 9px, #1f1f1f 10px);
     }
+
     .frame {
       position: absolute; top: 6px; height: 36px; min-width: 8px; border-radius: 4px;
-      background: #0d6efd; border: 1px solid #3d8bfd; color: #fff; font-size: 0.75rem;
+      color: #fff; font-size: 0.75rem;
       padding: 2px 6px; cursor: pointer; overflow: hidden; white-space: nowrap; z-index: 10;
       box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+      border: 1px solid transparent;
     }
-    .frame:hover { background: #0b5ed7; z-index: 20; }
+    .frame:hover { filter: brightness(1.15); z-index: 20; }
     .frame.selected { outline: 2px solid #ffc107; z-index: 30; }
+
+    /* Command-type colors */
+    .frame.cmd-1 { background: #0d6efd; border-color: #3d8bfd; }   /* Motor */
+    .frame.cmd-2 { background: #0d6efd; border-color: #3d8bfd; }   /* Stepper */
+    .frame.cmd-3 { background: #198754; border-color: #2db87a; }   /* Location */
+    .frame.cmd-4 { background: #6f42c1; border-color: #8c68d4; }   /* Sound */
+    .frame.cmd-5 { background: #fd7e14; border-color: #ff9a3d; }   /* Switch */
+    .frame.cmd-6 { background: #d63384; border-color: #e85a9c; }   /* Light */
+    .frame.cmd-7 { background: #20c997; border-color: #3dd5b0; }   /* Scene */
+
     .playhead {
       position: absolute; top: 0; bottom: 0; width: 2px; background: #ff4d4d;
       z-index: 50; pointer-events: none; box-shadow: 0 0 6px #ff4d4d;
@@ -86,7 +114,7 @@
   </div>
 </div>
 
-<!-- Frame Modal -->
+<!-- Frame Modal (unchanged) -->
 <div class="modal fade" id="frameModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -202,6 +230,7 @@
 <script>
 (function () {
   const API_URL = './timeline-api.php';
+  const PAD = 40;
 
   let devices = [];
   let locations = [];
@@ -214,7 +243,6 @@
   let pollTimer = null;
   let maxTime = 60;
 
-  // ---------- Helpers ----------
   function apiGet(params) {
     return $.getJSON(API_URL + '?' + $.param(params));
   }
@@ -231,9 +259,9 @@
     return {1:'Brushed Motor Controller', 2:'Stepper Controller', 3:'Switching Controller', 4:'Model Train Locomotive'}[t] || 'Unknown';
   }
   function allowedCmdTypes(devType) {
-    if (devType === 2) return [2, 3, 5];          // stepper
-    if (devType === 3) return [3, 4, 5, 6, 7];    // switching
-    return [1, 3, 4, 5, 6, 7];                    // 1 & 4
+    if (devType === 2) return [2, 3, 5];
+    if (devType === 3) return [3, 4, 5, 6, 7];
+    return [1, 3, 4, 5, 6, 7];
   }
   function cmdTypeName(t) {
     return {1:'Motor Control', 2:'Stepper Control', 3:'Location Detection', 4:'Sound Effects', 5:'Switching Control', 6:'RGB LED Control', 7:'RGB LED Scene'}[t] || '?';
@@ -241,7 +269,6 @@
   function posToPx(pos) { return Math.round(pos * 10 * pxPerTenth); }
   function pxToPos(px)  { return Math.round(px / pxPerTenth) / 10; }
 
-  // Location actions (from Larry’s locationActionSelector)
   function getLocationActions(devType) {
     const actions = [
       {v:1, t:'Stop Motor/Stepper'},
@@ -257,7 +284,6 @@
     return actions;
   }
 
-  // ---------- Data loading ----------
   function loadAll() {
     return Promise.all([
       apiGet({action:'list', type:'devices'}).then(l => { devices = Array.isArray(l) ? l : []; }),
@@ -288,7 +314,6 @@
     });
   }
 
-  // ---------- Rendering ----------
   function renderDeviceList() {
     const $list = $('#device-list').empty();
     devices.forEach(d => {
@@ -303,7 +328,9 @@
     const $header = $('#time-header').empty();
     const $tracks = $('#tracks').empty();
     const totalPx = posToPx(maxTime);
-    $header.css('width', totalPx + 40);
+
+    // Make the header wide enough so it can scroll
+    $header.css('width', totalPx + PAD);
 
     for (let s = 0; s <= maxTime; s++) {
       const x = posToPx(s);
@@ -311,17 +338,16 @@
       $header.append(`<div class="time-label" data-sec="${s}" style="left:${x}px">${s}s</div>`);
     }
 
-    // Click on time ribbon → set start position
     $header.off('click').on('click', '.time-label', function () {
-      const sec = +$(this).data('sec');
-      setPosition(sec);
+      setPosition(+$(this).data('sec'));
     });
 
     devices.forEach(d => {
-      const $track = $(`<div class="track" data-address="${d.address}" style="width:${totalPx + 40}px"></div>`);
+      const $track = $(`<div class="track" data-address="${d.address}" style="width:${totalPx + PAD}px"></div>`);
       (framesByAddress[d.address] || []).forEach(f => {
         const left = posToPx(+f.position);
-        const $f = $(`<div class="frame" data-id="${f.ID}" style="left:${left}px"
+        const $f = $(`<div class="frame cmd-${f.cmd_type}" data-id="${f.ID}"
+                         style="left:${left}px"
                          title="${f.cmd_name} @ ${f.position}s">${f.cmd_name}</div>`);
         if (f.ID == selectedFrameId) $f.addClass('selected');
         $track.append($f);
@@ -329,24 +355,33 @@
       $tracks.append($track);
     });
 
+    // Click empty area of a track
     $tracks.off('click').on('click', '.track', function (e) {
       if ($(e.target).hasClass('frame')) return;
       const addr = $(this).data('address');
       const rect = this.getBoundingClientRect();
-      const x = e.clientX - rect.left + this.parentElement.scrollLeft;
+      const x = Math.max(0, e.clientX - rect.left + this.parentElement.scrollLeft);
       openModal(0, addr, pxToPos(x));
     });
 
-    $tracks.on('click', '.frame', function (e) {
+    $tracks.off('click', '.frame').on('click', '.frame', function (e) {
       e.stopPropagation();
       openModal(+$(this).data('id'));
+    });
+
+    // === THE CRITICAL SCROLL SYNC ===
+    $tracks.off('scroll').on('scroll', function () {
+      // Native property is the most reliable
+      document.getElementById('time-header').scrollLeft = this.scrollLeft;
+      updatePlayhead();
     });
 
     updatePlayhead();
   }
 
   function updatePlayhead() {
-    $('#playhead').css('left', posToPx(currentPos) + 'px');
+    const scroll = $('#tracks').scrollLeft() || 0;
+    $('#playhead').css('left', (posToPx(currentPos) - scroll) + 'px');
     $('#pos-display').text(currentPos.toFixed(1));
   }
 
@@ -356,25 +391,22 @@
     $('#frame-count').text(n + ' frames');
   }
 
-  // ---------- Modal ----------
+  // ---------- Modal (unchanged from your version) ----------
   function openModal(id, address, position) {
     selectedFrameId = id;
     const $m = $('#frameModal');
     $('#frameForm')[0].reset();
 
-    // devices
     const $addr = $('#f-address').empty();
     devices.forEach(d => {
       $addr.append(`<option value="${d.address}" data-type="${d.dev_type}">${d.dev_name}</option>`);
     });
 
-    // locations
     const $loc = $('#f-location_id').empty();
     locations.forEach(l => {
       $loc.append(`<option value="${l.pin}">${l.loc_name}</option>`);
     });
 
-    // scenes
     const $scn = $('#f-scene').empty();
     scenes.forEach(s => {
       $scn.append(`<option value="${s.ID}">${s.scn_name}</option>`);
@@ -438,7 +470,6 @@
       $sel.val(allowed[0]);
       showCmdSection(allowed[0]);
     }
-    // also refresh location actions
     updateLocationActions(devType);
   }
 
@@ -453,9 +484,7 @@
     $(`.cmd-section[data-type="${type}"]`).show();
   }
 
-  $('#f-address').on('change', function () {
-    updateCmdTypeOptions();
-  });
+  $('#f-address').on('change', updateCmdTypeOptions);
   $('#f-cmd_type').on('change', function () {
     showCmdSection(+$(this).val());
   });
@@ -514,11 +543,8 @@
         $('#frameModal').modal('hide');
         loadAllFrames();
         $('#status-text').text('Frame saved');
-
         apiGet({action:'status'}).then(st => {
-          if (st) {
-            $('#script-name').text(st.current_script || 'Unnamed Script');
-          }
+          if (st) $('#script-name').text(st.current_script || 'Unnamed Script');
         });
       } else {
         alert('Save failed – check validation / server logs');
@@ -533,6 +559,9 @@
         $('#frameModal').modal('hide');
         loadAllFrames();
         $('#status-text').text('Frame deleted');
+        apiGet({action:'status'}).then(st => {
+          if (st) $('#script-name').text(st.current_script || 'Unnamed Script');
+        });
       }
     });
   });
@@ -600,7 +629,7 @@
         if (st) {
           currentPos = +st.position || 0;
           isRunning = +st.running === 1;
-          $('#script-name').text(st.current_script || 'Unnameded Script');
+          $('#script-name').text(st.current_script || 'Unnamed Script');
           updatePlayhead();
           if (isRunning) startPolling();
         }
