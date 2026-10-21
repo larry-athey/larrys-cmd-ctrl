@@ -321,7 +321,7 @@ CREATE TABLE `timeline_scripts` (
 CREATE TABLE `timeline_status` (
   `ID` int(11) NOT NULL,
   `current_script` int(11) NOT NULL DEFAULT 0,
-  `load_script` tinyint(4) NOT NULL DEFAULT 0,
+  `load_save` tinyint(4) NOT NULL DEFAULT 0,
   `script_modified` tinyint(4) NOT NULL DEFAULT 0,
   `running` tinyint(4) NOT NULL DEFAULT 0,
   `position` int(11) NOT NULL DEFAULT 0
