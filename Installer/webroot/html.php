@@ -1031,7 +1031,7 @@ function showTimeline($DBcnx) {
 function showTimelineStash($DBcnx) {
   $Counter  = 0;
   $Content  = "<div style=\"width: 31em; margin-left: 0.25em;\">";
-  $Content .= "<a href=\"#\" onClick=\"confirmNewTimeline();\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_location\">Create New Timeline</a><br>";
+  $Content .= "<a href=\"#\" onClick=\"confirmNewTimeline();\" class=\"btn btn-outline-secondary fw-bolder\" style=\"width: 100%; margin-top: 0.5em; margin-bottom: 0.5em; margin-right: 0.5em;\" name=\"create_location\">Create New Timeline Script</a><br>";
 
   $Result = mysqli_query($DBcnx,"SELECT * FROM timeline_scripts ORDER BY scr_name");
   while ($Scr = mysqli_fetch_assoc($Result)) {
@@ -1041,7 +1041,7 @@ function showTimelineStash($DBcnx) {
     $Content .=     "<p class=\"fw-bolder mb-0\">" . $Scr["scr_name"] . "</p>";
     $Content .=     "<p class=\"text-secondary fs-6 mb-0\"> ID " . $Scr["ID"] . "</p>";
     $Content .=     "<p class=\"mb-0\" style=\"float: right;\"><a href=\"?page=delete_confirm&type=7&ID=" . $Scr["ID"] . "\" class=\"btn btn-danger fw-bolder\" name=\"delete_location\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;";
-    $Content .=     "<a href=\"#\" onClick=\"confirmOpenTimeline(" . $Scr["ID"] . ");\" class=\"btn btn-primary fw-bolder\" name=\"edit_location\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Edit</a></p>";
+    $Content .=     "<a href=\"#\" onClick=\"confirmOpenTimeline(" . $Scr["ID"] . ");\" class=\"btn btn-primary fw-bolder\" name=\"edit_location\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Open</a></p>";
     $Content .=   "</div>";
     $Content .= "</div>";
   }
