@@ -132,12 +132,12 @@
               <select class="form-select" id="f-direction2"><option value="1">Forward</option><option value="0">Reverse</option></select></div>
             <div class="mb-2"><label class="form-label fw-bolder">Resolution</label>
               <select class="form-select" id="f-resolution">
-                <option value="1">Full</option><option value="2">1/2</option><option value="4">1/4</option>
-                <option value="8">1/8</option><option value="16">1/16</option><option value="32">1/32</option>
+                <option value="1">Full Step</option><option value="2">1/2 Step</option><option value="3">1/4 Step</option>
+                <option value="4">1/8 Step</option><option value="5">1/16 Step</option><option value="6">1/32 Step</option>
               </select></div>
             <div class="mb-2"><label class="form-label fw-bolder">Steps</label>
               <input type="number" class="form-control" id="f-steps" min="1" value="200"></div>
-            <div class="mb-2"><label class="form-label fw-bolder">Speed [1..100]</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Speed [1..100] Percent</label>
               <input type="number" class="form-control" id="f-speed2" min="1" max="100" value="50"></div>
           </div>
 
@@ -145,47 +145,47 @@
           <div class="cmd-section" data-type="3">
             <div class="mb-2"><label class="form-label fw-bolder">Location</label>
               <select class="form-select" id="f-location_id"></select></div>
-            <div class="mb-2"><label class="form-label fw-bolder">Action</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Action to Perform</label>
               <select class="form-select" id="f-location_action"></select></div>
-            <div class="mb-2"><label class="form-label fw-bolder">Associated Data</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Associated Action Data</label>
               <input type="number" class="form-control" id="f-location_data" min="0" value="0"></div>
           </div>
 
           <!-- 4 Sound -->
           <div class="cmd-section" data-type="4">
-            <div class="mb-2"><label class="form-label fw-bolder">Sound File ID</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Remote Sound File ID Number</label>
               <input type="number" class="form-control" id="f-sound" min="0" max="1000" value="0"></div>
             <div class="mb-2"><label class="form-label fw-bolder">Volume [0..30]</label>
               <input type="number" class="form-control" id="f-volume" min="0" max="30" value="25"></div>
-            <div class="mb-2"><label class="form-label fw-bolder">Loop</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Loop Playback</label>
               <select class="form-select" id="f-replay"><option value="0">No</option><option value="1">Yes</option></select></div>
           </div>
 
           <!-- 5 Switch -->
           <div class="cmd-section" data-type="5">
-            <div class="mb-2"><label class="form-label fw-bolder">GPIO Pin [0..15]</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Output Switch [0..15]</label>
               <input type="number" class="form-control" id="f-gpio_pin" min="0" max="15" value="0"></div>
-            <div class="mb-2"><label class="form-label fw-bolder">State</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Switch State</label>
               <select class="form-select" id="f-direction5"><option value="1">On</option><option value="0">Off</option></select></div>
           </div>
 
           <!-- 6 Light -->
           <div class="cmd-section" data-type="6">
-            <div class="mb-2"><label class="form-label fw-bolder">LED / Fixture (65535 = all)</label>
+            <div class="mb-2"><label class="form-label fw-bolder">LED/Fixture Number (65535 for all)</label>
               <input type="number" class="form-control" id="f-light" min="0" max="65535" value="0"></div>
-            <div class="mb-2"><label class="form-label fw-bolder">Red [0..255]</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Red Level [0..255]</label>
               <input type="number" class="form-control" id="f-red" min="0" max="255" value="0"></div>
-            <div class="mb-2"><label class="form-label fw-bolder">Green [0..255]</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Green Level [0..255]</label>
               <input type="number" class="form-control" id="f-green" min="0" max="255" value="0"></div>
-            <div class="mb-2"><label class="form-label fw-bolder">Blue [0..255]</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Blue Level [0..255]</label>
               <input type="number" class="form-control" id="f-blue" min="0" max="255" value="0"></div>
-            <div class="mb-2"><label class="form-label fw-bolder">Fade (s)</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Fade Time (0..30 seconds)</label>
               <input type="number" class="form-control" id="f-fade" min="0" max="30" step="0.1" value="1.0"></div>
           </div>
 
           <!-- 7 Scene -->
           <div class="cmd-section" data-type="7">
-            <div class="mb-2"><label class="form-label fw-bolder">Scene</label>
+            <div class="mb-2"><label class="form-label fw-bolder">Scene to Send</label>
               <select class="form-select" id="f-scene"></select></div>
           </div>
         </form>
@@ -228,7 +228,7 @@
     });
   }
   function deviceTypeName(t) {
-    return {1:'Brushed Motor', 2:'Stepper', 3:'Switching', 4:'Train Loco'}[t] || 'Unknown';
+    return {1:'Brushed Motor Controller', 2:'Stepper Controller', 3:'Switching Controller', 4:'Model Train Locomotive'}[t] || 'Unknown';
   }
   function allowedCmdTypes(devType) {
     if (devType === 2) return [2, 3, 5];          // stepper
@@ -236,7 +236,7 @@
     return [1, 3, 4, 5, 6, 7];                    // 1 & 4
   }
   function cmdTypeName(t) {
-    return {1:'Motor', 2:'Stepper', 3:'Location', 4:'Sound', 5:'Switch', 6:'Light', 7:'Scene'}[t] || '?';
+    return {1:'Motor Control', 2:'Stepper Control', 3:'Location Detection', 4:'Sound Effects', 5:'Switching Control', 6:'RGB LED Control', 7:'RGB LED Scene'}[t] || '?';
   }
   function posToPx(pos) { return Math.round(pos * 10 * pxPerTenth); }
   function pxToPos(px)  { return Math.round(px / pxPerTenth) / 10; }
