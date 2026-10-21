@@ -35,7 +35,7 @@ if (mysqli_num_rows($Result) > 0) {
 
 echo("$DevOnline out of $DevTotal devices pinging.\n");
 if ($DevOnline == 0) {
-  echo("Restarting access point services.");
+  echo("Restarting access point services.\n");
   shell_exec("./ap-restart");
 }
 //---------------------------------------------------------------------------------------------

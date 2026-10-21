@@ -67,7 +67,7 @@
     <span id="zoom-label">12 px/0.1s</span>
     <div class="vr mx-2"></div>
     <button id="btn-add" class="btn btn-primary btn-sm fw-bolder">+ Add Frame</button>
-    <button id="btn-refresh" class="btn btn-outline-light btn-sm">↻ Refresh</button>
+    <button id="btn-refresh" class="btn btn-outline-info btn-sm">↻ Refresh</button>
     <span class="ms-auto text-muted small" id="script-name">Unnamed Script</span>
   </div>
 

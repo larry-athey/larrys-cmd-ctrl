@@ -13,7 +13,11 @@ while (true) {
   // Process any waiting outbound messages
   if (mysqli_num_rows($Result) > 0) {
     while ($Msg = mysqli_fetch_assoc($Result)) {
-      $Response = sendCommand($DBcnx,$Msg["address"],$Msg["msg"]);
+      if (sendCommand($DBcnx,$Msg["address"],$Msg["msg"] != "<pre>error://failed-to-send-command</pre>\n")) {
+        $Response = "<span class=\"text-success\">Timeline command sent</span>";
+      } else {
+        $Response = "<span class=\"text-danger\">Timeline command failed</span>";
+      }
       $Update = mysqli_query($DBcnx,"UPDATE devices SET status='$Response' WHERE address='" . $Msg["address"] . "'");
       $Update = mysqli_query($DBcnx,"UPDATE timeline_queue SET sent=1 WHERE ID=" . $Msg["ID"]);
       usleep(5000); // Give back some CPU time between command transmissions
