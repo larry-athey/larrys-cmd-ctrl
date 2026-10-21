@@ -13,7 +13,7 @@ while (true) {
   // Process any waiting outbound messages
   if (mysqli_num_rows($Result) > 0) {
     while ($Msg = mysqli_fetch_assoc($Result)) {
-      if (sendCommand($DBcnx,$Msg["address"],$Msg["msg"] != "<pre>error://failed-to-send-command</pre>\n")) {
+      if (sendCommand($DBcnx,$Msg["address"],$Msg["msg"]) != "<pre>error://failed-to-send-command</pre>\n") {
         $Response = "<span class=\"text-success\">Timeline command sent</span>";
       } else {
         $Response = "<span class=\"text-danger\">Timeline command failed</span>";
