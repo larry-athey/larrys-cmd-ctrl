@@ -9,7 +9,9 @@ _...No, I don't use AI to design and build my projects, I actually still know ho
 **This project began on July 1, 2025 and does not yet have an official release but I am hoping to have the first one around the beginning of 2027.**
 
 ---
+
 <img width="1024" src="Diagrams/Screenshots/Timeline.png"><br>
+
 ---
 
 LCC is a client & server system where a Mission Control web app runs on a Raspberry Pi _(or clone)_ or any other Debian Linux based PC/SBC. The communications backbone between the server and client devices is a 100% isolated 802.11bg network in order to reject interference if the motor under control is nearby.
