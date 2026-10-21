@@ -1008,10 +1008,11 @@ function showScripts($DBcnx) {
 }
 //---------------------------------------------------------------------------------------------------
 function showTimeline($DBcnx) {
-
   $Content  = "<div class=\"row g-0 flex-shrink-0\">";
   $Content .=   "<div class=\"col p-2 border-bottom\">";
-  $Content .=     "(Button Row)";
+  $Content .=     "&nbsp;<a href=\"?page=list_timelines\" class=\"btn btn-sm btn-primary fw-bolder\">List Timeline Scripts</a>&nbsp;";
+  $Content .=     "&nbsp;<a href=\"?page=new_timeline\" class=\"btn btn-sm btn-primary fw-bolder\">New Timeline Script</a>&nbsp;";
+  $Content .=     "&nbsp;<a href=\"?page=save_timeline\" class=\"btn btn-sm btn-primary fw-bolder\">Save Current Timeline</a>&nbsp;";
   $Content .=   "</div>";
   $Content .= "</div>";
 
@@ -1020,7 +1021,6 @@ function showTimeline($DBcnx) {
   $Content .=     "<iframe class=\"w-100 flex-grow-1 border-0\" src=\"timeline-editor.php\" title=\"Timeline Editor\" style=\"min-height:0;\"></iframe>";
   $Content .=   "</div>";
   $Content .= "</div>";
-
   return $Content;
 }
 //---------------------------------------------------------------------------------------------------
