@@ -4,8 +4,6 @@
 You may contact me directly at https://panhandleponics.com<br>
 Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandlePonics
 
-_**NOTE:** While this can be used as an alternative to DCC and WCC in the model railroad world, that absolutely is not my specialty. This is just a viable and far more affordable alternative **IF** you want to use it for that purpose._
-
 _...No, I don't use AI to design and build my projects, I actually still know how to use my brain..._
 
 **This project began on July 1, 2025 and does not yet have an official release but I am hoping to have the first one around the beginning of 2027.**
