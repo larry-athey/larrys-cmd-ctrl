@@ -1,10 +1,8 @@
 # Larry's CMD & CTRL
-**aka: LCC** - Remote command and control system based on Raspberry Pi (or clone), ESP32, and low-frequency isolated WiFi. Can be used for any kind of automation that requires remote switching, motor direction and speed control, position tracking, LED lighting control, and scripting/scheduling. Also works great for model railroad control.
+**aka: LCC** - Remote command and control system based on Raspberry Pi (or clone), ESP32, and low-frequency isolated WiFi. Can be used for any kind of automation that requires remote switching, motor direction and speed control, position tracking, LED lighting control, and scripting/scheduling. Also works great for model railroads & extreme holiday light shows!
 
 You may contact me directly at https://panhandleponics.com<br>
 Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandlePonics
-
-_**NOTE:** While this can be used as an alternative to DCC and WCC in the model railroad world, that absolutely is not my specialty. This is just a viable and far more affordable alternative **IF** you want to use it for that purpose._
 
 _...No, I don't use AI to design and build my projects, I actually still know how to use my brain..._
 
