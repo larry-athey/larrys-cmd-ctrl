@@ -332,7 +332,7 @@ CREATE TABLE `timeline_status` (
 --
 
 INSERT INTO `timeline_status` (`ID`, `current_script`, `load_script`, `script_modified`, `running`, `position`) VALUES
-(1, 0, 0, 1, 0, 0);
+(1, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
