@@ -5,6 +5,13 @@ require_once("/var/www/html/subs.php");
 //---------------------------------------------------------------------------------------------
 $DBcnx = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 //---------------------------------------------------------------------------------------------
+// Check for a timeline load request
+$Result = mysqli_query($DBcnx,"SELECT * FROM timeline_status WHERE ID=1");
+$Status = mysqli_fetch_assoc($Result);
+if ($Status["load_script"] == 1) {
+
+}
+
 // Check for and send unsent outbound command messages
 $Result = mysqli_query($DBcnx,"SELECT * FROM outbound WHERE (sent=0) AND (address <> '00-00-00-00-00-00')");
 if (mysqli_num_rows($Result) > 0) {
