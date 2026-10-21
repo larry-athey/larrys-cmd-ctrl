@@ -269,7 +269,7 @@ function editCommand($DBcnx) {
     $Content .= "</div>";
   } elseif ($Cmd["cmd_type"] == 7) {
     $Content .= "<div>";
-    $Content .=   "<label for=\"scene_id\" class=\"form-label fw-bolder\">Scene To Send</label>";
+    $Content .=   "<label for=\"scene_id\" class=\"form-label fw-bolder\">Scene to Send</label>";
     $Content .=    sceneSelector($DBcnx,$Cmd["scene"]);
     $Content .= "</div>";
   }
