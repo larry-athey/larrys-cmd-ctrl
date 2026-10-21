@@ -252,7 +252,7 @@
     const map = {
       1: { bg: '#0d6efd', border: '#3d8bfd', color: '#fff' }, // Motor
       2: { bg: '#0d6efd', border: '#3d8bfd', color: '#fff' }, // Stepper
-      3: { bg: '#198754', border: '#2dd4a8', color: '#fff' }, // Location
+      3: { bg: '#0dcaf0', border: '#3dd5f3', color: '#000' }, // Location
       4: { bg: '#6f42c1', border: '#9b6dff', color: '#fff' }, // Sound
       5: { bg: '#fd7e14', border: '#ff9f43', color: '#fff' }, // Switch
       6: { bg: '#ffc107', border: '#ffda6a', color: '#000' }, // Light
