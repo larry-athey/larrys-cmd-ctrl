@@ -1,6 +1,9 @@
 <?php
 //---------------------------------------------------------------------------------------------------
 require_once("html.php");
+
+$refresh = 3600;
+if (isset($_GET["ref"])) $refresh = "15;url=index.php?page=timeline"
 //---------------------------------------------------------------------------------------------------
 ?>
 <!DOCTYPE html>
@@ -13,7 +16,7 @@ require_once("html.php");
   <meta http-equiv="expires" content="0">
   <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
   <meta http-equiv="pragma" content="no-cache">
-  <meta http-equiv="refresh" content="3600">
+  <meta http-equiv="refresh" content="<?= $refresh ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="/assets/css/prism-tomorrow.min.css" rel="stylesheet">
   <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
