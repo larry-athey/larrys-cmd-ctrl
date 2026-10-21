@@ -140,7 +140,7 @@ if ($_GET["ID"] == 1) { // Set command start and stop timer
   $Content .= "</div>";
 } elseif ($_GET["ID"] == 16) { // Send Neopixel/WS2812 lighting scene - type 7
   $Content .= "<div>";
-  $Content .=   "<label for=\"scene_id\" class=\"form-label fw-bolder\">Scene To Send</label>";
+  $Content .=   "<label for=\"scene_id\" class=\"form-label fw-bolder\">Scene to Send</label>";
   $Content .=    sceneSelector($DBcnx,0);
   $Content .= "</div>";
 } else {
