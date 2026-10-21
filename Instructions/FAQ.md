@@ -20,7 +20,7 @@ A: My answer will always be "as many as you need". Sure, I could switch the defa
 
 Q: I see 3 types of scripts mentioned here. Command Scripts, LedBasic Scripts, and Timeline Scripts. What's the difference?
 
-A: Command scripts can only contain up to 16 commands and these must commands in your command library. These are primarily used for loading up an LCC Slave's buffer with 16 instructions and sending it off to do its job. LedBasic scripts are for creating complex RGB LED lighting scenes when you need more capabilities than just turning a fixture on and off. Timeline scripts are the grand master of all scripting capabilities here because they look at all of your LCC Slaves as actors in a play and each can be given a separate command of any time every second.
+A: Command scripts can only contain up to 16 commands and these must commands in your command library. These are primarily used for loading up an LCC Slave's buffer with 16 instructions and sending it off to do its job. LedBasic scripts are for creating complex RGB LED lighting scenes when you need more capabilities than just turning a fixture on and off. Timeline scripts are the grand master of all scripting capabilities here because they look at all of your LCC Slaves as actors in a play and each can be given a separate command of any time every second or at precise seconds since the play button was clicked. There is no limit to the number of commands or the length of a timeline script.
 
 ---
 
