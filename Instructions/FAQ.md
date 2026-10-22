@@ -34,7 +34,7 @@ Q: Why does it appear that sometimes there is a delay in what appears on the Mis
 
 A: Your phone/computer isn't establishing a real-time connection with each LCC Slave. The undercarriage of the Mission Control server only checks for incoming messages from LCC Slaves once every 5 seconds and signal level queries only happen at the top of the hour. So, while you can manually send a command to a slave and see it react instantly, there can be up to a 5 second delay between the Mission Control server seeing an acknowledgment message from an LCC Slave and displaying it on your screen. This is 100% normal behavior in the client/server world, it's all message exchanges (just like SMB), not a live data stream.
 
-_**FOLLOWUP:** You will likely also notice that the play head in the timeline editor also exhibits some seemingly random movement and this is because your browser's polling interval isn't perfectly in sync with the playback loop running the timeline._
+_**FOLLOWUP:** You will likely also notice that the play head in the timeline editor also exhibits some seemingly random movement and this is because your browser's polling interval isn't perfectly in sync with the playback loop running the timeline playback._
 
 ---
 
