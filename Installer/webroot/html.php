@@ -1062,9 +1062,9 @@ function showScripts($DBcnx) {
 function showTimeline($DBcnx) {
   $Content  = "<div class=\"row g-0 flex-shrink-0\">";
   $Content .=   "<div class=\"col p-2 border-bottom\">";
-  $Content .=     "&nbsp;<a href=\"?page=list_timelines\" class=\"btn btn-sm btn-primary fw-bolder\">List Timeline Scripts</a>&nbsp;";
-  $Content .=     "&nbsp;<a href=\"#\" onClick=\"confirmNewTimeline();\" class=\"btn btn-sm btn-primary fw-bolder\">New Timeline Script</a>&nbsp;";
-  $Content .=     "&nbsp;<a href=\"?page=edit_timeline\" class=\"btn btn-sm btn-primary fw-bolder\">Save Current Timeline</a>&nbsp;";
+  $Content .=     "<a href=\"?page=list_timelines\" class=\"btn btn-sm btn-outline-primary fw-bolder\" style=\"margin-left: 4px; margin-right: 6px; width: 200px;\">List Timeline Scripts</a>";
+  $Content .=     "<a href=\"#\" onClick=\"confirmNewTimeline();\" class=\"btn btn-sm btn-outline-primary fw-bolder\" style=\"margin-left: 4px; margin-right: 6px; width: 200px;\">New Timeline Script</a>";
+  $Content .=     "<a href=\"?page=edit_timeline\" class=\"btn btn-sm btn-outline-primary fw-bolder\" style=\"margin-left: 4px; margin-right: 6px; width: 200px;\">Save Current Timeline</a>";
   $Content .=   "</div>";
   $Content .= "</div>";
 
