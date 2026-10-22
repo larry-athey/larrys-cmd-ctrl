@@ -1015,7 +1015,11 @@ function showSchedule($DBcnx) {
     $Content .= "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
     $Content .=   "<div class=\"card-body\">";
     $Content .=     "<p class=\"fw-bolder mb-0\">" . $Task["task_name"] . "</p>";
-    $Content .=     "<p class=\"text-secondary fs-6 mb-0\">" . getDeviceName($DBcnx,$Task["address"]) . ", Script " . $Task["script"] . "</p>";
+    if ($Task["address"] == "00-00-00-00-00-00") {
+      $Content .=   "<p class=\"text-secondary fs-6 mb-0\">Timeline Playback Engine, Timeline " . $Task["script"] . "</p>";
+    } else {
+      $Content .=   "<p class=\"text-secondary fs-6 mb-0\">" . getDeviceName($DBcnx,$Task["address"]) . ", Script " . $Task["script"] . "</p>";
+    }
     $Content .=     "<p class=\"mb-0\" style=\"float: right;\"><a href=\"?page=delete_confirm&type=5&ID=" . $Task["ID"] . "\" class=\"btn btn-danger fw-bolder\" name=\"delete_task\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;";
     $Content .=     "<a href=\"?page=edit_task&ID=" . $Task["ID"] . "\" class=\"btn btn-primary fw-bolder\" name=\"edit_task\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Edit</a></p>";
     $Content .=   "</div>";
