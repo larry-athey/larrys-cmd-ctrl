@@ -14,7 +14,7 @@ This server was developed on an Orange Pi Zero 3 running Armbian Linux 6.18.54 a
 
 # Installation
 
-You must install this on a Pi style computer running a fresh unmodified OS installation (Armbian/Debian) under a user account named "pi".
+You must install this on a Linux SBC/PC running a fresh unmodified OS installation (Armbian/Debian) under a user account named "pi".
 
 First, git-clone this repository.
 
