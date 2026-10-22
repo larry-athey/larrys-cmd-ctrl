@@ -28,7 +28,7 @@ LCC Slave units play sound files on the sound server instead, which is actually 
 
 # Installation
 
-As with the Mission Control server, you must install this on a Pi style computer running a fresh unmodified OS installation under a user account named "pi".
+As with the Mission Control server, you must install this on a Linux SBC/PC running a fresh unmodified OS installation (Armbian/Debian) under a user account named "pi".
 
 You will need this computer already connected to the LCC-WLAN network as well, so you will need to connect its ethernet port to a router with internet access in order to git-clone this repository to it. This is because the LCC-WLAN network has no internet access, even if the Mission Control server has an ethernet connection.
 
