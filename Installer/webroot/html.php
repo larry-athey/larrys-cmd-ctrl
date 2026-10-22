@@ -559,16 +559,21 @@ function editTask($DBcnx) {
   if ($_GET["ID"] > 0) {
     $Result = mysqli_query($DBcnx,"SELECT * FROM schedule WHERE ID=" . $_GET["ID"]);
     $Task = mysqli_fetch_assoc($Result);
-    $Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE address='" . $Task["address"] . "'");
-    $Dev = mysqli_fetch_assoc($Result);
-    $cmd_class = $Dev["dev_type"];
+    if ($Task["address"] != "00-00-00-00-00-00") {
+      $Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE address='" . $Task["address"] . "'");
+      $Dev = mysqli_fetch_assoc($Result);
+      $cmd_class = $Dev["dev_type"];
+    } else {
+      $cmd_class = 0;
+    }
   } else {
     if (! isset($_GET["cmd_class"])) {
       $Content  = "<div style=\"width: 31em; margin-left: 0.25em; margin-top: 0.5em;\">";
       $Content .=   "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
       $Content .=     "<div class=\"card-header\"><span class=\"text-muted fw-bolder\">Choose Device Type</span></div>";
       $Content .=     "<div class=\"card-body\">";
-      $Content .=       "<a href=\"./index.php?page=edit_task&ID=0&cmd_class=1\" class=\"btn btn-sm btn-success fw-bolder\" style=\"width: 100%;\">Brushed Motor Controller</a>";
+      $Content .=       "<a href=\"./index.php?page=edit_task&ID=0&cmd_class=0\" class=\"btn btn-sm btn-success fw-bolder\" style=\"width: 100%;\">Timeline Playback Engine</a>";
+      $Content .=       "<a href=\"./index.php?page=edit_task&ID=0&cmd_class=1\" class=\"btn btn-sm btn-success fw-bolder\" style=\"width: 100%; margin-top: 1em;\">Brushed Motor Controller</a>";
       $Content .=       "<a href=\"./index.php?page=edit_task&ID=0&cmd_class=2\" class=\"btn btn-sm btn-success fw-bolder\" style=\"width: 100%; margin-top: 1em;\">Stepper Motor Controller</a>";
       $Content .=       "<a href=\"./index.php?page=edit_task&ID=0&cmd_class=3\" class=\"btn btn-sm btn-success fw-bolder\" style=\"width: 100%; margin-top: 1em;\">Switching Controller</a>";
       $Content .=       "<a href=\"./index.php?page=edit_task&ID=0&cmd_class=4\" class=\"btn btn-sm btn-success fw-bolder\" style=\"width: 100%; margin-top: 1em;\">Model Train Locomotive</a>";

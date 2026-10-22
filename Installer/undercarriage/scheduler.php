@@ -48,9 +48,22 @@ if (mysqli_num_rows($Result) > 0) {
 
       // See if the scheduled script deployment can run at this time
       if ($currentUnixTime >= $scheduledUnixTime) {
-        echo "Deploying the script for the task '" . $RS["task_name"] . "'\n";
-        deployScript($DBcnx,$RS["script"],$RS["address"]);
-        $Update = mysqli_query($DBcnx,"UPDATE schedule SET last_run=NOW() WHERE ID=" . $RS["ID"]);
+        if ($RS["address"] == "00-00-00-00-00-00") {
+          $Result2 = mysqli_query($DBcnx,"SELECT * FROM timeline_status WHERE ID=1");
+          $Status = mysqli_fetch_assoc($Result2);
+          if ($Status["script_modified"] == 0) { // If the current timeline is unsaved, the task won't run
+            $Result3 = mysqli_query($DBcnx,"SELECT * FROM timeline_scripts WHERE ID=" . $RS["script"]);
+            $Scr = mysqli_fetch_assoc($Result3);
+            file_put_contents("/tmp/timeline.sql",$Scr["script_sql"]);
+            shell_exec("mysql LCC < /tmp/timeline.sql");
+            $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET current_script=" . $RS["script"] . ",script_modified=0,load_save=0,position=0,running=1 WHERE ID=1");
+          }
+          $Update = mysqli_query($DBcnx,"UPDATE schedule SET last_run=NOW() WHERE ID=" . $RS["ID"]);
+        } else {
+          echo "Deploying the script for the task '" . $RS["task_name"] . "'\n";
+          deployScript($DBcnx,$RS["script"],$RS["address"]);
+          $Update = mysqli_query($DBcnx,"UPDATE schedule SET last_run=NOW() WHERE ID=" . $RS["ID"]);
+        }
       }
     }
   }

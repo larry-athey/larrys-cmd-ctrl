@@ -13,12 +13,12 @@ if ($Status["load_save"] == 1) { // Load a saved timeline_scripts backup of the 
   $Scr = mysqli_fetch_assoc($Result);
   file_put_contents("/tmp/timeline.sql",$Scr["script_sql"]);
   shell_exec("mysql LCC < /tmp/timeline.sql");
-  $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET script_modified=0,load_save=0 WHERE ID=1");
+  $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET script_modified=0,load_save=0,position=0 WHERE ID=1");
 } elseif ($Status["load_save"] == 2) { // Save the timeline table to a timeline_scripts backup
   shell_exec("mysqldump LCC timeline > /tmp/timeline.sql");
   $SQL = mysqli_escape_string($DBcnx,file_get_contents("/tmp/timeline.sql"));
   $Update = mysqli_query($DBcnx,"UPDATE timeline_scripts SET last_update=NOW(),script_sql='$SQL' WHERE ID=" . $Status["current_script"]);
-  $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET script_modified=0,load_save=0 WHERE ID=1");
+  $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET script_modified=0,load_save=0,position=0 WHERE ID=1");
 }
 
 // Check for and send unsent outbound command messages

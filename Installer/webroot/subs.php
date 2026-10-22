@@ -158,19 +158,25 @@ function deviceFilter($Location) {
 }
 //---------------------------------------------------------------------------------------------------
 function deviceAddressSelector($DBcnx,$DevType,$Address) {
-  $Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE dev_type=$DevType ORDER BY dev_name");
-  if (mysqli_num_rows($Result) > 0) {
-    $Content  = "<select class=\"form-control form-select fw-bolder\" style=\"width: 100%;\" size=\"1\" id=\"address\" name=\"address\">";
-    while ($Dev = mysqli_fetch_assoc($Result)) {
-      if ($Dev["address"] == $Address) {
-         $Content .= "<option selected value=\"" . $Dev["address"] . "\">" . $Dev["dev_name"] . "</option>";
-      } else {
-         $Content .= "<option value=\"" . $Dev["address"] . "\">" . $Dev["dev_name"] . "</option>";
+  if ($DevType > 0) {
+    $Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE dev_type=$DevType ORDER BY dev_name");
+    if (mysqli_num_rows($Result) > 0) {
+      $Content = "<select class=\"form-control form-select fw-bolder\" style=\"width: 100%;\" size=\"1\" id=\"address\" name=\"address\">";
+      while ($Dev = mysqli_fetch_assoc($Result)) {
+        if ($Dev["address"] == $Address) {
+          $Content .= "<option selected value=\"" . $Dev["address"] . "\">" . $Dev["dev_name"] . "</option>";
+        } else {
+          $Content .= "<option value=\"" . $Dev["address"] . "\">" . $Dev["dev_name"] . "</option>";
+        }
       }
+      $Content .= "</select>";
+    } else {
+      return "<p class=\"text-danger fw-bolder\">No configured devices</p>";
     }
-    $Content .= "</select>";
   } else {
-    return "<p class=\"text-danger fw-bolder\">No configured devices</p>";
+    $Content  = "<select class=\"form-control form-select fw-bolder\" style=\"width: 100%;\" size=\"1\" id=\"address\" name=\"address\">";
+    $Content .= "<option selected value=\"00-00-00-00-00-00\">Timeline Playback Engine</option>";
+    $Content .= "</select>";
   }
   return $Content;
 }
@@ -577,7 +583,11 @@ function scriptReplaySelector($DBcnx,$DevType,$ID) {
 //---------------------------------------------------------------------------------------------------
 function scriptSelector($DBcnx,$DevType,$ID) {
   $Content = "<select class=\"form-control form-select fw-bolder\" style=\"width: 100%;\" size=\"1\"  id=\"script\" name=\"script\">";
-  $Result = mysqli_query($DBcnx,"SELECT * FROM scripts WHERE cmd_class=$DevType ORDER BY scr_name");
+  if ($DevType == 0) {
+    $Result = mysqli_query($DBcnx,"SELECT * FROM timeline_scripts ORDER BY scr_name");
+  } else {
+    $Result = mysqli_query($DBcnx,"SELECT * FROM scripts WHERE cmd_class=$DevType ORDER BY scr_name");
+  }
   if (mysqli_num_rows($Result) > 0) {
     while ($Scr = mysqli_fetch_assoc($Result)) {
       if ($Scr["ID"] == $ID) {
