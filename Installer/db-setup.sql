@@ -198,7 +198,8 @@ CREATE TABLE `schedule` (
   `days` varchar(13) DEFAULT NULL,
   `last_run` timestamp NULL DEFAULT current_timestamp(),
   `disabled` tinyint(4) DEFAULT 0,
-  `script` int(11) DEFAULT NULL
+  `script` int(11) DEFAULT NULL,
+  `timeline` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
