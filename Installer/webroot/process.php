@@ -35,6 +35,11 @@ elseif (isset($_GET["delete_task"])) {
   $Return = "/index.php?page=schedule";
 }
 //---------------------------------------------------------------------------------------------------
+elseif (isset($_GET["delete_timeline"])) {
+  $Update = mysqli_query($DBcnx,"DELETE FROM timeline_scripts WHERE ID=" . $_GET["ID"]);
+  $Return = "/index.php?page=list_timelines";
+}
+//---------------------------------------------------------------------------------------------------
 elseif (isset($_GET["firmware_id"])) {
   $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-warning\">Starting OTA Firmware Update</span>',signal_level='<span class=\"text-secondary\">Offline</span>' WHERE ID=" . $_GET["firmware_id"]);
   $Insert = mysqli_query($DBcnx,"INSERT INTO outbound (address,msg) VALUES ('00-00-00-00-00-00','/firmware/" . $_GET["firmware_id"] . "')");
