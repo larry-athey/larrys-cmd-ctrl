@@ -206,7 +206,8 @@ CREATE TABLE `schedule` (
 --
 
 INSERT INTO `schedule` (`ID`, `address`, `task_name`, `start_hour`, `start_min`, `days`, `last_run`, `disabled`, `script`) VALUES
-(1, 'e8-06-90-95-ef-90', 'Scheduled Motor Test', 12, 15, '1|1|1|1|1|1|1', '2026-09-28 18:15:08', 0, 1);
+(1, '44-bd-8d-ee-81-34', 'Scheduled Motor Test', 12, 15, '1|1|1|1|1|1|1', '2026-10-21 18:15:57', 0, 1),
+(2, '00-00-00-00-00-00', 'Scheduled Timeline Test', 9, 15, '0|0|0|0|1|0|0', '2026-10-22 15:15:56', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -285,6 +286,20 @@ CREATE TABLE `timeline` (
   `scene` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `timeline`
+--
+
+INSERT INTO `timeline` (`ID`, `cmd_name`, `address`, `position`, `cmd_type`, `gpio_pin`, `direction`, `speed`, `duration`, `progression`, `steps`, `resolution`, `sound`, `volume`, `replay`, `location_id`, `location_action`, `location_data`, `light`, `red`, `green`, `blue`, `fade`, `scene`) VALUES
+(1, 'Motor test 1', '44-bd-8d-ee-81-34', 2, 1, 0, 1, 50, 15, 5, 0, 1, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
+(2, 'Stepper test 1', 'e8-06-90-95-ef-90', 0, 2, 0, 1, 50, 0, 0, 800, 4, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
+(3, 'Sound test 1', '44-bd-8d-ee-81-34', 7, 4, 0, 1, 0, 0, 0, 0, 1, 6, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
+(4, 'Scene test 1', '44-bd-8d-ee-80-24', 5, 7, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 9),
+(5, 'Switching test 1', 'e4-b3-23-f8-0d-2c', 5, 5, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
+(6, 'Location test 1', 'e8-06-90-95-ef-90', 15, 3, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 1000, 1, 0, 0, 0, 0, 0, 1, 0),
+(7, 'Lights Out', '44-bd-8d-ee-80-24', 15, 6, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 0, 1, 0, 65535, 0, 0, 0, 1, 0),
+(8, 'Location test 2', 'e4-b3-23-f8-0d-2c', 11.5, 3, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 1000, 1, 0, 0, 0, 0, 0, 1, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -311,6 +326,13 @@ CREATE TABLE `timeline_scripts` (
   `last_update` timestamp NULL DEFAULT NULL,
   `script_sql` mediumtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+--
+-- Dumping data for table `timeline_scripts`
+--
+
+INSERT INTO `timeline_scripts` (`ID`, `scr_name`, `last_update`, `script_sql`) VALUES
+(1, 'My Test Timeline', '2026-10-22 13:08:56', '/*M!999999\\- enable the sandbox mode */ \n-- MariaDB dump 10.19-11.8.6-MariaDB, for debian-linux-gnu (aarch64)\n--\n-- Host: localhost    Database: LCC\n-- ------------------------------------------------------\n-- Server version	11.8.6-MariaDB-0+deb13u1 from Debian\n\n/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;\n/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;\n/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;\n/*!40101 SET NAMES utf8mb4 */;\n/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;\n/*!40103 SET TIME_ZONE=\'+00:00\' */;\n/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;\n/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;\n/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE=\'NO_AUTO_VALUE_ON_ZERO\' */;\n/*M!100616 SET @OLD_NOTE_VERBOSITY=@@NOTE_VERBOSITY, NOTE_VERBOSITY=0 */;\n\n--\n-- Table structure for table `timeline`\n--\n\nDROP TABLE IF EXISTS `timeline`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8mb4 */;\nCREATE TABLE `timeline` (\n  `ID` int(11) NOT NULL AUTO_INCREMENT,\n  `cmd_name` varchar(255) DEFAULT NULL,\n  `address` varchar(17) DEFAULT NULL,\n  `position` float DEFAULT NULL,\n  `cmd_type` tinyint(4) DEFAULT NULL,\n  `gpio_pin` tinyint(4) DEFAULT NULL,\n  `direction` tinyint(4) DEFAULT NULL,\n  `speed` tinyint(4) DEFAULT NULL,\n  `duration` int(11) DEFAULT NULL,\n  `progression` int(11) DEFAULT NULL,\n  `steps` int(11) DEFAULT NULL,\n  `resolution` tinyint(4) DEFAULT NULL,\n  `sound` int(11) DEFAULT NULL,\n  `volume` tinyint(4) NOT NULL DEFAULT 25,\n  `replay` tinyint(4) DEFAULT 0,\n  `location_id` int(11) DEFAULT NULL,\n  `location_action` int(11) DEFAULT NULL,\n  `location_data` int(11) DEFAULT NULL,\n  `light` int(11) NOT NULL DEFAULT 0,\n  `red` int(11) NOT NULL DEFAULT 0,\n  `green` int(11) NOT NULL DEFAULT 0,\n  `blue` int(11) NOT NULL DEFAULT 0,\n  `fade` float NOT NULL DEFAULT 1,\n  `scene` int(11) DEFAULT NULL,\n  PRIMARY KEY (`ID`)\n) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n-- Dumping data for table `timeline`\n--\n\nSET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;\nLOCK TABLES `timeline` WRITE;\n/*!40000 ALTER TABLE `timeline` DISABLE KEYS */;\nINSERT INTO `timeline` VALUES\n(1,\'Motor test 1\',\'44-bd-8d-ee-81-34\',2,1,0,1,50,15,5,0,1,0,25,0,0,1,0,0,0,0,0,1,0),\n(2,\'Stepper test 1\',\'e8-06-90-95-ef-90\',0,2,0,1,50,0,0,800,4,0,25,0,0,1,0,0,0,0,0,1,0),\n(3,\'Sound test 1\',\'44-bd-8d-ee-81-34\',7,4,0,1,0,0,0,0,1,6,25,0,0,1,0,0,0,0,0,1,0),\n(4,\'Scene test 1\',\'44-bd-8d-ee-80-24\',5,7,0,1,0,0,0,0,1,0,25,0,0,1,0,0,0,0,0,1,9),\n(5,\'Switching test 1\',\'e4-b3-23-f8-0d-2c\',5,5,0,1,0,0,0,0,1,0,25,0,0,1,0,0,0,0,0,1,0),\n(6,\'Location test 1\',\'e8-06-90-95-ef-90\',15,3,0,1,0,0,0,0,1,0,25,0,1000,1,0,0,0,0,0,1,0),\n(7,\'Lights Out\',\'44-bd-8d-ee-80-24\',15,6,0,1,0,0,0,0,1,0,25,0,0,1,0,65535,0,0,0,1,0),\n(8,\'Location test 2\',\'e4-b3-23-f8-0d-2c\',11.5,3,0,1,0,0,0,0,1,0,25,0,1000,1,0,0,0,0,0,1,0);\n/*!40000 ALTER TABLE `timeline` ENABLE KEYS */;\nUNLOCK TABLES;\nCOMMIT;\nSET AUTOCOMMIT=@OLD_AUTOCOMMIT;\n/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;\n\n/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;\n/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;\n/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;\n/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;\n/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;\n/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;\n/*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;\n\n-- Dump completed on 2026-10-22  7:08:56\n');
 
 -- --------------------------------------------------------
 
