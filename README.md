@@ -10,7 +10,9 @@ _...No, I don't use AI to design and build my projects, I actually still know ho
 
 ---
 
-<img width="1024" src="Diagrams/Screenshots/Timeline.png"><br>
+<img width="1024" src="Diagrams/Screenshots/Timeline.png"><br><br>
+
+<img width="1024" src="Diagrams/Screenshots/Home.png"><br>
 
 ---
 
