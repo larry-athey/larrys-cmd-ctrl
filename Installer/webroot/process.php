@@ -48,8 +48,7 @@ elseif (isset($_GET["new_timeline"])) {
 }
 //---------------------------------------------------------------------------------------------------
 elseif (isset($_GET["open_timeline"])) {
-  //$Update = mysqli_query($DBcnx,"TRUNCATE timeline");
-  //$Update = mysqli_query($DBcnx,"UPDATE timeline_status SET current_script=0,script_modified=0 WHERE ID=1");
+  $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET current_script=" . $_GET["open_timeline"] . ",script_modified=0,load_save=1 WHERE ID=1");
   $Return = "/index.php?page=open_timeline&ref=1";
 }
 
@@ -233,6 +232,24 @@ elseif (isset($_POST["edit_task"])) {
   $script = $_POST["script"];
   $Result = mysqli_query($DBcnx,"UPDATE schedule SET task_name='$task_name',address='$address',days='$days',start_hour=$start_hour,start_min=$start_min,last_run=DATE_SUB(NOW(),INTERVAL 1 DAY),disabled=$disabled,script=$script WHERE ID=$ID");
   $Return = "/index.php?page=schedule";
+//echo("<pre>");
+//print_r($_POST);
+//echo($days);
+//echo("</pre>");
+//exit;
+}
+//---------------------------------------------------------------------------------------------------
+elseif (isset($_POST["edit_timeline"])) {
+  if ($_POST["ID"] == 0) {
+    $Result = mysqli_query($DBcnx,"INSERT INTO timeline_scripts (scr_name) VALUES ('Temp')");
+    $ID = mysqli_insert_id($DBcnx);
+  } else {
+    $ID = $_POST["ID"];
+  }
+  $scr_name = mysqli_escape_string($DBcnx,trim($_POST["scr_name"]));
+  $Result = mysqli_query($DBcnx,"UPDATE timeline_scripts SET scr_name='$scr_name' WHERE ID=$ID");
+  $Update = mysqli_query($DBcnx,"UPDATE timeline_status SET current_script=$ID,script_modified=0,load_save=2 WHERE ID=1");
+  $Return = "/index.php?page=timeline";
 //echo("<pre>");
 //print_r($_POST);
 //echo($days);

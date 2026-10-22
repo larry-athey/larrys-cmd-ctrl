@@ -364,6 +364,16 @@ function getTaskName($DBcnx,$ID) {
   }
 }
 //---------------------------------------------------------------------------------------------------
+function getTimelineName($DBcnx,$ID) {
+  $Result = mysqli_query($DBcnx,"SELECT * FROM timeline_scripts WHERE ID=$ID");
+  if (mysqli_num_rows($Result) > 0) {
+    $Scr = mysqli_fetch_assoc($Result);
+    return $Scr["scr_name"];
+  } else {
+    return "Unnamed Script";
+  }
+}
+//---------------------------------------------------------------------------------------------------
 function InStr($Needle,$Haystack) {
   $Pos = strpos($Haystack,$Needle);
   if ($Pos === false) {

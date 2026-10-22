@@ -3,7 +3,7 @@
 require_once("html.php");
 
 $refresh = 3600;
-if (isset($_GET["ref"])) $refresh = "15;url=index.php?page=timeline"
+if (isset($_GET["ref"])) $refresh = "10;url=index.php?page=timeline"
 //---------------------------------------------------------------------------------------------------
 ?>
 <!DOCTYPE html>
@@ -21,7 +21,6 @@ if (isset($_GET["ref"])) $refresh = "15;url=index.php?page=timeline"
   <link href="/assets/css/prism-tomorrow.min.css" rel="stylesheet">
   <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- script src="/assets/js/chart.js"></script -->
   <script src="/assets/js/jquery.min.js"></script>
   <link rel="icon" href="/favicon.ico?v=1.1">
   <script type="text/javascript">
@@ -140,6 +139,10 @@ if ($_GET["page"] == "home") {
   $Content .= editScript($DBcnx);
 } elseif ($_GET["page"] == "edit_task") {
   $Content .= editTask($DBcnx);
+} elseif ($_GET["page"] == "edit_timeline") {
+  $Content .= editTimeline($DBcnx);
+} elseif ($_GET["page"] == "open_timeline") {
+  $Content .= openTimeline($DBcnx);
 } elseif ($_GET["page"] == "firmware") {
   $Content .= setFirmwareUpdate($DBcnx);
 } elseif ($_GET["page"] == "list_timelines") {

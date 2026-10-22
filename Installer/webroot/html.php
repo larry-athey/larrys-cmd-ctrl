@@ -31,7 +31,7 @@ function deleteConfirm($DBcnx) {
   } elseif ($_GET["type"] == 7) {
     $Return = "list_timelines";
     $btdID  = "delete_timeline";
-    //$Name   = getTimelineName($DBcnx,$ID);
+    $Name   = getTimelineName($DBcnx,$ID);
   } else {
     return;
   }
@@ -642,6 +642,45 @@ function editTask($DBcnx) {
   return $Content;
 }
 //---------------------------------------------------------------------------------------------------
+function editTimeline($DBcnx) {
+  $Result = mysqli_query($DBcnx,"SELECT * FROM timeline_status WHERE ID=1");
+  $Status = mysqli_fetch_assoc($Result);
+  $scr_name = getTimelineName($DBcnx,$Status["current_script"]);
+  $Content  = "<div style=\"width: 31em; margin-top: 0.5em; margin-left: 0.25em;\">";
+  $Content .=   "<form id=\"timeline_editor\" method=\"post\" action=\"/process.php\">";
+  $Content .=   "<input type=\"hidden\" id=\"ID\" name=\"ID\" value=\"" . $Status["current_script"] . "\">";
+  $Content .=   "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
+  $Content .=     "<div class=\"card-header\"><span class=\"text-muted fw-bolder\">Save Timeline</span></div>";
+  $Content .=     "<div class=\"card-body\">";
+  $Content .=       "<div>";
+  $Content .=         "<label for=\"scr_name\" class=\"form-label fw-bolder\">Timeline Name</label>";
+  $Content .=         "<input type=\"text\" class=\"form-control fw-bolder\" id=\"scr_name\" name=\"scr_name\" maxlength=\"255\" value=\"$scr_name\">";
+  $Content .=       "</div>";
+  $Content .=     "</div>";
+  $Content .=     "<div class=\"border-bottom\"></div>";
+  $Content .=     "<div style=\"margin-top: 1em;\">";
+  $Content .=       "<p style=\"float: right; margin-right: 1em;\"><a href=\"?page=timeline\" class=\"btn btn-danger fw-bolder\" name=\"cancel\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+  $Content .=       "<button type=\"submit\" class=\"btn btn-primary fw-bolder\" name=\"edit_timeline\" id=\"edit_timeline\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Save</button></p>";
+  $Content .=     "</div>";
+  $Content .=   "</div>";
+  $Content .=   "</form>";
+  $Content .= "</div>";
+  return $Content;
+}
+//---------------------------------------------------------------------------------------------------
+function openTimeline($DBcnx) {
+  $Content  = "<div style=\"width: 31em; margin-top: 0.5em; margin-left: 0.25em;\">";
+  $Content .=   "<div class=\"card\" style=\"width: 100%; margin-bottom: 0.5em;\">";
+  $Content .=     "<div class=\"card-body\">";
+  $Content .=       "<p style=\"text-align: justify;\" class=\"fw-bolder\">Unlike the other features of Mission Control, each timeline is actually a seriously huge database table.</p>";
+  $Content .=       "<p style=\"text-align: justify;\" class=\"fw-bolder\">Every save and open action is actually a database backup and restore, which may not happen instantly.</p>";
+  $Content .=       "<p style=\"text-align: justify;\" class=\"fw-bolder\">The timeline editor will automatically reopen in about 10 seconds after the restore is complete.</p>";
+  $Content .=     "</div>";
+  $Content .=   "</div>";
+  $Content .= "</div>";
+  return $Content;
+}
+//---------------------------------------------------------------------------------------------------
 function setFirmwareUpdate($DBcnx) {
   $Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE ID=" . $_GET["ID"]);
   $Dev = mysqli_fetch_assoc($Result);
@@ -1016,7 +1055,7 @@ function showTimeline($DBcnx) {
   $Content .=   "<div class=\"col p-2 border-bottom\">";
   $Content .=     "&nbsp;<a href=\"?page=list_timelines\" class=\"btn btn-sm btn-primary fw-bolder\">List Timeline Scripts</a>&nbsp;";
   $Content .=     "&nbsp;<a href=\"#\" onClick=\"confirmNewTimeline();\" class=\"btn btn-sm btn-primary fw-bolder\">New Timeline Script</a>&nbsp;";
-  $Content .=     "&nbsp;<a href=\"?page=save_timeline\" class=\"btn btn-sm btn-primary fw-bolder\">Save Current Timeline</a>&nbsp;";
+  $Content .=     "&nbsp;<a href=\"?page=edit_timeline\" class=\"btn btn-sm btn-primary fw-bolder\">Save Current Timeline</a>&nbsp;";
   $Content .=   "</div>";
   $Content .= "</div>";
 
@@ -1040,8 +1079,8 @@ function showTimelineStash($DBcnx) {
     $Content .=   "<div class=\"card-body\">";
     $Content .=     "<p class=\"fw-bolder mb-0\">" . $Scr["scr_name"] . "</p>";
     $Content .=     "<p class=\"text-secondary fs-6 mb-0\"> ID " . $Scr["ID"] . "</p>";
-    $Content .=     "<p class=\"mb-0\" style=\"float: right;\"><a href=\"?page=delete_confirm&type=7&ID=" . $Scr["ID"] . "\" class=\"btn btn-danger fw-bolder\" name=\"delete_location\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;";
-    $Content .=     "<a href=\"#\" onClick=\"confirmOpenTimeline(" . $Scr["ID"] . ");\" class=\"btn btn-primary fw-bolder\" name=\"edit_location\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Open</a></p>";
+    $Content .=     "<p class=\"mb-0\" style=\"float: right;\"><a href=\"?page=delete_confirm&type=7&ID=" . $Scr["ID"] . "\" class=\"btn btn-danger fw-bolder\" name=\"delete_timeline\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+    $Content .=     "<a href=\"#\" onClick=\"confirmOpenTimeline(" . $Scr["ID"] . ");\" class=\"btn btn-primary fw-bolder\" name=\"edit_timeline\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Open</a></p>";
     $Content .=   "</div>";
     $Content .= "</div>";
   }
