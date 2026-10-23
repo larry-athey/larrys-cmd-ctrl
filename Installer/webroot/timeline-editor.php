@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LCC Timeline Editor</title>
+  <!-- Any replacement editor that you create has to use the local Bootstrap and jQuery libraries, not CDN versions -->
   <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <script src="/assets/js/jquery.min.js"></script>
   <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
