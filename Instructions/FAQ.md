@@ -18,12 +18,6 @@ A: My answer will always be "as many as you need". Sure, I could switch the defa
 
 ---
 
-Q: I see 3 types of scripts mentioned here. Command Scripts, LedBasic Scripts, and Timeline Scripts. What's the difference?
-
-A: Command scripts can only contain up to 16 sequential commands from your command library. These are primarily used for loading up an LCC Slave's buffer with 16 instructions and sending it off to do its job. LedBasic scripts are for creating complex RGB LED lighting scenes when you need more capabilities than just turning a fixture on and off. Timeline scripts are the grand master of all scripting capabilities here because they look at all of your LCC Slaves as actors in a play and each can be given a separate command of any type every second or at precise seconds since the play button was clicked.
-
----
-
 Q: Why does the Mission Control system show 4 different device types but the ESP32 code really only provides 2 types?
 
 A: It's mainly for command class segregation. For example, the **Brushed Motor Controller** and the **Model Train Locomotive** are 100% identical in functionality. Mission Control calls these two different device types so the commands for each device type aren't inter-mingled. The **Switching Controller** is also the same but the motor control functionality is hidden so that you can't accidentally send a motor control command to it and cause switching delays. The only one that's really different is the **Stepper Motor Controller** device.
@@ -41,18 +35,6 @@ _**FOLLOWUP:** You will likely also notice that the play head in the timeline ed
 Q: How many total RGB LEDs can an LCC Slave address? Meaning, how many can I drive with one LCC Slave?
 
 A: In theory, there is no limit, but in reality you should never use more than 500 because of the amount of delay that is introduced as LEDs relay packets down the bus. The default code for the LCC Slave is set to 50, you will need to modify the TOTAL_LEDS constant to match what you intend to use and then flash the ESP32 again.
-
----
-
-Q: I'm not a programmer. How does a non-programmer create RGB LED lighting scenes?
-
-A: You're in luck! The programming language it uses is called BASIC, which stands for Beginner's All-Purpose Symbolic Instruction Code. The language it uses is specifically for non-programmers and is so simple to learn that kids in elementary school used to learn it back in the 1980s when home computers were a totally new thing. The dialect of BASIC used here is a really simplified version too, so it's even easier to learn. Click on the **Language Reference** button in the scene editor and then go watch this [YouTube Video](https://www.youtube.com/watch?v=CpJf_6nWqLk).
-
----
-
-Q: Why do script and manual commands appear to be delayed after a motor command has been sent?
-
-A: If you send a motor command with a progression time, all commands after that will be held in the queue until the progression completes. If there's no progression time, there's no delay because the command completes immediately. If you're using a stepper motor, later commands are also queued until the stepper has reached its target position. The same rule also applies to RGB LED commands with a non-zero fade time. This is intentional and not an oversight or design flaw.
 
 ---
 
