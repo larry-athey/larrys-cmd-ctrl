@@ -204,6 +204,7 @@ elseif (isset($_POST["edit_settings"])) {
   $wifi_pw = trim($_POST["wifi_pw"]);
   $usb_device = trim($_POST["usb_device"]);
   $sound_server = trim($_POST["sound_server"]);
+  if ($sound_server == "") $sound_server = "00-00-00-00-00-00";
   $Result = mysqli_query($DBcnx,"UPDATE settings SET ssid='$ssid',wifi_pw='$wifi_pw',usb_device='$usb_device',sound_server='$sound_server' WHERE ID=1");
   $Return = "/index.php";
 //echo("<pre>");
