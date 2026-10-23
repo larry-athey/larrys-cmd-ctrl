@@ -4,11 +4,11 @@
 You may contact me directly at https://panhandleponics.com<br>
 Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandlePonics
 
-_...No, I don't use AI to design and build my projects, I actually still know how to use my brain..._
-
 Be sure to check out the **[Wiki](https://github.com/larry-athey/larrys-cmd-ctrl/wiki)** to learn how to use the Mission Control web app.
 
 **This project began on July 1, 2025 and does not yet have an official release but I am hoping to have the first one around the beginning of 2027.**
+
+_...No, I don't use AI to design and build my projects, I actually still know how to use my brain..._
 
 ---
 
