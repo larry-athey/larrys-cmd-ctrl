@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- I (Larry Athey) did not create this timeline editor, this was an anonymous code submission. -->
+<!-- I (Larry Athey) did not create this timeline editor, this was an anonymous code submission from Sweden. -->
 <!-- I'm not a Javascript developer, so somebody else will need to enhance this if something else is wanted. -->
 <html lang="en" data-bs-theme="dark">
 <head>
