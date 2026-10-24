@@ -37,7 +37,7 @@ sudo apt update
 sudo apt upgrade -y
 
 sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
-sudo apt install -y alsa-utils libasound2-plugin-equal caps curl ffmpeg mpg123 lighttpd php php-common php-fpm php-mysql mariadb-server mariadb-client
+sudo apt install -y alsa-utils curl ffmpeg mpg123 lighttpd php php-common php-fpm php-mysql mariadb-server mariadb-client
 sudo apt --fix-broken install -y
 sudo apt autoremove -y
 
