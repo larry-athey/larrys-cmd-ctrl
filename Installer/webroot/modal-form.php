@@ -4,7 +4,11 @@ require_once("subs.php");
 //---------------------------------------------------------------------------------------------------
 $DBcnx = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 $Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE address='" . $_GET["address"] . "'");
-$Dev = mysqli_fetch_assoc($Result);
+if (mysqli_num_rows($Result) > 0) {
+  $Dev = mysqli_fetch_assoc($Result);
+} else {
+  exit;
+}
 //---------------------------------------------------------------------------------------------------
 $Content  = "<form id=\"modalForm\" onsubmit=\"return false;\">";
 $Content .= "<input type=\"hidden\" name=\"form-id\" value=\"" . $_GET["ID"] . "\">";
