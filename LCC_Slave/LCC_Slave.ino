@@ -97,7 +97,7 @@
 #define LED_PIN 21               // Internal LED on GPIO21 used for the heartbeat indicator
 #define LED_CHANNEL 1            // PWM channel for the heartbeat indicator
 
-#define TOTAL_LEDS 60            // Total number of LEDs on the Neopixel/WS2812 lighting bus.
+#define TOTAL_LEDS 30            // Total number of LEDs on the Neopixel/WS2812 lighting bus.
                                  // This value cannot be dynamicaly updated if you add more LEDs.
                                  // You need to modify this value here and re-flash the ESP32.
 #ifdef WAVESHARE
