@@ -575,6 +575,22 @@ bool processCmd(String Cmd) { // Process AT+ commands received via serial commun
       } else {
         return false;
       }
+    } else if (strToUpper(Cmd) == "ENABLE") {
+      // AT+ENABLE
+      #ifdef STEPPER
+      digitalWrite(BUS_3,HIGH);
+      return true;      
+      #else
+      return false;
+      #endif
+    } else if (strToUpper(Cmd) == "DISABLE") {
+      // AT+DISABLE
+      #ifdef STEPPER
+      digitalWrite(BUS_3,LOW);
+      return true;
+      #else
+      return false;
+      #endif
     } else if (strToUpper(Cmd) == "HOSTNAME") {
       // AT+HOSTNAME
       Serial.println(myMacStr + ".lcc.local");
