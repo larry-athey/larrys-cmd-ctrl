@@ -52,6 +52,7 @@ function checkDays($DayArray) {
 //---------------------------------------------------------------------------------------------------
 function createMessage($DBcnx,$ID) {
   // The |# at the end of each message is the command replay flag, but is only used at the back-end level.
+  if ($ID == -1) return "/reboot|0";
   $Msg = "";
   $Result = mysqli_query($DBcnx,"SELECT * FROM commands WHERE ID=$ID");
   if (mysqli_num_rows($Result) > 0) {
@@ -557,6 +558,7 @@ function scriptCommandSelector($DBcnx,$DevType,$ID) {
          $Content .= "<option value=\"" . $Cmd["ID"] . "\">" . $Cmd["cmd_name"] . "</option>";
       }
     }
+    $Content .= "<option value=\"-1\">Reboot Device</option>";
     $Content .= "</select>";
     return $Content;
   } else {
