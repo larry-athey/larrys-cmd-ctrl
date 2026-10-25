@@ -4,7 +4,7 @@
 You may contact me directly at https://panhandleponics.com<br>
 Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandlePonics
 
-Be sure to check out the **[Wiki](https://github.com/larry-athey/larrys-cmd-ctrl/wiki)** to learn how to use the Mission Control web app.
+Be sure to check out the **[Wiki](https://github.com/larry-athey/larrys-cmd-ctrl/wiki)** to learn how to use the Mission Control web app and LCC Slave PCBs.
 
 **This project began on July 1, 2025 and does not yet have an official release but I am hoping to have the first one around the beginning of 2027.**
 
