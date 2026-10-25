@@ -38,7 +38,7 @@ while (true) {
     $Result2 = mysqli_query($DBcnx,"SELECT * FROM timeline ORDER BY position DESC LIMIT 1");
     $LastCmd = mysqli_fetch_assoc($Result2);
     // Process any timeline frames that match the current position up to 9/10 of a second in the future
-    $Result3 = mysqli_query($DBcnx,"SELECT * FROM timeline WHERE (position >= " . $Status["position"] . ") AND (position <= " . $Status["position"] + 0.9 . ") ORDER BY position");
+    $Result3 = mysqli_query($DBcnx,"SELECT * FROM timeline WHERE (disabled=0) AND (position >= " . $Status["position"] . ") AND (position <= " . $Status["position"] + 0.9 . ") ORDER BY position");
     if (mysqli_num_rows($Result3) > 0) {
       while ($Timeline = mysqli_fetch_assoc($Result3)) {
         // Add the frames to the timeline_queue table as formatted commands
