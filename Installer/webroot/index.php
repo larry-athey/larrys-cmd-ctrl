@@ -3,7 +3,7 @@
 require_once("html.php");
 
 $refresh = 3600;
-if (isset($_GET["ref"])) $refresh = "10;url=index.php?page=timeline"
+if (isset($_GET["ref"])) $refresh = "5;url=index.php?page=timeline"
 //---------------------------------------------------------------------------------------------------
 ?>
 <!DOCTYPE html>
