@@ -30,6 +30,12 @@ if (isset($_GET["ref"])) $refresh = "5;url=index.php?page=timeline"
       $("#rssBG").addClass("bg-purple");
     });
     //---------------------------------------------------------------------------------------------------
+    function confirmGlobalReboot() {
+      if (confirm('Are you absolutely sure that you want to reboot all LCC Slaves at this time?')) {
+        window.location.href = '/process.php?global_reboot=1';
+      }
+    }
+    //---------------------------------------------------------------------------------------------------
     function confirmNewTimeline() {
       if (confirm('This will clear the current timeline with no undo option. Cancel now if you want to save the current timeline first.')) {
         window.location.href = '/process.php?new_timeline=1';
