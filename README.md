@@ -26,7 +26,7 @@ This system is intended for any **personal application** where remote control of
 
 Command delay time is negligible, even if an LCC Slave unit is reporting a -67 dBm signal level. This is because the system isn't dependent upon any cloud servers or other internet resources, and is why the < 100 character command exchanges usually execute on the LCC Slave as soon as you release the send button.
 
-The recommended LCC Mission Control server is an [Orange Pi Zero 3 (1GB)](https://www.amazon.com/Orange-Pi-Allwinner-Bluetooth-Development/dp/B0H6HL19Q6/). You simply connect your phone or computer to its isolated WiFi network and open the [Mission Control](https://github.com/larry-athey/larrys-cmd-ctrl/wiki) web app, or connect the server's ethernet port to your home router if you need local network access to it.
+The recommended LCC Mission Control server is an [Orange Pi Zero 3 (1GB)](https://www.amazon.com/Orange-Pi-Allwinner-Bluetooth-Development/dp/B0H6HL19Q6/). You simply connect your phone or computer to its isolated WiFi network and open the [Mission Control](https://github.com/larry-athey/larrys-cmd-ctrl/wiki) web app. Or connect the server's ethernet port to your home router if you need local network access to it.
 
 _**DO NOT** use simple port forwarding from your router into the Mission Control server, there is [no login system](https://github.com/larry-athey/larrys-cmd-ctrl/blob/main/Instructions/Mission-Control-lighttpd-Authentication-Setup.md)! This system is intended for **PRIVATE USE ONLY!** It is not designed for exposure to the open internet. If you feel that you need remote access, use your router's built-in VPN gateway, they all have one these days!_
 
