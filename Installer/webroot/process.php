@@ -40,10 +40,15 @@ elseif (isset($_GET["delete_timeline"])) {
   $Return = "/index.php?page=list_timelines";
 }
 //---------------------------------------------------------------------------------------------------
-elseif (isset($_GET["firmware_id"])) {
-  $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-warning\">Starting OTA Firmware Update</span>',signal_level='<span class=\"text-secondary\">Offline</span>' WHERE ID=" . $_GET["firmware_id"]);
-  $Insert = mysqli_query($DBcnx,"INSERT INTO outbound (address,msg) VALUES ('00-00-00-00-00-00','/firmware/" . $_GET["firmware_id"] . "')");
+elseif (isset($_GET["firmware_update"])) {
+  $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-warning\">Starting OTA Firmware Update</span>',signal_level='<span class=\"text-secondary\">Offline</span>' WHERE ID=" . $_GET["firmware_update"]);
+  $Insert = mysqli_query($DBcnx,"INSERT INTO outbound (address,msg) VALUES ('00-00-00-00-00-00','/firmware/" . $_GET["firmware_update"] . "')");
   $Return = "/index.php";
+}
+//---------------------------------------------------------------------------------------------------
+elseif (isset($_GET["global_reboot"])) {
+  $Insert = mysqli_query($DBcnx,"INSERT INTO inbound (address,msg) VALUES ('00-00-00-00-00-00','/global-reboot')");
+  $Return = "/index.php?page=settings";
 }
 //---------------------------------------------------------------------------------------------------
 elseif (isset($_GET["new_timeline"])) {
