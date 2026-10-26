@@ -127,7 +127,7 @@
 #define LIMIT_1 9                // Limit switch 1 (forward)
 #define LIMIT_2 8                // Limit switch 2 (reverse)
 #define IR_RCV 7                 // TSOP34838 input pin
-#define BUS_2 44                 // RX from DFPlayer TX or DRV8825 direction pin
+#define BUS_2 44                 // RX from DFPlayer TX or DRV8825 direction pin (bottom of board)
 #endif
 //------------------------------------------------------------------------------------------------
 #ifdef I2CSWITCH
