@@ -111,8 +111,8 @@
 // Waveshare ESP32-S3FH4R2 (Mini/Stamp) Right side (USB top)
 #define MOT_F 11                 // H-Bridge forward pin or DRV8825 M0
 #define MOT_R 10                 // H-Bridge reverse pin or DRV8825 M1
-#define BUS_1 9                  // TX to DFPlayer or DRV8825 step pin
-#define BUS_2 8                  // RX from DFPlayer or DRV8825 direction pin
+#define BUS_1 9                  // TX to DFPlayer RX or DRV8825 step pin
+#define BUS_2 8                  // RX from DFPlayer TX or DRV8825 direction pin
 #define BUS_3 7                  // NeoPixel/WS2812 bus or DRV8825 sleep pin
 #else
 // Seeed Studio XAIO ESP32-S3 GPIO Left side (USB top)
@@ -122,12 +122,12 @@
 #define BUS_3 4                  // NeoPixel/WS2812 bus or DRV8825 sleep pin
 #define OUT_1 5                  // Output 1 (SSR) or I2C SDA
 #define OUT_2 6                  // Output 2 (SSR) or I2C SCL
-#define BUS_1 43                 // TX to DFPlayer or DRV8825 step pin
+#define BUS_1 43                 // TX to DFPlayer RX or DRV8825 step pin
 // Seeed Studio XAIO ESP32-S3 GPIO Right side (USB top)
 #define LIMIT_1 9                // Limit switch 1 (forward)
 #define LIMIT_2 8                // Limit switch 2 (reverse)
 #define IR_RCV 7                 // TSOP34838 input pin
-#define BUS_2 44                 // RX from DFPlayer or DRV8825 direction pin
+#define BUS_2 44                 // RX from DFPlayer TX or DRV8825 direction pin
 #endif
 //------------------------------------------------------------------------------------------------
 #ifdef I2CSWITCH
