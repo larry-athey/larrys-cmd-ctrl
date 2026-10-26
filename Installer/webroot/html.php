@@ -546,7 +546,8 @@ function editSettings($DBcnx) {
   $Content .=     "</div>";
   $Content .=     "<div class=\"border-bottom\"></div>";
   $Content .=     "<div style=\"margin-top: 1em;\">";
-  $Content .=       "<p style=\"float: right; margin-right: 1em;\"><a href=\"index.php\" class=\"btn btn-danger fw-bolder\" name=\"cancel\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+  $Content .=       "<p style=\"float: right; margin-right: 1em;\"><a href=\"#\" onClick=\"confirmGlobalReboot();\" class=\"btn btn-outline-danger fw-bolder\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Reboot All Slaves</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+  $Content .=       "<a href=\"index.php\" class=\"btn btn-danger fw-bolder\" name=\"cancel\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;";
   $Content .=       "<button type=\"submit\" class=\"btn btn-primary fw-bolder\" name=\"edit_settings\" id=\"edit_settings\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Save</button></p>";
   $Content .=     "</div>";
   $Content .=   "</div>";
@@ -698,7 +699,7 @@ function setFirmwareUpdate($DBcnx) {
   $Content .=       "<p class=\"fw-bolder\">WiFi Network: LCC-Slave-Update<br>WiFi Password: 12345678<br>Web Server Address: http://192.168.4.1</p>";
   $Content .=       "<div style=\"margin-top: 1em;\">";
   $Content .=         "<p style=\"float: right; margin-right: 1em;\"><a href=\"index.php\" class=\"btn btn-danger fw-bolder\" name=\"cancel\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Cancel</a>&nbsp;&nbsp;&nbsp;&nbsp;";
-  $Content .=         "<a href=\"process.php?firmware_id=" . $_GET["ID"] . "\" class=\"btn btn-primary fw-bolder\" name=\"firmware_update\" id=\"firmware_update\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Start</a></p>";
+  $Content .=         "<a href=\"process.php?firmware_update=" . $_GET["ID"] . "\" class=\"btn btn-primary fw-bolder\" name=\"firmware_update\" id=\"firmware_update\" style=\"--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .75rem; --bs-btn-font-size: .75rem;\">Start</a></p>";
   $Content .=       "</div>";
   $Content .=     "</div>";
   $Content .=   "</div>";
