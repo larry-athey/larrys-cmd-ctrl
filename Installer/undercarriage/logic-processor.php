@@ -206,6 +206,19 @@ if (mysqli_num_rows($Result) > 0) {
     $Update = mysqli_query($DBcnx,"UPDATE devices SET signal_level='<span class=\"text-info\">" . $Data[1] . " dBm</span>' WHERE address='" . $Inbound["address"] . "'");
   }
 }
+
+// Check for global device reboot requests
+$Result = mysqli_query($DBcnx,"SELECT * FROM inbound WHERE msg LIKE BINARY '%/global-reboot%'");
+if (mysqli_num_rows($Result) > 0) {
+  $Inbound = mysqli_fetch_assoc($Result);
+  $Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE address <> '00-00-00-00-00-00'");
+  if (mysqli_num_rows($Result) > 0) {
+    while ($Dev = mysqli_fetch_assoc($Result)) {
+      sendCommand($DBcnx,$Dev["address"],"/reboot");
+    }
+  }
+  $Update = mysqli_query($DBcnx,"DELETE FROM inbound WHERE ID=" . $Inbound["ID"]);
+}
 //---------------------------------------------------------------------------------------------
 mysqli_close($DBcnx);
 //---------------------------------------------------------------------------------------------
