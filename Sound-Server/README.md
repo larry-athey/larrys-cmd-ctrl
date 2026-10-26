@@ -24,7 +24,13 @@ LCC Slave units play sound files on the sound server instead, which is actually 
 
 - The LIDAR sensor needs to be within 300mm/12in of the tracks in order to detect the presence of the train in front of it. You also want to make sure that the sensor isn't detecting something else on the other side of the tracks when a train isn't there. The best calibration method is to play a long or looping sound effect and then move the LIDAR sensor into place so that it picks up the train, then move the train away to make sure the speaker volume goes back down.
 
-- Sound files can easily be customized using the free **Audacity** audio editor so you can pan train sound effects to the left channel and everything else to the right channel. They're still stereo MP3 files, one channel is just silent depending on the purpose of the sound file. This can also be done at the command line with ffmpeg and with Python code.
+- Sound files can easily be customized using the free **Audacity** audio editor so you can pan train sound effects to the left channel and everything else to the right channel. They're still stereo MP3 files, one channel is just silent depending on the purpose of the sound file. This can also be done at the command line with ffmpeg.
+
+For train sound effects:<br>
+`ffmpeg -i input.mp3 -af "pan=stereo|c0<c0+c1|c1=0" output.mp3`
+
+For environment sound effects:<br>
+`ffmpeg -i input.mp3 -af "pan=stereo|c0=0|c1<c0+c1" output.mp3`
 
 # Installation
 
