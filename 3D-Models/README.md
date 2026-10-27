@@ -20,6 +20,6 @@ _**NOTE:** The backs of the speaker enclosures fit stupidly tight and may need s
 
 This is the LIDAR sensor mount for the Server Driver PCB used in the Sound Server surround sound speakers. This is meant to be mounted to the track bed within 1 foot of the track to detect the presence of the train in order to increase that speaker's volume. This produces a 3D sound effect where the sound effects follow the train around the track. If the LIDAR sensor detects any obstacle within 300mm (12 inches) it will trigger the volume boost, then smoothly release the boost when the obstacle has gone.
 
-** Transponder-Top.stl and Transponder-Bottom.stl
+## Transponder-Top.stl and Transponder-Bottom.stl
 
 This is the case for the location transponder PCB and requires two M2x10mm screws for the lid.
