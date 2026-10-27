@@ -22,4 +22,4 @@ This is the LIDAR sensor mount for the Server Driver PCB used in the Sound Serve
 
 ## Transponder-Top.stl and Transponder-Bottom.stl
 
-This is the case for the location transponder PCB and requires two M1.5 x 10mm screws for the lid and are intended to be surface mounted with double-sided adhesive. If these are used in a model railroad, you may want to leave the leads on the LED long enough so the case lays flat on the track bed and you can bend the LED to aim at the window of the locomotive cab. If you're using transponders close together, you will want to add a short section (20 to 30 mm) of black tubing to the LED to narrow its beam spread.
+This is the case for the location transponder PCB and requires two M1.5 x 10mm screws for the lid and are intended to be surface mounted with double-sided adhesive. If these are used in a model railroad, you may want to leave the leads on the LED long enough so the case lays flat on the track bed and you can bend the LED to aim at the window of the locomotive cab. If you're using multiple transponders close together, you will want to add a short section (20 to 30 mm) of black tubing to the LED to narrow its beam spread.
