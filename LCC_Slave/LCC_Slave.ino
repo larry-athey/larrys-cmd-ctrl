@@ -70,7 +70,7 @@
 /************************************************************************************************/
 #define DISABLE_CODE_FOR_TRANSMITTER
 #define SEND_LEDC_CHANNEL 2
-#define TX_OFFSET 60000          // Location ID numbers are actually 60001 to 61000 for safety
+#define TX_OFFSET 60000          // Location ID numbers are actually 60001 to 61000 for safety reasons
 #include "IRremote.hpp"          // IR remote controller library, for location/position detection
 
 #ifdef I2CSWITCH
