@@ -18,7 +18,7 @@ A: My answer will always be "as many as you need". Sure, I could switch the defa
 
 ---
 
-Q: Why did you choose IR LEDs for the transponders rather than using RFID?
+Q: Why did you choose IR LEDs for the location transponders rather than using RFID?
 
 A: Because RFID is slow, its **reliable** range is too short, and the antennas are just too damn big. Infrared LEDs allow me to transmit that ID number 20 times per second, it's pretty hard for the TSOP34838 receiver to miss the beacon at that transmission rate.
 
