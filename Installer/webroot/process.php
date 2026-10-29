@@ -145,7 +145,7 @@ elseif (isset($_POST["edit_device"])) {
   $Result = mysqli_query($DBcnx,"UPDATE devices SET address='$address',dev_name='$dev_name',dev_type='$dev_type',favorites='$favorites',replay='$replay' WHERE ID=$ID");
 
   // Update any tasks owned by the old address if the device address was changed
-  if (($address != $Dev["address"]) & ($Dev["address"] != "00-00-00-00-00-00")) {
+  if (($address != $Dev["address"]) && ($address != "00-00-00-00-00-00") && ($Dev["address"] != "00-00-00-00-00-00")) {
     $Result = mysqli_query($DBcnx,"UPDATE schedule SET address='$address' WHERE address='" . $Dev["address"] . "'");
   }
 
