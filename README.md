@@ -32,9 +32,9 @@ _**DO NOT** use simple port forwarding from your router into the Mission Control
 
 ### Use Cases
 - RGB LED lighting automation/scripting
-- Fan and actuated vent automation
 - Antenna and solar panel positioning
 - Conveyor and gate automation
+- Exhaust fan and vent automation
 - Irrigation system automation
 - Seasonal decoration automation
 - Model railroad automation
