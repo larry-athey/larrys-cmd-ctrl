@@ -1,4 +1,4 @@
-# Notes On Diagrams
+# Notes On This Folder
 
 No schematics necessary here, these boards are stupid simple, they either require a Seeed Studio XIAO ESP32-S3 or SAMD21 and the board is labeled as such. if you see +/- in and out, that's a 5 volt buck regulator footprint. If you see a diode/rectifier, that's a 2 amp Schottky rectifier. Anything else is a pin header or screw terminal, your choice. That's it. no need for schematics.
 
