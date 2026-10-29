@@ -132,12 +132,23 @@ elseif (isset($_POST["edit_device"])) {
   }
   $address = trim($_POST["address"]);
   if ($address == "") $address = "00-00-00-00-00-00";
+
+  // Save the current record address so we can update any existing scheduled tasks that may be linked to it
+  $Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE ID=$ID");
+  $Dev = mysqli_fetch_assoc($Result);
+
   $dev_name = mysqli_escape_string($DBcnx,trim($_POST["dev_name"]));
   $dev_type = $_POST["dev_type"];
   if (isset($_POST["favorites"])) $favorites = implode("|",$_POST["favorites"]);
   if (! isset($favorites)) $favorites = "";
   $replay = $_POST["replay"];
   $Result = mysqli_query($DBcnx,"UPDATE devices SET address='$address',dev_name='$dev_name',dev_type='$dev_type',favorites='$favorites',replay='$replay' WHERE ID=$ID");
+
+  // Update any tasks owned by the old address if the device address was changed
+  if (($address != $Dev["address"]) & ($Dev["address"] != "00-00-00-00-00-00")) {
+    $Result = mysqli_query($DBcnx,"UPDATE schedule SET address='$address' WHERE address='" . $Dev["address"] . "'");
+  }
+
   $Return = "/index.php?page=devices";
 //echo("<pre>");
 //print_r($_POST);
