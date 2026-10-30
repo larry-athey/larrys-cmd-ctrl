@@ -2,6 +2,8 @@
 
 _Keep in mind that this guide and firmware files only serve as an example, there is no way that I can provide firmware files to cover every possible use case. There are brushed motor controllers and stepper motor controllers, a person may or may not be using a GPIO expansion module, there's no way for me to know how many RGB LEDs a person intends to use, etc. Anybody can create their own firmware .bin files from the Arduino IDE by clicking on **Sketch** in the menu bar and then selecting **Export Compiled Binary**._
 
+_This example is being provided for those who have a lot of LCC Slaves and it's not plausible or possible to connect each of them to a USB cable in order to flash them._
+
 ---
 
 To put an LCC Slave into firmware update mode, open it in the Mission Control device editor and click the **Update Firmware** button at the bottom of the editor pane and follow the instructions on your screen.
