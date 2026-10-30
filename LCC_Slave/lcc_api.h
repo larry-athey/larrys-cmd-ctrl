@@ -32,6 +32,7 @@ inline void setupLights(int ID, uint8_t targetR, uint8_t targetG, uint8_t target
   //   V = target G
   //   W = target B
   //   S = current step
+  //   X = limiter to prevent signed 16 bit fade time wrap-around
   //   P = pixel index (single-LED mode)
   //   R,G,B = interpolated color
 
@@ -43,13 +44,15 @@ inline void setupLights(int ID, uint8_t targetR, uint8_t targetG, uint8_t target
             "30 V = %d\n"                 // target G
             "40 W = %d\n"                 // target B
             "50 S = 0\n"                  // current step
-            "100 R = U * S / T\n"         // linear interpolation 0 → target
-            "110 G = V * S / T\n"
-            "120 B = W * S / T\n"
+            "60 X = S * 100\n"
+            "70 X = X / T\n"
+            "100 R = X * U / 100\n"       // linear interpolation 0 → target
+            "110 G = X * V / 100\n"
+            "120 B = X * W / 100\n"
             "130 FILL R , G , B\n"
             "140 WAIT %d\n"
             "150 S = S + 1\n"
-            "160 IF S <= T THEN GOTO 100\n"
+            "160 IF S <= T THEN GOTO 60\n"
             "170 FILL U , V , W\n"        // guarantee exact final color
             "180 SHOW\n",
             steps,targetR,targetG,targetB,stepMs);
@@ -60,15 +63,17 @@ inline void setupLights(int ID, uint8_t targetR, uint8_t targetG, uint8_t target
             "20 U = %d\n"
             "30 V = %d\n"
             "40 W = %d\n"
-            "50 P = %d\n"                 // pixel index
+            "50 P = %d\n"
             "60 S = 0\n"
-            "100 R = U * S / T\n"
-            "110 G = V * S / T\n"
-            "120 B = W * S / T\n"
+            "70 X = S * 100\n"
+            "80 X = X / T\n"
+            "100 R = X * U / 100\n"
+            "110 G = X * V / 100\n"
+            "120 B = X * W / 100\n"
             "130 SET P , R , G , B\n"
             "140 WAIT %d\n"
             "150 S = S + 1\n"
-            "160 IF S <= T THEN GOTO 100\n"
+            "160 IF S <= T THEN GOTO 70\n"
             "170 SET P , U , V , W\n"
             "180 SHOW\n",
             steps,targetR,targetG,targetB,ID,stepMs);
