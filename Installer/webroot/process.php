@@ -133,7 +133,7 @@ elseif (isset($_POST["edit_device"])) {
   $address = trim($_POST["address"]);
   if ($address == "") $address = "00-00-00-00-00-00";
 
-  // Save the current record address so we can update any existing scheduled tasks that may be linked to it
+  // Save the current record address so we can update any existing scheduled tasks and timeline data that may be linked to it
   $Result = mysqli_query($DBcnx,"SELECT * FROM devices WHERE ID=$ID");
   $Dev = mysqli_fetch_assoc($Result);
 
@@ -144,9 +144,11 @@ elseif (isset($_POST["edit_device"])) {
   $replay = $_POST["replay"];
   $Result = mysqli_query($DBcnx,"UPDATE devices SET address='$address',dev_name='$dev_name',dev_type='$dev_type',favorites='$favorites',replay='$replay' WHERE ID=$ID");
 
-  // Update any tasks owned by the old address if the device address was changed
+  // Update any tasks and timeline data owned by the old address if the device address was changed
   if (($address != $Dev["address"]) && ($address != "00-00-00-00-00-00") && ($Dev["address"] != "00-00-00-00-00-00")) {
     $Result = mysqli_query($DBcnx,"UPDATE schedule SET address='$address' WHERE address='" . $Dev["address"] . "'");
+    $Result = mysqli_query($DBcnx,"UPDATE timeline SET address='$address' WHERE address='" . $Dev["address"] . "'");
+    $Result = mysqli_query($DBcnx,"UPDATE timeline_scripts SET script_sql = REPLACE(script_sql,'" . $Dev["address"] . "','$address') WHERE script_sql LIKE '%" . $Dev["address"] . "%'");
   }
 
   $Return = "/index.php?page=devices";
