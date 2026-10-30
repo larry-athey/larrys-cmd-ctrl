@@ -76,8 +76,10 @@ if (mysqli_num_rows($Result) > 0) {
   }
   if ($Passed) {
     if ($Dev["address"] != "00-00-00-00-00-00") {
-      // Update any existing tasks owned by the old MAC address
+      // Update any existing tasks and timeline data owned by the old MAC address
       $Update = mysqli_query($DBcnx,"UPDATE schedule SET address='" . $Data[1] . "' WHERE address='" . $Dev["address"] . "'");
+      $Update = mysqli_query($DBcnx,"UPDATE timeline SET address='" . $Data[1] . "' WHERE address='" . $Dev["address"] . "'");
+      $Update = mysqli_query($DBcnx,"UPDATE timeline_scripts SET script_sql = REPLACE(script_sql,'" . $Dev["address"] . "','" . $Data[1] . "') WHERE script_sql LIKE '%" . $Dev["address"] . "%'");
     }
     $Update = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-success\">LCC Slave successfully paired</span>' WHERE ID=" . $Data[1]);
   } else {
