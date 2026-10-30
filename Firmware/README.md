@@ -12,7 +12,7 @@ The LCC Slave will start up a WiFi access point with the SSID **"LCC-Slave-Updat
 
 Now open this URL: **http://192.168.4.1**
 
-<img width="1024" alt="image" src="https://github.com/user-attachments/assets/3fdbedfb-eb5d-4bf7-99f6-26fa449a9b8b"><br>
+<img width="1024" alt="image" src="https://github.com/user-attachments/assets/5dbf04e6-ae1e-4273-8f53-de621ea08cbb"><br>
 
 If you are unable to connect, check to make sure that your device pulled an IP address from the LCC Slave. If it does not pull one, you will need to manually configure a static IP address on your device. Here are settings that will work for you if you encounter this problem.
 
