@@ -31,7 +31,7 @@
 // These components are as follows:
 //
 //   Seeed XAIO ESP32-S3    - $7.50
-//   TB6612FNG H-Bridge     - $3.50
+//   TB6612FNG H-Bridge     - $5.50
 //   TSOP34838 IR Rcvr      - $1.00
 //   WWZMDiB Audio Module   - $2.00
 //   10x15mm Speaker        - $0.80
@@ -39,7 +39,7 @@
 //   5V 1.8A Buck Regulator - $1.50
 //   2A Bridge Rectifier    - $1.00
 //
-// Less than $20 in parts to convert any model train locomotive to have all of the features found
+// Less than $25 in parts to convert any model train locomotive to have all of the features found
 // in a full blown DCC enabled locomotive with sound effects.
 //
 // Commands from the LCC Mission Control server are stored in a buffer on an LCC Save device and
