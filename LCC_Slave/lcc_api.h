@@ -167,13 +167,13 @@ inline void setupStepper(byte Direction, byte Resolution, int Steps, byte Speed)
       digitalWrite(MOT_F,LOW);  digitalWrite(MOT_R,LOW);  digitalWrite(MOT_PWM,LOW);  Res = "Full Step"; break;
     case 2:  // 1/2 step
       digitalWrite(MOT_F,HIGH); digitalWrite(MOT_R,LOW);  digitalWrite(MOT_PWM,LOW);  Res = "1\/2 Step";  break;
-    case 4:  // 1/4 step
+    case 3:  // 1/4 step
       digitalWrite(MOT_F,LOW);  digitalWrite(MOT_R,HIGH); digitalWrite(MOT_PWM,LOW);  Res = "1\/4 Step";  break;
-    case 8:  // 1/8 step
+    case 4:  // 1/8 step
       digitalWrite(MOT_F,HIGH); digitalWrite(MOT_R,HIGH); digitalWrite(MOT_PWM,LOW);  Res = "1\/8 Step";  break;
-    case 16: // 1/16 step
+    case 5: // 1/16 step
       digitalWrite(MOT_F,LOW);  digitalWrite(MOT_R,LOW);  digitalWrite(MOT_PWM,HIGH); Res = "1\/16 Step"; break;
-    case 32: // 1/32 step
+    case 6: // 1/32 step
       digitalWrite(MOT_F,HIGH); digitalWrite(MOT_R,HIGH); digitalWrite(MOT_PWM,HIGH); Res = "1\/32 Step"; break;
   }
   if (Serial) {
