@@ -757,8 +757,8 @@ void loop() {
   if (Stepper.isRunning()) {
     currentPos = Stepper.currentPosition();
   } else {
-    digitalWrite(BUS_3,LOW);
     if ((stepperRunning) && (currentPos != targetPos)) {
+      digitalWrite(BUS_3,LOW);
       stepperRunning = false;
       currentPos = targetPos;
       // Send the runtime end status to Mission Control
