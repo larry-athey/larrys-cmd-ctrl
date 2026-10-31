@@ -60,8 +60,8 @@ if ($_POST) {
     $Result = mysqli_query($DBcnx,"UPDATE devices SET status='<span class=\"text-danger\">Sent panic reboot</span>' WHERE address='" . $_POST["address"] . "'");
     echo($jsonSuccess);
   } elseif ($_POST["form-id"] >= 10) { // Send CTRL button commands (there is no significance to each command class being 5)
-    $Result = mysqli_query($DBcnx, "INSERT INTO commands (cmd_name) VALUES ('Temp Command')");
-    $ID = mysqli_insert_id($DBcnx);
+    $ID = 2147483647; // Maximum value for the ID column so we aren't possibly overwriting an existing command
+    $Result = mysqli_query($DBcnx, "INSERT INTO commands (ID,cmd_name) VALUES ($ID,'Temp Command')");
     if ($_POST["form-id"] == 10) { // Brushed motor control
       $direction = $_POST["direction"];
       $speed = $_POST["speed"];
@@ -109,7 +109,7 @@ if ($_POST) {
     $Temp = createMessage($DBcnx,$ID);
     $Msg = explode("|",$Temp);
     sendCommand($DBcnx,$_POST["address"],$Msg[0]);
-    $Result = mysqli_query($DBcnx,"DELETE FROM commands WHERE ID=$ID"); // This is why the command class doesn't matter, it's just a temporary buffer
+    $Result = mysqli_query($DBcnx,"DELETE FROM commands WHERE ID=$ID"); // Delete the temporary command record
     echo($jsonSuccess);
   } else {
     echo($jsonFailure);
