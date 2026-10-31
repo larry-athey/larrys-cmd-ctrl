@@ -90,7 +90,7 @@ if (isset($_GET["ref"])) $refresh = "5;url=index.php?page=timeline"
       line-height: 1.45;
       tab-size: 2;
       white-space: pre;
-      background: #1e1e1e;          /* matches prism-tomorrow */
+      background: #1e1e1e;
       color: #ccc;
       outline: none;
     }
@@ -100,13 +100,20 @@ if (isset($_GET["ref"])) $refresh = "5;url=index.php?page=timeline"
       margin: 0;
     }
 
-    /* optional safety */
     .container-fluid.flex-grow-1 {
-      min-height: 0;   /* allows the flex child to shrink properly */
+      min-height: 0;
     }
 
     iframe {
       border: 0;
+    }
+
+    .btn-success + .dropdown-menu,
+    .dropdown-menu.show[data-bs-popper] {
+      --bs-dropdown-bg: var(--bs-success);
+      --bs-dropdown-link-color: #fff;
+      --bs-dropdown-link-hover-bg: rgba(255,255,255,.15);
+      --bs-dropdown-link-active-bg: rgba(255,255,255,.25);
     }
   </style>
 </head>
