@@ -20,4 +20,4 @@ This is the infrared transponder that LCC Slaves respond to for location detecti
 
 ### Server Driver
 
-This is board that drives the surround sound speakers in a Sound Server setup. Aside from requiring a Seeed Studio XIAO SAMD21, this board also requires an Adafruit TPA2016D2 (part number 1712) stereo audio amplifier board. The board measures 30mm x 59mm.
+This is board that drives the surround sound speakers in a Sound Server setup. Aside from requiring a Seeed Studio XIAO SAMD21, this board also requires an Adafruit TPA2016D2 (part number 1712) stereo audio amplifier board. When looking at the board in the orientation in the top view image, the LIDAR connector from left to right is (1) Ground, (2) SCL, (3) SDA, (4) 3.3 volts. The board measures 30mm x 59mm.
