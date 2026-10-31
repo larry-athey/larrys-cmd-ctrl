@@ -43,20 +43,32 @@ CREATE TABLE `commands` (
 --
 
 INSERT INTO `commands` (`ID`, `cmd_name`, `cmd_type`, `cmd_class`, `gpio_pin`, `direction`, `speed`, `duration`, `progression`, `steps`, `resolution`, `sound`, `volume`, `replay`, `location_id`, `location_action`, `location_data`, `light`, `red`, `green`, `blue`, `fade`, `scene`) VALUES
-(1, 'Forward stop, 10 second progression', 1, 4, NULL, 1, 0, 0, 10, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(2, 'Forward to 80%, 30 second progression', 1, 4, NULL, 1, 80, 0, 30, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(3, 'Reverse to 80%, 30 second progression', 1, 4, NULL, 0, 80, 0, 30, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(4, 'Forward to 25%, 15 second progression', 1, 4, NULL, 1, 25, 0, 15, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(5, 'Reverse to 25%, 15 second progression', 1, 4, NULL, 0, 25, 0, 15, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(6, 'Reverse stop, 10 second progression', 1, 4, NULL, 0, 0, 0, 10, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(128, 'Forward 800, 1/8 Step, 50% Speed', 2, 2, NULL, 1, 50, NULL, NULL, 800, 4, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(129, 'Reverse 800, 1/8 Step, 50% Speed', 2, 2, NULL, 0, 50, NULL, NULL, 800, 4, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(132, 'Port 0 On', 5, 3, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(133, 'Port 0 Off', 5, 3, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
-(134, 'Fixture 0, White, Full Brightness', 6, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 255, 255, 255, 1, NULL),
-(135, 'Fixture 0, Purple, 50% Brightness', 6, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 127, 0, 127, 1, NULL),
-(136, 'Show Fireworks Scene', 7, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, 4),
-(137, 'Show Plasma Scene', 7, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, 9);
+(1, 'Forward to 80%, 15 sec progrssion', 1, 1, NULL, 1, 80, 0, 15, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(2, 'Forward to 25%, 15 sec progression', 1, 1, NULL, 1, 25, 0, 15, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(3, 'Forward stop, 10 sec progression', 1, 1, NULL, 1, 0, 0, 10, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(4, 'Reverse to 80%, 15 sec progression', 1, 1, NULL, 0, 80, 0, 15, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(5, 'Reverse to 25%, 15 sec progrssion', 1, 1, NULL, 0, 25, 0, 15, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(6, 'Reverse stop, 10 sec progrssion', 1, 1, NULL, 0, 0, 0, 10, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(7, 'Cab light, white 100%, 5 sec fade', 6, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 255, 255, 255, 5, NULL),
+(8, 'Cab light, purple 100%, 5 sec fade', 6, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 255, 0, 255, 5, NULL),
+(9, 'Forward to 75%, 10 sec progression', 1, 4, NULL, 1, 75, 0, 10, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(10, 'Forward stop, 10 sec progression', 1, 4, NULL, 1, 0, 0, 10, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(11, 'Reverse to 75%, 10 sec progression', 1, 4, NULL, 0, 75, 0, 10, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(12, 'Reverse stop, 10 sec progrssion', 1, 4, NULL, 0, 0, 0, 10, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(14, 'Forward 1600, 1/8 Step, 50% Speed', 2, 2, NULL, 1, 50, NULL, NULL, 1600, 4, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(15, 'Forward 3200, 1/16 Step, 75% Speed', 2, 2, NULL, 1, 75, NULL, NULL, 3200, 5, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(16, 'Forward 6400, 1/32 Step, 100% Speed', 2, 2, NULL, 1, 100, NULL, NULL, 6400, 6, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(17, 'Reverse 1600, 1/8 Step, 50% Speed', 2, 2, NULL, 0, 50, NULL, NULL, 1600, 4, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(18, 'Reverse 3200, 1/16 Step, 75% Speed', 2, 2, NULL, 0, 75, NULL, NULL, 3200, 5, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(19, 'Reverse 6400, 1/32 Step, 100% Speed', 2, 2, NULL, 0, 100, NULL, NULL, 6400, 6, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(20, 'Port 0 On', 5, 3, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(21, 'Port 0 Off', 5, 3, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(22, 'Run The Plasma Scene', 7, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, 9),
+(23, 'Run The Lava Scene', 7, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, 4),
+(24, 'Set all LEDs on 100%', 6, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 65535, 255, 255, 255, 0, NULL),
+(25, 'Set all LEDs off', 6, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 65535, 0, 0, 0, 0, NULL),
+(26, 'Forward to 45%, 10 sec progression, 30 sec runtime', 1, 4, NULL, 1, 45, 30, 10, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL),
+(27, 'Reverse to 45%, 10 sec progression, 30 sec runtime', 1, 4, NULL, 0, 45, 30, 10, NULL, NULL, NULL, 25, 0, NULL, NULL, NULL, 0, 0, 0, 0, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -81,10 +93,10 @@ CREATE TABLE `devices` (
 --
 
 INSERT INTO `devices` (`ID`, `address`, `dev_name`, `status`, `signal_level`, `dev_type`, `last_loc`, `favorites`, `replay`) VALUES
-(1, 'e8-06-90-95-ef-90', '1-Model Train Locomotive', 'cmd://motor/1/0/10/0', '<span class=\"text-info\">-68 dBm</span>', 4, 16, '1|4|2', 1),
-(2, '44-bd-8d-ee-81-34', '4-Switching Controller', 'cmd://scene/9', '<span class=\"text-info\">-56 dBm</span>', 3, 0, '136|137', 1),
-(3, 'e4-b3-23-f8-0d-2c', '3-Stepper Motor Controller', '<span class=\"text-warning\">Runtime has ended</span>', '<span class=\"text-secondary\">Offline</span>', 2, 0, '128|129', 1),
-(4, '44-bd-8d-ee-80-24', '2-Brushed Motor Controller', 'cmd://light/0/255/255/255/1', '<span class=\"text-info\">-17 dBm</span>', 1, 0, '135|134', 1);
+(1, '44-bd-8d-ee-81-34', '1-Brushed Motor Controller', 'cmd://reboot', '<span class=\"text-info\">-63 dBm</span>', 1, 1000, '3|2|1|6|5|4', 1),
+(2, 'e4-b3-23-f8-0d-2c', '4-Switching Controller', 'cmd://reboot', '<span class=\"text-info\">-12 dBm</span>', 3, 0, '21|20|23|22|25|24', 1),
+(3, '44-b1-76-b0-df-e4', '3-Stepper Motor Controller', 'cmd://reboot', '<span class=\"text-info\">-25 dBm</span>', 2, 0, '14|15|16|17|18|19', 1),
+(4, '44-bd-8d-ee-80-24', '2-Model Train Locomotive', 'cmd://reboot', '<span class=\"text-info\">-71 dBm</span>', 4, 1000, '8|7|10|9|12|11', 1);
 
 -- --------------------------------------------------------
 
@@ -99,14 +111,6 @@ CREATE TABLE `inbound` (
   `creation` timestamp NULL DEFAULT current_timestamp(),
   `rcvd` tinyint(4) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `inbound`
---
-
-INSERT INTO `inbound` (`ID`, `address`, `msg`, `creation`, `rcvd`) VALUES
-(7050, 'e8-06-90-95-ef-90', '/700a57fb217054e09e638f5857ef7960/motor/1/0/10/0', '2026-09-28 18:15:26', 1),
-(7051, 'e8-06-90-95-ef-90', '/exec/700a57fb217054e09e638f5857ef7960', '2026-09-28 18:15:27', 1);
 
 -- --------------------------------------------------------
 
@@ -125,7 +129,7 @@ CREATE TABLE `locations` (
 --
 
 INSERT INTO `locations` (`ID`, `loc_name`, `pin`) VALUES
-(1, 'Outside track transponder 1', 1000);
+(1, 'Location transponder #1000', 1000);
 
 -- --------------------------------------------------------
 
@@ -144,16 +148,6 @@ CREATE TABLE `outbound` (
   `sent` tinyint(4) DEFAULT 0,
   `ack` tinyint(4) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `outbound`
---
-
-INSERT INTO `outbound` (`ID`, `address`, `msg`, `creation`, `sent_time`, `ack_time`, `exec_time`, `sent`, `ack`) VALUES
-(3306, 'e8-06-90-95-ef-90', '/ef821598211640877b054dff59b115ea/motor/1/80/30/0', '2026-09-28 18:15:08', '2026-09-28 18:15:08', NULL, NULL, 1, 0),
-(3307, 'e8-06-90-95-ef-90', '/1cd4ef21471eed9de6160b4859ef080a/motor/1/25/15/0', '2026-09-28 18:15:08', '2026-09-28 18:15:09', NULL, NULL, 1, 0),
-(3308, 'e8-06-90-95-ef-90', '/700a57fb217054e09e638f5857ef7960/motor/1/0/10/0', '2026-09-28 18:15:08', '2026-09-28 18:15:11', '2026-09-28 18:15:26', '2026-09-28 18:15:27', 1, 2),
-(3309, 'e8-06-90-95-ef-90', '/02589ed423df91782295f6d6dfd77562/replay/scr/2', '2026-09-28 18:15:08', '2026-09-28 18:15:12', NULL, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -206,8 +200,8 @@ CREATE TABLE `schedule` (
 --
 
 INSERT INTO `schedule` (`ID`, `address`, `task_name`, `start_hour`, `start_min`, `days`, `last_run`, `disabled`, `script`) VALUES
-(1, '44-bd-8d-ee-81-34', 'Scheduled Motor Test', 12, 15, '1|1|1|1|1|1|1', '2026-10-21 18:15:57', 0, 1),
-(2, '00-00-00-00-00-00', 'Scheduled Timeline Test', 9, 15, '0|0|0|0|1|0|0', '2026-10-22 15:15:56', 0, 1);
+(1, '44-bd-8d-ee-81-34', 'Scheduled Task Test #1', 12, 15, '1|1|1|1|1|1|1', '2026-10-31 18:19:56', 0, 1),
+(2, '00-00-00-00-00-00', 'Scheduled Task Test #2', 9, 15, '0|1|1|1|1|1|0', '2026-10-30 19:18:50', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -229,8 +223,10 @@ CREATE TABLE `scripts` (
 --
 
 INSERT INTO `scripts` (`ID`, `scr_name`, `cmd_class`, `replay`, `replay_id`, `commands`) VALUES
-(1, 'Forward test 80% down to 0%', 4, 1, 2, '2|4|1'),
-(2, 'Reverse test 80% down to 0%', 4, 0, 0, '3|5|6');
+(1, 'Command Script Test #1', 1, 1, 2, '1|2|3'),
+(2, 'Command Script Test #2', 1, 0, 0, '4|5|6'),
+(3, 'Command Script Test #3', 4, 1, 4, '26|9|10'),
+(4, 'Command Script Test #4', 4, 0, 0, '27|11|12');
 
 -- --------------------------------------------------------
 
@@ -250,8 +246,8 @@ CREATE TABLE `settings` (
 -- Dumping data for table `settings`
 --
 
-INSERT INTO `settings` (`ID`, `ssid`, `wifi_pw`, `usb_device`, `sound_server`, `timeline_running`) VALUES
-(1, 'LCC-WLAN', '1a2b3c4d5e', '/dev/ttyACM0', '00-00-00-00-00-00');
+INSERT INTO `settings` (`ID`, `ssid`, `wifi_pw`, `usb_device`, `sound_server`) VALUES
+(1, 'LCC-WLAN', '1a2b3c4d5e', '/dev/ttyACM0', '54-78-c9-3e-a4-0a');
 
 -- --------------------------------------------------------
 
@@ -292,14 +288,23 @@ CREATE TABLE `timeline` (
 --
 
 INSERT INTO `timeline` (`ID`, `cmd_name`, `address`, `position`, `disabled`, `cmd_type`, `gpio_pin`, `direction`, `speed`, `duration`, `progression`, `steps`, `resolution`, `sound`, `volume`, `replay`, `location_id`, `location_action`, `location_data`, `light`, `red`, `green`, `blue`, `fade`, `scene`) VALUES
-(1, 'Motor test 1', '44-bd-8d-ee-81-34', 2, 0, 1, 0, 1, 50, 15, 5, 0, 1, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
-(2, 'Stepper test 1', 'e8-06-90-95-ef-90', 0, 0, 2, 0, 1, 50, 0, 0, 800, 4, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
-(3, 'Sound test 1', '44-bd-8d-ee-81-34', 7, 0, 4, 0, 1, 0, 0, 0, 0, 1, 5, 30, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
-(4, 'Scene test 1', '44-bd-8d-ee-80-24', 5, 0, 7, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 9),
-(5, 'Switching test 1', 'e4-b3-23-f8-0d-2c', 5, 0, 5, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
-(6, 'Location test 1', 'e8-06-90-95-ef-90', 15, 0, 3, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 1000, 1, 0, 0, 0, 0, 0, 1, 0),
+(1, 'Motor test 1', '44-bd-8d-ee-81-34', 0, 0, 1, 0, 1, 50, 13, 5, 0, 1, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
+(2, 'Stepper test 1', '44-b1-76-b0-df-e4', 0, 0, 2, 0, 1, 50, 0, 0, 1600, 4, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
+(3, 'Sound test 1', '44-bd-8d-ee-81-34', 5, 0, 4, 0, 1, 0, 0, 0, 0, 1, 7, 30, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
+(4, 'Scene test 1', '44-bd-8d-ee-80-24', 5, 0, 7, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 7),
+(5, 'Switching test 2', 'e4-b3-23-f8-0d-2c', 5, 0, 5, 1, 1, 0, 0, 0, 0, 1, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
+(6, 'Switching test 4', 'e4-b3-23-f8-0d-2c', 15, 0, 5, 1, 0, 0, 0, 0, 0, 1, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
 (7, 'Lights Out', '44-bd-8d-ee-80-24', 15, 0, 6, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 0, 1, 0, 65535, 0, 0, 0, 1, 0),
-(8, 'Location test 2', 'e4-b3-23-f8-0d-2c', 11.5, 0, 3, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 1000, 1, 0, 0, 0, 0, 0, 1, 0);
+(8, 'Location test 1', '44-bd-8d-ee-81-34', 8, 0, 3, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 1000, 5, 0, 0, 0, 0, 0, 1, 0),
+(10, 'Location test 2', '44-bd-8d-ee-81-34', 11.5, 0, 3, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 1000, 5, 0, 0, 0, 0, 0, 1, 0),
+(11, 'Stepper test 2', '44-b1-76-b0-df-e4', 5, 0, 2, 0, 0, 50, 0, 0, 1600, 4, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
+(12, 'Motor test 2', '44-bd-8d-ee-80-24', 0, 0, 1, 0, 1, 80, 15, 5, 0, 1, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
+(13, 'Switching test 1', 'e4-b3-23-f8-0d-2c', 0, 0, 5, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
+(14, 'Switching test 3', 'e4-b3-23-f8-0d-2c', 10, 0, 5, 0, 0, 0, 0, 0, 0, 1, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
+(15, 'Location test 3', '44-bd-8d-ee-81-34', 15, 0, 3, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 1000, 2, 5, 0, 0, 0, 0, 1, 0),
+(16, 'Scene test 2', '44-bd-8d-ee-80-24', 10, 0, 7, 0, 1, 0, 0, 0, 0, 1, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1),
+(17, 'Stepper test 3', '44-b1-76-b0-df-e4', 10, 0, 2, 0, 1, 100, 0, 0, 6400, 6, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
+(18, 'Stepper test 4', '44-b1-76-b0-df-e4', 15, 0, 2, 0, 0, 100, 0, 0, 6400, 6, 0, 25, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -314,6 +319,29 @@ CREATE TABLE `timeline_queue` (
   `creation` timestamp NULL DEFAULT current_timestamp(),
   `sent` tinyint(4) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `timeline_queue`
+--
+
+INSERT INTO `timeline_queue` (`ID`, `address`, `msg`, `creation`, `sent`) VALUES
+(1, '44-bd-8d-ee-81-34', '/motor/1/50/5/13', '2026-10-31 22:48:57', 1),
+(2, '44-b1-76-b0-df-e4', '/stepper/1/4/1600/50', '2026-10-31 22:48:57', 1),
+(3, '44-bd-8d-ee-80-24', '/motor/1/80/5/15', '2026-10-31 22:48:57', 1),
+(4, 'e4-b3-23-f8-0d-2c', '/switch/0/1', '2026-10-31 22:48:57', 1),
+(5, '44-bd-8d-ee-81-34', '/sound/7/30/0', '2026-10-31 22:49:02', 1),
+(6, '44-bd-8d-ee-80-24', '/scene/7', '2026-10-31 22:49:02', 1),
+(7, 'e4-b3-23-f8-0d-2c', '/switch/1/1', '2026-10-31 22:49:02', 1),
+(8, '44-b1-76-b0-df-e4', '/stepper/0/4/1600/50', '2026-10-31 22:49:02', 1),
+(9, '44-bd-8d-ee-81-34', '/location/1000/5/0', '2026-10-31 22:49:05', 1),
+(10, 'e4-b3-23-f8-0d-2c', '/switch/0/0', '2026-10-31 22:49:07', 1),
+(11, '44-bd-8d-ee-80-24', '/scene/1', '2026-10-31 22:49:07', 1),
+(12, '44-b1-76-b0-df-e4', '/stepper/1/6/6400/100', '2026-10-31 22:49:07', 1),
+(13, '44-bd-8d-ee-81-34', '/location/1000/5/0', '2026-10-31 22:49:08', 1),
+(14, 'e4-b3-23-f8-0d-2c', '/switch/1/0', '2026-10-31 22:49:12', 1),
+(15, '44-bd-8d-ee-80-24', '/light/65535/0/0/0/1', '2026-10-31 22:49:12', 1),
+(16, '44-bd-8d-ee-81-34', '/location/1000/2/5', '2026-10-31 22:49:12', 1),
+(17, '44-b1-76-b0-df-e4', '/stepper/0/6/6400/100', '2026-10-31 22:49:12', 1);
 
 -- --------------------------------------------------------
 
@@ -333,7 +361,7 @@ CREATE TABLE `timeline_scripts` (
 --
 
 INSERT INTO `timeline_scripts` (`ID`, `scr_name`, `last_update`, `script_sql`) VALUES
-(1, 'My Test Timeline', '2026-10-25 04:40:41', '/*M!999999\\- enable the sandbox mode */ \n-- MariaDB dump 10.19-11.8.6-MariaDB, for debian-linux-gnu (aarch64)\n--\n-- Host: localhost    Database: LCC\n-- ------------------------------------------------------\n-- Server version	11.8.6-MariaDB-0+deb13u1 from Debian\n\n/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;\n/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;\n/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;\n/*!40101 SET NAMES utf8mb4 */;\n/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;\n/*!40103 SET TIME_ZONE=\'+00:00\' */;\n/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;\n/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;\n/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE=\'NO_AUTO_VALUE_ON_ZERO\' */;\n/*M!100616 SET @OLD_NOTE_VERBOSITY=@@NOTE_VERBOSITY, NOTE_VERBOSITY=0 */;\n\n--\n-- Table structure for table `timeline`\n--\n\nDROP TABLE IF EXISTS `timeline`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8mb4 */;\nCREATE TABLE `timeline` (\n  `ID` int(11) NOT NULL AUTO_INCREMENT,\n  `cmd_name` varchar(255) DEFAULT NULL,\n  `address` varchar(17) DEFAULT NULL,\n  `position` float DEFAULT NULL,\n  `disabled` tinyint(4) NOT NULL DEFAULT 0,\n  `cmd_type` tinyint(4) DEFAULT NULL,\n  `gpio_pin` tinyint(4) DEFAULT NULL,\n  `direction` tinyint(4) DEFAULT NULL,\n  `speed` tinyint(4) DEFAULT NULL,\n  `duration` int(11) DEFAULT NULL,\n  `progression` int(11) DEFAULT NULL,\n  `steps` int(11) DEFAULT NULL,\n  `resolution` tinyint(4) DEFAULT NULL,\n  `sound` int(11) DEFAULT NULL,\n  `volume` tinyint(4) NOT NULL DEFAULT 25,\n  `replay` tinyint(4) DEFAULT 0,\n  `location_id` int(11) DEFAULT NULL,\n  `location_action` int(11) DEFAULT NULL,\n  `location_data` int(11) DEFAULT NULL,\n  `light` int(11) NOT NULL DEFAULT 0,\n  `red` int(11) NOT NULL DEFAULT 0,\n  `green` int(11) NOT NULL DEFAULT 0,\n  `blue` int(11) NOT NULL DEFAULT 0,\n  `fade` float NOT NULL DEFAULT 1,\n  `scene` int(11) DEFAULT NULL,\n  PRIMARY KEY (`ID`)\n) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n-- Dumping data for table `timeline`\n--\n\nSET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;\nLOCK TABLES `timeline` WRITE;\n/*!40000 ALTER TABLE `timeline` DISABLE KEYS */;\nINSERT INTO `timeline` VALUES\n(1,\'Motor test 1\',\'44-bd-8d-ee-81-34\',2,0,1,0,1,50,15,5,0,1,0,25,0,0,1,0,0,0,0,0,1,0),\n(2,\'Stepper test 1\',\'e8-06-90-95-ef-90\',0,0,2,0,1,50,0,0,800,4,0,25,0,0,1,0,0,0,0,0,1,0),\n(3,\'Sound test 1\',\'44-bd-8d-ee-81-34\',7,0,4,0,1,0,0,0,0,1,5,30,0,0,1,0,0,0,0,0,1,0),\n(4,\'Scene test 1\',\'44-bd-8d-ee-80-24\',5,0,7,0,1,0,0,0,0,1,0,25,0,0,1,0,0,0,0,0,1,9),\n(5,\'Switching test 1\',\'e4-b3-23-f8-0d-2c\',5,0,5,0,1,0,0,0,0,1,0,25,0,0,1,0,0,0,0,0,1,0),\n(6,\'Location test 1\',\'e8-06-90-95-ef-90\',15,0,3,0,1,0,0,0,0,1,0,25,0,1000,1,0,0,0,0,0,1,0),\n(7,\'Lights Out\',\'44-bd-8d-ee-80-24\',15,0,6,0,1,0,0,0,0,1,0,25,0,0,1,0,65535,0,0,0,1,0),\n(8,\'Location test 2\',\'e4-b3-23-f8-0d-2c\',11.5,0,3,0,1,0,0,0,0,1,0,25,0,1000,1,0,0,0,0,0,1,0);\n/*!40000 ALTER TABLE `timeline` ENABLE KEYS */;\nUNLOCK TABLES;\nCOMMIT;\nSET AUTOCOMMIT=@OLD_AUTOCOMMIT;\n/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;\n\n/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;\n/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;\n/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;\n/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;\n/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;\n/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;\n/*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;\n\n-- Dump completed on 2026-10-24 22:40:41\n');
+(1, 'My Test Timeline', '2026-10-31 19:31:23', '/*M!999999\\- enable the sandbox mode */ \n-- MariaDB dump 10.19-11.8.6-MariaDB, for debian-linux-gnu (aarch64)\n--\n-- Host: localhost    Database: LCC\n-- ------------------------------------------------------\n-- Server version	11.8.6-MariaDB-0+deb13u1 from Debian\n\n/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;\n/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;\n/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;\n/*!40101 SET NAMES utf8mb4 */;\n/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;\n/*!40103 SET TIME_ZONE=\'+00:00\' */;\n/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;\n/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;\n/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE=\'NO_AUTO_VALUE_ON_ZERO\' */;\n/*M!100616 SET @OLD_NOTE_VERBOSITY=@@NOTE_VERBOSITY, NOTE_VERBOSITY=0 */;\n\n--\n-- Table structure for table `timeline`\n--\n\nDROP TABLE IF EXISTS `timeline`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8mb4 */;\nCREATE TABLE `timeline` (\n  `ID` int(11) NOT NULL AUTO_INCREMENT,\n  `cmd_name` varchar(255) DEFAULT NULL,\n  `address` varchar(17) DEFAULT NULL,\n  `position` float DEFAULT NULL,\n  `disabled` tinyint(4) NOT NULL DEFAULT 0,\n  `cmd_type` tinyint(4) DEFAULT NULL,\n  `gpio_pin` tinyint(4) DEFAULT NULL,\n  `direction` tinyint(4) DEFAULT NULL,\n  `speed` tinyint(4) DEFAULT NULL,\n  `duration` int(11) DEFAULT NULL,\n  `progression` int(11) DEFAULT NULL,\n  `steps` int(11) DEFAULT NULL,\n  `resolution` tinyint(4) DEFAULT NULL,\n  `sound` int(11) DEFAULT NULL,\n  `volume` tinyint(4) NOT NULL DEFAULT 25,\n  `replay` tinyint(4) DEFAULT 0,\n  `location_id` int(11) DEFAULT NULL,\n  `location_action` int(11) DEFAULT NULL,\n  `location_data` int(11) DEFAULT NULL,\n  `light` int(11) NOT NULL DEFAULT 0,\n  `red` int(11) NOT NULL DEFAULT 0,\n  `green` int(11) NOT NULL DEFAULT 0,\n  `blue` int(11) NOT NULL DEFAULT 0,\n  `fade` float NOT NULL DEFAULT 1,\n  `scene` int(11) DEFAULT NULL,\n  PRIMARY KEY (`ID`)\n) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n-- Dumping data for table `timeline`\n--\n\nSET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;\nLOCK TABLES `timeline` WRITE;\n/*!40000 ALTER TABLE `timeline` DISABLE KEYS */;\nINSERT INTO `timeline` VALUES\n(1,\'Motor test 1\',\'44-bd-8d-ee-81-34\',0,0,1,0,1,50,13,5,0,1,0,25,0,0,1,0,0,0,0,0,1,0),\n(2,\'Stepper test 1\',\'44-b1-76-b0-df-e4\',0,0,2,0,1,50,0,0,1600,4,0,25,0,0,1,0,0,0,0,0,1,0),\n(3,\'Sound test 1\',\'44-bd-8d-ee-81-34\',5,0,4,0,1,0,0,0,0,1,7,30,0,0,1,0,0,0,0,0,1,0),\n(4,\'Scene test 1\',\'44-bd-8d-ee-80-24\',5,0,7,0,1,0,0,0,0,1,0,25,0,0,1,0,0,0,0,0,1,7),\n(5,\'Switching test 2\',\'e4-b3-23-f8-0d-2c\',5,0,5,1,1,0,0,0,0,1,0,25,0,0,1,0,0,0,0,0,1,0),\n(6,\'Switching test 4\',\'e4-b3-23-f8-0d-2c\',15,0,5,1,0,0,0,0,0,1,0,25,0,0,1,0,0,0,0,0,1,0),\n(7,\'Lights Out\',\'44-bd-8d-ee-80-24\',15,0,6,0,1,0,0,0,0,1,0,25,0,0,1,0,65535,0,0,0,1,0),\n(8,\'Location test 1\',\'44-bd-8d-ee-81-34\',8,0,3,0,1,0,0,0,0,1,0,25,0,1000,5,0,0,0,0,0,1,0),\n(10,\'Location test 2\',\'44-bd-8d-ee-81-34\',11.5,0,3,0,1,0,0,0,0,1,0,25,0,1000,5,0,0,0,0,0,1,0),\n(11,\'Stepper test 2\',\'44-b1-76-b0-df-e4\',5,0,2,0,0,50,0,0,1600,4,0,25,0,0,1,0,0,0,0,0,1,0),\n(12,\'Motor test 2\',\'44-bd-8d-ee-80-24\',0,0,1,0,1,80,15,5,0,1,0,25,0,0,1,0,0,0,0,0,1,0),\n(13,\'Switching test 1\',\'e4-b3-23-f8-0d-2c\',0,0,5,0,1,0,0,0,0,1,0,25,0,0,1,0,0,0,0,0,1,0),\n(14,\'Switching test 3\',\'e4-b3-23-f8-0d-2c\',10,0,5,0,0,0,0,0,0,1,0,25,0,0,1,0,0,0,0,0,1,0),\n(15,\'Location test 3\',\'44-bd-8d-ee-81-34\',15,0,3,0,1,0,0,0,0,1,0,25,0,1000,2,5,0,0,0,0,1,0),\n(16,\'Scene test 2\',\'44-bd-8d-ee-80-24\',10,0,7,0,1,0,0,0,0,1,0,25,0,0,1,0,0,0,0,0,1,1),\n(17,\'Stepper test 3\',\'44-b1-76-b0-df-e4\',10,0,2,0,1,100,0,0,6400,6,0,25,0,0,1,0,0,0,0,0,1,0),\n(18,\'Stepper test 4\',\'44-b1-76-b0-df-e4\',15,0,2,0,0,100,0,0,6400,6,0,25,0,0,1,0,0,0,0,0,1,0);\n/*!40000 ALTER TABLE `timeline` ENABLE KEYS */;\nUNLOCK TABLES;\nCOMMIT;\nSET AUTOCOMMIT=@OLD_AUTOCOMMIT;\n/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;\n\n/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;\n/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;\n/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;\n/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;\n/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;\n/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;\n/*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;\n\n-- Dump completed on 2026-10-31 13:31:22\n');
 
 -- --------------------------------------------------------
 
@@ -354,8 +382,8 @@ CREATE TABLE `timeline_status` (
 -- Dumping data for table `timeline_status`
 --
 
-INSERT INTO `timeline_status` (`ID`, `current_script`, `load_script`, `script_modified`, `running`, `position`) VALUES
-(1, 0, 0, 0, 0, 0);
+INSERT INTO `timeline_status` (`ID`, `current_script`, `load_save`, `script_modified`, `running`, `position`) VALUES
+(1, 1, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -470,7 +498,7 @@ ALTER TABLE `timer`
 -- AUTO_INCREMENT for table `commands`
 --
 ALTER TABLE `commands`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `devices`
@@ -482,7 +510,7 @@ ALTER TABLE `devices`
 -- AUTO_INCREMENT for table `inbound`
 --
 ALTER TABLE `inbound`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7052;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `locations`
@@ -494,25 +522,25 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT for table `outbound`
 --
 ALTER TABLE `outbound`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3310;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `scenes`
 --
 ALTER TABLE `scenes`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `scripts`
 --
 ALTER TABLE `scripts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -524,19 +552,19 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `timeline`
 --
 ALTER TABLE `timeline`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `timeline_queue`
 --
 ALTER TABLE `timeline_queue`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `timeline_scripts`
 --
 ALTER TABLE `timeline_scripts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `timeline_status`
@@ -548,6 +576,6 @@ ALTER TABLE `timeline_status`
 -- AUTO_INCREMENT for table `timer`
 --
 ALTER TABLE `timer`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 COMMIT;
