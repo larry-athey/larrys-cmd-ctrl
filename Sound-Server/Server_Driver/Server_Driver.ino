@@ -55,7 +55,7 @@ float currentGain = GAIN_IDLE;
 //------------------------------------------------------------------------------------------------
 void setup() {
   Serial.begin(115200);
-  delay(1000);
+  delay(5000);
 
   pinMode(LED_BUILTIN,OUTPUT);
   Wire.begin();
