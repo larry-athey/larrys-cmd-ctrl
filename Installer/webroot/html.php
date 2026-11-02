@@ -93,7 +93,7 @@ function drawMenu($DBcnx) {
   $Content .=           "<a class=\"nav-link fw-bolder\" aria-current=\"page\" href=\"/index.php?page=settings\"><span class=\"text-dark\">Settings</span></a>";
   $Content .=         "</li>";
   $Content .=       "</ul>";
-  if (! isset($_GET["page"])) {
+  if ($_GET["page"] == "home") {
     $Content .= deviceFilter("index.php");
   } elseif ($_GET["page"] == "logs") {
     $Content .= logViewerMenu($DBcnx);
