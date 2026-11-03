@@ -90,6 +90,7 @@
 
 #include "WiFi.h"                // ESP32 high-level WiFi connectivity library
 #include "esp_wifi.h"            // ESP32 low-level WiFi connectivity library
+#include "esp_bt.h"              // ESP32 low-level Bluetooth library (only because I'm disabling the BT controller)
 #include "HTTPClient.h"          // HTTP client library used for communicating with slave units
 #include "Preferences.h"         // ESP32 Flash memory read/write library
 #include "ota_update.h"          // Over-The-Air firmware updating library
@@ -315,6 +316,7 @@ void setup() {
     Serial.println("Starting LCC Slave Firmware Updater (AP mode)...");
 
     // Start WiFi Access Point
+    esp_bt_controller_disable();
     WiFi.mode(WIFI_AP);
     uint8_t protocol = WIFI_PROTOCOL_11B | WIFI_PROTOCOL_11G | WIFI_PROTOCOL_11N;
     esp_wifi_set_protocol(WIFI_IF_AP,protocol);
@@ -379,6 +381,7 @@ void setup() {
 void ConnectWiFi() { // Connect to Mission Control access point
   byte x = 0;
   if (Server) Server.end();
+  esp_bt_controller_disable();
   WiFi.mode(WIFI_STA);
   WiFi.setSleep(false);
   esp_wifi_set_ps(WIFI_PS_NONE);
